@@ -353,7 +353,9 @@ public class ZAiConfig {
 		String propValue = System.getProperty(ENV_READ_TIMEOUT);
 		String value = propValue != null ? propValue : System.getenv(ENV_READ_TIMEOUT);
 		if (value != null) {
-			try {return Integer.parseInt(value);   }
+			try {
+				return Integer.parseInt(value);
+			}
 			catch (NumberFormatException e) {
 				// Return default value if parsing fails
 			}
