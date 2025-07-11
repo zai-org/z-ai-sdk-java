@@ -22,7 +22,7 @@ public class AgentsTest {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	// 请自定义自己的业务id
 	private static final String requestIdTemplate = "mycompany-%d";
@@ -35,7 +35,7 @@ public class AgentsTest {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 
 	@Test

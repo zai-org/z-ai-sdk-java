@@ -35,7 +35,7 @@ public class AllToolsTest {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	private static final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();
 
@@ -48,7 +48,7 @@ public class AllToolsTest {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 
 	@Test

@@ -8,11 +8,11 @@ The Z.ai SDK Java provides a service-oriented architecture that offers clean sep
 
 ### 1. Core Client Architecture
 
-#### ZAiClient
+#### ZaiClient
 The main client class that serves as the entry point for all AI services:
 
 ```java
-public class ZAiClient extends AbstractClientBaseService {
+public class ZaiClient extends AbstractClientBaseService {
     // Service instances
     private ChatService chatService;
     private AgentService agentService;
@@ -20,7 +20,7 @@ public class ZAiClient extends AbstractClientBaseService {
     // ... other services
     
     // Constructor
-    public ZAiClient(ZAiConfig config) {
+    public ZaiClient(ZAiConfig config) {
         // Initialize HTTP client and Retrofit
     }
     
@@ -140,10 +140,10 @@ All services follow a consistent implementation pattern:
 
 ```java
 public class ChatServiceImpl implements ChatService {
-    private final ZAiClient zAiClient;
+    private final ZaiClient zAiClient;
     private final ChatApi chatApi;
     
-    public ChatServiceImpl(ZAiClient zAiClient) {
+    public ChatServiceImpl(ZaiClient zAiClient) {
         this.zAiClient = zAiClient;
         this.chatApi = this.zAiClient.retrofit().create(ChatApi.class);
     }
@@ -173,18 +173,18 @@ public class ChatServiceImpl implements ChatService {
 ```java
 // Simple configuration with API secret key
 ZAiConfig config = new ZAiConfig("your.api.key.your.api.secret");
-ZAiClient client = new ZAiClient(config);
+ZaiClient client = new ZaiClient(config);
 
 // Or using separate API key and secret
 ZAiConfig config = new ZAiConfig("your.api.key", "your.api.secret");
-ZAiClient client = new ZAiClient(config);
+ZaiClient client = new ZaiClient(config);
 ```
 
 ### Builder Pattern Configuration
 
 ```java
 // Using the Builder pattern for advanced configuration
-ZAiClient client = new ZAiClient.Builder("your.api.key.your.api.secret")
+ZaiClient client = new ZaiClient.Builder("your.api.key.your.api.secret")
     .enableTokenCache()
     .networkConfig(
         300,  // request timeout
@@ -220,7 +220,7 @@ ZAiConfig config = ZAiConfig.builder()
     .connectionPoolTimeUnit(TimeUnit.MINUTES)
     .build();
 
-ZAiClient client = new ZAiClient(config);
+ZaiClient client = new ZaiClient(config);
 ```
 
 ### Service Usage
@@ -335,10 +335,10 @@ if (asyncResponse.isSuccess()) {
 
 ## Available Services
 
-The ZAiClient provides access to multiple AI services:
+The ZaiClient provides access to multiple AI services:
 
 ```java
-ZAiClient client = new ZAiClient(config);
+ZaiClient client = new ZaiClient(config);
 
 // Chat completion service
 ChatService chatService = client.chat();
@@ -575,7 +575,7 @@ ZAiConfig config = ZAiConfig.builder()
     .connectionPoolTimeUnit(TimeUnit.MINUTES)
     .build();
 
-ZAiClient client = new ZAiClient(config);
+ZaiClient client = new ZaiClient(config);
 ```
 
 ### Request Building
@@ -656,7 +656,7 @@ if (response.isSuccess() && response.getFlowable() != null) {
 ```java
 // Properly manage client lifecycle
 try {
-    ZAiClient client = new ZAiClient(config);
+    ZaiClient client = new ZaiClient(config);
     ChatService chatService = client.chat();
     
     // Use the service...
@@ -718,7 +718,7 @@ This guide helps you migrate from older versions of the Z-AI SDK to the current 
 
 #### Key Changes in Current Version
 
-1. **Unified Client Architecture**: All services are now accessed through `ZAiClient`
+1. **Unified Client Architecture**: All services are now accessed through `ZaiClient`
 2. **Improved Configuration**: `ZAiConfig` with builder pattern for better flexibility
 3. **Standardized Request/Response**: All requests implement `ClientRequest`, responses implement `ClientResponse`
 4. **Enhanced Streaming**: Better support for streaming responses with `FlowableClientResponse`
@@ -741,7 +741,7 @@ ZAiConfig config = ZAiConfig.builder()
     .tokenExpiredSeconds(3600)
     .build();
 
-ZAiClient client = new ZAiClient(config);
+ZaiClient client = new ZaiClient(config);
 ```
 
 #### Service Usage Migration
@@ -820,7 +820,7 @@ if (streamResponse.isSuccess() && streamResponse.getFlowable() != null) {
 
 1. **Update Dependencies**: Ensure you're using the latest version of the SDK
 2. **Review Configuration**: Update your configuration to use `ZAiConfig.builder()`
-3. **Update Service Access**: Use `ZAiClient` to access all services
+3. **Update Service Access**: Use `ZaiClient` to access all services
 4. **Standardize Error Handling**: Use the new response structure for error handling
 5. **Test Thoroughly**: Test all functionality after migration
 6. **Update Documentation**: Update your internal documentation to reflect the new patterns

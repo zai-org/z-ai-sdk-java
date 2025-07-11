@@ -1,6 +1,6 @@
 package ai.z.openapi.service.agents;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.agents.AgentsApi;
 import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ModelData;
@@ -14,11 +14,11 @@ import okhttp3.ResponseBody;
  */
 public class AgentServiceImpl implements AgentService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final AgentsApi agentsApi;
 
-	public AgentServiceImpl(ZAiClient zAiClient) {
+	public AgentServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.agentsApi = zAiClient.retrofit().create(AgentsApi.class);
 	}

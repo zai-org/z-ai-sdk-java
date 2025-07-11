@@ -6,7 +6,6 @@ import ai.z.openapi.service.embedding.Embedding;
 import ai.z.openapi.service.embedding.EmbeddingCreateParams;
 import ai.z.openapi.service.embedding.EmbeddingResponse;
 import ai.z.openapi.service.embedding.EmbeddingResult;
-import ai.z.openapi.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Testcontainers
 public class TestEmbeddingClientApiService {
@@ -23,7 +21,7 @@ public class TestEmbeddingClientApiService {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	static {
 		zaiConfig = new ZAiConfig();
@@ -31,7 +29,7 @@ public class TestEmbeddingClientApiService {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 
 	@Test

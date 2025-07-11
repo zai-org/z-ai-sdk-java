@@ -70,26 +70,26 @@ This SDK uses the following core dependencies:
 
 ### Basic Usage
 
-1. **Create a ZAiClient** with your API credentials
+1. **Create a ZaiClient** with your API credentials
 2. **Access services** through the client
 3. **Call API methods** with typed parameters
 
 ```java
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 
 // Create client with API key, recommend export the ENV api-key
 // export ZAI_API_KEY=your.api.key
-ZAiClient client = ZAiClient.builder().build();
+ZaiClient client = ZaiClient.builder().build();
 
 // Or set the api-key by code
-ZAiClient client = ZAiClient.builder()
+ZaiClient client = ZaiClient.builder()
         .apiKey("your.api.key.your.api.secret")
         .build();
 
 // Or create client for specific platform
-ZAiClient zhipuClient = ZAiClient.ofZHIPU("your.api.key.your.api.secret").build();
+ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key.your.api.secret").build();
 ```
 
 ### Client Configuration
@@ -97,7 +97,7 @@ ZAiClient zhipuClient = ZAiClient.ofZHIPU("your.api.key.your.api.secret").build(
 The SDK provides a flexible builder pattern for customizing your client:
 
 ```java
-ZAiClient client = ZAiClient.builder()
+ZaiClient client = ZaiClient.builder()
     .apiKey("your.api.key.your.api.secret")
     .baseUrl("https://api.z.ai/api/paas/v4/")
     .enableTokenCache()
@@ -111,13 +111,13 @@ ZAiClient client = ZAiClient.builder()
 ### Chat Completion
 
 ```java
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 import java.util.Arrays;
 
 // Create client
-ZAiClient client = ZAiClient.builder()
+ZaiClient client = ZaiClient.builder()
     .apiKey("your.api.key.your.api.secret")
     .build();
 
@@ -270,10 +270,10 @@ if (response.isSuccess()) {
 @RestController
 public class AIController {
     
-    private final ZAiClient zaiClient;
+    private final ZaiClient zaiClient;
     
     public AIController() {
-        this.zaiClient = ZAiClient.builder()
+        this.zaiClient = ZaiClient.builder()
             .apiKey("your.api.key.your.api.secret")
             .enableTokenCache()
             .build();
@@ -305,7 +305,7 @@ public class AIController {
 
 ## 🔧 Available Services
 
-The ZAiClient provides access to comprehensive AI services:
+The ZaiClient provides access to comprehensive AI services:
 
 | Service | Description | Key Features |
 |---------|-------------|-------------|

@@ -54,7 +54,7 @@ import static ai.z.openapi.core.Constants.ZHIPU_AI_BASE_URL;
 import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
 
 /**
- * ZAiClient is the main entry point for interacting with the Z.ai API. This client
+ * ZaiClient is the main entry point for interacting with the Z.ai API. This client
  * provides access to various AI services including chat, embeddings, file operations,
  * audio processing, image generation, and more.
  *
@@ -67,7 +67,7 @@ import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
  * Example usage:
  * </p>
  * <pre>{@code
- * ZAiClient client = new ZAiClient.Builder("your-api-key")
+ * ZaiClient client = new ZaiClient.Builder("your-api-key")
  *     .networkConfig(30, 10, 30, 30, TimeUnit.SECONDS)
  *     .build();
  *
@@ -78,10 +78,10 @@ import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
  * }</pre>
  *
  */
-public class ZAiClient extends AbstractClientBaseService {
+public class ZaiClient extends AbstractClientBaseService {
 
 	/** Logger instance for this class */
-	private static final Logger logger = LoggerFactory.getLogger(ZAiClient.class);
+	private static final Logger logger = LoggerFactory.getLogger(ZaiClient.class);
 
 	/** HTTP client for making network requests */
 	private final OkHttpClient httpClient;
@@ -130,13 +130,13 @@ public class ZAiClient extends AbstractClientBaseService {
 	private AssistantService assistantService;
 
 	/**
-	 * Constructs a new ZAiClient with the specified configuration. By default, this
+	 * Constructs a new ZaiClient with the specified configuration. By default, this
 	 * client uses the Z.ai OpenAPI endpoint.
 	 * @param config the configuration object containing API keys, timeouts, and other
 	 * settings
 	 * @throws IllegalArgumentException if config is null or invalid
 	 */
-	public ZAiClient(ZAiConfig config) {
+	public ZaiClient(ZAiConfig config) {
 		this.httpClient = OkHttps.create(config);
 		this.retrofit = new Retrofit.Builder()
 			.baseUrl(StringUtils.isEmpty(config.getBaseUrl()) ? Z_AI_BASE_URL : config.getBaseUrl())
@@ -439,7 +439,7 @@ public class ZAiClient extends AbstractClientBaseService {
 	// ==================== Builder Pattern Implementation ====================
 
 	/**
-	 * Builder class for creating ZAiClient instances with custom configurations. This
+	 * Builder class for creating ZaiClient instances with custom configurations. This
 	 * builder provides a fluent API for setting up the client with various options
 	 * including authentication, network settings, and connection pooling.
 	 *
@@ -447,7 +447,7 @@ public class ZAiClient extends AbstractClientBaseService {
 	 * Example usage:
 	 * </p>
 	 * <pre>{@code
-	 * ZAiClient client = new ZAiClient.Builder("your-api-key")
+	 * ZaiClient client = new ZaiClient.Builder("your-api-key")
 	 *     .networkConfig(30, 10, 30, 30, TimeUnit.SECONDS)
 	 *     .connectionPool(10, 5, TimeUnit.MINUTES)
 	 *     .enableTokenCache()
@@ -604,12 +604,12 @@ public class ZAiClient extends AbstractClientBaseService {
 		}
 
 		/**
-		 * Builds and returns a new ZAiClient instance with the configured settings.
-		 * @return a new ZAiClient instance
+		 * Builds and returns a new ZaiClient instance with the configured settings.
+		 * @return a new ZaiClient instance
 		 * @throws IllegalStateException if the configuration is invalid
 		 */
-		public ZAiClient build() {
-			return new ZAiClient(config);
+		public ZaiClient build() {
+			return new ZaiClient(config);
 		}
 
 	}
@@ -617,7 +617,7 @@ public class ZAiClient extends AbstractClientBaseService {
 	// ==================== Static Factory Methods ====================
 
 	/**
-	 * Creates a new Builder instance for constructing ZAiClient.
+	 * Creates a new Builder instance for constructing ZaiClient.
 	 * @return a new Builder instance
 	 */
 	public static Builder builder() {
@@ -625,9 +625,9 @@ public class ZAiClient extends AbstractClientBaseService {
 	}
 
 	/**
-	 * Creates a ZAiClient configured for ZHIPU AI platform with the specified API key.
+	 * Creates a ZaiClient configured for ZHIPU AI platform with the specified API key.
 	 * @param apiKey the API key for authentication
-	 * @return a new ZAiClient instance configured for ZHIPU AI
+	 * @return a new ZaiClient instance configured for ZHIPU AI
 	 * @throws IllegalArgumentException if apiKey is null or empty
 	 */
 	public static Builder ofZHIPU(String apiKey) {
@@ -635,8 +635,8 @@ public class ZAiClient extends AbstractClientBaseService {
 	}
 
 	/**
-	 * Creates a ZAiClient configured for ZHIPU AI platform with the specified API key.
-	 * @return a new ZAiClient instance configured for ZHIPU AI
+	 * Creates a ZaiClient configured for ZHIPU AI platform with the specified API key.
+	 * @return a new ZaiClient instance configured for ZHIPU AI
 	 * @throws IllegalArgumentException if apiKey is null or empty
 	 */
 	public static Builder ofZHIPU() {

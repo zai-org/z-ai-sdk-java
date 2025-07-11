@@ -1,6 +1,6 @@
 package ai.z.openapi.service.audio;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.audio.AudioApi;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import ai.z.openapi.service.model.ChatCompletionResponse;
@@ -33,11 +33,11 @@ public class AudioServiceImpl implements AudioService {
 
 	protected static final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final AudioApi audioApi;
 
-	public AudioServiceImpl(ZAiClient zAiClient) {
+	public AudioServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.audioApi = zAiClient.retrofit().create(AudioApi.class);
 	}

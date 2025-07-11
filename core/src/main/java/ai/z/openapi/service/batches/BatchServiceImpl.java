@@ -1,6 +1,6 @@
 package ai.z.openapi.service.batches;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.batches.BatchesApi;
 import ai.z.openapi.service.file.QueryBatchRequest;
 import ai.z.openapi.utils.RequestSupplier;
@@ -10,11 +10,11 @@ import ai.z.openapi.utils.RequestSupplier;
  */
 public class BatchServiceImpl implements BatchService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final BatchesApi batchesApi;
 
-	public BatchServiceImpl(ZAiClient zAiClient) {
+	public BatchServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.batchesApi = zAiClient.retrofit().create(BatchesApi.class);
 	}

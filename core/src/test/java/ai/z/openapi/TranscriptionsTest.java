@@ -9,13 +9,10 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import ai.z.openapi.mock.MockClient;
 import ai.z.openapi.core.config.ZAiConfig;
 import ai.z.openapi.service.audio.AudioTranscriptionsRequest;
-import ai.z.openapi.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.util.concurrent.TimeUnit;
 
 @Testcontainers
 public class TranscriptionsTest {
@@ -24,7 +21,7 @@ public class TranscriptionsTest {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	private static final ObjectMapper mapper = new ObjectMapper();
 	static {
@@ -33,7 +30,7 @@ public class TranscriptionsTest {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 
 	public static ObjectMapper defaultObjectMapper() {

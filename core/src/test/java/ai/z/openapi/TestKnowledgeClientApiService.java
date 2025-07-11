@@ -17,7 +17,6 @@ import ai.z.openapi.service.knowledge.document.QueryDocumentApiResponse;
 import ai.z.openapi.service.knowledge.document.QueryDocumentRequest;
 import ai.z.openapi.service.knowledge.document.UploadDetail;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ai.z.openapi.utils.StringUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Assumptions;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -35,7 +33,7 @@ public class TestKnowledgeClientApiService {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	static {
 		zaiConfig = new ZAiConfig();
@@ -43,7 +41,7 @@ public class TestKnowledgeClientApiService {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 	private KnowledgeResponse knowledgeResponse;
 

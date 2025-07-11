@@ -1,6 +1,6 @@
 package ai.z.openapi.service.knowledge;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.knowledge.KnowledgeApi;
 import ai.z.openapi.service.model.AsyncResultRetrieveParams;
 import ai.z.openapi.utils.RequestSupplier;
@@ -11,11 +11,11 @@ import retrofit2.Response;
  */
 public class KnowledgeServiceImpl implements KnowledgeService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final KnowledgeApi knowledgeApi;
 
-	public KnowledgeServiceImpl(ZAiClient zAiClient) {
+	public KnowledgeServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.knowledgeApi = this.zAiClient.retrofit().create(KnowledgeApi.class);
 	}

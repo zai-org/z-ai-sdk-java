@@ -35,7 +35,7 @@
     </developers>
     <modules>
         <module>core</module>
-        <module>examples</module>
+        <module>samples</module>
     </modules>
     <scm>
         <connection>scm:git:https://github.com/THUDM/z-ai-sdk-java.git</connection>
@@ -77,11 +77,11 @@
                 <version>0.0.47</version>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
-                        <inherited>true</inherited>
                         <goals>
                             <goal>validate</goal>
                         </goals>
+                        <phase>validate</phase>
+                        <inherited>true</inherited>
                     </execution>
                 </executions>
             </plugin>

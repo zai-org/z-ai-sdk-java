@@ -68,26 +68,26 @@ dependencies {
 
 ### 基本用法
 
-1. **使用API凭证创建ZAiClient**
+1. **使用API凭证创建ZaiClient**
 2. **通过客户端访问服务**
 3. **使用类型化参数调用API方法**
 
 ```java
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 
 // 创建客户端 推荐使用环境变量设置API凭证
 // export ZAI_API_KEY=your.api.key
-ZAiClient client = ZAiClient.builder().build();
+ZaiClient client = ZaiClient.builder().build();
 
 // 或代码设置凭证
-ZAiClient client = ZAiClient.builder()
+ZaiClient client = ZaiClient.builder()
     .apiKey("your.api.key.your.api.secret")
     .build();
 
 // 或为特定平台创建客户端
-ZAiClient zhipuClient = ZAiClient.ofZHIPU("your.api.key.your.api.secret").build();
+ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key.your.api.secret").build();
 ```
 
 ### 客户端配置
@@ -95,7 +95,7 @@ ZAiClient zhipuClient = ZAiClient.ofZHIPU("your.api.key.your.api.secret").build(
 SDK提供了灵活的构建器模式来自定义您的客户端：
 
 ```java
-ZAiClient client = ZAiClient.builder()
+ZaiClient client = ZaiClient.builder()
     .apiKey("your.api.key.your.api.secret")
     .baseUrl("https://api.z.ai/api/paas/v4/")
     .enableTokenCache()
@@ -109,13 +109,13 @@ ZAiClient client = ZAiClient.builder()
 ### 对话补全
 
 ```java
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 import java.util.Arrays;
 
 // 创建客户端
-ZAiClient client = ZAiClient.builder()
+ZaiClient client = ZaiClient.builder()
     .apiKey("your.api.key.your.api.secret")
     .build();
 
@@ -268,10 +268,10 @@ if (response.isSuccess()) {
 @RestController
 public class AIController {
     
-    private final ZAiClient zaiClient;
+    private final ZaiClient zaiClient;
     
     public AIController() {
-        this.zaiClient = ZAiClient.builder()
+        this.zaiClient = ZaiClient.builder()
             .apiKey("your.api.key.your.api.secret")
             .enableTokenCache()
             .build();

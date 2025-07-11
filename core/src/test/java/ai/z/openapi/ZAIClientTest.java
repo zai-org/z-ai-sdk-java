@@ -69,7 +69,7 @@ public class ZAIClientTest {
 
 	private final static Logger logger = LoggerFactory.getLogger(ZAIClientTest.class);
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	private static final ZAiConfig zaiConfig;
 
@@ -79,7 +79,7 @@ public class ZAIClientTest {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 
 	// Please customize your own business ID

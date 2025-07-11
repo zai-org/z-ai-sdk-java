@@ -1,6 +1,6 @@
 package ai.z.openapi.service.fine_turning;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.fine_tuning.FineTuningApi;
 import ai.z.openapi.utils.RequestSupplier;
 
@@ -9,11 +9,11 @@ import ai.z.openapi.utils.RequestSupplier;
  */
 public class FineTuningServiceImpl implements FineTuningService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final FineTuningApi fineTuningApi;
 
-	public FineTuningServiceImpl(ZAiClient zAiClient) {
+	public FineTuningServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.fineTuningApi = zAiClient.retrofit().create(FineTuningApi.class);
 	}

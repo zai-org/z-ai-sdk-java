@@ -1,6 +1,6 @@
 package ai.z.openapi.service.assistant;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.assistant.AssistantApi;
 import ai.z.openapi.service.assistant.conversation.ConversationParameters;
 import ai.z.openapi.service.assistant.conversation.ConversationUsageListResponse;
@@ -17,11 +17,11 @@ import okhttp3.ResponseBody;
  */
 public class AssistantServiceImpl implements AssistantService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final AssistantApi assistantApi;
 
-	public AssistantServiceImpl(ZAiClient zAiClient) {
+	public AssistantServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.assistantApi = zAiClient.retrofit().create(AssistantApi.class);
 	}

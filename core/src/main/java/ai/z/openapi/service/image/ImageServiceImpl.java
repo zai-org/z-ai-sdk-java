@@ -1,6 +1,6 @@
 package ai.z.openapi.service.image;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.images.ImagesApi;
 import ai.z.openapi.utils.RequestSupplier;
 
@@ -9,11 +9,11 @@ import ai.z.openapi.utils.RequestSupplier;
  */
 public class ImageServiceImpl implements ImageService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final ImagesApi imagesApi;
 
-	public ImageServiceImpl(ZAiClient zAiClient) {
+	public ImageServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.imagesApi = zAiClient.retrofit().create(ImagesApi.class);
 	}

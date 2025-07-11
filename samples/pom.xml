@@ -7,6 +7,6 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>examples</artifactId>
+    <artifactId>samples</artifactId>
     <name>Java sdk examples</name>
 </project>

@@ -1,6 +1,6 @@
 package ai.z.openapi.service.document;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.knowledge.document.DocumentApi;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import ai.z.openapi.service.knowledge.document.DocumentCreateParams;
@@ -29,13 +29,13 @@ import java.util.Date;
 @Slf4j
 public class DocumentServiceImpl implements DocumentService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final DocumentApi documentApi;
 
 	private final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();
 
-	public DocumentServiceImpl(ZAiClient zAiClient) {
+	public DocumentServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.documentApi = zAiClient.retrofit().create(DocumentApi.class);
 	}

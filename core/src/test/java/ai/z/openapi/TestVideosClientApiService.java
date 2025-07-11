@@ -4,7 +4,6 @@ import ai.z.openapi.core.config.ZAiConfig;
 import ai.z.openapi.service.model.SensitiveWordCheckRequest;
 import ai.z.openapi.service.videos.VideoCreateParams;
 import ai.z.openapi.service.videos.VideosResponse;
-import ai.z.openapi.utils.StringUtils;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.concurrent.TimeUnit;
 
 @Testcontainers
 public class TestVideosClientApiService {
@@ -23,7 +21,7 @@ public class TestVideosClientApiService {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	static {
 		zaiConfig = new ZAiConfig();
@@ -31,7 +29,7 @@ public class TestVideosClientApiService {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 
 	@Test

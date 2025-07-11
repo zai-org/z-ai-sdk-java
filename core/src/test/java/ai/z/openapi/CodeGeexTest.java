@@ -35,7 +35,7 @@ public class CodeGeexTest {
 
 	private static final ZAiConfig zaiConfig;
 
-	private static final ZAiClient client;
+	private static final ZaiClient client;
 
 	static {
 		zaiConfig = new ZAiConfig();
@@ -43,7 +43,7 @@ public class CodeGeexTest {
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
 		}
-		client = new ZAiClient(zaiConfig);
+		client = new ZaiClient(zaiConfig);
 	}
 	private static final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();
 

@@ -1,6 +1,6 @@
 package ai.z.openapi.service.chat;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.chat.ChatApi;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatCompletionResponse;
@@ -17,11 +17,11 @@ import okhttp3.ResponseBody;
  */
 public class ChatServiceImpl implements ChatService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final ChatApi chatApi;
 
-	public ChatServiceImpl(ZAiClient zAiClient) {
+	public ChatServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.chatApi = this.zAiClient.retrofit().create(ChatApi.class);
 	}

@@ -1,6 +1,6 @@
 package ai.z.openapi.service.file;
 
-import ai.z.openapi.ZAiClient;
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.file.FileApi;
 import ai.z.openapi.utils.RequestSupplier;
 import ai.z.openapi.core.response.HttpxBinaryResponseContent;
@@ -17,11 +17,11 @@ import java.util.Date;
  */
 public class FileServiceImpl implements FileService {
 
-	private final ZAiClient zAiClient;
+	private final ZaiClient zAiClient;
 
 	private final FileApi fileApi;
 
-	public FileServiceImpl(ZAiClient zAiClient) {
+	public FileServiceImpl(ZaiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.fileApi = zAiClient.retrofit().create(FileApi.class);
 	}
