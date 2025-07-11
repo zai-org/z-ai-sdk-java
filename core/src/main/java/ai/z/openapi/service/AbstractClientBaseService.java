@@ -18,8 +18,8 @@ import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Call;
+import retrofit2.HttpException;
 import retrofit2.Response;
-import retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
 
@@ -109,7 +109,6 @@ public abstract class AbstractClientBaseService {
 	 */
 	private static void handleResponse(Response<?> response) {
 		if (!response.isSuccessful()) {
-
 			throw new HttpException(response);
 		}
 	}

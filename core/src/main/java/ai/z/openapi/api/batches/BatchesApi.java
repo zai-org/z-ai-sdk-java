@@ -4,7 +4,11 @@ import ai.z.openapi.service.batches.Batch;
 import ai.z.openapi.service.batches.BatchCreateParams;
 import ai.z.openapi.service.batches.BatchPage;
 import io.reactivex.Single;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BatchesApi {
 

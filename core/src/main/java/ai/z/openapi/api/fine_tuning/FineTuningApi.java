@@ -6,7 +6,12 @@ import ai.z.openapi.service.fine_turning.FineTuningJob;
 import ai.z.openapi.service.fine_turning.FineTuningJobRequest;
 import ai.z.openapi.service.fine_turning.PersonalFineTuningJob;
 import io.reactivex.Single;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface FineTuningApi {
 

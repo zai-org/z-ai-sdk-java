@@ -87,7 +87,7 @@ public class ZAiClient extends AbstractClientBaseService {
 	private final OkHttpClient httpClient;
 
 	/** Retrofit instance for API communication */
-	private Retrofit retrofit;
+	private final Retrofit retrofit;
 
 	// Service instances - lazily initialized for thread safety and performance
 	/** Chat service for conversational AI operations */

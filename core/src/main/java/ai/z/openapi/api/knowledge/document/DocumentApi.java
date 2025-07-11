@@ -4,13 +4,16 @@ import ai.z.openapi.service.knowledge.document.DocumentData;
 import ai.z.openapi.service.knowledge.document.DocumentEditParams;
 import ai.z.openapi.service.knowledge.document.DocumentObject;
 import ai.z.openapi.service.knowledge.document.DocumentPage;
-import ai.z.openapi.service.knowledge.document.QueryDocumentRequest;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
-import retrofit2.http.*;
-
-import java.util.Map;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface DocumentApi {
 

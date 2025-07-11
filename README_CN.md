@@ -1,4 +1,4 @@
-# Z.ai Java SDK
+# Z.ai Open Platform Java SDK
 
 [![Maven Central](https://img.shields.io/maven-central/v/ai.z/z-ai-sdk.svg)](https://search.maven.org/artifact/ai.z/z-ai-sdk)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -6,7 +6,7 @@
 
 [English Readme](README.md)
 
-Z.ai 和智谱AI平台的官方 Java SDK，提供统一接口访问强大的AI能力，包括对话补全、向量嵌入、图像生成、音频处理等功能。
+Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包括对话补全、向量嵌入、图像生成、音频处理等功能。
 
 ## ✨ 特性
 
