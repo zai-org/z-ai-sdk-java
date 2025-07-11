@@ -366,4 +366,3 @@ For questions and support:
 - Visit [Z.ai Platform](https://z.ai/)
 - Visit [ZHIPU AI Open Platform](http://open.bigmodel.cn/)
 - Check our [Architecture Documentation](ARCHITECTURE.md)
-- Review the test examples in `core/src/test/java/ai/z/openapi/`
