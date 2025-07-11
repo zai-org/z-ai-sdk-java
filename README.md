@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/java-1.8%2B-orange.svg)](https://www.oracle.com/java/)
 
-[中文文档](README_CN.md)
+[中文文档](README_CN.md) | English
 
 The official Java SDK for Z.ai and ZHIPU AI platforms, providing a unified interface to access powerful AI capabilities including chat completion, embeddings, image generation, audio processing, and more.
 
