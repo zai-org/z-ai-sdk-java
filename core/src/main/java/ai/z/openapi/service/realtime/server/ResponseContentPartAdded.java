@@ -11,27 +11,29 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ResponseContentPartAdded extends RealtimeServerEvent {
-    @JsonProperty("response_id")
-    private String responseId;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("response_id")
+	private String responseId;
 
-    @JsonProperty("output_index")
-    private Integer outputIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("content_index")
-    private Integer contentIndex;
+	@JsonProperty("output_index")
+	private Integer outputIndex;
 
-    @JsonProperty("part")
-    private ResponseContentPartObj part;
+	@JsonProperty("content_index")
+	private Integer contentIndex;
 
-    public ResponseContentPartAdded() {
-        super.setType("response.content_part.added");
-        this.responseId = "";
-        this.itemId = "";
-        this.outputIndex = 0;
-        this.contentIndex = 0;
-        this.part = new ResponseContentPartObj();
-    }
+	@JsonProperty("part")
+	private ResponseContentPartObj part;
+
+	public ResponseContentPartAdded() {
+		super.setType("response.content_part.added");
+		this.responseId = "";
+		this.itemId = "";
+		this.outputIndex = 0;
+		this.contentIndex = 0;
+		this.part = new ResponseContentPartObj();
+	}
+
 }

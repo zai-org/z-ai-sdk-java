@@ -9,18 +9,20 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class InputAudioTranscriptionObj {
-    @JsonProperty("model")
-    private String model;
 
-    @JsonProperty("language")
-    private String language;
+	@JsonProperty("model")
+	private String model;
 
-    @JsonProperty("prompt")
-    private String prompt;
+	@JsonProperty("language")
+	private String language;
 
-    public InputAudioTranscriptionObj() {
-        this.model = "whisper-1";
-        this.language = "en";
-        this.prompt = "";
-    }
+	@JsonProperty("prompt")
+	private String prompt;
+
+	public InputAudioTranscriptionObj() {
+		this.model = "whisper-1";
+		this.language = "en";
+		this.prompt = "";
+	}
+
 }

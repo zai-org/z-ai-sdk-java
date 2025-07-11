@@ -12,33 +12,34 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
 @JsonTypeField("code_interpreter")
 public class CodeInterpreterToolBlock extends ToolsType {
 
-    /**
-     * The code interpreter object.
-     */
-    @JsonProperty("code_interpreter")
-    private CodeInterpreter codeInterpreter;
+	/**
+	 * The code interpreter object.
+	 */
+	@JsonProperty("code_interpreter")
+	private CodeInterpreter codeInterpreter;
 
-    /**
-     * The type of tool being called, always "code_interpreter".
-     */
-    @JsonProperty("type")
-    private String type = "code_interpreter";
+	/**
+	 * The type of tool being called, always "code_interpreter".
+	 */
+	@JsonProperty("type")
+	private String type = "code_interpreter";
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public CodeInterpreter getCodeInterpreter() {
-        return codeInterpreter;
-    }
+	public CodeInterpreter getCodeInterpreter() {
+		return codeInterpreter;
+	}
 
-    public void setCodeInterpreter(CodeInterpreter codeInterpreter) {
-        this.codeInterpreter = codeInterpreter;
-    }
+	public void setCodeInterpreter(CodeInterpreter codeInterpreter) {
+		this.codeInterpreter = codeInterpreter;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

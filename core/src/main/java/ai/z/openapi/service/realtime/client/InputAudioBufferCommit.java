@@ -10,8 +10,9 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class InputAudioBufferCommit extends RealtimeClientEvent {
 
-    public InputAudioBufferCommit() {
-        super();
-        this.setType("input_audio_buffer.commit");
-    }
+	public InputAudioBufferCommit() {
+		super();
+		this.setType("input_audio_buffer.commit");
+	}
+
 }

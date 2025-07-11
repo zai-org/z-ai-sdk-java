@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class RealtimeHeartBeat extends RealtimeServerEvent {
-    public RealtimeHeartBeat() {
-        super.setType("heartbeat");
-    }
+
+	public RealtimeHeartBeat() {
+		super.setType("heartbeat");
+	}
+
 }

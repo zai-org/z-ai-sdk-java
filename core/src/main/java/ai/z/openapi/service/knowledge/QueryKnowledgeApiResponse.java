@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 public class QueryKnowledgeApiResponse implements ClientResponse<KnowledgePage> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private KnowledgePage data;
-    private ChatError error;
+	private int code;
+
+	private String msg;
+
+	private boolean success;
+
+	private KnowledgePage data;
+
+	private ChatError error;
 
 }

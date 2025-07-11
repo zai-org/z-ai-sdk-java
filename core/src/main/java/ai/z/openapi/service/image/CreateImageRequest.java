@@ -8,36 +8,37 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
- * A request for ZAi to create an image based on a prompt
- * All fields except prompt are optional
+ * A request for ZAi to create an image based on a prompt All fields except prompt are
+ * optional
  */
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateImageRequest extends CommonRequest  implements ClientRequest<CreateImageRequest> {
+public class CreateImageRequest extends CommonRequest implements ClientRequest<CreateImageRequest> {
 
-    /**
-     * A text description of the desired image(s). The maximum length is 1000 characters for dall-e-2 and 4000 characters for dall-e-3.
-     */
-    @NonNull
-    private String prompt;
+	/**
+	 * A text description of the desired image(s). The maximum length is 1000 characters
+	 * for dall-e-2 and 4000 characters for dall-e-3.
+	 */
+	@NonNull
+	private String prompt;
 
-    /**
-     * The model to use for image generation. Defaults to "dall-e-2".
-     */
-    private String model;
+	/**
+	 * The model to use for image generation. Defaults to "dall-e-2".
+	 */
+	private String model;
 
-    /**
-     * The size of the image to generate. Defaults to "256x256".
-     */
-    private String size;
+	/**
+	 * The size of the image to generate. Defaults to "256x256".
+	 */
+	private String size;
 
-    /**
-     * Sensitive word detection control
-     */
-    @JsonProperty("sensitive_word_check")
-    private SensitiveWordCheckRequest sensitiveWordCheck;
+	/**
+	 * Sensitive word detection control
+	 */
+	@JsonProperty("sensitive_word_check")
+	private SensitiveWordCheckRequest sensitiveWordCheck;
 
 }

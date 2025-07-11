@@ -7,10 +7,10 @@ import retrofit2.http.*;
 
 public interface VideosApi {
 
+	@POST("videos/generations")
+	Single<VideoObject> videoGenerations(@Body VideoCreateParams request);
 
-    @POST("videos/generations")
-    Single<VideoObject> videoGenerations(@Body VideoCreateParams request);
+	@GET("async-result/{id}")
+	Single<VideoObject> videoGenerationsResult(@Path("id") String id);
 
-    @GET("async-result/{id}")
-    Single<VideoObject> videoGenerationsResult(@Path("id") String id);
 }

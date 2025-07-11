@@ -9,22 +9,24 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class RateLimitObj {
-    @JsonProperty("name")
-    private String name;
 
-    @JsonProperty("limit")
-    private Integer limit;
+	@JsonProperty("name")
+	private String name;
 
-    @JsonProperty("remaining")
-    private Integer remaining;
+	@JsonProperty("limit")
+	private Integer limit;
 
-    @JsonProperty("reset_seconds")
-    private Long resetSeconds;
+	@JsonProperty("remaining")
+	private Integer remaining;
 
-    public RateLimitObj() {
-        this.limit = 10;
-        this.name = "requests";
-        this.remaining = 10;
-        this.resetSeconds = 60L;
-    }
+	@JsonProperty("reset_seconds")
+	private Long resetSeconds;
+
+	public RateLimitObj() {
+		this.limit = 10;
+		this.name = "requests";
+		this.remaining = 10;
+		this.resetSeconds = 60L;
+	}
+
 }

@@ -8,9 +8,7 @@ import retrofit2.http.POST;
 
 public interface ImagesApi {
 
-
-    @POST("images/generations")
-    Single<ImageResult> createImage(@Body CreateImageRequest request);
-
+	@POST("images/generations")
+	Single<ImageResult> createImage(@Body CreateImageRequest request);
 
 }

@@ -19,16 +19,16 @@ import java.util.List;
 @Data
 public class ConversationMessage {
 
-    /**
-     * The role of the user input, e.g., 'user'.
-     */
-    @JsonProperty("role")
-    private String role;
+	/**
+	 * The role of the user input, e.g., 'user'.
+	 */
+	@JsonProperty("role")
+	private String role;
 
-    /**
-     * The content of the conversation message.
-     */
-    @JsonProperty("content")
-    private List<MessageTextContent> content;
+	/**
+	 * The content of the conversation message.
+	 */
+	@JsonProperty("content")
+	private List<MessageTextContent> content;
 
 }

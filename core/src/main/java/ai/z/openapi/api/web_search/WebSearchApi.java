@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface WebSearchApi {
 
-    @POST("web_search")
-    Single<WebSearchDTO> webSearch(@Body WebSearchRequest request);
+	@POST("web_search")
+	Single<WebSearchDTO> webSearch(@Body WebSearchRequest request);
 
 }

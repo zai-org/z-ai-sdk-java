@@ -8,93 +8,95 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Parameters for video creation API calls.
- * This class contains all the necessary parameters for generating videos,
- * including model selection, prompts, image inputs, and various video settings.
+ * Parameters for video creation API calls. This class contains all the necessary
+ * parameters for generating videos, including model selection, prompts, image inputs, and
+ * various video settings.
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 @Data
 public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 
-    /**
-     * Model ID
-     */
-    @JsonProperty("id")
-    private String id;
-    
-    /**
-     * Model name
-     */
-    @JsonProperty("model")
-    private String model;
+	/**
+	 * Model ID
+	 */
+	@JsonProperty("id")
+	private String id;
 
-    /**
-     * Text description of the required video
-     */
-    @JsonProperty("prompt")
-    private String prompt;
-    
-    /**
-     * Supports URL or Base64, input image for image-to-video generation
-     * Image format:
-     *   Image size:
-     */
-    @JsonProperty("image_url")
-    private String imageUrl;
+	/**
+	 * Model name
+	 */
+	@JsonProperty("model")
+	private String model;
 
-    /**
-     * Call specified model to optimize the prompt, recommend using GLM-4-Air and GLM-4-Flash. If not specified, use the original prompt directly.
-     */
-    @JsonProperty("prompt_opt_model")
-    private String promptPptModel;
+	/**
+	 * Text description of the required video
+	 */
+	@JsonProperty("prompt")
+	private String prompt;
 
-    /**
-     * Passed by the client, must ensure uniqueness; used to distinguish the unique identifier of each request, the platform will generate by default when the client does not pass.
-     */
-    @JsonProperty("request_id")
-    private String requestId;
-    
-    /**
-     * User ID
-     */
-    @JsonProperty("user_id")
-    private String userId;
+	/**
+	 * Supports URL or Base64, input image for image-to-video generation Image format:
+	 * Image size:
+	 */
+	@JsonProperty("image_url")
+	private String imageUrl;
 
-    /**
-     * Video quality setting
-     */
-    @JsonProperty("quality")
-    private String quality;
+	/**
+	 * Call specified model to optimize the prompt, recommend using GLM-4-Air and
+	 * GLM-4-Flash. If not specified, use the original prompt directly.
+	 */
+	@JsonProperty("prompt_opt_model")
+	private String promptPptModel;
 
-    /**
-     * Whether to include audio in the generated video
-     */
-    @JsonProperty("with_audio")
-    private Boolean withAudio;
+	/**
+	 * Passed by the client, must ensure uniqueness; used to distinguish the unique
+	 * identifier of each request, the platform will generate by default when the client
+	 * does not pass.
+	 */
+	@JsonProperty("request_id")
+	private String requestId;
 
-    /**
-     * Video size/resolution
-     */
-    @JsonProperty("size")
-    private String size;
+	/**
+	 * User ID
+	 */
+	@JsonProperty("user_id")
+	private String userId;
 
-    /**
-     * Video duration in seconds
-     */
-    @JsonProperty("duration")
-    private Integer duration;
+	/**
+	 * Video quality setting
+	 */
+	@JsonProperty("quality")
+	private String quality;
 
-    /**
-     * Frames per second for the video
-     */
-    @JsonProperty("fps")
-    private Integer fps;
+	/**
+	 * Whether to include audio in the generated video
+	 */
+	@JsonProperty("with_audio")
+	private Boolean withAudio;
 
-    /**
-     * Sensitive word detection control
-     */
-    @JsonProperty("sensitive_word_check")
-    private SensitiveWordCheckRequest sensitiveWordCheck;
+	/**
+	 * Video size/resolution
+	 */
+	@JsonProperty("size")
+	private String size;
+
+	/**
+	 * Video duration in seconds
+	 */
+	@JsonProperty("duration")
+	private Integer duration;
+
+	/**
+	 * Frames per second for the video
+	 */
+	@JsonProperty("fps")
+	private Integer fps;
+
+	/**
+	 * Sensitive word detection control
+	 */
+	@JsonProperty("sensitive_word_check")
+	private SensitiveWordCheckRequest sensitiveWordCheck;
 
 }

@@ -21,50 +21,51 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AssistantParameters  extends CommonRequest implements ClientRequest<AssistantParameters> {
-    /**
-     * The ID of the assistant.
-     */
-    @JsonProperty("assistant_id")
-    private String assistantId;
+public class AssistantParameters extends CommonRequest implements ClientRequest<AssistantParameters> {
 
-    /**
-     * The conversation ID. If not provided, a new conversation is created.
-     */
-    @JsonProperty("conversation_id")
-    private String conversationId;
+	/**
+	 * The ID of the assistant.
+	 */
+	@JsonProperty("assistant_id")
+	private String assistantId;
 
-    /**
-     * The name of the model, default is 'GLM-4-Assistant'.
-     */
-    @JsonProperty("model")
-    private String model;
+	/**
+	 * The conversation ID. If not provided, a new conversation is created.
+	 */
+	@JsonProperty("conversation_id")
+	private String conversationId;
 
-    /**
-     * Whether to support streaming SSE, should be set to True.
-     */
-    @JsonProperty("stream")
-    private boolean stream;
+	/**
+	 * The name of the model, default is 'GLM-4-Assistant'.
+	 */
+	@JsonProperty("model")
+	private String model;
 
-    /**
-     * The list of conversation messages.
-     */
-    @JsonProperty("messages")
-    private List<ConversationMessage> messages;
+	/**
+	 * Whether to support streaming SSE, should be set to True.
+	 */
+	@JsonProperty("stream")
+	private boolean stream;
 
-    /**
-     * The list of file attachments for the conversation, optional.
-     */
-    @JsonProperty("attachments")
-    private List<AssistantAttachments> attachments;
+	/**
+	 * The list of conversation messages.
+	 */
+	@JsonProperty("messages")
+	private List<ConversationMessage> messages;
 
-    /**
-     * Metadata or additional fields, optional.
-     */
-    @JsonProperty("metadata")
-    private Map<String, Object> metadata;
+	/**
+	 * The list of file attachments for the conversation, optional.
+	 */
+	@JsonProperty("attachments")
+	private List<AssistantAttachments> attachments;
 
-    @JsonProperty("extra_parameters")
-    private AssistantExtraParameters extraParameters;
+	/**
+	 * Metadata or additional fields, optional.
+	 */
+	@JsonProperty("metadata")
+	private Map<String, Object> metadata;
+
+	@JsonProperty("extra_parameters")
+	private AssistantExtraParameters extraParameters;
 
 }

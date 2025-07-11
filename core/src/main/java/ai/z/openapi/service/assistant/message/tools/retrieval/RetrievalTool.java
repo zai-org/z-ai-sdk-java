@@ -8,17 +8,19 @@ import java.util.List;
  */
 public class RetrievalTool {
 
-    /**
-     * A list of text snippets and their respective document names retrieved from the knowledge base.
-     */
-    @JsonProperty("outputs")
-    private List<RetrievalToolOutput> outputs;
+	/**
+	 * A list of text snippets and their respective document names retrieved from the
+	 * knowledge base.
+	 */
+	@JsonProperty("outputs")
+	private List<RetrievalToolOutput> outputs;
 
-    public List<RetrievalToolOutput> getOutputs() {
-        return outputs;
-    }
+	public List<RetrievalToolOutput> getOutputs() {
+		return outputs;
+	}
 
-    public void setOutputs(List<RetrievalToolOutput> outputs) {
-        this.outputs = outputs;
-    }
+	public void setOutputs(List<RetrievalToolOutput> outputs) {
+		this.outputs = outputs;
+	}
+
 }

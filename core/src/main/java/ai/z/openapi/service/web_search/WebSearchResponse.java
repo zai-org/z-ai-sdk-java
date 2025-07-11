@@ -8,11 +8,15 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WebSearchResponse implements ClientResponse<WebSearchDTO> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private WebSearchDTO data;
-    private ChatError error;
+	private int code;
+
+	private String msg;
+
+	private boolean success;
+
+	private WebSearchDTO data;
+
+	private ChatError error;
 
 }

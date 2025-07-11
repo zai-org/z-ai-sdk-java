@@ -1,19 +1,17 @@
 package ai.z.openapi.service.model;
 
-
 public enum ChatMessageRole {
-    SYSTEM("system"),
-    USER("user"),
-    ASSISTANT("assistant"),
-    FUNCTION("function");
 
-    private final String value;
+	SYSTEM("system"), USER("user"), ASSISTANT("assistant"), FUNCTION("function");
 
-    ChatMessageRole(final String value) {
-        this.value = value;
-    }
+	private final String value;
 
-    public String value() {
-        return value;
-    }
+	ChatMessageRole(final String value) {
+		this.value = value;
+	}
+
+	public String value() {
+		return value;
+	}
+
 }

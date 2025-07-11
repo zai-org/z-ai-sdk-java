@@ -17,10 +17,8 @@ import java.util.Map;
 @Data
 public class QueryKnowledgeRequest implements ClientRequest<QueryKnowledgeRequest> {
 
-    private Integer page;
+	private Integer page;
 
-    private Integer size;
-
-
+	private Integer size;
 
 }

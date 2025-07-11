@@ -10,14 +10,10 @@ import ai.z.openapi.service.assistant.message.tools.web_browser.WebBrowserToolBl
 import ai.z.openapi.service.deserialize.JsonTypeMapping;
 import ai.z.openapi.service.deserialize.assistant.message.tools.ToolsTypeDeserializer;
 
-@JsonTypeMapping({
-        WebBrowserToolBlock.class,
-        RetrievalToolBlock.class,
-        FunctionToolBlock.class,
-        DrawingToolBlock.class,
-        CodeInterpreterToolBlock.class,
-})
+@JsonTypeMapping({ WebBrowserToolBlock.class, RetrievalToolBlock.class, FunctionToolBlock.class, DrawingToolBlock.class,
+		CodeInterpreterToolBlock.class, })
 @JsonDeserialize(using = ToolsTypeDeserializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class ToolsType {
+
 }

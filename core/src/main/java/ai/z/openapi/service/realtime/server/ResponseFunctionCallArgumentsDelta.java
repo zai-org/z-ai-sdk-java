@@ -10,27 +10,29 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ResponseFunctionCallArgumentsDelta extends RealtimeServerEvent {
-    @JsonProperty("response_id")
-    private String responseId;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("response_id")
+	private String responseId;
 
-    @JsonProperty("output_index")
-    private int outputIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("call_id")
-    private String callId;
+	@JsonProperty("output_index")
+	private int outputIndex;
 
-    @JsonProperty("delta")
-    private String delta;
+	@JsonProperty("call_id")
+	private String callId;
 
-    public ResponseFunctionCallArgumentsDelta() {
-        super.setType("response.function_call_arguments.delta");
-        this.responseId = "";
-        this.itemId = "";
-        this.outputIndex = 0;
-        this.callId = "";
-        this.delta = "";
-    }
+	@JsonProperty("delta")
+	private String delta;
+
+	public ResponseFunctionCallArgumentsDelta() {
+		super.setType("response.function_call_arguments.delta");
+		this.responseId = "";
+		this.itemId = "";
+		this.outputIndex = 0;
+		this.callId = "";
+		this.delta = "";
+	}
+
 }

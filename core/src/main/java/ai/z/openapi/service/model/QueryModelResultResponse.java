@@ -4,13 +4,16 @@ import ai.z.openapi.core.model.ClientResponse;
 import lombok.Data;
 
 @Data
-public class QueryModelResultResponse  implements ClientResponse<ModelData> {
+public class QueryModelResultResponse implements ClientResponse<ModelData> {
 
-    private int code;
-    private String msg;
-    private boolean success;
-    private ModelData data;
+	private int code;
 
-    private ChatError error;
+	private String msg;
+
+	private boolean success;
+
+	private ModelData data;
+
+	private ChatError error;
 
 }

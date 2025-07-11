@@ -13,104 +13,107 @@ import ai.z.openapi.service.deserialize.tools.WebSearchProDeserializer;
 import java.util.Iterator;
 import java.util.List;
 
-
 @JsonDeserialize(using = WebSearchProDeserializer.class)
 public class WebSearchPro extends ObjectNode {
 
-    /**
-     * Creation time
-     */
-    @JsonProperty("created")
-    private Integer created;
+	/**
+	 * Creation time
+	 */
+	@JsonProperty("created")
+	private Integer created;
 
-    /**
-     * Choices
-     */
-    @JsonProperty("choices")
-    private List<WebSearchChoice> choices;
+	/**
+	 * Choices
+	 */
+	@JsonProperty("choices")
+	private List<WebSearchChoice> choices;
 
-    /**
-     * Request ID
-     */
-    @JsonProperty("request_id")
-    private String requestId;
+	/**
+	 * Request ID
+	 */
+	@JsonProperty("request_id")
+	private String requestId;
 
-    /**
-     * ID
-     */
-    @JsonProperty("id")
-    private String id;
+	/**
+	 * ID
+	 */
+	@JsonProperty("id")
+	private String id;
 
+	public WebSearchPro() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public WebSearchPro() {
-        super(JsonNodeFactory.instance);
-    }
+	public WebSearchPro(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("created") != null) {
+			this.setCreated(objectNode.get("created").asInt());
+		}
+		else {
+			this.setCreated(null);
+		}
 
-    public WebSearchPro(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("created") != null) {
-            this.setCreated(objectNode.get("created").asInt());
-        } else {
-            this.setCreated(null);
-        }
+		if (objectNode.get("choices") != null) {
+			this.setChoices(
+					objectMapper.convertValue(objectNode.get("choices"), new TypeReference<List<WebSearchChoice>>() {
+					}));
+		}
+		else {
+			this.setChoices(null);
+		}
+		if (objectNode.get("request_id") != null) {
+			this.setRequestId(objectNode.get("request_id").asText());
+		}
+		else {
+			this.setRequestId(null);
+		}
+		if (objectNode.get("id") != null) {
+			this.setId(objectNode.get("id").asText());
+		}
+		else {
+			this.setId(null);
+		}
 
-        if (objectNode.get("choices") != null) {
-            this.setChoices(objectMapper.convertValue(objectNode.get("choices"), new TypeReference<List<WebSearchChoice>>() {}));
-        } else {
-            this.setChoices(null);
-        }
-        if (objectNode.get("request_id") != null) {
-            this.setRequestId(objectNode.get("request_id").asText());
-        } else {
-            this.setRequestId(null);
-        }
-        if (objectNode.get("id") != null) {
-            this.setId(objectNode.get("id").asText());
-        } else {
-            this.setId(null);
-        }
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
+	// Getters and Setters
+	public Integer getCreated() {
+		return created;
+	}
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+	public void setCreated(Integer created) {
+		this.created = created;
+		this.put("created", created);
+	}
 
-    // Getters and Setters
-    public Integer getCreated() {
-        return created;
-    }
+	public List<WebSearchChoice> getChoices() {
+		return choices;
+	}
 
-    public void setCreated(Integer created) {
-        this.created = created;
-        this.put("created", created);
-    }
+	public void setChoices(List<WebSearchChoice> choices) {
+		this.choices = choices;
+		this.putPOJO("choices", choices);
+	}
 
-    public List<WebSearchChoice> getChoices() {
-        return choices;
-    }
+	public String getRequestId() {
+		return requestId;
+	}
 
-    public void setChoices(List<WebSearchChoice> choices) {
-        this.choices = choices;
-        this.putPOJO("choices", choices);
-    }
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+		this.put("request_id", requestId);
+	}
 
-    public String getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-        this.put("request_id", requestId);
-    }
-
-    public void setId(String id) {
-        this.id = id;
-        this.put("id", id);
-    }
+	public void setId(String id) {
+		this.id = id;
+		this.put("id", id);
+	}
 
 }

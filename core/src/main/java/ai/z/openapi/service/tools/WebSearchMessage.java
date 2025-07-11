@@ -14,69 +14,72 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Represents a web search message containing role and tool call information.
- * This class is used for web search operations and tool interactions.
+ * Represents a web search message containing role and tool call information. This class
+ * is used for web search operations and tool interactions.
  */
 @JsonDeserialize(using = WebSearchMessageDeserializer.class)
 public class WebSearchMessage extends ObjectNode {
 
-    /**
-     * Role in the conversation.
-     */
-    @JsonProperty("role")
-    private String role;
+	/**
+	 * Role in the conversation.
+	 */
+	@JsonProperty("role")
+	private String role;
 
-    /**
-     * List of tool calls.
-     */
-    @JsonProperty("tool_calls")
-    private List<WebSearchMessageToolCall> toolCalls;
+	/**
+	 * List of tool calls.
+	 */
+	@JsonProperty("tool_calls")
+	private List<WebSearchMessageToolCall> toolCalls;
 
-    public WebSearchMessage() {
-        super(JsonNodeFactory.instance);
-    }
+	public WebSearchMessage() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public WebSearchMessage(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("role") != null) {
-            this.setRole(objectNode.get("role").asText());
-        } else {
-            this.setRole(null);
-        }
-        if (objectNode.get("tool_calls") != null) {
-            this.setToolCalls(objectMapper.convertValue(objectNode.get("tool_calls"), new TypeReference<List<WebSearchMessageToolCall>>() {}));
-        } else {
-            this.setToolCalls(null);
-        }
+	public WebSearchMessage(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("role") != null) {
+			this.setRole(objectNode.get("role").asText());
+		}
+		else {
+			this.setRole(null);
+		}
+		if (objectNode.get("tool_calls") != null) {
+			this.setToolCalls(objectMapper.convertValue(objectNode.get("tool_calls"),
+					new TypeReference<List<WebSearchMessageToolCall>>() {
+					}));
+		}
+		else {
+			this.setToolCalls(null);
+		}
 
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
+	// Getters and Setters
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+	public String getRole() {
+		return role;
+	}
 
-    // Getters and Setters
+	public void setRole(String role) {
+		this.role = role;
+		this.put("role", role);
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public List<WebSearchMessageToolCall> getToolCalls() {
+		return toolCalls;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-        this.put("role", role);
-    }
+	public void setToolCalls(List<WebSearchMessageToolCall> toolCalls) {
+		this.toolCalls = toolCalls;
+		this.putPOJO("tool_calls", toolCalls);
+	}
 
-    public List<WebSearchMessageToolCall> getToolCalls() {
-        return toolCalls;
-    }
-
-    public void setToolCalls(List<WebSearchMessageToolCall> toolCalls) {
-        this.toolCalls = toolCalls;
-        this.putPOJO("tool_calls", toolCalls);
-    }
 }

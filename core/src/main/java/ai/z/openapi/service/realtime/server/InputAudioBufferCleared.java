@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class InputAudioBufferCleared extends RealtimeServerEvent {
-    public InputAudioBufferCleared() {
-        super.setType("input_audio_buffer.cleared");
-    }
+
+	public InputAudioBufferCleared() {
+		super.setType("input_audio_buffer.cleared");
+	}
+
 }

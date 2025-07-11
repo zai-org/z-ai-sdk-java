@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class ConversationObj {
-    @JsonProperty("id")
-    private String id;
 
-    @JsonProperty("object")
-    private String object;
+	@JsonProperty("id")
+	private String id;
+
+	@JsonProperty("object")
+	private String object;
+
 }

@@ -13,22 +13,22 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AssistantSupportStatus {
 
-    /**
-     * The response code.
-     */
-    @JsonProperty("code")
-    private Integer code;
+	/**
+	 * The response code.
+	 */
+	@JsonProperty("code")
+	private Integer code;
 
-    /**
-     * The response message.
-     */
-    @JsonProperty("msg")
-    private String msg;
+	/**
+	 * The response message.
+	 */
+	@JsonProperty("msg")
+	private String msg;
 
-    /**
-     * The list of assistant supports.
-     */
-    @JsonProperty("data")
-    private List<AssistantSupport> data;
+	/**
+	 * The list of assistant supports.
+	 */
+	@JsonProperty("data")
+	private List<AssistantSupport> data;
 
 }

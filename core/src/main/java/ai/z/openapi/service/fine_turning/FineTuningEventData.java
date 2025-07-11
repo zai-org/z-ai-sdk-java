@@ -10,39 +10,42 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true) // Ignore unknown properties
-public class FineTuningEventData{
-    /**
-     * The type of object returned, should be "fine-tuneing.job.event".
-     */
-    private String object;
+public class FineTuningEventData {
 
-    /**
-     * The ID of the fine-tuning event.
-     */
-    private String id;
+	/**
+	 * The type of object returned, should be "fine-tuneing.job.event".
+	 */
+	private String object;
 
-    /**
-     * The creation time in epoch seconds.
-     */
-    @JsonProperty("created_at")
-    private Long createdAt;
+	/**
+	 * The ID of the fine-tuning event.
+	 */
+	private String id;
 
-    /**
-     * The log level of this message.
-     */
-    private String level;
+	/**
+	 * The creation time in epoch seconds.
+	 */
+	@JsonProperty("created_at")
+	private Long createdAt;
 
-    /**
-     * The event message.
-     */
-    private String message;
+	/**
+	 * The log level of this message.
+	 */
+	private String level;
 
-    /**
-     * The type of event, i.e. "message"
-     */
-    private String type;
-    /**
-     * The data of the event.
-     */
-    private FineTuningEventMetric data;
+	/**
+	 * The event message.
+	 */
+	private String message;
+
+	/**
+	 * The type of event, i.e. "message"
+	 */
+	private String type;
+
+	/**
+	 * The data of the event.
+	 */
+	private FineTuningEventMetric data;
+
 }

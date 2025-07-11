@@ -37,10 +37,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Base class for all realtime server events received from the server.
- * This class defines the common structure and properties for server-side events
- * in the realtime communication protocol, including conversation updates,
- * audio processing events, response generation, and session management.
+ * Base class for all realtime server events received from the server. This class defines
+ * the common structure and properties for server-side events in the realtime
+ * communication protocol, including conversation updates, audio processing events,
+ * response generation, and session management.
  */
 @Getter
 @Setter
@@ -115,28 +115,30 @@ import lombok.Setter;
 })
 // @formatter:on
 public class RealtimeServerEvent {
-    /**
-     * Unique identifier for this event.
-     */
-    @JsonProperty("event_id")
-    private String eventId;
-    
-    /**
-     * Type of the event, used for polymorphic deserialization.
-     */
-    @JsonProperty("type")
-    private String type;
-    
-    /**
-     * Timestamp when the event was created on the client side.
-     */
-    @JsonProperty("client_timestamp")
-    private Long clientTimestamp;
 
-    public RealtimeServerEvent() {
-        this.eventId = "";
-        this.type = "";
-        // Private fields
-        this.clientTimestamp = 0L;
-    }
+	/**
+	 * Unique identifier for this event.
+	 */
+	@JsonProperty("event_id")
+	private String eventId;
+
+	/**
+	 * Type of the event, used for polymorphic deserialization.
+	 */
+	@JsonProperty("type")
+	private String type;
+
+	/**
+	 * Timestamp when the event was created on the client side.
+	 */
+	@JsonProperty("client_timestamp")
+	private Long clientTimestamp;
+
+	public RealtimeServerEvent() {
+		this.eventId = "";
+		this.type = "";
+		// Private fields
+		this.clientTimestamp = 0L;
+	}
+
 }

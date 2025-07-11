@@ -1,14 +1,13 @@
 package ai.z.openapi.service.assistant;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Parameters for translation operations.
- * This class contains the source and target language settings for translation requests.
+ * Parameters for translation operations. This class contains the source and target
+ * language settings for translation requests.
  */
 @SuperBuilder
 @NoArgsConstructor
@@ -16,13 +15,14 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class TranslateParameters {
 
-    /**
-     * Source language for translation.
-     */
-    private String from;
+	/**
+	 * Source language for translation.
+	 */
+	private String from;
 
-    /**
-     * Target language for translation.
-     */
-    private String to;
+	/**
+	 * Target language for translation.
+	 */
+	private String to;
+
 }

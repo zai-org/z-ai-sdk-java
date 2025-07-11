@@ -10,20 +10,22 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ConversationItemTruncate extends RealtimeClientEvent {
-    @JsonProperty("item_id")
-    private String itemId;
 
-    @JsonProperty("content_index")
-    private Integer contentIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("audio_end_ms")
-    private Integer audioEndMs;
+	@JsonProperty("content_index")
+	private Integer contentIndex;
 
-    public ConversationItemTruncate() {
-        super();
-        super.setType("conversation.item.truncate");
-        this.itemId = "";
-        this.contentIndex = 0;
-        this.audioEndMs = 0;
-    }
+	@JsonProperty("audio_end_ms")
+	private Integer audioEndMs;
+
+	public ConversationItemTruncate() {
+		super();
+		super.setType("conversation.item.truncate");
+		this.itemId = "";
+		this.contentIndex = 0;
+		this.audioEndMs = 0;
+	}
+
 }

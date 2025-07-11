@@ -12,33 +12,34 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
 @JsonTypeField("web_browser")
 public class WebBrowserToolBlock extends ToolsType {
 
-    /**
-     * An instance of the WebBrowser class containing the search input and outputs.
-     */
-    @JsonProperty("web_browser")
-    private WebBrowser webBrowser;
+	/**
+	 * An instance of the WebBrowser class containing the search input and outputs.
+	 */
+	@JsonProperty("web_browser")
+	private WebBrowser webBrowser;
 
-    /**
-     * The type of tool being used, always set to "web_browser".
-     */
-    @JsonProperty("type")
-    private String type = "web_browser";
+	/**
+	 * The type of tool being used, always set to "web_browser".
+	 */
+	@JsonProperty("type")
+	private String type = "web_browser";
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public WebBrowser getWebBrowser() {
-        return webBrowser;
-    }
+	public WebBrowser getWebBrowser() {
+		return webBrowser;
+	}
 
-    public void setWebBrowser(WebBrowser webBrowser) {
-        this.webBrowser = webBrowser;
-    }
+	public void setWebBrowser(WebBrowser webBrowser) {
+		this.webBrowser = webBrowser;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

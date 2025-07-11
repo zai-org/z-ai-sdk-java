@@ -1,6 +1,5 @@
 package ai.z.openapi.service.web_search;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -8,10 +7,10 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SearchIntentResp {
 
-    private String query;
+	private String query;
 
-    private String intent;
+	private String intent;
 
-    private String keywords;
+	private String keywords;
 
 }

@@ -18,13 +18,15 @@ import java.util.Map;
 @Data
 public class QueryDocumentRequest implements ClientRequest<QueryDocumentRequest> {
 
-    @JsonProperty("knowledge_id")
-    private String knowledgeId;
-    private String purpose;
-    private Integer page;
-    private Integer limit;
-    private String order;
+	@JsonProperty("knowledge_id")
+	private String knowledgeId;
 
+	private String purpose;
 
+	private Integer page;
+
+	private Integer limit;
+
+	private String order;
 
 }

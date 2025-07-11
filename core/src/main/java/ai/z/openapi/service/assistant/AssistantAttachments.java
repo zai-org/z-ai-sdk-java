@@ -7,19 +7,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class AssistantAttachments {
 
-    /**
-     * The ID of the file attachment.
-     */
-    @JsonProperty("file_id")
-    private String fileId;
+	/**
+	 * The ID of the file attachment.
+	 */
+	@JsonProperty("file_id")
+	private String fileId;
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getFileId() {
-        return fileId;
-    }
+	public String getFileId() {
+		return fileId;
+	}
 
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
 }

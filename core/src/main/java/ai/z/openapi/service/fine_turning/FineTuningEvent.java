@@ -18,14 +18,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true) // Ignore unknown properties
 public class FineTuningEvent {
 
-    private String object;
+	private String object;
 
-    @JsonProperty("has_more")
-    private Boolean hasMore;
+	@JsonProperty("has_more")
+	private Boolean hasMore;
 
-    private List<FineTuningEventData> data;
+	private List<FineTuningEventData> data;
 
-    private ChatError error;
-
+	private ChatError error;
 
 }

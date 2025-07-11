@@ -11,46 +11,48 @@ import lombok.Getter;
 import java.util.Iterator;
 import java.util.Map;
 
-
 @Getter
 @JsonDeserialize(using = CodeGeexContextDeserializer.class)
 public class CodeGeexContext extends ObjectNode {
-    @JsonProperty("path")
-    private String path;
 
-    @JsonProperty("code")
-    private String code;
+	@JsonProperty("path")
+	private String path;
 
-    public CodeGeexContext() {
-        super(JsonNodeFactory.instance);
-    }
+	@JsonProperty("code")
+	private String code;
 
-    public CodeGeexContext(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        this.setPath(objectNode.has("path") ? objectNode.get("path").asText() : null);
-        this.setCode(objectNode.has("code") ? objectNode.get("code").asText() : null);
+	public CodeGeexContext() {
+		super(JsonNodeFactory.instance);
+	}
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
+	public CodeGeexContext(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		this.setPath(objectNode.has("path") ? objectNode.get("path").asText() : null);
+		this.setCode(objectNode.has("code") ? objectNode.get("code").asText() : null);
 
-        while(fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
+		Iterator<String> fieldNames = objectNode.fieldNames();
 
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
 
-    }
-    public CodeGeexContext(JsonNodeFactory nc, Map<String, JsonNode> kids) {
-        super(nc, kids);
-    }
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
 
-    public void setPath(String path) {
-        this.path = path;
-        this.put("path", path);
-    }
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-        this.put("code", code);
-    }
+	public CodeGeexContext(JsonNodeFactory nc, Map<String, JsonNode> kids) {
+		super(nc, kids);
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+		this.put("path", path);
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+		this.put("code", code);
+	}
+
 }

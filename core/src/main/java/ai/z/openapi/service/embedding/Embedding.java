@@ -20,75 +20,78 @@ import java.util.List;
 @JsonDeserialize(using = EmbeddingDeserializer.class)
 public class Embedding extends ObjectNode {
 
-    /**
-     * The type of object returned, should be "embedding"
-     */
-    @Getter
-    String object;
+	/**
+	 * The type of object returned, should be "embedding"
+	 */
+	@Getter
+	String object;
 
-    /**
-     * The embedding vector
-     */
-    @Getter
-    List<Double> embedding;
+	/**
+	 * The embedding vector
+	 */
+	@Getter
+	List<Double> embedding;
 
-    /**
-     * The position of this embedding in the list
-     */
-    @Getter
-    Integer index;
+	/**
+	 * The position of this embedding in the list
+	 */
+	@Getter
+	Integer index;
 
-    public Embedding() {
-        super(JsonNodeFactory.instance);
-    }
+	public Embedding() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public Embedding(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("object") != null) {
-            this.setObject(objectNode.get("object").asText());
-        } else {
-            this.setObject(null);
-        }
-        if (objectNode.get("index") != null) {
-            this.setIndex(objectNode.get("index").asInt());
-        } else {
-            this.setIndex(null);
-        }
+	public Embedding(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("object") != null) {
+			this.setObject(objectNode.get("object").asText());
+		}
+		else {
+			this.setObject(null);
+		}
+		if (objectNode.get("index") != null) {
+			this.setIndex(objectNode.get("index").asInt());
+		}
+		else {
+			this.setIndex(null);
+		}
 
-        if (objectNode.get("embedding") != null) {
-            List<Double> embedding = objectMapper.convertValue(objectNode.get("embedding"), new TypeReference<List<Double>>() {
-            });
-            this.setEmbedding(embedding);
-        } else {
-            this.setEmbedding(null);
-        }
+		if (objectNode.get("embedding") != null) {
+			List<Double> embedding = objectMapper.convertValue(objectNode.get("embedding"),
+					new TypeReference<List<Double>>() {
+					});
+			this.setEmbedding(embedding);
+		}
+		else {
+			this.setEmbedding(null);
+		}
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
-    public void setIndex(Integer index) {
-        this.index = index;
-        this.put("index", index);
-    }
+	public void setIndex(Integer index) {
+		this.index = index;
+		this.put("index", index);
+	}
 
-    public void setObject(String object) {
-        this.object = object;
-        this.put("object", object);
-    }
+	public void setObject(String object) {
+		this.object = object;
+		this.put("object", object);
+	}
 
-    public void setEmbedding(List<Double> embedding) throws IllegalArgumentException {
-        if (embedding == null || embedding.isEmpty()) {
-            throw new IllegalArgumentException("Embedding cannot be null or empty");
-        }
-        this.embedding = embedding;
-        this.putPOJO("embedding", embedding);
-    }
-
+	public void setEmbedding(List<Double> embedding) throws IllegalArgumentException {
+		if (embedding == null || embedding.isEmpty()) {
+			throw new IllegalArgumentException("Embedding cannot be null or empty");
+		}
+		this.embedding = embedding;
+		this.putPOJO("embedding", embedding);
+	}
 
 }

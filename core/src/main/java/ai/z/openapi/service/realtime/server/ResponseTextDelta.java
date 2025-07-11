@@ -10,27 +10,29 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ResponseTextDelta extends RealtimeServerEvent {
-    @JsonProperty("response_id")
-    private String responseId;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("response_id")
+	private String responseId;
 
-    @JsonProperty("output_index")
-    private Integer outputIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("content_index")
-    private Integer contentIndex;
+	@JsonProperty("output_index")
+	private Integer outputIndex;
 
-    @JsonProperty("delta")
-    private String delta;
+	@JsonProperty("content_index")
+	private Integer contentIndex;
 
-    public ResponseTextDelta() {
-        super.setType("response.text.delta");
-        this.responseId = "";
-        this.itemId = "";
-        this.outputIndex = 0;
-        this.contentIndex = 0;
-        this.delta = "";
-    }
+	@JsonProperty("delta")
+	private String delta;
+
+	public ResponseTextDelta() {
+		super.setType("response.text.delta");
+		this.responseId = "";
+		this.itemId = "";
+		this.outputIndex = 0;
+		this.contentIndex = 0;
+		this.delta = "";
+	}
+
 }

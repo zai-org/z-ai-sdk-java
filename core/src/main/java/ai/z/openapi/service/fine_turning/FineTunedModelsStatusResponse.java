@@ -6,10 +6,15 @@ import lombok.Data;
 
 @Data
 public class FineTunedModelsStatusResponse implements ClientResponse<FineTunedModelsStatus> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private FineTunedModelsStatus data;
-    private ChatError error;
+	private int code;
+
+	private String msg;
+
+	private boolean success;
+
+	private FineTunedModelsStatus data;
+
+	private ChatError error;
+
 }

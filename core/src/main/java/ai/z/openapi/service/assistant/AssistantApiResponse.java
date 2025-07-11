@@ -6,56 +6,57 @@ import io.reactivex.Flowable;
 import lombok.Data;
 
 /**
- * Response wrapper for Assistant API calls that supports both synchronous and streaming responses.
- * This class implements FlowableClientResponse to handle streaming assistant completions.
+ * Response wrapper for Assistant API calls that supports both synchronous and streaming
+ * responses. This class implements FlowableClientResponse to handle streaming assistant
+ * completions.
  */
 @Data
 public class AssistantApiResponse implements FlowableClientResponse<AssistantCompletion> {
-    /**
-     * Response status code.
-     */
-    private int code;
-    
-    /**
-     * Response message.
-     */
-    private String msg;
-    
-    /**
-     * Indicates whether the request was successful.
-     */
-    private boolean success;
 
-    /**
-     * The assistant completion data for synchronous responses.
-     */
-    private AssistantCompletion data;
+	/**
+	 * Response status code.
+	 */
+	private int code;
 
-    /**
-     * The flowable stream for streaming responses.
-     */
-    private Flowable<AssistantCompletion> flowable;
+	/**
+	 * Response message.
+	 */
+	private String msg;
 
-    /**
-     * Error information if the request failed.
-     */
-    private ChatError error;
+	/**
+	 * Indicates whether the request was successful.
+	 */
+	private boolean success;
 
-    /**
-     * Default constructor.
-     */
-    public AssistantApiResponse() {
-    }
+	/**
+	 * The assistant completion data for synchronous responses.
+	 */
+	private AssistantCompletion data;
 
-    /**
-     * Constructor with code and message.
-     * 
-     * @param code the response code
-     * @param msg the response message
-     */
-    public AssistantApiResponse(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
+	/**
+	 * The flowable stream for streaming responses.
+	 */
+	private Flowable<AssistantCompletion> flowable;
+
+	/**
+	 * Error information if the request failed.
+	 */
+	private ChatError error;
+
+	/**
+	 * Default constructor.
+	 */
+	public AssistantApiResponse() {
+	}
+
+	/**
+	 * Constructor with code and message.
+	 * @param code the response code
+	 * @param msg the response message
+	 */
+	public AssistantApiResponse(int code, String msg) {
+		this.code = code;
+		this.msg = msg;
+	}
 
 }

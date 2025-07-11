@@ -10,52 +10,51 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class WebSearchParamsRequest extends CommonRequest implements ClientRequest<WebSearchParamsRequest> {
-    /**
-     * Tool name: web-search-pro parameter type definition
-     * Attributes:
-     * Model name
-     */
-    @JsonProperty("model")
-    private String model;
 
-    /**
-     * Whether streaming
-     */
-    @JsonProperty("stream")
-    private Boolean stream;
+	/**
+	 * Tool name: web-search-pro parameter type definition Attributes: Model name
+	 */
+	@JsonProperty("model")
+	private String model;
 
-    /**
-     * Content containing historical conversation context, passed in JSON array format like {"role": "user", "content": "hello"}
-     * Current version only supports User Message single-turn conversation, the tool will understand User Message and perform search,
-     * Please try to pass in user's original questions without instruction format to improve search accuracy.
-     */
-    @JsonProperty("messages")
-    private List<SearchChatMessage> messages;
+	/**
+	 * Whether streaming
+	 */
+	@JsonProperty("stream")
+	private Boolean stream;
 
-    /**
-     * Specify search scope, web-wide, academic, etc., default is web-wide
-     */
-    @JsonProperty("scope")
-    private String scope;
+	/**
+	 * Content containing historical conversation context, passed in JSON array format
+	 * like {"role": "user", "content": "hello"} Current version only supports User
+	 * Message single-turn conversation, the tool will understand User Message and perform
+	 * search, Please try to pass in user's original questions without instruction format
+	 * to improve search accuracy.
+	 */
+	@JsonProperty("messages")
+	private List<SearchChatMessage> messages;
 
-    /**
-     * Specify search user location to improve relevance
-     */
-    @JsonProperty("location")
-    private String location;
+	/**
+	 * Specify search scope, web-wide, academic, etc., default is web-wide
+	 */
+	@JsonProperty("scope")
+	private String scope;
 
-    /**
-     * Support specifying search results updated within N days (1-30)
-     */
-    @JsonProperty("recent_days")
-    private Integer recentDays;
+	/**
+	 * Specify search user location to improve relevance
+	 */
+	@JsonProperty("location")
+	private String location;
 
+	/**
+	 * Support specifying search results updated within N days (1-30)
+	 */
+	@JsonProperty("recent_days")
+	private Integer recentDays;
 
 }

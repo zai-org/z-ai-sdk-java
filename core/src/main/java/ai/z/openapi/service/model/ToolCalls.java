@@ -1,6 +1,5 @@
 package ai.z.openapi.service.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,76 +13,79 @@ import lombok.*;
 import java.util.Iterator;
 
 /**
- * Represents tool calls made by the model during conversation.
- * This class contains information about function calls including the function details,
- * unique identifier, and call type.
+ * Represents tool calls made by the model during conversation. This class contains
+ * information about function calls including the function details, unique identifier, and
+ * call type.
  */
 @Getter
 @JsonDeserialize(using = ToolCallsDeserializer.class)
 public class ToolCalls extends ObjectNode {
 
+	@JsonProperty("function")
+	private ChatFunctionCall function;
 
-    @JsonProperty("function")
-    private ChatFunctionCall function;
+	/**
+	 * Unique identifier of the function call.
+	 */
+	@JsonProperty("id")
+	private String id;
 
-    /**
-     * Unique identifier of the function call.
-     */
-    @JsonProperty("id")
-    private String id;
+	/**
+	 * Type of tool called by the model, currently only supports 'function'.
+	 */
+	@JsonProperty("type")
+	private String type;
 
-    /**
-     * Type of tool called by the model, currently only supports 'function'.
-     */
-    @JsonProperty("type")
-    private String type;
+	public ToolCalls() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public ToolCalls() {
-        super(JsonNodeFactory.instance);
-    }
+	public ToolCalls(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("function") != null) {
+			this.setFunction(objectMapper.convertValue(objectNode.get("function"), ChatFunctionCall.class));
+		}
+		else {
+			this.setFunction(null);
+		}
+		if (objectNode.get("id") != null) {
+			this.setId(objectNode.get("id").asText());
+		}
+		else {
+			this.setId(null);
+		}
+		if (objectNode.get("type") != null) {
+			this.setType(objectNode.get("type").asText());
+		}
+		else {
+			this.setType(null);
+		}
 
-    public ToolCalls(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("function") != null) {
-            this.setFunction(objectMapper.convertValue(objectNode.get("function"), ChatFunctionCall.class));
-        } else {
-            this.setFunction(null);
-        }
-        if (objectNode.get("id") != null) {
-            this.setId(objectNode.get("id").asText());
-        } else {
-            this.setId(null);
-        }
-        if (objectNode.get("type") != null) {
-            this.setType(objectNode.get("type").asText());
-        } else {
-            this.setType(null);
-        }
+		Iterator<String> fieldNames = objectNode.fieldNames();
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
 
-        while(fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
 
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
+	}
 
-    }
+	public void setFunction(ChatFunctionCall function) {
+		this.function = function;
+		this.putPOJO("function", function);
+	}
 
-    public void setFunction(ChatFunctionCall function) {
-        this.function = function;
-        this.putPOJO("function", function);
-    }
+	public void setId(String id) {
+		this.id = id;
+		this.put("id", id);
+	}
 
-    public void setId(String id) {
-        this.id = id;
-        this.put("id", id);
-    }
+	public void setType(String type) {
+		this.type = type;
+		this.put("type", type);
+	}
 
-    public void setType(String type) {
-        this.type = type;
-        this.put("type", type);
-    }
 }

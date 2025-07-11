@@ -10,27 +10,29 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ResponseAudioTranscriptDone extends RealtimeServerEvent {
-    @JsonProperty("response_id")
-    private String responseId;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("response_id")
+	private String responseId;
 
-    @JsonProperty("output_index")
-    private Integer outputIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("content_index")
-    private Integer contentIndex;
+	@JsonProperty("output_index")
+	private Integer outputIndex;
 
-    @JsonProperty("transcript")
-    private String transcript;
+	@JsonProperty("content_index")
+	private Integer contentIndex;
 
-    public ResponseAudioTranscriptDone() {
-        super.setType("response.audio_transcript.done");
-        this.responseId = "";
-        this.itemId = "";
-        this.outputIndex = 0;
-        this.contentIndex = 0;
-        this.transcript = "";
-    }
+	@JsonProperty("transcript")
+	private String transcript;
+
+	public ResponseAudioTranscriptDone() {
+		super.setType("response.audio_transcript.done");
+		this.responseId = "";
+		this.itemId = "";
+		this.outputIndex = 0;
+		this.contentIndex = 0;
+		this.transcript = "";
+	}
+
 }

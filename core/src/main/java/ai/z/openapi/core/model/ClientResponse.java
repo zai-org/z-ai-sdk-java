@@ -4,16 +4,16 @@ import ai.z.openapi.service.model.ChatError;
 
 public interface ClientResponse<T> {
 
-    public T getData();
+	public T getData();
 
-    public void setData(T data);
+	public void setData(T data);
 
-    void setCode(int code);
+	void setCode(int code);
 
-    void setMsg(String msg);
+	void setMsg(String msg);
 
-    void setSuccess(boolean b);
+	void setSuccess(boolean b);
 
-    void setError(ChatError chatError);
+	void setError(ChatError chatError);
 
 }

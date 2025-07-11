@@ -14,37 +14,38 @@ import ai.z.openapi.service.tools.ChoiceDeltaToolCall;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link ChoiceDeltaToolCall} from any
- * JSON content, using appropriate {@link ChoiceDeltaToolCall} type.
+ * Deserializer that can build instances of {@link ChoiceDeltaToolCall} from any JSON
+ * content, using appropriate {@link ChoiceDeltaToolCall} type.
  */
 public class ChoiceDeltaToolCallDeserializer extends BaseNodeDeserializer<ChoiceDeltaToolCall> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static ChoiceDeltaToolCallDeserializer instance = new ChoiceDeltaToolCallDeserializer();
+	private final static ChoiceDeltaToolCallDeserializer instance = new ChoiceDeltaToolCallDeserializer();
 
-    public ChoiceDeltaToolCallDeserializer() {
-        super(ChoiceDeltaToolCall.class, null);
-    }
+	public ChoiceDeltaToolCallDeserializer() {
+		super(ChoiceDeltaToolCall.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public ChoiceDeltaToolCall getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public ChoiceDeltaToolCall getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public ChoiceDeltaToolCall deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new ChoiceDeltaToolCall(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public ChoiceDeltaToolCall deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new ChoiceDeltaToolCall(jsonNodes);
+		}
+		return null;
+	}
+
 }

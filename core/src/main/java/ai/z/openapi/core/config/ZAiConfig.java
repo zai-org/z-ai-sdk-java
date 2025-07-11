@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 import static ai.z.openapi.Constants.Z_AI_BASE_URL;
 
 /**
- * Configuration class for ZAI SDK containing API credentials,
- * JWT settings, HTTP client configurations, and cache settings.
- * Supports reading configuration values from environment variables with memory values taking priority.
+ * Configuration class for ZAI SDK containing API credentials, JWT settings, HTTP client
+ * configurations, and cache settings. Supports reading configuration values from
+ * environment variables with memory values taking priority.
  */
 @Setter
 @Builder
@@ -20,362 +20,379 @@ import static ai.z.openapi.Constants.Z_AI_BASE_URL;
 @AllArgsConstructor
 public class ZAiConfig {
 
-    // Environment variable names
-    private static final String ENV_BASE_URL = "ZAI_BASE_URL";
-    private static final String ENV_API_KEY = "ZAI_API_KEY";
-    private static final String ENV_EXPIRE_MILLIS = "ZAI_EXPIRE_MILLIS";
-    private static final String ENV_ALG = "ZAI_ALG";
-    private static final String ENV_DISABLE_TOKEN_CACHE = "ZAI_DISABLE_TOKEN_CACHE";
-    private static final String ENV_CONNECTION_POOL_MAX_IDLE = "ZAI_CONNECTION_POOL_MAX_IDLE";
-    private static final String ENV_CONNECTION_POOL_KEEP_ALIVE = "ZAI_CONNECTION_POOL_KEEP_ALIVE";
-    private static final String ENV_REQUEST_TIMEOUT = "ZAI_REQUEST_TIMEOUT";
-    private static final String ENV_CONNECT_TIMEOUT = "ZAI_CONNECT_TIMEOUT";
-    private static final String ENV_READ_TIMEOUT = "ZAI_READ_TIMEOUT";
-    private static final String ENV_WRITE_TIMEOUT = "ZAI_WRITE_TIMEOUT";
+	// Environment variable names
+	private static final String ENV_BASE_URL = "ZAI_BASE_URL";
 
-    /**
-     * Base URL for API endpoints.
-     */
-    private String baseUrl;
+	private static final String ENV_API_KEY = "ZAI_API_KEY";
 
-    /**
-     * Combined API secret key in format: {apiId}.{apiSecret}
-     */
-    private String apiKey;
+	private static final String ENV_EXPIRE_MILLIS = "ZAI_EXPIRE_MILLIS";
 
-    /**
-     * API id component.
-     */
-    private String apiId;
+	private static final String ENV_ALG = "ZAI_ALG";
 
-    /**
-     * API secret component.
-     */
-    private String apiSecret;
+	private static final String ENV_DISABLE_TOKEN_CACHE = "ZAI_DISABLE_TOKEN_CACHE";
 
-    /**
-     * JWT token expiration time in milliseconds (default: 30 minutes).
-     */
-    private int expireMillis = 30 * 60 * 1000;
+	private static final String ENV_CONNECTION_POOL_MAX_IDLE = "ZAI_CONNECTION_POOL_MAX_IDLE";
 
-    /**
-     * JWT encryption algorithm (default: HS256).
-     */
-    private String alg = "HS256";
+	private static final String ENV_CONNECTION_POOL_KEEP_ALIVE = "ZAI_CONNECTION_POOL_KEEP_ALIVE";
 
-    /**
-     * Flag to disable token caching.
-     */
-    private boolean disableTokenCache;
+	private static final String ENV_REQUEST_TIMEOUT = "ZAI_REQUEST_TIMEOUT";
 
-    /**
-     * Maximum number of idle connections in the connection pool.
-     */
-    private int connectionPoolMaxIdleConnections = 5;
+	private static final String ENV_CONNECT_TIMEOUT = "ZAI_CONNECT_TIMEOUT";
 
-    /**
-     * Keep alive duration for connections in the pool (in seconds).
-     */
-    private long connectionPoolKeepAliveDuration = 1;
+	private static final String ENV_READ_TIMEOUT = "ZAI_READ_TIMEOUT";
 
-    /**
-     * Time unit for connection pool keep alive duration.
-     */
-    private TimeUnit connectionPoolTimeUnit = TimeUnit.SECONDS;
+	private static final String ENV_WRITE_TIMEOUT = "ZAI_WRITE_TIMEOUT";
 
-    /**
-     * Request timeout in specified time unit.
-     */
-    private int requestTimeOut = 300;
+	/**
+	 * Base URL for API endpoints.
+	 */
+	private String baseUrl;
 
-    /**
-     * Connection timeout in specified time unit.
-     */
-    private int connectTimeout = 100;
+	/**
+	 * Combined API secret key in format: {apiId}.{apiSecret}
+	 */
+	private String apiKey;
 
-    /**
-     * Read timeout in specified time unit.
-     */
-    private int readTimeout = 100;
+	/**
+	 * API id component.
+	 */
+	private String apiId;
 
-    /**
-     * Write timeout in specified time unit.
-     */
-    private int writeTimeout = 100;
+	/**
+	 * API secret component.
+	 */
+	private String apiSecret;
 
-    /**
-     * Time unit for timeout configurations.
-     */
-    private TimeUnit timeOutTimeUnit = TimeUnit.SECONDS;
+	/**
+	 * JWT token expiration time in milliseconds (default: 30 minutes).
+	 */
+	private int expireMillis = 30 * 60 * 1000;
 
-    /**
-     * Source channel identifier for request tracking.
-     */
-    private String source_channel = "java-sdk";
+	/**
+	 * JWT encryption algorithm (default: HS256).
+	 */
+	private String alg = "HS256";
 
-    /**
-     * Constructor with combined API secret key.
-     *
-     * @param apiKey combined secret key in format {apiKey}.{apiSecret}
-     * @throws RuntimeException if apiSecretKey format is invalid
-     */
-    public ZAiConfig(String apiKey) {
-        this.apiKey = apiKey;
-        String[] arrStr = apiKey.split("\\.");
-        if (arrStr.length != 2) {
-            throw new RuntimeException("invalid apiSecretKey");
-        }
-        this.apiId = arrStr[0];
-        this.apiSecret = arrStr[1];
-    }
+	/**
+	 * Flag to disable token caching.
+	 */
+	private boolean disableTokenCache;
 
-    /**
-     * Sets API key and parses it into id and secret components.
-     *
-     * @param apiKey combined secret key in format {apiId}.{apiSecret}
-     * @throws RuntimeException if apiSecretKey format is invalid
-     */
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-        String[] arrStr = apiKey.split("\\.");
-        if (arrStr.length != 2) {
-            throw new RuntimeException("invalid api Key");
-        }
-        this.apiId = arrStr[0];
-        this.apiSecret = arrStr[1];
-    }
+	/**
+	 * Maximum number of idle connections in the connection pool.
+	 */
+	private int connectionPoolMaxIdleConnections = 5;
 
-    /**
-     * Gets base URL with system property and environment variable fallback.
-     */
-    public String getBaseUrl() {
-        if (baseUrl != null) {
-            return baseUrl;
-        }
-        String propValue = System.getProperty(ENV_BASE_URL);
-        propValue = propValue != null ? propValue : System.getenv(ENV_BASE_URL);
-        return propValue != null ? propValue : Z_AI_BASE_URL;
-    }
+	/**
+	 * Keep alive duration for connections in the pool (in seconds).
+	 */
+	private long connectionPoolKeepAliveDuration = 1;
 
-    /**
-     * Gets API secret key with system property and environment variable fallback.
-     */
-    public String getApiKey() {
-        if (apiKey != null && !apiKey.isEmpty()) {
-            return apiKey;
-        }
-        String propValue = System.getProperty(ENV_API_KEY);
-        String value = propValue != null ? propValue : System.getenv(ENV_API_KEY);
-        if (value != null && !value.isEmpty()) {
-            // Parse value and set components
-            this.apiKey = value;
-            String[] arrStr = value.split("\\.");
-            if (arrStr.length == 2) {
-                this.apiId = arrStr[0];
-                this.apiSecret = arrStr[1];
-            }
-            return value;
-        }
-        return apiKey;
-    }
+	/**
+	 * Time unit for connection pool keep alive duration.
+	 */
+	private TimeUnit connectionPoolTimeUnit = TimeUnit.SECONDS;
 
-    /**
-     * Gets API key with system property and environment variable fallback.
-     */
-    public String getApiId() {
-        if (apiId != null && !apiId.isEmpty()) {
-            return apiId;
-        }
-        getApiKey();
-        return apiId;
-    }
+	/**
+	 * Request timeout in specified time unit.
+	 */
+	private int requestTimeOut = 300;
 
-    /**
-     * Gets API secret with system property and environment variable fallback.
-     */
-    public String getApiSecret() {
-        if (apiSecret != null && !apiSecret.isEmpty()) {
-            return apiSecret;
-        }
-        getApiKey();
-        return apiSecret;
-    }
+	/**
+	 * Connection timeout in specified time unit.
+	 */
+	private int connectTimeout = 100;
 
-    /**
-     * Gets expire millis with system property and environment variable fallback.
-     */
-    public int getExpireMillis() {
-        if (expireMillis != 30 * 60 * 1000) { // If not default value
-            return expireMillis;
-        }
-        String propValue = System.getProperty(ENV_EXPIRE_MILLIS);
-        String value = propValue != null ? propValue : System.getenv(ENV_EXPIRE_MILLIS);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return expireMillis;
-    }
+	/**
+	 * Read timeout in specified time unit.
+	 */
+	private int readTimeout = 100;
 
-    /**
-     * Gets algorithm with system property and environment variable fallback.
-     */
-    public String getAlg() {
-        if (!"HS256".equals(alg)) {
-            return alg;
-        }
-        String propValue = System.getProperty(ENV_ALG);
-        String value = propValue != null ? propValue : System.getenv(ENV_ALG);
-        return value != null ? value : alg;
-    }
+	/**
+	 * Write timeout in specified time unit.
+	 */
+	private int writeTimeout = 100;
 
-    /**
-     * Gets disable token cache flag with system property and environment variable fallback.
-     */
-    public boolean isDisableTokenCache() {
-        if (disableTokenCache) {
-            return true;
-        }
-        String propValue = System.getProperty(ENV_DISABLE_TOKEN_CACHE);
-        String value = propValue != null ? propValue : System.getenv(ENV_DISABLE_TOKEN_CACHE);
-        return Boolean.parseBoolean(value);
-    }
+	/**
+	 * Time unit for timeout configurations.
+	 */
+	private TimeUnit timeOutTimeUnit = TimeUnit.SECONDS;
 
-    /**
-     * Gets connection pool max idle connections with system property and environment variable fallback.
-     */
-    public int getConnectionPoolMaxIdleConnections() {
-        if (connectionPoolMaxIdleConnections != 5) { // If not default value
-            return connectionPoolMaxIdleConnections;
-        }
-        String propValue = System.getProperty(ENV_CONNECTION_POOL_MAX_IDLE);
-        String value = propValue != null ? propValue : System.getenv(ENV_CONNECTION_POOL_MAX_IDLE);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return connectionPoolMaxIdleConnections;
-    }
+	/**
+	 * Source channel identifier for request tracking.
+	 */
+	private String source_channel = "java-sdk";
 
-    /**
-     * Gets connection pool keep alive duration with system property and environment variable fallback.
-     */
-    public long getConnectionPoolKeepAliveDuration() {
-        if (connectionPoolKeepAliveDuration != 1) { // If not default value
-            return connectionPoolKeepAliveDuration;
-        }
-        String propValue = System.getProperty(ENV_CONNECTION_POOL_KEEP_ALIVE);
-        String value = propValue != null ? propValue : System.getenv(ENV_CONNECTION_POOL_KEEP_ALIVE);
-        if (value != null) {
-            try {
-                return Long.parseLong(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return connectionPoolKeepAliveDuration;
-    }
+	/**
+	 * Constructor with combined API secret key.
+	 * @param apiKey combined secret key in format {apiKey}.{apiSecret}
+	 * @throws RuntimeException if apiSecretKey format is invalid
+	 */
+	public ZAiConfig(String apiKey) {
+		this.apiKey = apiKey;
+		String[] arrStr = apiKey.split("\\.");
+		if (arrStr.length != 2) {
+			throw new RuntimeException("invalid apiSecretKey");
+		}
+		this.apiId = arrStr[0];
+		this.apiSecret = arrStr[1];
+	}
 
-    /**
-     * Gets connection pool time unit (always returns the set value or default).
-     */
-    public TimeUnit getConnectionPoolTimeUnit() {
-        return connectionPoolTimeUnit != null ? connectionPoolTimeUnit : TimeUnit.SECONDS;
-    }
+	/**
+	 * Sets API key and parses it into id and secret components.
+	 * @param apiKey combined secret key in format {apiId}.{apiSecret}
+	 * @throws RuntimeException if apiSecretKey format is invalid
+	 */
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+		String[] arrStr = apiKey.split("\\.");
+		if (arrStr.length != 2) {
+			throw new RuntimeException("invalid api Key");
+		}
+		this.apiId = arrStr[0];
+		this.apiSecret = arrStr[1];
+	}
 
-    /**
-     * Gets request timeout with system property and environment variable fallback.
-     */
-    public int getRequestTimeOut() {
-        if (requestTimeOut != 300) {
-            return requestTimeOut;
-        }
-        String propValue = System.getProperty(ENV_REQUEST_TIMEOUT);
-        String value = propValue != null ? propValue : System.getenv(ENV_REQUEST_TIMEOUT);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return requestTimeOut;
-    }
+	/**
+	 * Gets base URL with system property and environment variable fallback.
+	 */
+	public String getBaseUrl() {
+		if (baseUrl != null) {
+			return baseUrl;
+		}
+		String propValue = System.getProperty(ENV_BASE_URL);
+		propValue = propValue != null ? propValue : System.getenv(ENV_BASE_URL);
+		return propValue != null ? propValue : Z_AI_BASE_URL;
+	}
 
-    /**
-     * Gets connect timeout with system property and environment variable fallback.
-     */
-    public int getConnectTimeout() {
-        if (connectTimeout != 100) {
-            return connectTimeout;
-        }
-        String propValue = System.getProperty(ENV_CONNECT_TIMEOUT);
-        String value = propValue != null ? propValue : System.getenv(ENV_CONNECT_TIMEOUT);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return connectTimeout;
-    }
+	/**
+	 * Gets API secret key with system property and environment variable fallback.
+	 */
+	public String getApiKey() {
+		if (apiKey != null && !apiKey.isEmpty()) {
+			return apiKey;
+		}
+		String propValue = System.getProperty(ENV_API_KEY);
+		String value = propValue != null ? propValue : System.getenv(ENV_API_KEY);
+		if (value != null && !value.isEmpty()) {
+			// Parse value and set components
+			this.apiKey = value;
+			String[] arrStr = value.split("\\.");
+			if (arrStr.length == 2) {
+				this.apiId = arrStr[0];
+				this.apiSecret = arrStr[1];
+			}
+			return value;
+		}
+		return apiKey;
+	}
 
-    /**
-     * Gets read timeout with system property and environment variable fallback.
-     */
-    public int getReadTimeout() {
-        if (readTimeout != 100) {
-            return readTimeout;
-        }
-        String propValue = System.getProperty(ENV_READ_TIMEOUT);
-        String value = propValue != null ? propValue : System.getenv(ENV_READ_TIMEOUT);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return readTimeout;
-    }
+	/**
+	 * Gets API key with system property and environment variable fallback.
+	 */
+	public String getApiId() {
+		if (apiId != null && !apiId.isEmpty()) {
+			return apiId;
+		}
+		getApiKey();
+		return apiId;
+	}
 
-    /**
-     * Gets write timeout with system property and environment variable fallback.
-     */
-    public int getWriteTimeout() {
-        if (writeTimeout != 100) {
-            return writeTimeout;
-        }
-        String propValue = System.getProperty(ENV_WRITE_TIMEOUT);
-        String value = propValue != null ? propValue : System.getenv(ENV_WRITE_TIMEOUT);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // Return default value if parsing fails
-            }
-        }
-        return writeTimeout;
-    }
+	/**
+	 * Gets API secret with system property and environment variable fallback.
+	 */
+	public String getApiSecret() {
+		if (apiSecret != null && !apiSecret.isEmpty()) {
+			return apiSecret;
+		}
+		getApiKey();
+		return apiSecret;
+	}
 
-    /**
-     * Gets timeout time unit (always returns the set value or null).
-     */
-    public TimeUnit getTimeOutTimeUnit() {
-        return timeOutTimeUnit;
-    }
+	/**
+	 * Gets expire millis with system property and environment variable fallback.
+	 */
+	public int getExpireMillis() {
+		if (expireMillis != 30 * 60 * 1000) { // If not default value
+			return expireMillis;
+		}
+		String propValue = System.getProperty(ENV_EXPIRE_MILLIS);
+		String value = propValue != null ? propValue : System.getenv(ENV_EXPIRE_MILLIS);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value);
+			}
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return expireMillis;
+	}
 
-    /**
-     * Gets source channel with system property.
-     */
-    public String getSource_channel() {
-        return source_channel;
-    }
+	/**
+	 * Gets algorithm with system property and environment variable fallback.
+	 */
+	public String getAlg() {
+		if (!"HS256".equals(alg)) {
+			return alg;
+		}
+		String propValue = System.getProperty(ENV_ALG);
+		String value = propValue != null ? propValue : System.getenv(ENV_ALG);
+		return value != null ? value : alg;
+	}
+
+	/**
+	 * Gets disable token cache flag with system property and environment variable
+	 * fallback.
+	 */
+	public boolean isDisableTokenCache() {
+		if (disableTokenCache) {
+			return true;
+		}
+		String propValue = System.getProperty(ENV_DISABLE_TOKEN_CACHE);
+		String value = propValue != null ? propValue : System.getenv(ENV_DISABLE_TOKEN_CACHE);
+		return Boolean.parseBoolean(value);
+	}
+
+	/**
+	 * Gets connection pool max idle connections with system property and environment
+	 * variable fallback.
+	 */
+	public int getConnectionPoolMaxIdleConnections() {
+		if (connectionPoolMaxIdleConnections != 5) { // If not default value
+			return connectionPoolMaxIdleConnections;
+		}
+		String propValue = System.getProperty(ENV_CONNECTION_POOL_MAX_IDLE);
+		String value = propValue != null ? propValue : System.getenv(ENV_CONNECTION_POOL_MAX_IDLE);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value);
+			}
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return connectionPoolMaxIdleConnections;
+	}
+
+	/**
+	 * Gets connection pool keep alive duration with system property and environment
+	 * variable fallback.
+	 */
+	public long getConnectionPoolKeepAliveDuration() {
+		if (connectionPoolKeepAliveDuration != 1) { // If not default value
+			return connectionPoolKeepAliveDuration;
+		}
+		String propValue = System.getProperty(ENV_CONNECTION_POOL_KEEP_ALIVE);
+		String value = propValue != null ? propValue : System.getenv(ENV_CONNECTION_POOL_KEEP_ALIVE);
+		if (value != null) {
+			try {
+				return Long.parseLong(value);
+			}
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return connectionPoolKeepAliveDuration;
+	}
+
+	/**
+	 * Gets connection pool time unit (always returns the set value or default).
+	 */
+	public TimeUnit getConnectionPoolTimeUnit() {
+		return connectionPoolTimeUnit != null ? connectionPoolTimeUnit : TimeUnit.SECONDS;
+	}
+
+	/**
+	 * Gets request timeout with system property and environment variable fallback.
+	 */
+	public int getRequestTimeOut() {
+		if (requestTimeOut != 300) {
+			return requestTimeOut;
+		}
+		String propValue = System.getProperty(ENV_REQUEST_TIMEOUT);
+		String value = propValue != null ? propValue : System.getenv(ENV_REQUEST_TIMEOUT);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value);
+			}
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return requestTimeOut;
+	}
+
+	/**
+	 * Gets connect timeout with system property and environment variable fallback.
+	 */
+	public int getConnectTimeout() {
+		if (connectTimeout != 100) {
+			return connectTimeout;
+		}
+		String propValue = System.getProperty(ENV_CONNECT_TIMEOUT);
+		String value = propValue != null ? propValue : System.getenv(ENV_CONNECT_TIMEOUT);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value);
+			}
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return connectTimeout;
+	}
+
+	/**
+	 * Gets read timeout with system property and environment variable fallback.
+	 */
+	public int getReadTimeout() {
+		if (readTimeout != 100) {
+			return readTimeout;
+		}
+		String propValue = System.getProperty(ENV_READ_TIMEOUT);
+		String value = propValue != null ? propValue : System.getenv(ENV_READ_TIMEOUT);
+		if (value != null) {
+			try {return Integer.parseInt(value);   }
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return readTimeout;
+	}
+
+	/**
+	 * Gets write timeout with system property and environment variable fallback.
+	 */
+	public int getWriteTimeout() {
+		if (writeTimeout != 100) {
+			return writeTimeout;
+		}
+		String propValue = System.getProperty(ENV_WRITE_TIMEOUT);
+		String value = propValue != null ? propValue : System.getenv(ENV_WRITE_TIMEOUT);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value);
+			}
+			catch (NumberFormatException e) {
+				// Return default value if parsing fails
+			}
+		}
+		return writeTimeout;
+	}
+
+	/**
+	 * Gets timeout time unit (always returns the set value or null).
+	 */
+	public TimeUnit getTimeOutTimeUnit() {
+		return timeOutTimeUnit;
+	}
+
+	/**
+	 * Gets source channel with system property.
+	 */
+	public String getSource_channel() {
+		return source_channel;
+	}
+
 }

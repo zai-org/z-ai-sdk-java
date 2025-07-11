@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 public class QueryDocumentApiResponse implements ClientResponse<DocumentPage> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private DocumentPage data;
-    private ChatError error;
+	private int code;
+
+	private String msg;
+
+	private boolean success;
+
+	private DocumentPage data;
+
+	private ChatError error;
 
 }

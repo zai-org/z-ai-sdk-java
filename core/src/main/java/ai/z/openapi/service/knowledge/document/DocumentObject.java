@@ -19,86 +19,90 @@ import java.util.List;
 @JsonDeserialize(using = DocumentObjectDeserializer.class)
 public class DocumentObject extends ObjectNode {
 
-    /**
-     * Information of successfully uploaded files
-     */
-    @JsonProperty("successInfos")
-    private List<DocumentSuccessInfo> successInfos;
+	/**
+	 * Information of successfully uploaded files
+	 */
+	@JsonProperty("successInfos")
+	private List<DocumentSuccessInfo> successInfos;
 
-    /**
-     * Information of failed uploaded files
-     */
-    @JsonProperty("failedInfos")
-    private List<DocumentFailedInfo> failedInfos;
+	/**
+	 * Information of failed uploaded files
+	 */
+	@JsonProperty("failedInfos")
+	private List<DocumentFailedInfo> failedInfos;
 
-    public DocumentObject() {
-        super(JsonNodeFactory.instance);
-    }
+	public DocumentObject() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public DocumentObject(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
+	public DocumentObject(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
 
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("successInfos") != null) {
+			List<DocumentSuccessInfo> successInfos = objectMapper.convertValue(objectNode.get("successInfos"),
+					new com.fasterxml.jackson.core.type.TypeReference<List<DocumentSuccessInfo>>() {
+					});
 
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("successInfos") != null) {
-            List<DocumentSuccessInfo> successInfos = objectMapper.convertValue(objectNode.get("successInfos"), new com.fasterxml.jackson.core.type.TypeReference<List<DocumentSuccessInfo>>() {
-            });
+			this.setSuccessInfos(successInfos);
+		}
+		else {
+			this.setSuccessInfos(null);
+		}
+		if (objectNode.get("failedInfos") != null) {
+			List<DocumentFailedInfo> failedInfos = objectMapper.convertValue(objectNode.get("failedInfos"),
+					new com.fasterxml.jackson.core.type.TypeReference<List<DocumentFailedInfo>>() {
+					});
 
-            this.setSuccessInfos(successInfos);
-        } else {
-            this.setSuccessInfos(null);
-        }
-        if (objectNode.get("failedInfos") != null) {
-            List<DocumentFailedInfo> failedInfos = objectMapper.convertValue(objectNode.get("failedInfos"), new com.fasterxml.jackson.core.type.TypeReference<List<DocumentFailedInfo>>() {
-            });
+			this.setFailedInfos(failedInfos);
+		}
+		else {
+			this.setFailedInfos(null);
+		}
 
-            this.setFailedInfos(failedInfos);
-        } else {
-            this.setFailedInfos(null);
-        }
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
+	// Getters and Setters
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
-    // Getters and Setters
+	public List<DocumentSuccessInfo> getSuccessInfos() {
+		return successInfos;
+	}
 
-    public List<DocumentSuccessInfo> getSuccessInfos() {
-        return successInfos;
-    }
+	public void setSuccessInfos(List<DocumentSuccessInfo> successInfos) {
+		this.successInfos = successInfos;
+		ArrayNode jsonNodes = this.putArray("successInfos");
+		if (successInfos == null) {
+			jsonNodes.removeAll();
+		}
+		else {
 
-    public void setSuccessInfos(List<DocumentSuccessInfo> successInfos) {
-        this.successInfos = successInfos;
-        ArrayNode jsonNodes = this.putArray("successInfos");
-        if (successInfos == null) {
-            jsonNodes.removeAll();
-        }
-        else {
+			for (DocumentSuccessInfo successInfo : successInfos) {
+				jsonNodes.add(successInfo);
+			}
+		}
+	}
 
-            for (DocumentSuccessInfo successInfo : successInfos) {
-                jsonNodes.add(successInfo);
-            }
-        }
-    }
+	public List<DocumentFailedInfo> getFailedInfos() {
+		return failedInfos;
+	}
 
-    public List<DocumentFailedInfo> getFailedInfos() {
-        return failedInfos;
-    }
+	public void setFailedInfos(List<DocumentFailedInfo> failedInfos) {
+		this.failedInfos = failedInfos;
+		ArrayNode jsonNodes = this.putArray("failedInfos");
+		if (successInfos == null) {
+			jsonNodes.removeAll();
+		}
+		else {
 
-    public void setFailedInfos(List<DocumentFailedInfo> failedInfos) {
-        this.failedInfos = failedInfos;
-        ArrayNode jsonNodes = this.putArray("failedInfos");
-        if (successInfos == null) {
-            jsonNodes.removeAll();
-        }
-        else {
+			for (DocumentFailedInfo failedInfo : failedInfos) {
+				jsonNodes.add(failedInfo);
+			}
+		}
+	}
 
-            for (DocumentFailedInfo failedInfo : failedInfos) {
-                jsonNodes.add(failedInfo);
-            }
-        }
-    }
 }

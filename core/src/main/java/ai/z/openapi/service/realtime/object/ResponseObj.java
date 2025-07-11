@@ -11,92 +11,95 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents a response configuration object for realtime API responses.
- * This object defines how the AI model should generate responses, including modalities, tools, and other parameters.
+ * Represents a response configuration object for realtime API responses. This object
+ * defines how the AI model should generate responses, including modalities, tools, and
+ * other parameters.
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class ResponseObj {
-    /**
-     * The modalities for the response (e.g., "text", "audio").
-     */
-    @JsonProperty("modalities")
-    private List<String> modalities;
 
-    /**
-     * Instructions for the AI model on how to behave during the response.
-     */
-    @JsonProperty("instructions")
-    private String instructions;
+	/**
+	 * The modalities for the response (e.g., "text", "audio").
+	 */
+	@JsonProperty("modalities")
+	private List<String> modalities;
 
-    /**
-     * The voice to use for audio output (e.g., "alloy", "echo", "fable").
-     */
-    @JsonProperty("voice")
-    private String voice;
+	/**
+	 * Instructions for the AI model on how to behave during the response.
+	 */
+	@JsonProperty("instructions")
+	private String instructions;
 
-    /**
-     * The format for output audio (e.g., "pcm16", "g711_ulaw", "g711_alaw").
-     */
-    @JsonProperty("output_audio_format")
-    private String outputAudioFormat;
+	/**
+	 * The voice to use for audio output (e.g., "alloy", "echo", "fable").
+	 */
+	@JsonProperty("voice")
+	private String voice;
 
-    /**
-     * The tools available to the model during response generation.
-     */
-    @JsonProperty("tools")
-    private List<ToolObj> tools;
+	/**
+	 * The format for output audio (e.g., "pcm16", "g711_ulaw", "g711_alaw").
+	 */
+	@JsonProperty("output_audio_format")
+	private String outputAudioFormat;
 
-    /**
-     * Controls which tools the model can call during response generation.
-     */
-    @JsonProperty("tool_choice")
-    private ToolChoiceObj toolChoice;
+	/**
+	 * The tools available to the model during response generation.
+	 */
+	@JsonProperty("tools")
+	private List<ToolObj> tools;
 
-    /**
-     * The sampling temperature for response generation (0.0 to 1.0).
-     */
-    @JsonProperty("temperature")
-    private Double temperature;
+	/**
+	 * Controls which tools the model can call during response generation.
+	 */
+	@JsonProperty("tool_choice")
+	private ToolChoiceObj toolChoice;
 
-    /**
-     * The maximum number of output tokens for the response.
-     */
-    @JsonProperty("max_output_tokens")
-    private IntOrInfObj maxOutputTokens;
+	/**
+	 * The sampling temperature for response generation (0.0 to 1.0).
+	 */
+	@JsonProperty("temperature")
+	private Double temperature;
 
-    /**
-     * The conversation ID to use for this response.
-     */
-    @JsonProperty("conversation")
-    private String conversation;
+	/**
+	 * The maximum number of output tokens for the response.
+	 */
+	@JsonProperty("max_output_tokens")
+	private IntOrInfObj maxOutputTokens;
 
-    /**
-     * Additional metadata to include with the response.
-     */
-    @JsonProperty("metadata")
-    private Map<String, String> metadata;
+	/**
+	 * The conversation ID to use for this response.
+	 */
+	@JsonProperty("conversation")
+	private String conversation;
 
-    /**
-     * Input data for the response generation.
-     */
-    @JsonProperty("input")
-    private List<Object> input;
+	/**
+	 * Additional metadata to include with the response.
+	 */
+	@JsonProperty("metadata")
+	private Map<String, String> metadata;
 
-    public ResponseObj() {
-        this.modalities = new ArrayList<>();
-        this.modalities.add("text");
-        this.modalities.add("audio");
-        this.instructions = "";
-        this.voice = "alloy";
-        this.outputAudioFormat = "pcm16";
-        this.tools = new ArrayList<>();
-        this.toolChoice = ToolChoiceObj.of("auto");
-        this.temperature = 0.7;
-        this.maxOutputTokens = IntOrInfObj.inf();
-        this.conversation = "";
-        this.metadata = new HashMap<>();
-        this.input = new ArrayList<>();
-    }
+	/**
+	 * Input data for the response generation.
+	 */
+	@JsonProperty("input")
+	private List<Object> input;
+
+	public ResponseObj() {
+		this.modalities = new ArrayList<>();
+		this.modalities.add("text");
+		this.modalities.add("audio");
+		this.instructions = "";
+		this.voice = "alloy";
+		this.outputAudioFormat = "pcm16";
+		this.tools = new ArrayList<>();
+		this.toolChoice = ToolChoiceObj.of("auto");
+		this.temperature = 0.7;
+		this.maxOutputTokens = IntOrInfObj.inf();
+		this.conversation = "";
+		this.metadata = new HashMap<>();
+		this.input = new ArrayList<>();
+	}
+
 }

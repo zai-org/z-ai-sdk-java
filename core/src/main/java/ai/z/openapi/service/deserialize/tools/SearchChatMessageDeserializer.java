@@ -14,37 +14,38 @@ import ai.z.openapi.service.tools.SearchChatMessage;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link SearchChatMessage} from any
- * JSON content, using appropriate {@link SearchChatMessage} type.
+ * Deserializer that can build instances of {@link SearchChatMessage} from any JSON
+ * content, using appropriate {@link SearchChatMessage} type.
  */
 public class SearchChatMessageDeserializer extends BaseNodeDeserializer<SearchChatMessage> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static SearchChatMessageDeserializer instance = new SearchChatMessageDeserializer();
+	private final static SearchChatMessageDeserializer instance = new SearchChatMessageDeserializer();
 
-    public SearchChatMessageDeserializer() {
-        super(SearchChatMessage.class, null);
-    }
+	public SearchChatMessageDeserializer() {
+		super(SearchChatMessage.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public SearchChatMessage getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public SearchChatMessage getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public SearchChatMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new SearchChatMessage(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public SearchChatMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new SearchChatMessage(jsonNodes);
+		}
+		return null;
+	}
+
 }

@@ -14,37 +14,38 @@ import ai.z.openapi.service.tools.WebSearchMessageToolCall;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link WebSearchMessageToolCall} from any
- * JSON content, using appropriate {@link WebSearchMessageToolCall} type.
+ * Deserializer that can build instances of {@link WebSearchMessageToolCall} from any JSON
+ * content, using appropriate {@link WebSearchMessageToolCall} type.
  */
 public class WebSearchMessageToolCallDeserializer extends BaseNodeDeserializer<WebSearchMessageToolCall> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static WebSearchMessageToolCallDeserializer instance = new WebSearchMessageToolCallDeserializer();
+	private final static WebSearchMessageToolCallDeserializer instance = new WebSearchMessageToolCallDeserializer();
 
-    public WebSearchMessageToolCallDeserializer() {
-        super(WebSearchMessageToolCall.class, null);
-    }
+	public WebSearchMessageToolCallDeserializer() {
+		super(WebSearchMessageToolCall.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public WebSearchMessageToolCall getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public WebSearchMessageToolCall getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public WebSearchMessageToolCall deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new WebSearchMessageToolCall(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public WebSearchMessageToolCall deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new WebSearchMessageToolCall(jsonNodes);
+		}
+		return null;
+	}
+
 }

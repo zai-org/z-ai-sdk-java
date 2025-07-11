@@ -5,23 +5,26 @@ import io.reactivex.Flowable;
 import lombok.Data;
 
 @Data
-public class ChatCompletionResponse  implements FlowableClientResponse<ModelData> {
-    private int code;
-    private String msg;
-    private boolean success;
+public class ChatCompletionResponse implements FlowableClientResponse<ModelData> {
 
-    private ModelData data;
+	private int code;
 
-    private Flowable<ModelData> flowable;
+	private String msg;
 
-    private ChatError error;
+	private boolean success;
 
-    public ChatCompletionResponse() {
-    }
+	private ModelData data;
 
-    public ChatCompletionResponse(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
+	private Flowable<ModelData> flowable;
+
+	private ChatError error;
+
+	public ChatCompletionResponse() {
+	}
+
+	public ChatCompletionResponse(int code, String msg) {
+		this.code = code;
+		this.msg = msg;
+	}
 
 }

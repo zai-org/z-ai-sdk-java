@@ -9,30 +9,32 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class TurnDetectionObj {
-    @JsonProperty("type")
-    private String type;
 
-    @JsonProperty("threshold")
-    private Double threshold;
+	@JsonProperty("type")
+	private String type;
 
-    @JsonProperty("prefix_padding_ms")
-    private Integer prefixPaddingMs;
+	@JsonProperty("threshold")
+	private Double threshold;
 
-    @JsonProperty("silence_duration_ms")
-    private Integer silenceDurationMs;
+	@JsonProperty("prefix_padding_ms")
+	private Integer prefixPaddingMs;
 
-    @JsonProperty("create_response")
-    private Boolean createResponse;
+	@JsonProperty("silence_duration_ms")
+	private Integer silenceDurationMs;
 
-    @JsonProperty("interrupt_response")
-    private Boolean interruptResponse;
+	@JsonProperty("create_response")
+	private Boolean createResponse;
 
-    public TurnDetectionObj() {
-        this.type = "server_vad";
-        this.threshold = null;
-        this.prefixPaddingMs = null;
-        this.silenceDurationMs = null;
-        this.createResponse = null;
-        this.interruptResponse = null;
-    }
+	@JsonProperty("interrupt_response")
+	private Boolean interruptResponse;
+
+	public TurnDetectionObj() {
+		this.type = "server_vad";
+		this.threshold = null;
+		this.prefixPaddingMs = null;
+		this.silenceDurationMs = null;
+		this.createResponse = null;
+		this.interruptResponse = null;
+	}
+
 }

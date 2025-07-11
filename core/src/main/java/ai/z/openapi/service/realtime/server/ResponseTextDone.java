@@ -10,27 +10,29 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ResponseTextDone extends RealtimeServerEvent {
-    @JsonProperty("response_id")
-    private String responseId;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("response_id")
+	private String responseId;
 
-    @JsonProperty("output_index")
-    private Integer outputIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("content_index")
-    private Integer contentIndex;
+	@JsonProperty("output_index")
+	private Integer outputIndex;
 
-    @JsonProperty("text")
-    private String text;
+	@JsonProperty("content_index")
+	private Integer contentIndex;
 
-    public ResponseTextDone() {
-        super.setType("response.text.done");
-        this.responseId = "";
-        this.itemId = "";
-        this.outputIndex = 0;
-        this.contentIndex = 0;
-        this.text = "";
-    }
+	@JsonProperty("text")
+	private String text;
+
+	public ResponseTextDone() {
+		super.setType("response.text.done");
+		this.responseId = "";
+		this.itemId = "";
+		this.outputIndex = 0;
+		this.contentIndex = 0;
+		this.text = "";
+	}
+
 }

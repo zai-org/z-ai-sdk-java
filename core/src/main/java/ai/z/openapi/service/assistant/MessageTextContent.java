@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * This class represents the text content of a message.
- * Currently supports only type = text.
+ * This class represents the text content of a message. Currently supports only type =
+ * text.
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
@@ -18,17 +18,16 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class MessageTextContent {
 
-    /**
-     * The type of the message content, currently only "text" is supported.
-     */
-    @JsonProperty("type")
-    private String type;
+	/**
+	 * The type of the message content, currently only "text" is supported.
+	 */
+	@JsonProperty("type")
+	private String type;
 
-    /**
-     * The text content of the message.
-     */
-    @JsonProperty("text")
-    private String text;
-
+	/**
+	 * The text content of the message.
+	 */
+	@JsonProperty("text")
+	private String text;
 
 }

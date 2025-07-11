@@ -8,48 +8,49 @@ import lombok.experimental.SuperBuilder;
 import java.util.Map;
 
 /**
- * Parameters for creating batch processing requests.
- * This class contains all the necessary parameters to create a batch job,
- * including completion window, endpoint, input file, and metadata.
+ * Parameters for creating batch processing requests. This class contains all the
+ * necessary parameters to create a batch job, including completion window, endpoint,
+ * input file, and metadata.
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 @Data
-public class BatchCreateParams  implements ClientRequest<BatchCreateParams> {
+public class BatchCreateParams implements ClientRequest<BatchCreateParams> {
 
-    /**
-     * The time frame within which the batch should be processed.
-     */
-    @JsonProperty("completion_window")
-    private String completionWindow;
-    
-    /**
-     * The API endpoint to be used for batch processing.
-     */
-    @JsonProperty("endpoint")
-    private String endpoint;
-    
-    /**
-     * The ID of the uploaded file containing batch requests.
-     * Must be the ID of the uploaded file.
-     */
-    @JsonProperty("input_file_id")
-    private String inputFileId;
-    
-    /**
-     * Optional custom metadata for the batch job.
-     */
-    @JsonProperty("metadata")
-    private Map<String, String> metadata;
+	/**
+	 * The time frame within which the batch should be processed.
+	 */
+	@JsonProperty("completion_window")
+	private String completionWindow;
 
-    public BatchCreateParams() {
-    }
+	/**
+	 * The API endpoint to be used for batch processing.
+	 */
+	@JsonProperty("endpoint")
+	private String endpoint;
 
-    public BatchCreateParams(String completionWindow, String endpoint, String inputFileId, Map<String, String> metadata) {
-        this.completionWindow = completionWindow;
-        this.endpoint = endpoint;
-        this.inputFileId = inputFileId;
-        this.metadata = metadata;
-    }
+	/**
+	 * The ID of the uploaded file containing batch requests. Must be the ID of the
+	 * uploaded file.
+	 */
+	@JsonProperty("input_file_id")
+	private String inputFileId;
+
+	/**
+	 * Optional custom metadata for the batch job.
+	 */
+	@JsonProperty("metadata")
+	private Map<String, String> metadata;
+
+	public BatchCreateParams() {
+	}
+
+	public BatchCreateParams(String completionWindow, String endpoint, String inputFileId,
+			Map<String, String> metadata) {
+		this.completionWindow = completionWindow;
+		this.endpoint = endpoint;
+		this.inputFileId = inputFileId;
+		this.metadata = metadata;
+	}
 
 }

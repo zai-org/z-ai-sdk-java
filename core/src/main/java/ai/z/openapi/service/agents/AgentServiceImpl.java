@@ -14,40 +14,39 @@ import okhttp3.ResponseBody;
  */
 public class AgentServiceImpl implements AgentService {
 
-    private final ZAiClient zAiClient;
-    private final AgentsApi agentsApi;
-    
-    public AgentServiceImpl(ZAiClient zAiClient) {
-        this.zAiClient = zAiClient;
-        this.agentsApi = zAiClient.retrofit().create(AgentsApi.class);
-    }
-    
-    @Override
-    public ChatCompletionResponse createAgentCompletion(AgentsCompletionRequest request) {
-        if (request.getStream()) {
-            return streamAgentCompletion(request);
-        } else {
-            return syncAgentCompletion(request);
-        }
-    }
-    
-    @Override
-    public Single<ModelData> retrieveAgentAsyncResult(AgentAsyncResultRetrieveParams request) {
-        return agentsApi.queryAgentsAsyncResult(request);
-    }
-    
-    private ChatCompletionResponse streamAgentCompletion(AgentsCompletionRequest request) {
-        FlowableRequestSupplier<AgentsCompletionRequest, retrofit2.Call<ResponseBody>> supplier = agentsApi::agentsCompletionStream;;
-        return this.zAiClient.streamRequest(
-                request,
-                supplier,
-                ChatCompletionResponse.class,
-                ModelData.class
-        );
-    }
-    
-    private ChatCompletionResponse syncAgentCompletion(AgentsCompletionRequest request) {
-        RequestSupplier<AgentsCompletionRequest, ModelData> supplier = agentsApi::agentsCompletionSync;
-        return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
-    }
+	private final ZAiClient zAiClient;
+
+	private final AgentsApi agentsApi;
+
+	public AgentServiceImpl(ZAiClient zAiClient) {
+		this.zAiClient = zAiClient;
+		this.agentsApi = zAiClient.retrofit().create(AgentsApi.class);
+	}
+
+	@Override
+	public ChatCompletionResponse createAgentCompletion(AgentsCompletionRequest request) {
+		if (request.getStream()) {
+			return streamAgentCompletion(request);
+		}
+		else {
+			return syncAgentCompletion(request);
+		}
+	}
+
+	@Override
+	public Single<ModelData> retrieveAgentAsyncResult(AgentAsyncResultRetrieveParams request) {
+		return agentsApi.queryAgentsAsyncResult(request);
+	}
+
+	private ChatCompletionResponse streamAgentCompletion(AgentsCompletionRequest request) {
+		FlowableRequestSupplier<AgentsCompletionRequest, retrofit2.Call<ResponseBody>> supplier = agentsApi::agentsCompletionStream;
+		;
+		return this.zAiClient.streamRequest(request, supplier, ChatCompletionResponse.class, ModelData.class);
+	}
+
+	private ChatCompletionResponse syncAgentCompletion(AgentsCompletionRequest request) {
+		RequestSupplier<AgentsCompletionRequest, ModelData> supplier = agentsApi::agentsCompletionSync;
+		return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
+	}
+
 }

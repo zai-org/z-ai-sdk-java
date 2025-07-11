@@ -17,42 +17,46 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ZAiError {
 
-    public ZAiErrorDetails error;
+	public ZAiErrorDetails error;
 
-    @JsonProperty("contentFilter")
-    public List<ContentFilter> contentFilter;
+	@JsonProperty("contentFilter")
+	public List<ContentFilter> contentFilter;
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class ZAiErrorDetails {
-        /**
-         * Human-readable error message
-         */
-        String message;
+	@Data
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class ZAiErrorDetails {
 
-        String type;
+		/**
+		 * Human-readable error message
+		 */
+		String message;
 
-        String param;
+		String type;
 
-        /**
-         * ZAI error code, for example "invalid_api_key"
-         */
-        String code;
-    }
+		String param;
 
-    /**
-     * Sensitive words
-     */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class ContentFilter {
-        String level;
+		/**
+		 * ZAI error code, for example "invalid_api_key"
+		 */
+		String code;
 
-        String role;
+	}
 
-    }
+	/**
+	 * Sensitive words
+	 */
+	@Data
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class ContentFilter {
+
+		String level;
+
+		String role;
+
+	}
+
 }

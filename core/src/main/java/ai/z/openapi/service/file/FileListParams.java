@@ -1,6 +1,5 @@
 package ai.z.openapi.service.file;
 
-
 import ai.z.openapi.core.model.ClientRequest;
 import ai.z.openapi.service.CommonRequest;
 import lombok.*;
@@ -14,15 +13,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class FileListParams extends CommonRequest  implements ClientRequest<FileListParams> {
+public class FileListParams extends CommonRequest implements ClientRequest<FileListParams> {
 
+	private String purpose;
 
-    private String purpose;
+	private Integer limit;
 
-    private Integer limit;
+	private String after;
 
-    private String after;
-
-    private String order;
+	private String order;
 
 }

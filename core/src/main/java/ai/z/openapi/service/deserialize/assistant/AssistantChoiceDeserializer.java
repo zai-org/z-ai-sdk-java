@@ -14,37 +14,38 @@ import ai.z.openapi.service.deserialize.ObjectDeserializer;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link AssistantChoice} from any
- * JSON content, using appropriate {@link AssistantChoice} type.
+ * Deserializer that can build instances of {@link AssistantChoice} from any JSON content,
+ * using appropriate {@link AssistantChoice} type.
  */
 public class AssistantChoiceDeserializer extends BaseNodeDeserializer<AssistantChoice> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static AssistantChoiceDeserializer instance = new AssistantChoiceDeserializer();
+	private final static AssistantChoiceDeserializer instance = new AssistantChoiceDeserializer();
 
-    public AssistantChoiceDeserializer() {
-        super(AssistantChoice.class, null);
-    }
+	public AssistantChoiceDeserializer() {
+		super(AssistantChoice.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public AssistantChoice getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public AssistantChoice getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public AssistantChoice deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new AssistantChoice(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public AssistantChoice deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new AssistantChoice(jsonNodes);
+		}
+		return null;
+	}
+
 }

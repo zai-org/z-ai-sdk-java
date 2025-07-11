@@ -10,22 +10,14 @@ import retrofit2.http.*;
 
 public interface AgentsApi {
 
-    @Streaming
-    @POST("v1/agents")
-    Call<ResponseBody> agentsCompletionStream(@Body AgentsCompletionRequest request);
+	@Streaming
+	@POST("v1/agents")
+	Call<ResponseBody> agentsCompletionStream(@Body AgentsCompletionRequest request);
 
-    @POST("v1/agents")
-    Single<ModelData> agentsCompletionSync(@Body AgentsCompletionRequest request);
+	@POST("v1/agents")
+	Single<ModelData> agentsCompletionSync(@Body AgentsCompletionRequest request);
 
-
-    @POST("v1/agents/async-result")
-    Single<ModelData> queryAgentsAsyncResult(@Body AgentAsyncResultRetrieveParams request);
-
-
-
+	@POST("v1/agents/async-result")
+	Single<ModelData> queryAgentsAsyncResult(@Body AgentAsyncResultRetrieveParams request);
 
 }
-
-
-
-

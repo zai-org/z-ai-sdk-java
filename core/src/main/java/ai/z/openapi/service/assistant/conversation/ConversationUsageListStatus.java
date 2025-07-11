@@ -11,22 +11,22 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConversationUsageListStatus {
 
-    /**
-     * The response code.
-     */
-    @JsonProperty("code")
-    private int code;
+	/**
+	 * The response code.
+	 */
+	@JsonProperty("code")
+	private int code;
 
-    /**
-     * The response message.
-     */
-    @JsonProperty("msg")
-    private String msg;
+	/**
+	 * The response message.
+	 */
+	@JsonProperty("msg")
+	private String msg;
 
-    /**
-     * The data containing the conversation usage list.
-     */
-    @JsonProperty("data")
-    private ConversationUsageList data;
+	/**
+	 * The data containing the conversation usage list.
+	 */
+	@JsonProperty("data")
+	private ConversationUsageList data;
 
 }

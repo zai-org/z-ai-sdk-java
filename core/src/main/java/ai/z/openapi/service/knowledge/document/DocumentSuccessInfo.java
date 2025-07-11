@@ -15,61 +15,63 @@ import java.util.Iterator;
 @JsonDeserialize(using = DocumentSuccessInfoDeserializer.class)
 public class DocumentSuccessInfo extends ObjectNode {
 
-    /**
-     * File ID
-     */
-    @JsonProperty("documentId")
-    private String documentId;
+	/**
+	 * File ID
+	 */
+	@JsonProperty("documentId")
+	private String documentId;
 
-    /**
-     * File name
-     */
-    @JsonProperty("filename")
-    private String filename;
+	/**
+	 * File name
+	 */
+	@JsonProperty("filename")
+	private String filename;
 
+	public DocumentSuccessInfo() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public DocumentSuccessInfo() {
-        super(JsonNodeFactory.instance);
-    }
+	public DocumentSuccessInfo(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		if (objectNode == null) {
+			return;
+		}
+		if (objectNode.has("documentId")) {
+			this.setDocumentId(objectNode.get("documentId").asText());
+		}
+		else {
+			this.setDocumentId(null);
+		}
+		if (objectNode.has("filename")) {
+			this.setFilename(objectNode.get("filename").asText());
+		}
+		else {
+			this.setFilename(null);
+		}
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
-    public DocumentSuccessInfo(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        if (objectNode == null) {
-            return;
-        }
-        if (objectNode.has("documentId")) {
-            this.setDocumentId(objectNode.get("documentId").asText());
-        }else{
-            this.setDocumentId(null);
-        }
-        if (objectNode.has("filename")) {
-            this.setFilename(objectNode.get("filename").asText());
-        }else {
-            this.setFilename(null);
-        }
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+	public String getDocumentId() {
+		return documentId;
+	}
 
-    public String getDocumentId() {
-        return documentId;
-    }
+	public void setDocumentId(String documentId) {
+		this.documentId = documentId;
+		this.put("documentId", documentId);
+	}
 
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
-        this.put("documentId", documentId);
-    }
+	public String getFilename() {
+		return filename;
+	}
 
-    public String getFilename() {
-        return filename;
-    }
+	public void setFilename(String filename) {
+		this.filename = filename;
+		this.put("filename", filename);
+	}
 
-    public void setFilename(String filename) {
-        this.filename = filename;
-        this.put("filename", filename);
-    }
 }

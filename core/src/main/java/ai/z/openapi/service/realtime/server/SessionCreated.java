@@ -8,22 +8,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Server event indicating that a new session has been created.
- * This is the first event sent by the server when establishing a new realtime connection.
+ * Server event indicating that a new session has been created. This is the first event
+ * sent by the server when establishing a new realtime connection.
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class SessionCreated extends RealtimeServerEvent {
-    /**
-     * The session object containing the initial session configuration.
-     */
-    @JsonProperty("session")
-    private SessionObj session;
 
-    public SessionCreated() {
-        super();
-        this.setType("session.created");
-        this.session = new SessionObj();
-    }
+	/**
+	 * The session object containing the initial session configuration.
+	 */
+	@JsonProperty("session")
+	private SessionObj session;
+
+	public SessionCreated() {
+		super();
+		this.setType("session.created");
+		this.session = new SessionObj();
+	}
+
 }

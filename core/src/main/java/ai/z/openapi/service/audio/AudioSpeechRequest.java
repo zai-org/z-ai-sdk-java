@@ -20,32 +20,31 @@ import java.util.Map;
 @Data
 public class AudioSpeechRequest extends CommonRequest implements ClientRequest<AudioSpeechRequest> {
 
-    /**
-     * Model code to call
-     */
-    private String model;
+	/**
+	 * Model code to call
+	 */
+	private String model;
 
-    /**
-     * Text to generate speech from
-     */
-    private String input;
+	/**
+	 * Text to generate speech from
+	 */
+	private String input;
 
+	/**
+	 * Voice tone for speech generation
+	 */
+	private String voice;
 
-    /**
-     * Voice tone for speech generation
-     */
-    private String voice;
+	/**
+	 * Format of the generated speech file
+	 */
+	@JsonProperty("response_format")
+	private String responseFormat;
 
-    /**
-     * Format of the generated speech file
-     */
-    @JsonProperty("response_format")
-    private String responseFormat;
-
-    /**
-     * Sensitive word detection control
-     */
-    @JsonProperty("sensitive_word_check")
-    private SensitiveWordCheckRequest sensitiveWordCheck;
+	/**
+	 * Sensitive word detection control
+	 */
+	@JsonProperty("sensitive_word_check")
+	private SensitiveWordCheckRequest sensitiveWordCheck;
 
 }

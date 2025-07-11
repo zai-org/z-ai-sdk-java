@@ -10,66 +10,72 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Thread-safe local cache implementation using ConcurrentHashMap.
- * Provides basic caching functionality with expiration support.
+ * Thread-safe local cache implementation using ConcurrentHashMap. Provides basic caching
+ * functionality with expiration support.
  */
 public class LocalCache implements ICache {
 
-    private static final Logger log = LoggerFactory.getLogger(LocalCache.class);
-    private static final ConcurrentMap<String, Value> CACHE = new ConcurrentHashMap<>(8);
+	private static final Logger log = LoggerFactory.getLogger(LocalCache.class);
 
-    /**
-     * Private constructor to prevent direct instantiation.
-     */
-    private LocalCache() {
-    }
+	private static final ConcurrentMap<String, Value> CACHE = new ConcurrentHashMap<>(8);
 
-    /**
-     * Gets singleton instance of LocalCache.
-     * 
-     * @return LocalCache instance
-     */
-    public static LocalCache getInstance() {
-        return Inner.LOCAL_CACHE;
-    }
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 */
+	private LocalCache() {
+	}
 
-    @Override
-    public String get(String key) {
-        Value v = LocalCache.CACHE.get(key);
-        if (v == null || new Date().after(v.end)) {
-            return "";
-        }
+	/**
+	 * Gets singleton instance of LocalCache.
+	 * @return LocalCache instance
+	 */
+	public static LocalCache getInstance() {
+		return Inner.LOCAL_CACHE;
+	}
 
-        log.debug("Retrieved key: {}, time left: {}s", key, (v.end.getTime() - new Date().getTime()) / 1000);
-        return v.value;
-    }
+	@Override
+	public String get(String key) {
+		Value v = LocalCache.CACHE.get(key);
+		if (v == null || new Date().after(v.end)) {
+			return "";
+		}
 
-    @Override
-    public void set(String key, String value, int expire, TimeUnit timeUnit) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, (int) timeUnit.toSeconds(expire));
-        Value v = new Value(value, calendar.getTime());
-        log.debug("Cached key: {}, expire time: {}", key, calendar.getTime());
-        LocalCache.CACHE.put(key, v);
-    }
+		log.debug("Retrieved key: {}, time left: {}s", key, (v.end.getTime() - new Date().getTime()) / 1000);
+		return v.value;
+	}
 
-    /**
-     * Internal value wrapper with expiration time.
-     */
-    private static class Value {
-        final String value;
-        final Date end;
+	@Override
+	public void set(String key, String value, int expire, TimeUnit timeUnit) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.SECOND, (int) timeUnit.toSeconds(expire));
+		Value v = new Value(value, calendar.getTime());
+		log.debug("Cached key: {}, expire time: {}", key, calendar.getTime());
+		LocalCache.CACHE.put(key, v);
+	}
 
-        public Value(String value, Date time) {
-            this.value = value;
-            this.end = time;
-        }
-    }
+	/**
+	 * Internal value wrapper with expiration time.
+	 */
+	private static class Value {
 
-    /**
-     * Singleton holder pattern for thread-safe lazy initialization.
-     */
-    private static class Inner {
-        private static final LocalCache LOCAL_CACHE = new LocalCache();
-    }
+		final String value;
+
+		final Date end;
+
+		public Value(String value, Date time) {
+			this.value = value;
+			this.end = time;
+		}
+
+	}
+
+	/**
+	 * Singleton holder pattern for thread-safe lazy initialization.
+	 */
+	private static class Inner {
+
+		private static final LocalCache LOCAL_CACHE = new LocalCache();
+
+	}
+
 }

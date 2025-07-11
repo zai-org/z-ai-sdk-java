@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * ClientRequest to create a fine tuning job
  */
@@ -20,12 +19,11 @@ import java.util.Map;
 @Data
 public class QueryFineTuningJobRequest implements ClientRequest<QueryFineTuningJobRequest> {
 
+	@JsonProperty("job_id")
+	private String jobId;
 
-    @JsonProperty("job_id")
-    private String jobId;
+	private Integer limit;
 
-    private Integer limit;
-
-    private String after;
+	private String after;
 
 }

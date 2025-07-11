@@ -25,204 +25,204 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-
 @Testcontainers
 public class WebSearchTest {
 
-    private final static Logger logger = LoggerFactory.getLogger(WebSearchTest.class);
-    private static final ZAiConfig zaiConfig;
-    private static final ZAiClient client;
+	private final static Logger logger = LoggerFactory.getLogger(WebSearchTest.class);
 
-    private static final String requestIdTemplate = "mycompany-%d";
+	private static final ZAiConfig zaiConfig;
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-    
-    static {
-        zaiConfig = new ZAiConfig();
-        String apiKey = zaiConfig.getApiKey();
-        if (apiKey == null) {
-            zaiConfig.setApiKey("test-api-key.test-api-secret");
-        }
-        client = new ZAiClient(zaiConfig);
-    }
+	private static final ZAiClient client;
 
-    /**
-     * Web search tool capability test
-     */
-    @Test
-    public void testWebSearch() throws JsonProcessingException {
-        // Check if using test API key, skip real API call if so
-        if (zaiConfig.getApiKey().contains("test-api-key")) {
-            logger.info("Using test API key, skipping real API call, using mock data");
-            
-            WebSearchRequest webSearchRequest = WebSearchRequest.builder()
-                    .searchEngine("search_std")
-                    .searchQuery("How is the weather in Beijing today")
-                    .searchEngine("search_std")
-                    .count(50)
-                    .searchDomainFilter("finance.sina.com.cn")
-                    .searchRecencyFilter("oneYear")
-                    .contentSize("high")
-                    .requestId("11111111")
-                    .build();
+	private static final String requestIdTemplate = "mycompany-%d";
 
-            // Use mock data
-            WebSearchResponse webSearchResponse = MockClient.mockWebSearch(webSearchRequest);
-            logger.info("Mock webSearch response: {}", mapper.writeValueAsString(webSearchResponse));
-            return;
-        }
+	private static final ObjectMapper mapper = new ObjectMapper();
 
-        WebSearchRequest webSearchRequest = WebSearchRequest.builder()
-                .searchEngine("search_std")
-                .searchQuery("How is the weather in Beijing today")
-                .searchEngine("search_std")
-                .count(50)
-                .searchDomainFilter("finance.sina.com.cn")
-                .searchRecencyFilter("oneYear")
-                .contentSize("high")
-                .requestId("11111111")
-                .build();
+	static {
+		zaiConfig = new ZAiConfig();
+		String apiKey = zaiConfig.getApiKey();
+		if (apiKey == null) {
+			zaiConfig.setApiKey("test-api-key.test-api-secret");
+		}
+		client = new ZAiClient(zaiConfig);
+	}
 
-        WebSearchResponse webSearchResponse = client.webSearch().createWebSearch(webSearchRequest);
-        logger.info("webSearch output: {}", mapper.writeValueAsString(webSearchResponse));
-    }
+	/**
+	 * Web search tool capability test
+	 */
+	@Test
+	public void testWebSearch() throws JsonProcessingException {
+		// Check if using test API key, skip real API call if so
+		if (zaiConfig.getApiKey().contains("test-api-key")) {
+			logger.info("Using test API key, skipping real API call, using mock data");
 
-    /**
-     * Large model + web_search tool capability test
-     */
-    @Test
-    public void testV4ChatWithWebSearch() throws JsonProcessingException {
-        // Check if using test API key, skip real API call if so
-        if (zaiConfig.getApiKey().contains("test-api-key")) {
-            logger.info("Using test API key, skipping real API call, using mock data");
-            
-            List<ChatMessage> messages = new ArrayList<>();
-            ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "How much tariff did Trump impose on China in 2025");
-            messages.add(chatMessage);
+			WebSearchRequest webSearchRequest = WebSearchRequest.builder()
+				.searchEngine("search_std")
+				.searchQuery("How is the weather in Beijing today")
+				.searchEngine("search_std")
+				.count(50)
+				.searchDomainFilter("finance.sina.com.cn")
+				.searchRecencyFilter("oneYear")
+				.contentSize("high")
+				.requestId("11111111")
+				.build();
 
-            ChatTool webSearchTool = new ChatTool();
-            webSearchTool.setType("web_search");
-            WebSearch webSearch = new WebSearch();
-            webSearch.setEnable(Boolean.TRUE);
-            webSearch.setSearch_engine("search_std");
-            webSearch.setSearch_result(Boolean.TRUE);
-            webSearchTool.setWeb_search(webSearch);
+			// Use mock data
+			WebSearchResponse webSearchResponse = MockClient.mockWebSearch(webSearchRequest);
+			logger.info("Mock webSearch response: {}", mapper.writeValueAsString(webSearchResponse));
+			return;
+		}
 
-            String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
-            Map<String, Object> extraJson = new HashMap<>();
-            extraJson.put("invoke_method", Constants.INVOKE_METHOD);
-            ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
-                    .model(Constants.ModelChatGLM4)
-                    .stream(Boolean.FALSE)
-                    .messages(messages)
-                    .requestId(requestId)
-                    .extraJson(extraJson)
-                    .tools(Collections.singletonList(webSearchTool))
-                    .build();
-            
-            // Use mock data
-            ChatCompletionResponse modelApiResp = MockClient.mockModelApi(chatCompletionRequest);
-            logger.info("Mock model response: {}", mapper.writeValueAsString(modelApiResp));
-            return;
-        }
+		WebSearchRequest webSearchRequest = WebSearchRequest.builder()
+			.searchEngine("search_std")
+			.searchQuery("How is the weather in Beijing today")
+			.searchEngine("search_std")
+			.count(50)
+			.searchDomainFilter("finance.sina.com.cn")
+			.searchRecencyFilter("oneYear")
+			.contentSize("high")
+			.requestId("11111111")
+			.build();
 
-        List<ChatMessage> messages = new ArrayList<>();
-        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "How much tariff did Trump impose on China in 2025");
-        messages.add(chatMessage);
+		WebSearchResponse webSearchResponse = client.webSearch().createWebSearch(webSearchRequest);
+		logger.info("webSearch output: {}", mapper.writeValueAsString(webSearchResponse));
+	}
 
-        ChatTool webSearchTool = new ChatTool();
-        webSearchTool.setType("web_search");
-        WebSearch webSearch = new WebSearch();
-        webSearch.setEnable(Boolean.TRUE);
-        webSearch.setSearch_engine("search_std");
-        webSearch.setSearch_result(Boolean.TRUE);
-        webSearchTool.setWeb_search(webSearch);
+	/**
+	 * Large model + web_search tool capability test
+	 */
+	@Test
+	public void testV4ChatWithWebSearch() throws JsonProcessingException {
+		// Check if using test API key, skip real API call if so
+		if (zaiConfig.getApiKey().contains("test-api-key")) {
+			logger.info("Using test API key, skipping real API call, using mock data");
 
+			List<ChatMessage> messages = new ArrayList<>();
+			ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(),
+					"How much tariff did Trump impose on China in 2025");
+			messages.add(chatMessage);
 
-        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
-        Map<String, Object> extraJson = new HashMap<>();
-        extraJson.put("invoke_method", Constants.INVOKE_METHOD);
-        ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
-                .model(Constants.ModelChatGLM4)
-                .stream(Boolean.FALSE)
-                .messages(messages)
-                .requestId(requestId)
-                .extraJson(extraJson)
-                .tools(Collections.singletonList(webSearchTool))
-                .build();
-        ChatCompletionResponse modelApiResp = client.chat().createChatCompletion(chatCompletionRequest);
-        logger.info("model output: {}", mapper.writeValueAsString(modelApiResp));
-    }
+			ChatTool webSearchTool = new ChatTool();
+			webSearchTool.setType("web_search");
+			WebSearch webSearch = new WebSearch();
+			webSearch.setEnable(Boolean.TRUE);
+			webSearch.setSearch_engine("search_std");
+			webSearch.setSearch_result(Boolean.TRUE);
+			webSearchTool.setWeb_search(webSearch);
 
-    @Test
-    public void testV4ChatWithWebSearchSSE() {
-        // Check if using test API key, skip real API call if so
-        if (zaiConfig.getApiKey().contains("test-api-key")) {
-            logger.info("Using test API key, skipping real API call, using mock data");
-            
-            List<ChatMessage> messages = new ArrayList<>();
-            ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "How much tariff did Trump impose on China in 2025");
-            messages.add(chatMessage);
+			String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+			Map<String, Object> extraJson = new HashMap<>();
+			extraJson.put("invoke_method", Constants.INVOKE_METHOD);
+			ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
+				.model(Constants.ModelChatGLM4)
+				.stream(Boolean.FALSE)
+				.messages(messages)
+				.requestId(requestId)
+				.extraJson(extraJson)
+				.tools(Collections.singletonList(webSearchTool))
+				.build();
 
-            ChatTool webSearchTool = new ChatTool();
-            webSearchTool.setType("web_search");
-            WebSearch webSearch = new WebSearch();
-            webSearch.setEnable(Boolean.TRUE);
-            webSearch.setSearch_engine("search_std");
-            webSearch.setResult_sequence("before");
-            webSearch.setSearch_result(Boolean.TRUE);
-            webSearchTool.setWeb_search(webSearch);
+			// Use mock data
+			ChatCompletionResponse modelApiResp = MockClient.mockModelApi(chatCompletionRequest);
+			logger.info("Mock model response: {}", mapper.writeValueAsString(modelApiResp));
+			return;
+		}
 
-            String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
-            ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
-                    .model(Constants.ModelChatGLM4)
-                    .stream(Boolean.TRUE)
-                    .messages(messages)
-                    .requestId(requestId)
-                    .tools(Collections.singletonList(webSearchTool))
-                    .build();
-            
-            // Use mock data
-            ChatCompletionResponse sseModelApiResp = MockClient.mockModelApi(chatCompletionRequest);
-            if (sseModelApiResp.isSuccess()) {
-                sseModelApiResp.getFlowable().doOnNext(
-                        modelData -> {
-                            logger.info("Mock model streaming response: {}", mapper.writeValueAsString(modelData));
-                        }
-                ).blockingSubscribe();
-            }
-            return;
-        }
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(),
+				"How much tariff did Trump impose on China in 2025");
+		messages.add(chatMessage);
 
-        List<ChatMessage> messages = new ArrayList<>();
-        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "How much tariff did Trump impose on China in 2025");
-        messages.add(chatMessage);
+		ChatTool webSearchTool = new ChatTool();
+		webSearchTool.setType("web_search");
+		WebSearch webSearch = new WebSearch();
+		webSearch.setEnable(Boolean.TRUE);
+		webSearch.setSearch_engine("search_std");
+		webSearch.setSearch_result(Boolean.TRUE);
+		webSearchTool.setWeb_search(webSearch);
 
-        ChatTool webSearchTool = new ChatTool();
-        webSearchTool.setType("web_search");
-        WebSearch webSearch = new WebSearch();
-        webSearch.setEnable(Boolean.TRUE);
-        webSearch.setSearch_engine("search_std");
-        webSearch.setResult_sequence("before");
-        webSearch.setSearch_result(Boolean.TRUE);
-        webSearchTool.setWeb_search(webSearch);
+		String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+		Map<String, Object> extraJson = new HashMap<>();
+		extraJson.put("invoke_method", Constants.INVOKE_METHOD);
+		ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.extraJson(extraJson)
+			.tools(Collections.singletonList(webSearchTool))
+			.build();
+		ChatCompletionResponse modelApiResp = client.chat().createChatCompletion(chatCompletionRequest);
+		logger.info("model output: {}", mapper.writeValueAsString(modelApiResp));
+	}
 
-        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
-        ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
-                .model(Constants.ModelChatGLM4)
-                .stream(Boolean.TRUE)
-                .messages(messages)
-                .requestId(requestId)
-                .tools(Collections.singletonList(webSearchTool))
-                .build();
-        ChatCompletionResponse sseModelApiResp = client.chat().createChatCompletion(chatCompletionRequest);
-        if (sseModelApiResp.isSuccess()) {
-            sseModelApiResp.getFlowable().doOnNext(
-                    modelData -> {
-                        logger.info("model output: {}", mapper.writeValueAsString(modelData));
-                    }
-            ).blockingSubscribe();
-        }
-    }
+	@Test
+	public void testV4ChatWithWebSearchSSE() {
+		// Check if using test API key, skip real API call if so
+		if (zaiConfig.getApiKey().contains("test-api-key")) {
+			logger.info("Using test API key, skipping real API call, using mock data");
+
+			List<ChatMessage> messages = new ArrayList<>();
+			ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(),
+					"How much tariff did Trump impose on China in 2025");
+			messages.add(chatMessage);
+
+			ChatTool webSearchTool = new ChatTool();
+			webSearchTool.setType("web_search");
+			WebSearch webSearch = new WebSearch();
+			webSearch.setEnable(Boolean.TRUE);
+			webSearch.setSearch_engine("search_std");
+			webSearch.setResult_sequence("before");
+			webSearch.setSearch_result(Boolean.TRUE);
+			webSearchTool.setWeb_search(webSearch);
+
+			String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+			ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
+				.model(Constants.ModelChatGLM4)
+				.stream(Boolean.TRUE)
+				.messages(messages)
+				.requestId(requestId)
+				.tools(Collections.singletonList(webSearchTool))
+				.build();
+
+			// Use mock data
+			ChatCompletionResponse sseModelApiResp = MockClient.mockModelApi(chatCompletionRequest);
+			if (sseModelApiResp.isSuccess()) {
+				sseModelApiResp.getFlowable().doOnNext(modelData -> {
+					logger.info("Mock model streaming response: {}", mapper.writeValueAsString(modelData));
+				}).blockingSubscribe();
+			}
+			return;
+		}
+
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(),
+				"How much tariff did Trump impose on China in 2025");
+		messages.add(chatMessage);
+
+		ChatTool webSearchTool = new ChatTool();
+		webSearchTool.setType("web_search");
+		WebSearch webSearch = new WebSearch();
+		webSearch.setEnable(Boolean.TRUE);
+		webSearch.setSearch_engine("search_std");
+		webSearch.setResult_sequence("before");
+		webSearch.setSearch_result(Boolean.TRUE);
+		webSearchTool.setWeb_search(webSearch);
+
+		String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+		ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.TRUE)
+			.messages(messages)
+			.requestId(requestId)
+			.tools(Collections.singletonList(webSearchTool))
+			.build();
+		ChatCompletionResponse sseModelApiResp = client.chat().createChatCompletion(chatCompletionRequest);
+		if (sseModelApiResp.isSuccess()) {
+			sseModelApiResp.getFlowable().doOnNext(modelData -> {
+				logger.info("model output: {}", mapper.writeValueAsString(modelData));
+			}).blockingSubscribe();
+		}
+	}
 
 }

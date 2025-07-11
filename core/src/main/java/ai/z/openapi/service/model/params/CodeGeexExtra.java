@@ -7,10 +7,11 @@ import java.util.List;
 
 @Data
 public class CodeGeexExtra {
-    @JsonProperty("target")
-    private CodeGeexTarget target;
 
-    @JsonProperty("contexts")
-    private List<CodeGeexContext> contexts;
+	@JsonProperty("target")
+	private CodeGeexTarget target;
+
+	@JsonProperty("contexts")
+	private List<CodeGeexContext> contexts;
 
 }

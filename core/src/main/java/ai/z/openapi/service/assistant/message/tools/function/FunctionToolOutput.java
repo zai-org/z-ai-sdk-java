@@ -7,17 +7,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class FunctionToolOutput {
 
-    /**
-     * The generated content as a string.
-     */
-    @JsonProperty("content")
-    private String content;
+	/**
+	 * The generated content as a string.
+	 */
+	@JsonProperty("content")
+	private String content;
 
-    public String getContent() {
-        return content;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 }

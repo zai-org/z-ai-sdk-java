@@ -12,33 +12,34 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
 @JsonTypeField("drawing_tool")
 public class DrawingToolBlock extends ToolsType {
 
-    /**
-     * The drawing tool object that contains input and outputs.
-     */
-    @JsonProperty("drawing_tool")
-    private DrawingTool drawingTool;
+	/**
+	 * The drawing tool object that contains input and outputs.
+	 */
+	@JsonProperty("drawing_tool")
+	private DrawingTool drawingTool;
 
-    /**
-     * The type of tool being called, always "drawing_tool".
-     */
-    @JsonProperty("type")
-    private String type = "drawing_tool";
+	/**
+	 * The type of tool being called, always "drawing_tool".
+	 */
+	@JsonProperty("type")
+	private String type = "drawing_tool";
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public DrawingTool getDrawingTool() {
-        return drawingTool;
-    }
+	public DrawingTool getDrawingTool() {
+		return drawingTool;
+	}
 
-    public void setDrawingTool(DrawingTool drawingTool) {
-        this.drawingTool = drawingTool;
-    }
+	public void setDrawingTool(DrawingTool drawingTool) {
+		this.drawingTool = drawingTool;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

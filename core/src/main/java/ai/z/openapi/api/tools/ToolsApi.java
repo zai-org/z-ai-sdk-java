@@ -9,15 +9,11 @@ import retrofit2.http.*;
 
 public interface ToolsApi {
 
+	@Streaming
+	@POST("tools")
+	Call<ResponseBody> webSearchStreaming(@Body WebSearchParamsRequest request);
 
-    @Streaming
-    @POST("tools")
-    Call<ResponseBody> webSearchStreaming(@Body WebSearchParamsRequest request);
-
-
-
-    @POST("tools")
-    Single<WebSearchPro> webSearch(@Body WebSearchParamsRequest request);
-
+	@POST("tools")
+	Single<WebSearchPro> webSearch(@Body WebSearchParamsRequest request);
 
 }

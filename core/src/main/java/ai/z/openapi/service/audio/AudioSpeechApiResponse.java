@@ -9,14 +9,14 @@ import java.io.File;
 @Data
 public class AudioSpeechApiResponse implements ClientResponse<File> {
 
-    private int code;
+	private int code;
 
-    private String msg;
+	private String msg;
 
-    private boolean success;
+	private boolean success;
 
-    private File data;
+	private File data;
 
-    private ChatError error;
+	private ChatError error;
 
 }

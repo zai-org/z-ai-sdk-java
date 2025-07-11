@@ -27,184 +27,176 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TestAssistantClientApiService {
-    private final static Logger logger = LoggerFactory.getLogger(TestAssistantClientApiService.class);
-    private static final ZAiConfig zaiConfig;
-    private static final ZAiClient client;
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-    
-    static {
-        zaiConfig = new ZAiConfig();
-        String apiKey = zaiConfig.getApiKey();
-        if (apiKey == null) {
-            zaiConfig.setApiKey("test-api-key.test-api-secret");
-        }
-        client = new ZAiClient(zaiConfig);
-    }
+	private final static Logger logger = LoggerFactory.getLogger(TestAssistantClientApiService.class);
 
+	private static final ZAiConfig zaiConfig;
 
-    @Test
-    @Order(1)
-    public void testAssistantCompletionStream() throws JsonProcessingException {
-        // Check if using real API key, skip test if using test key
-        Assumptions.assumeTrue(zaiConfig.getApiKey() != null && !zaiConfig.getApiKey().contains("test-api-key"), 
-                "Skipping test: Using test API key, real API key required for this test");
+	private static final ZAiClient client;
 
-        MessageTextContent textContent = MessageTextContent.builder()
-                .text("Help me search for the release time of ZAI's CogVideoX")
-                .type("text")
-                .build();
+	private static final ObjectMapper mapper = new ObjectMapper();
 
-        ConversationMessage messages = ConversationMessage.builder()
-                .role("user")
-                .content(Collections.singletonList(textContent))
-                .build();
+	static {
+		zaiConfig = new ZAiConfig();
+		String apiKey = zaiConfig.getApiKey();
+		if (apiKey == null) {
+			zaiConfig.setApiKey("test-api-key.test-api-secret");
+		}
+		client = new ZAiClient(zaiConfig);
+	}
 
-        AssistantParameters build = AssistantParameters.builder()
-                .assistantId("659e54b1b8006379b4b2abd6")
-                .stream(true)
-                .messages(Collections.singletonList(messages))
-                .build();
-        // Set relevant properties of params
-        AssistantApiResponse apply = client.assistants().assistantCompletionStream(build);
-        if (apply.isSuccess()) {
-            AtomicBoolean isFirst = new AtomicBoolean(true);
-            List<MessageContent> choices = new ArrayList<>();
-            AtomicReference<AssistantCompletion> lastAccumulator = new AtomicReference<>();
+	@Test
+	@Order(1)
+	public void testAssistantCompletionStream() throws JsonProcessingException {
+		// Check if using real API key, skip test if using test key
+		Assumptions.assumeTrue(zaiConfig.getApiKey() != null && !zaiConfig.getApiKey().contains("test-api-key"),
+				"Skipping test: Using test API key, real API key required for this test");
 
-            apply.getFlowable().map(result -> result)
-                    .doOnNext(accumulator -> {
-                        {
-                            if (isFirst.getAndSet(false)) {
-                                logger.info("Response: ");
-                            }
-                            MessageContent delta = accumulator.getChoices().get(0).getDelta();
-                            logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
-                            choices.add(delta);
-                            lastAccumulator.set(accumulator);
+		MessageTextContent textContent = MessageTextContent.builder()
+			.text("Help me search for the release time of ZAI's CogVideoX")
+			.type("text")
+			.build();
 
-                        }
-                    })
-                    .doOnComplete(() -> System.out.println("Stream completed."))
-                    .doOnError(throwable -> System.err.println("Error: " + throwable)) // Handle errors
-                    .blockingSubscribe();// Use blockingSubscribe instead of blockingGet()
+		ConversationMessage messages = ConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(textContent))
+			.build();
 
-            AssistantCompletion assistantCompletion = lastAccumulator.get();
+		AssistantParameters build = AssistantParameters.builder()
+			.assistantId("659e54b1b8006379b4b2abd6")
+			.stream(true)
+			.messages(Collections.singletonList(messages))
+			.build();
+		// Set relevant properties of params
+		AssistantApiResponse apply = client.assistants().assistantCompletionStream(build);
+		if (apply.isSuccess()) {
+			AtomicBoolean isFirst = new AtomicBoolean(true);
+			List<MessageContent> choices = new ArrayList<>();
+			AtomicReference<AssistantCompletion> lastAccumulator = new AtomicReference<>();
 
-            apply.setFlowable(null);// Clear flowable before printing
-            apply.setData(assistantCompletion);
-        }
-        logger.info("apply output: {}", mapper.writeValueAsString(apply));
+			apply.getFlowable().map(result -> result).doOnNext(accumulator -> {
+				{
+					if (isFirst.getAndSet(false)) {
+						logger.info("Response: ");
+					}
+					MessageContent delta = accumulator.getChoices().get(0).getDelta();
+					logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
+					choices.add(delta);
+					lastAccumulator.set(accumulator);
 
-    }
-    @Test
-    @Order(2)
-    public void testQuerySupport(){
-        QuerySupportParams build = QuerySupportParams.builder()
-                .assistantIdList(Collections.singletonList("659e54b1b8006379b4b2abd6"))
-                .build();
-        AssistantSupportResponse apply = client.assistants().querySupport(build);
-        logger.info("apply output: {}", apply);
-    }
+				}
+			})
+				.doOnComplete(() -> System.out.println("Stream completed."))
+				.doOnError(throwable -> System.err.println("Error: " + throwable)) // Handle
+																					// errors
+				.blockingSubscribe();// Use blockingSubscribe instead of blockingGet()
 
-    @Test
-    @Order(3)
-    public void testQueryConversationUsage(){
-        ConversationParameters build = ConversationParameters.builder()
-                .assistantId("659e54b1b8006379b4b2abd6")
-                .build();
-        ConversationUsageListResponse apply = client.assistants().queryConversationUsage(build);
-        logger.info("apply output: {}", apply);
-    }
+			AssistantCompletion assistantCompletion = lastAccumulator.get();
 
+			apply.setFlowable(null);// Clear flowable before printing
+			apply.setData(assistantCompletion);
+		}
+		logger.info("apply output: {}", mapper.writeValueAsString(apply));
 
-    @Test
-    @Order(1)
-    public void testTranslateAssistantCompletionStream() throws JsonProcessingException {
-        // Check if using real API key, skip test if using test key
-        Assumptions.assumeTrue(zaiConfig.getApiKey() != null && !zaiConfig.getApiKey().contains("test-api-key"), 
-                "Skipping test: Using test API key, real API key required for this test");
+	}
 
-        MessageTextContent textContent = MessageTextContent.builder()
-                .text("Hello there")
-                .type("text")
-                .build();
+	@Test
+	@Order(2)
+	public void testQuerySupport() {
+		QuerySupportParams build = QuerySupportParams.builder()
+			.assistantIdList(Collections.singletonList("659e54b1b8006379b4b2abd6"))
+			.build();
+		AssistantSupportResponse apply = client.assistants().querySupport(build);
+		logger.info("apply output: {}", apply);
+	}
 
-        ConversationMessage messages = ConversationMessage.builder()
-                .role("user")
-                .content(Collections.singletonList(textContent))
-                .build();
+	@Test
+	@Order(3)
+	public void testQueryConversationUsage() {
+		ConversationParameters build = ConversationParameters.builder().assistantId("659e54b1b8006379b4b2abd6").build();
+		ConversationUsageListResponse apply = client.assistants().queryConversationUsage(build);
+		logger.info("apply output: {}", apply);
+	}
 
-        AssistantExtraParameters assistantExtraParameters = new AssistantExtraParameters();
-        TranslateParameters translateParameters = new TranslateParameters();
-        translateParameters.setFrom("zh");
-        translateParameters.setTo("en");
-        assistantExtraParameters.setTranslate(translateParameters);
-        AssistantParameters build = AssistantParameters.builder()
-                .assistantId("9996ijk789lmn012o345p999")
-                .stream(true)
-                .messages(Collections.singletonList(messages))
-                .extraParameters(assistantExtraParameters)
-                .build();
-        // Set relevant properties of params
-        AssistantApiResponse apply = client.assistants().assistantCompletionStream(build);
-        if (apply.isSuccess()) {
-            AtomicBoolean isFirst = new AtomicBoolean(true);
-            List<MessageContent> choices = new ArrayList<>();
-            AtomicReference<AssistantCompletion> lastAccumulator = new AtomicReference<>();
+	@Test
+	@Order(1)
+	public void testTranslateAssistantCompletionStream() throws JsonProcessingException {
+		// Check if using real API key, skip test if using test key
+		Assumptions.assumeTrue(zaiConfig.getApiKey() != null && !zaiConfig.getApiKey().contains("test-api-key"),
+				"Skipping test: Using test API key, real API key required for this test");
 
-            apply.getFlowable().map(result -> result)
-                    .doOnNext(accumulator -> {
-                        {
-                            if (isFirst.getAndSet(false)) {
-                                logger.info("Response: ");
-                            }
-                            MessageContent delta = accumulator.getChoices().get(0).getDelta();
-                            logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
-                            choices.add(delta);
-                            lastAccumulator.set(accumulator);
+		MessageTextContent textContent = MessageTextContent.builder().text("Hello there").type("text").build();
 
-                        }
-                    })
-                    .doOnComplete(() -> System.out.println("Stream completed."))
-                    .doOnError(throwable -> System.err.println("Error: " + throwable)) // Handle errors
-                    .blockingSubscribe();// Use blockingSubscribe instead of blockingGet()
+		ConversationMessage messages = ConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(textContent))
+			.build();
 
-            AssistantCompletion assistantCompletion = lastAccumulator.get();
+		AssistantExtraParameters assistantExtraParameters = new AssistantExtraParameters();
+		TranslateParameters translateParameters = new TranslateParameters();
+		translateParameters.setFrom("zh");
+		translateParameters.setTo("en");
+		assistantExtraParameters.setTranslate(translateParameters);
+		AssistantParameters build = AssistantParameters.builder()
+			.assistantId("9996ijk789lmn012o345p999")
+			.stream(true)
+			.messages(Collections.singletonList(messages))
+			.extraParameters(assistantExtraParameters)
+			.build();
+		// Set relevant properties of params
+		AssistantApiResponse apply = client.assistants().assistantCompletionStream(build);
+		if (apply.isSuccess()) {
+			AtomicBoolean isFirst = new AtomicBoolean(true);
+			List<MessageContent> choices = new ArrayList<>();
+			AtomicReference<AssistantCompletion> lastAccumulator = new AtomicReference<>();
 
-            apply.setFlowable(null);// Clear flowable before printing
-            apply.setData(assistantCompletion);
-        }
-        logger.info("apply output: {}", mapper.writeValueAsString(apply));
-    }
+			apply.getFlowable().map(result -> result).doOnNext(accumulator -> {
+				{
+					if (isFirst.getAndSet(false)) {
+						logger.info("Response: ");
+					}
+					MessageContent delta = accumulator.getChoices().get(0).getDelta();
+					logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
+					choices.add(delta);
+					lastAccumulator.set(accumulator);
 
-    @Test
-    public void testTranslateAssistantCompletion() throws JsonProcessingException {
-        MessageTextContent textContent = MessageTextContent.builder()
-                .text("Hello there")
-                .type("text")
-                .build();
+				}
+			})
+				.doOnComplete(() -> System.out.println("Stream completed."))
+				.doOnError(throwable -> System.err.println("Error: " + throwable)) // Handle
+																					// errors
+				.blockingSubscribe();// Use blockingSubscribe instead of blockingGet()
 
-        ConversationMessage messages = ConversationMessage.builder()
-                .role("user")
-                .content(Collections.singletonList(textContent))
-                .build();
+			AssistantCompletion assistantCompletion = lastAccumulator.get();
 
-        AssistantExtraParameters assistantExtraParameters = new AssistantExtraParameters();
-        assistantExtraParameters.setTranslate(TranslateParameters.builder()
-                .from("zh")
-                .to("en")
-                .build());
+			apply.setFlowable(null);// Clear flowable before printing
+			apply.setData(assistantCompletion);
+		}
+		logger.info("apply output: {}", mapper.writeValueAsString(apply));
+	}
 
-        AssistantParameters build = AssistantParameters.builder()
-                .assistantId("9996ijk789lmn012o345p999")
-                .stream(false)
-                .messages(Collections.singletonList(messages))
-                .extraParameters(assistantExtraParameters)
-                .build();
+	@Test
+	public void testTranslateAssistantCompletion() throws JsonProcessingException {
+		MessageTextContent textContent = MessageTextContent.builder().text("Hello there").type("text").build();
 
-        // Set relevant properties of params
-        AssistantApiResponse apply = client.assistants().assistantCompletion(build);
-        logger.info("model output: {}", mapper.writeValueAsString(apply));
-    }
+		ConversationMessage messages = ConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(textContent))
+			.build();
+
+		AssistantExtraParameters assistantExtraParameters = new AssistantExtraParameters();
+		assistantExtraParameters.setTranslate(TranslateParameters.builder().from("zh").to("en").build());
+
+		AssistantParameters build = AssistantParameters.builder()
+			.assistantId("9996ijk789lmn012o345p999")
+			.stream(false)
+			.messages(Collections.singletonList(messages))
+			.extraParameters(assistantExtraParameters)
+			.build();
+
+		// Set relevant properties of params
+		AssistantApiResponse apply = client.assistants().assistantCompletion(build);
+		logger.info("model output: {}", mapper.writeValueAsString(apply));
+	}
+
 }

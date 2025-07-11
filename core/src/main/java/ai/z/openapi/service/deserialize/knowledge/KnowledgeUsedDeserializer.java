@@ -14,37 +14,38 @@ import ai.z.openapi.service.knowledge.KnowledgeUsed;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link KnowledgeUsed} from any
- * JSON content, using appropriate {@link KnowledgeUsed} type.
+ * Deserializer that can build instances of {@link KnowledgeUsed} from any JSON content,
+ * using appropriate {@link KnowledgeUsed} type.
  */
 public class KnowledgeUsedDeserializer extends BaseNodeDeserializer<KnowledgeUsed> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static KnowledgeUsedDeserializer instance = new KnowledgeUsedDeserializer();
+	private final static KnowledgeUsedDeserializer instance = new KnowledgeUsedDeserializer();
 
-    public KnowledgeUsedDeserializer() {
-        super(KnowledgeUsed.class, null);
-    }
+	public KnowledgeUsedDeserializer() {
+		super(KnowledgeUsed.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public KnowledgeUsed getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public KnowledgeUsed getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public KnowledgeUsed deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new KnowledgeUsed(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public KnowledgeUsed deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new KnowledgeUsed(jsonNodes);
+		}
+		return null;
+	}
+
 }

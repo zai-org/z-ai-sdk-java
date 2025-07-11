@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 @NoArgsConstructor
@@ -16,8 +17,8 @@ import java.util.Map;
 @Data
 public class QueryBatchRequest implements ClientRequest<QueryBatchRequest> {
 
-    private Integer limit;
+	private Integer limit;
 
-    private String after;
+	private String after;
 
 }

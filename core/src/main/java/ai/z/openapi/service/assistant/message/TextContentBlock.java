@@ -9,38 +9,36 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeField("content")
-public class TextContentBlock extends MessageContent{
+public class TextContentBlock extends MessageContent {
 
-    /**
-     * The content of the text block.
-     */
-    @JsonProperty("content")
-    private String content;
+	/**
+	 * The content of the text block.
+	 */
+	@JsonProperty("content")
+	private String content;
 
-    /**
-     * The role of the speaker, default is "assistant".
-     */
-    @JsonProperty("role")
-    private String role = "assistant";
+	/**
+	 * The role of the speaker, default is "assistant".
+	 */
+	@JsonProperty("role")
+	private String role = "assistant";
 
+	// Getters and Setters
 
+	public String getContent() {
+		return content;
+	}
 
-    // Getters and Setters
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 }

@@ -13,22 +13,22 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConversationUsageList {
 
-    /**
-     * The Assistant ID.
-     */
-    @JsonProperty("assistant_id")
-    private String assistantId;
+	/**
+	 * The Assistant ID.
+	 */
+	@JsonProperty("assistant_id")
+	private String assistantId;
 
-    /**
-     * Whether there are more pages of results.
-     */
-    @JsonProperty("has_more")
-    private boolean hasMore;
+	/**
+	 * Whether there are more pages of results.
+	 */
+	@JsonProperty("has_more")
+	private boolean hasMore;
 
-    /**
-     * The list of conversation usage data.
-     */
-    @JsonProperty("conversation_list")
-    private List<ConversationUsage> conversationList;
+	/**
+	 * The list of conversation usage data.
+	 */
+	@JsonProperty("conversation_list")
+	private List<ConversationUsage> conversationList;
 
 }

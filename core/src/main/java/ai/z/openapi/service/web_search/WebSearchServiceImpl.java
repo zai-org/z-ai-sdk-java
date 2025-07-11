@@ -14,37 +14,35 @@ import okhttp3.ResponseBody;
  * Web search service implementation
  */
 public class WebSearchServiceImpl implements WebSearchService {
-    
-    private final ZAiClient zAiClient;
-    private final ToolsApi toolsApi;
-    private final WebSearchApi webSearchApi;
-    
-    public WebSearchServiceImpl(ZAiClient zAiClient) {
-        this.zAiClient = zAiClient;
-        this.toolsApi = zAiClient.retrofit().create(ToolsApi.class);
-        this.webSearchApi = zAiClient.retrofit().create(WebSearchApi.class);
-    }
-    
-    @Override
-    public WebSearchApiResponse createWebSearchProStream(WebSearchParamsRequest request) {
-        FlowableRequestSupplier<WebSearchParamsRequest, retrofit2.Call<ResponseBody>> supplier = toolsApi::webSearchStreaming;
-        return zAiClient.streamRequest(
-                request,
-                supplier,
-                WebSearchApiResponse.class,
-                WebSearchPro.class
-        );
-    }
-    
-    @Override
-    public WebSearchApiResponse createWebSearchPro(WebSearchParamsRequest request) {
-        RequestSupplier<WebSearchParamsRequest, WebSearchPro> supplier = toolsApi::webSearch;
-        return this.zAiClient.executeRequest(request, supplier, WebSearchApiResponse.class);
-    }
-    
-    @Override
-    public WebSearchResponse createWebSearch(WebSearchRequest request) {
-        RequestSupplier<WebSearchRequest, WebSearchDTO> supplier = webSearchApi::webSearch;
-        return this.zAiClient.executeRequest(request, supplier, WebSearchResponse.class);
-    }
+
+	private final ZAiClient zAiClient;
+
+	private final ToolsApi toolsApi;
+
+	private final WebSearchApi webSearchApi;
+
+	public WebSearchServiceImpl(ZAiClient zAiClient) {
+		this.zAiClient = zAiClient;
+		this.toolsApi = zAiClient.retrofit().create(ToolsApi.class);
+		this.webSearchApi = zAiClient.retrofit().create(WebSearchApi.class);
+	}
+
+	@Override
+	public WebSearchApiResponse createWebSearchProStream(WebSearchParamsRequest request) {
+		FlowableRequestSupplier<WebSearchParamsRequest, retrofit2.Call<ResponseBody>> supplier = toolsApi::webSearchStreaming;
+		return zAiClient.streamRequest(request, supplier, WebSearchApiResponse.class, WebSearchPro.class);
+	}
+
+	@Override
+	public WebSearchApiResponse createWebSearchPro(WebSearchParamsRequest request) {
+		RequestSupplier<WebSearchParamsRequest, WebSearchPro> supplier = toolsApi::webSearch;
+		return this.zAiClient.executeRequest(request, supplier, WebSearchApiResponse.class);
+	}
+
+	@Override
+	public WebSearchResponse createWebSearch(WebSearchRequest request) {
+		RequestSupplier<WebSearchRequest, WebSearchDTO> supplier = webSearchApi::webSearch;
+		return this.zAiClient.executeRequest(request, supplier, WebSearchResponse.class);
+	}
+
 }

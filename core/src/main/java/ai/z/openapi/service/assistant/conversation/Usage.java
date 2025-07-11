@@ -11,22 +11,22 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Usage {
 
-    /**
-     * The number of tokens in the user's input.
-     */
-    @JsonProperty("prompt_tokens")
-    private int promptTokens;
+	/**
+	 * The number of tokens in the user's input.
+	 */
+	@JsonProperty("prompt_tokens")
+	private int promptTokens;
 
-    /**
-     * The number of tokens in the model's input.
-     */
-    @JsonProperty("completion_tokens")
-    private int completionTokens;
+	/**
+	 * The number of tokens in the model's input.
+	 */
+	@JsonProperty("completion_tokens")
+	private int completionTokens;
 
-    /**
-     * The total number of tokens.
-     */
-    @JsonProperty("total_tokens")
-    private int totalTokens;
+	/**
+	 * The total number of tokens.
+	 */
+	@JsonProperty("total_tokens")
+	private int totalTokens;
 
 }

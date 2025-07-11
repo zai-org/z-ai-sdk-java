@@ -8,9 +8,7 @@ import retrofit2.http.POST;
 
 public interface EmbeddingApi {
 
-
-    @POST("embeddings")
-    Single<EmbeddingResult> createEmbeddings(@Body EmbeddingCreateParams request);
-
+	@POST("embeddings")
+	Single<EmbeddingResult> createEmbeddings(@Body EmbeddingCreateParams request);
 
 }

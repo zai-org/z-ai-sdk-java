@@ -14,6 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class BatchRequest implements ClientRequest<BatchRequest> {
 
-    private String batchId;
+	private String batchId;
 
 }

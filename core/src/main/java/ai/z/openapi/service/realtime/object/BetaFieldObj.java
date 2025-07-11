@@ -9,18 +9,20 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class BetaFieldObj {
-    @JsonProperty("chat_mode")
-    private String chatMode;
 
-    @JsonProperty("tts_source")
-    private String ttsSource;
+	@JsonProperty("chat_mode")
+	private String chatMode;
 
-    @JsonProperty("auto_search")
-    private boolean autoSearch;
+	@JsonProperty("tts_source")
+	private String ttsSource;
 
-    public BetaFieldObj() {
-        this.chatMode = "audio";
-        this.ttsSource = "e2e";
-        this.autoSearch = true;
-    }
+	@JsonProperty("auto_search")
+	private boolean autoSearch;
+
+	public BetaFieldObj() {
+		this.chatMode = "audio";
+		this.ttsSource = "e2e";
+		this.autoSearch = true;
+	}
+
 }

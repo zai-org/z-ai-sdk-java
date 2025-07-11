@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Request parameters for agent completion API calls.
- * This class contains all the necessary parameters to initiate an agent completion request,
- * including agent ID, messages, streaming options, and custom variables.
+ * Request parameters for agent completion API calls. This class contains all the
+ * necessary parameters to initiate an agent completion request, including agent ID,
+ * messages, streaming options, and custom variables.
  */
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -28,36 +28,33 @@ import java.util.Map;
 @Data
 public class AgentsCompletionRequest extends CommonRequest implements ClientRequest<AgentsCompletionRequest> {
 
-    /**
-     * Agent ID
-     */
-    @JsonProperty("agent_id")
-    private String agent_id;
+	/**
+	 * Agent ID
+	 */
+	@JsonProperty("agent_id")
+	private String agent_id;
 
+	/**
+	 * Message body
+	 */
+	private List<ChatMessage> messages;
 
-    /**
-     * Message body
-     */
-     private List<ChatMessage> messages;
+	/**
+	 * Synchronous call: false, SSE call: true
+	 */
+	private Boolean stream;
 
+	/**
+	 * Sensitive word detection control
+	 */
+	@JsonProperty("sensitive_word_check")
+	private SensitiveWordCheckRequest sensitiveWordCheck;
 
-    /**
-     * Synchronous call: false, SSE call: true
-     */
-    private Boolean stream;
-
-
-    /**
-     * Sensitive word detection control
-     */
-    @JsonProperty("sensitive_word_check")
-    private SensitiveWordCheckRequest sensitiveWordCheck;
-
-    /**
-     * Agent business fields
-     * @return
-     */
-    @JsonProperty("custom_variables")
-    private ObjectNode custom_variables;
+	/**
+	 * Agent business fields
+	 * @return
+	 */
+	@JsonProperty("custom_variables")
+	private ObjectNode custom_variables;
 
 }

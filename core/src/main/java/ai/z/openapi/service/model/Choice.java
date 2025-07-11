@@ -12,78 +12,82 @@ import lombok.Getter;
 
 import java.util.Iterator;
 
-
 @Getter
 @JsonDeserialize(using = ChoiceDeserializer.class)
 public class Choice extends ObjectNode {
 
-    @JsonProperty("finish_reason")
-    private String finishReason;
-    @JsonProperty("index")
-    private Long index;
+	@JsonProperty("finish_reason")
+	private String finishReason;
 
-    @JsonProperty("message")
-    private ChatMessage message;
+	@JsonProperty("index")
+	private Long index;
 
-    @JsonProperty("delta")
-    private Delta delta;
+	@JsonProperty("message")
+	private ChatMessage message;
 
-    public Choice() {
-        super(JsonNodeFactory.instance);
-    }
+	@JsonProperty("delta")
+	private Delta delta;
 
-    public Choice(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if(objectNode.get("finish_reason") != null) {
-            this.setFinishReason(objectNode.get("finish_reason").asText());
-        } else {
-            this.setFinishReason(null);
-        }
-        if(objectNode.get("index") != null) {
-            this.setIndex(objectNode.get("index").asLong());
-        } else {
-            this.setIndex(null);
-        }
-        if(objectNode.get("message") != null) {
-            this.setMessage(objectMapper.convertValue(objectNode.get("message"), ChatMessage.class));
-        } else {
-            this.setMessage(null);
-        }
-        if(objectNode.get("delta") != null) {
-            this.setDelta(objectMapper.convertValue(objectNode.get("delta"), Delta.class));
-        } else {
-            this.setDelta(null);
-        }
+	public Choice() {
+		super(JsonNodeFactory.instance);
+	}
 
+	public Choice(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("finish_reason") != null) {
+			this.setFinishReason(objectNode.get("finish_reason").asText());
+		}
+		else {
+			this.setFinishReason(null);
+		}
+		if (objectNode.get("index") != null) {
+			this.setIndex(objectNode.get("index").asLong());
+		}
+		else {
+			this.setIndex(null);
+		}
+		if (objectNode.get("message") != null) {
+			this.setMessage(objectMapper.convertValue(objectNode.get("message"), ChatMessage.class));
+		}
+		else {
+			this.setMessage(null);
+		}
+		if (objectNode.get("delta") != null) {
+			this.setDelta(objectMapper.convertValue(objectNode.get("delta"), Delta.class));
+		}
+		else {
+			this.setDelta(null);
+		}
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
+		Iterator<String> fieldNames = objectNode.fieldNames();
 
-        while(fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
 
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
-    public void setFinishReason(String finishReason) {
-        this.finishReason = finishReason;
-        this.put("finish_reason", finishReason);
-    }
+	public void setFinishReason(String finishReason) {
+		this.finishReason = finishReason;
+		this.put("finish_reason", finishReason);
+	}
 
-    public void setIndex(Long index) {
-        this.index = index;
-        this.put("index", index);
-    }
+	public void setIndex(Long index) {
+		this.index = index;
+		this.put("index", index);
+	}
 
-    public void setMessage(ChatMessage message) {
-        this.message = message;
-        this.putPOJO("message", message);
-    }
+	public void setMessage(ChatMessage message) {
+		this.message = message;
+		this.putPOJO("message", message);
+	}
 
-    public void setDelta(Delta delta) {
-        this.delta = delta;
-        this.putPOJO("delta", delta);
-    }
+	public void setDelta(Delta delta) {
+		this.delta = delta;
+		this.putPOJO("delta", delta);
+	}
+
 }

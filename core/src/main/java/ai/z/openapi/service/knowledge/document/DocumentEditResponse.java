@@ -7,11 +7,15 @@ import retrofit2.Response;
 
 @Data
 public class DocumentEditResponse implements ClientResponse<Response<Void>> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private Response<Void> data;
+	private int code;
 
-    private ChatError error;
+	private String msg;
+
+	private boolean success;
+
+	private Response<Void> data;
+
+	private ChatError error;
+
 }

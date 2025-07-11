@@ -11,33 +11,34 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
 @JsonTypeField("retrieval")
 public class RetrievalToolBlock {
 
-    /**
-     * An instance of the RetrievalTool class containing the retrieval outputs.
-     */
-    @JsonProperty("retrieval")
-    private RetrievalTool retrieval;
+	/**
+	 * An instance of the RetrievalTool class containing the retrieval outputs.
+	 */
+	@JsonProperty("retrieval")
+	private RetrievalTool retrieval;
 
-    /**
-     * The type of tool being used, always set to "retrieval".
-     */
-    @JsonProperty("type")
-    private String type = "retrieval";
+	/**
+	 * The type of tool being used, always set to "retrieval".
+	 */
+	@JsonProperty("type")
+	private String type = "retrieval";
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public RetrievalTool getRetrieval() {
-        return retrieval;
-    }
+	public RetrievalTool getRetrieval() {
+		return retrieval;
+	}
 
-    public void setRetrieval(RetrievalTool retrieval) {
-        this.retrieval = retrieval;
-    }
+	public void setRetrieval(RetrievalTool retrieval) {
+		this.retrieval = retrieval;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

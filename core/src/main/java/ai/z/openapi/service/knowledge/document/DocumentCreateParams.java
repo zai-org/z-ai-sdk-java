@@ -21,47 +21,47 @@ import java.util.List;
 @Data
 public class DocumentCreateParams extends CommonRequest implements ClientRequest<DocumentCreateParams> {
 
-    /**
-     * local file
-     */
-    private String filePath;
+	/**
+	 * local file
+	 */
+	private String filePath;
 
-    /**
-     * File and upload_detail are mutually exclusive and one is required.
-     */
-    @JsonProperty("upload_detail")
-    private List<UploadDetail> uploadDetail;
+	/**
+	 * File and upload_detail are mutually exclusive and one is required.
+	 */
+	@JsonProperty("upload_detail")
+	private List<UploadDetail> uploadDetail;
 
-    /**
-     * The purpose of uploading the file.
-     * Supported values: "fine-tune", "retrieval", "batch".
-     * <ul>
-     * <li>For "retrieval", the supported file types are Doc, Docx, PDF, Xlsx, and URL, and the maximum file size is 5MB.</li>
-     * <li>For "fine-tune", the supported file type is .jsonl, and the maximum file size is 100MB.</li>
-     * </ul>
-     */
-    @JsonProperty("purpose")
-    private String purpose;
+	/**
+	 * The purpose of uploading the file. Supported values: "fine-tune", "retrieval",
+	 * "batch".
+	 * <ul>
+	 * <li>For "retrieval", the supported file types are Doc, Docx, PDF, Xlsx, and URL,
+	 * and the maximum file size is 5MB.</li>
+	 * <li>For "fine-tune", the supported file type is .jsonl, and the maximum file size
+	 * is 100MB.</li>
+	 * </ul>
+	 */
+	@JsonProperty("purpose")
+	private String purpose;
 
-    /**
-     * Custom separator list.
-     * When the purpose is "retrieval" and the file type is pdf, url, or docx, upload with the default slicing rule as `\n`.
-     */
-    @JsonProperty("custom_separator")
-    private List<String> customSeparator;
+	/**
+	 * Custom separator list. When the purpose is "retrieval" and the file type is pdf,
+	 * url, or docx, upload with the default slicing rule as `\n`.
+	 */
+	@JsonProperty("custom_separator")
+	private List<String> customSeparator;
 
-    /**
-     * Knowledge Base ID.
-     * Required when the file upload purpose is "retrieval".
-     */
-    @JsonProperty("knowledge_id")
-    private String knowledgeId;
+	/**
+	 * Knowledge Base ID. Required when the file upload purpose is "retrieval".
+	 */
+	@JsonProperty("knowledge_id")
+	private String knowledgeId;
 
-    /**
-     * Sentence size.
-     * Required when the file upload purpose is "retrieval".
-     */
-    @JsonProperty("sentence_size")
-    private Integer sentenceSize;
+	/**
+	 * Sentence size. Required when the file upload purpose is "retrieval".
+	 */
+	@JsonProperty("sentence_size")
+	private Integer sentenceSize;
 
 }

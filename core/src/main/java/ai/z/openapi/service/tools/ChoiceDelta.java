@@ -13,65 +13,69 @@ import ai.z.openapi.service.deserialize.tools.ChoiceDeltaDeserializer;
 import java.util.Iterator;
 import java.util.List;
 
-
 @JsonDeserialize(using = ChoiceDeltaDeserializer.class)
 public class ChoiceDelta extends ObjectNode {
 
-    /**
-     * Role
-     */
-    @JsonProperty("role")
-    private String role;
+	/**
+	 * Role
+	 */
+	@JsonProperty("role")
+	private String role;
 
-    /**
-     * Tool calls list
-     */
-    @JsonProperty("tool_calls")
-    private List<ChoiceDeltaToolCall> toolCalls;
+	/**
+	 * Tool calls list
+	 */
+	@JsonProperty("tool_calls")
+	private List<ChoiceDeltaToolCall> toolCalls;
 
-    public ChoiceDelta() {
-        super(JsonNodeFactory.instance);
-    }
+	public ChoiceDelta() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public ChoiceDelta(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.has("role")) {
-            this.setRole(objectNode.get("role").asText());
-        } else {
-            this.setRole(null);
-        }
-        if (objectNode.has("tool_calls")) {
-            this.setToolCalls(objectMapper.convertValue(objectNode.get("tool_calls"), new TypeReference<List<ChoiceDeltaToolCall>>() {}));
-        } else {
-            this.setToolCalls(null);
-        }
+	public ChoiceDelta(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.has("role")) {
+			this.setRole(objectNode.get("role").asText());
+		}
+		else {
+			this.setRole(null);
+		}
+		if (objectNode.has("tool_calls")) {
+			this.setToolCalls(objectMapper.convertValue(objectNode.get("tool_calls"),
+					new TypeReference<List<ChoiceDeltaToolCall>>() {
+					}));
+		}
+		else {
+			this.setToolCalls(null);
+		}
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getRole() {
-        return role;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-        this.put("role", role);
-    }
+	public void setRole(String role) {
+		this.role = role;
+		this.put("role", role);
+	}
 
-    public List<ChoiceDeltaToolCall> getToolCalls() {
-        return toolCalls;
-    }
+	public List<ChoiceDeltaToolCall> getToolCalls() {
+		return toolCalls;
+	}
 
-    public void setToolCalls(List<ChoiceDeltaToolCall> toolCalls) {
-        this.toolCalls = toolCalls;
-        this.putPOJO("tool_calls", toolCalls);
-    }
+	public void setToolCalls(List<ChoiceDeltaToolCall> toolCalls) {
+		this.toolCalls = toolCalls;
+		this.putPOJO("tool_calls", toolCalls);
+	}
+
 }

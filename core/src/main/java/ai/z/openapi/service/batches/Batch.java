@@ -5,106 +5,109 @@ import lombok.Data;
 
 import java.util.List;
 
-
 @Data
 public class Batch {
-    @JsonProperty("id")
-    private String id;
 
-    @JsonProperty("completion_window")
-    private String completionWindow;
+	@JsonProperty("id")
+	private String id;
 
-    @JsonProperty("created_at")
-    private long createdAt;
+	@JsonProperty("completion_window")
+	private String completionWindow;
 
-    @JsonProperty("endpoint")
-    private String endpoint;
+	@JsonProperty("created_at")
+	private long createdAt;
 
-    @JsonProperty("input_file_id")
-    private String inputFileId;
+	@JsonProperty("endpoint")
+	private String endpoint;
 
-    @JsonProperty("object")
-    private String object;
+	@JsonProperty("input_file_id")
+	private String inputFileId;
 
-    @JsonProperty("status")
-    private String status;
+	@JsonProperty("object")
+	private String object;
 
-    @JsonProperty("cancelled_at")
-    private Long cancelledAt;
+	@JsonProperty("status")
+	private String status;
 
-    @JsonProperty("cancelling_at")
-    private Long cancellingAt;
+	@JsonProperty("cancelled_at")
+	private Long cancelledAt;
 
-    @JsonProperty("completed_at")
-    private Long completedAt;
+	@JsonProperty("cancelling_at")
+	private Long cancellingAt;
 
-    @JsonProperty("error_file_id")
-    private String errorFileId;
+	@JsonProperty("completed_at")
+	private Long completedAt;
 
-    @JsonProperty("errors")
-    private Errors errors;
+	@JsonProperty("error_file_id")
+	private String errorFileId;
 
-    @JsonProperty("expired_at")
-    private Long expiredAt;
+	@JsonProperty("errors")
+	private Errors errors;
 
-    @JsonProperty("expires_at")
-    private Long expiresAt;
+	@JsonProperty("expired_at")
+	private Long expiredAt;
 
-    @JsonProperty("failed_at")
-    private Long failedAt;
+	@JsonProperty("expires_at")
+	private Long expiresAt;
 
-    @JsonProperty("finalizing_at")
-    private Long finalizingAt;
+	@JsonProperty("failed_at")
+	private Long failedAt;
 
-    @JsonProperty("in_progress_at")
-    private Long inProgressAt;
+	@JsonProperty("finalizing_at")
+	private Long finalizingAt;
 
-    @JsonProperty("metadata")
-    private Object metadata;
+	@JsonProperty("in_progress_at")
+	private Long inProgressAt;
 
-    @JsonProperty("output_file_id")
-    private String outputFileId;
+	@JsonProperty("metadata")
+	private Object metadata;
 
-    @JsonProperty("request_counts")
-    private BatchRequestCounts requestCounts;
+	@JsonProperty("output_file_id")
+	private String outputFileId;
+
+	@JsonProperty("request_counts")
+	private BatchRequestCounts requestCounts;
 
 }
 
 @Data
 class Errors {
-    @JsonProperty("data")
-    private List<BatchError> data;
 
-    @JsonProperty("object")
-    private String object;
+	@JsonProperty("data")
+	private List<BatchError> data;
+
+	@JsonProperty("object")
+	private String object;
 
 }
 
 @Data
 class BatchRequestCounts {
-    @JsonProperty("completed")
-    private int completed;
 
-    @JsonProperty("failed")
-    private int failed;
+	@JsonProperty("completed")
+	private int completed;
 
-    @JsonProperty("total")
-    private int total;
+	@JsonProperty("failed")
+	private int failed;
+
+	@JsonProperty("total")
+	private int total;
 
 }
 
 @Data
 class BatchError {
-    @JsonProperty("code")
-    private String code;
 
-    @JsonProperty("line")
-    private Long line;
+	@JsonProperty("code")
+	private String code;
 
-    @JsonProperty("message")
-    private String message;
+	@JsonProperty("line")
+	private Long line;
 
-    @JsonProperty("param")
-    private String param;
+	@JsonProperty("message")
+	private String message;
+
+	@JsonProperty("param")
+	private String param;
 
 }

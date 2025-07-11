@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class AsyncResultRetrieveParams implements ClientRequest<AsyncResultRetrieveParams> {
 
-    private String taskId;
-
+	private String taskId;
 
 }

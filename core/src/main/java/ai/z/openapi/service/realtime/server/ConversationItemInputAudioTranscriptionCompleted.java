@@ -10,19 +10,21 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ConversationItemInputAudioTranscriptionCompleted extends RealtimeServerEvent {
-    @JsonProperty("item_id")
-    private String itemId;
 
-    @JsonProperty("content_index")
-    private int contentIndex;
+	@JsonProperty("item_id")
+	private String itemId;
 
-    @JsonProperty("transcript")
-    private String transcript;
+	@JsonProperty("content_index")
+	private int contentIndex;
 
-    public ConversationItemInputAudioTranscriptionCompleted() {
-        super.setType("conversation.item.input_audio_transcription.completed");
-        this.itemId = "";
-        this.contentIndex = 0;
-        this.transcript = "";
-    }
+	@JsonProperty("transcript")
+	private String transcript;
+
+	public ConversationItemInputAudioTranscriptionCompleted() {
+		super.setType("conversation.item.input_audio_transcription.completed");
+		this.itemId = "";
+		this.contentIndex = 0;
+		this.transcript = "";
+	}
+
 }

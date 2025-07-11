@@ -5,12 +5,16 @@ import ai.z.openapi.service.model.ChatError;
 import lombok.Data;
 
 @Data
-public class QueryFileApiResponse   implements ClientResponse<QueryFileResult> {
-    private int code;
-    private String msg;
-    private boolean success;
+public class QueryFileApiResponse implements ClientResponse<QueryFileResult> {
 
-    private QueryFileResult data;
-    private ChatError error;
+	private int code;
+
+	private String msg;
+
+	private boolean success;
+
+	private QueryFileResult data;
+
+	private ChatError error;
 
 }

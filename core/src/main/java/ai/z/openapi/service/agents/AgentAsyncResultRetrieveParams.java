@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Parameters for retrieving agent asynchronous task results.
- * This class contains the necessary parameters to query the result of an agent's async task.
+ * Parameters for retrieving agent asynchronous task results. This class contains the
+ * necessary parameters to query the result of an agent's async task.
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
@@ -22,22 +22,22 @@ import java.util.Map;
 @Data
 public class AgentAsyncResultRetrieveParams implements ClientRequest<Map<String, Object>> {
 
-    /**
-     * The ID of the agent async task to retrieve
-     */
-    @JsonProperty("task_id")
-    private String taskId;
+	/**
+	 * The ID of the agent async task to retrieve
+	 */
+	@JsonProperty("task_id")
+	private String taskId;
 
-    /**
-     * The agent ID associated with the async task
-     */
-    @JsonProperty("agent_id")
-    private String agentId;
+	/**
+	 * The agent ID associated with the async task
+	 */
+	@JsonProperty("agent_id")
+	private String agentId;
 
-    /**
-     * Optional request ID for tracking
-     */
-    @JsonProperty("request_id")
-    private String requestId;
+	/**
+	 * Optional request ID for tracking
+	 */
+	@JsonProperty("request_id")
+	private String requestId;
 
 }

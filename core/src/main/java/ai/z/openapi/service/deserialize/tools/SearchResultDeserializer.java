@@ -14,37 +14,38 @@ import ai.z.openapi.service.tools.SearchResult;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link SearchResult} from any
- * JSON content, using appropriate {@link SearchResult} type.
+ * Deserializer that can build instances of {@link SearchResult} from any JSON content,
+ * using appropriate {@link SearchResult} type.
  */
 public class SearchResultDeserializer extends BaseNodeDeserializer<SearchResult> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static SearchResultDeserializer instance = new SearchResultDeserializer();
+	private final static SearchResultDeserializer instance = new SearchResultDeserializer();
 
-    public SearchResultDeserializer() {
-        super(SearchResult.class, null);
-    }
+	public SearchResultDeserializer() {
+		super(SearchResult.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public SearchResult getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public SearchResult getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public SearchResult deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new SearchResult(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public SearchResult deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new SearchResult(jsonNodes);
+		}
+		return null;
+	}
+
 }

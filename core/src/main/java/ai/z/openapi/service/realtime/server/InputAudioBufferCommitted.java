@@ -10,15 +10,17 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class InputAudioBufferCommitted extends RealtimeServerEvent {
-    @JsonProperty("previous_item_id")
-    private String previousItemId;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("previous_item_id")
+	private String previousItemId;
 
-    public InputAudioBufferCommitted() {
-        super.setType("input_audio_buffer.committed");
-        this.previousItemId = "";
-        this.itemId = "";
-    }
+	@JsonProperty("item_id")
+	private String itemId;
+
+	public InputAudioBufferCommitted() {
+		super.setType("input_audio_buffer.committed");
+		this.previousItemId = "";
+		this.itemId = "";
+	}
+
 }

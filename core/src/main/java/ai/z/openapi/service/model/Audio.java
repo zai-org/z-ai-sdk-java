@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class Audio {
 
-    private String id;
+	private String id;
 
-    private String data;
+	private String data;
 
-    private Long expires_at;
+	private Long expires_at;
 
 }

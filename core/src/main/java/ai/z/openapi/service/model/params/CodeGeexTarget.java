@@ -6,16 +6,17 @@ import lombok.Getter;
 
 @Data
 public class CodeGeexTarget {
-    @JsonProperty("path")
-    private String path;
 
-    @JsonProperty("language")
-    private String language;
+	@JsonProperty("path")
+	private String path;
 
-    @JsonProperty("code_prefix")
-    private String codePrefix;
+	@JsonProperty("language")
+	private String language;
 
-    @JsonProperty("code_suffix")
-    private String codeSuffix;
+	@JsonProperty("code_prefix")
+	private String codePrefix;
+
+	@JsonProperty("code_suffix")
+	private String codeSuffix;
 
 }

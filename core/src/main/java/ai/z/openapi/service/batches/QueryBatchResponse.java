@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 public class QueryBatchResponse implements ClientResponse<BatchPage> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private BatchPage data;
+	private int code;
 
-    private ChatError error;
+	private String msg;
+
+	private boolean success;
+
+	private BatchPage data;
+
+	private ChatError error;
+
 }

@@ -11,19 +11,21 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ResponseOutputItemAdded extends RealtimeServerEvent {
-    @JsonProperty("response_id")
-    private String responseId;
 
-    @JsonProperty("output_index")
-    private String outputIndex;
+	@JsonProperty("response_id")
+	private String responseId;
 
-    @JsonProperty("item")
-    private OutputItemObj item;
+	@JsonProperty("output_index")
+	private String outputIndex;
 
-    public ResponseOutputItemAdded() {
-        super.setType("response.output_item.added");
-        this.responseId = "";
-        this.outputIndex = "";
-        this.item = new OutputItemObj();
-    }
+	@JsonProperty("item")
+	private OutputItemObj item;
+
+	public ResponseOutputItemAdded() {
+		super.setType("response.output_item.added");
+		this.responseId = "";
+		this.outputIndex = "";
+		this.item = new OutputItemObj();
+	}
+
 }

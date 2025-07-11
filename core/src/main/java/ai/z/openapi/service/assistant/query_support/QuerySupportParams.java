@@ -12,20 +12,20 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 /**
- * Parameters for querying assistant support status.
- * This class contains the parameters needed to query the support status of specific assistants.
+ * Parameters for querying assistant support status. This class contains the parameters
+ * needed to query the support status of specific assistants.
  */
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class QuerySupportParams  extends CommonRequest implements ClientRequest<QuerySupportParams> {
+public class QuerySupportParams extends CommonRequest implements ClientRequest<QuerySupportParams> {
 
-    /**
-     * List of assistant IDs to query support status for.
-     */
-    @JsonProperty("assistant_id_list")
-    private List<String> assistantIdList;
+	/**
+	 * List of assistant IDs to query support status for.
+	 */
+	@JsonProperty("assistant_id_list")
+	private List<String> assistantIdList;
 
 }

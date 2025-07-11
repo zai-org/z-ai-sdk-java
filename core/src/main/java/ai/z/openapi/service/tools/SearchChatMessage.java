@@ -1,6 +1,5 @@
 package ai.z.openapi.service.tools;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -12,62 +11,60 @@ import lombok.Getter;
 
 import java.util.Iterator;
 
-
 @JsonDeserialize(using = SearchChatMessageDeserializer.class)
 @Getter
 public class SearchChatMessage extends ObjectNode {
 
+	private String role;
 
-    private String role;
-    private Object content;
+	private Object content;
 
+	public SearchChatMessage() {
+		super(JsonNodeFactory.instance);
+	}
 
+	public SearchChatMessage(String role, Object content) {
 
-    public SearchChatMessage() {
-        super(JsonNodeFactory.instance);
-    }
+		super(JsonNodeFactory.instance);
+		this.setRole(role);
+		this.setContent(content);
+	}
 
-    public SearchChatMessage(String role, Object content) {
+	public SearchChatMessage(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("role") != null) {
+			this.setRole(objectNode.get("role").asText());
+		}
+		else {
+			this.setRole(null);
+		}
+		if (objectNode.get("content") != null) {
+			this.setContent(objectNode.get("content").asText());
+		}
+		else {
+			this.setContent(null);
+		}
 
-        super(JsonNodeFactory.instance);
-        this.setRole(role);
-        this.setContent(content);
-    }
+		Iterator<String> fieldNames = objectNode.fieldNames();
 
-    public SearchChatMessage(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("role") != null) {
-            this.setRole(objectNode.get("role").asText());
-        } else {
-            this.setRole(null);
-        }
-        if (objectNode.get("content") != null) {
-            this.setContent(objectNode.get("content").asText());
-        } else {
-            this.setContent(null);
-        }
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
 
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
+	}
 
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
+	public void setRole(String role) {
+		this.role = role;
+		this.put("role", role);
+	}
 
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-        this.put("role", role);
-    }
-
-    public void setContent(Object content) {
-        this.content = content;
-        this.putPOJO("content", content);
-    }
-
+	public void setContent(Object content) {
+		this.content = content;
+		this.putPOJO("content", content);
+	}
 
 }

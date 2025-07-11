@@ -14,37 +14,38 @@ import ai.z.openapi.service.tools.WebSearchPro;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link WebSearchPro} from any
- * JSON content, using appropriate {@link WebSearchPro} type.
+ * Deserializer that can build instances of {@link WebSearchPro} from any JSON content,
+ * using appropriate {@link WebSearchPro} type.
  */
 public class WebSearchProDeserializer extends BaseNodeDeserializer<WebSearchPro> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static WebSearchProDeserializer instance = new WebSearchProDeserializer();
+	private final static WebSearchProDeserializer instance = new WebSearchProDeserializer();
 
-    public WebSearchProDeserializer() {
-        super(WebSearchPro.class, null);
-    }
+	public WebSearchProDeserializer() {
+		super(WebSearchPro.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public WebSearchPro getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public WebSearchPro getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public WebSearchPro deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new WebSearchPro(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public WebSearchPro deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new WebSearchPro(jsonNodes);
+		}
+		return null;
+	}
+
 }

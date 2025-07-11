@@ -11,34 +11,34 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConversationUsage {
 
-    /**
-     * The conversation ID.
-     */
-    @JsonProperty("id")
-    private String id;
+	/**
+	 * The conversation ID.
+	 */
+	@JsonProperty("id")
+	private String id;
 
-    /**
-     * The Assistant ID.
-     */
-    @JsonProperty("assistant_id")
-    private String assistantId;
+	/**
+	 * The Assistant ID.
+	 */
+	@JsonProperty("assistant_id")
+	private String assistantId;
 
-    /**
-     * The creation time of the conversation.
-     */
-    @JsonProperty("create_time")
-    private String createTime;
+	/**
+	 * The creation time of the conversation.
+	 */
+	@JsonProperty("create_time")
+	private String createTime;
 
-    /**
-     * The last update time of the conversation.
-     */
-    @JsonProperty("update_time")
-    private String updateTime;
+	/**
+	 * The last update time of the conversation.
+	 */
+	@JsonProperty("update_time")
+	private String updateTime;
 
-    /**
-     * The usage statistics for the conversation.
-     */
-    @JsonProperty("usage")
-    private Usage usage;
+	/**
+	 * The usage statistics for the conversation.
+	 */
+	@JsonProperty("usage")
+	private Usage usage;
 
 }

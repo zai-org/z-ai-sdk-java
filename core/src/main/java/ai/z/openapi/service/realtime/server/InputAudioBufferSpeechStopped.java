@@ -10,15 +10,17 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class InputAudioBufferSpeechStopped extends RealtimeServerEvent {
-    @JsonProperty("audio_end_ms")
-    private Integer audioEndMs;
 
-    @JsonProperty("item_id")
-    private String itemId;
+	@JsonProperty("audio_end_ms")
+	private Integer audioEndMs;
 
-    public InputAudioBufferSpeechStopped() {
-        super.setType("input_audio_buffer.speech_stopped");
-        this.audioEndMs = 0;
-        this.itemId = "";
-    }
+	@JsonProperty("item_id")
+	private String itemId;
+
+	public InputAudioBufferSpeechStopped() {
+		super.setType("input_audio_buffer.speech_stopped");
+		this.audioEndMs = 0;
+		this.itemId = "";
+	}
+
 }

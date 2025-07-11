@@ -8,9 +8,10 @@ import java.util.List;
 @Data
 public class QueryFileResult {
 
-    private String object;
+	private String object;
 
-    private List<File> data;
+	private List<File> data;
 
-    private ChatError error;
+	private ChatError error;
+
 }

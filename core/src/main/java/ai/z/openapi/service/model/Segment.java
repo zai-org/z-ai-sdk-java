@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class Segment {
 
+	private Integer id;
 
-    private Integer id;
+	private Double start;
 
-    private Double start;
+	private Double end;
 
-    private Double end;
+	private String text;
 
-    private String text;
 }

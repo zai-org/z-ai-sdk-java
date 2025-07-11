@@ -10,29 +10,28 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WebSearchDTO {
 
-    /**
-     * Creation time
-     */
-    @JsonProperty("created")
-    private Integer created;
+	/**
+	 * Creation time
+	 */
+	@JsonProperty("created")
+	private Integer created;
 
-    /**
-     * ID
-     */
-    @JsonProperty("id")
-    private String id;
+	/**
+	 * ID
+	 */
+	@JsonProperty("id")
+	private String id;
 
-    /**
-     * Request ID
-     */
-    @JsonProperty("request_id")
-    private String requestId;
+	/**
+	 * Request ID
+	 */
+	@JsonProperty("request_id")
+	private String requestId;
 
-    @JsonProperty("search_result")
-    private List<WebSearchResp> webSearchResp;
+	@JsonProperty("search_result")
+	private List<WebSearchResp> webSearchResp;
 
-
-    @JsonProperty("search_intent")
-    private List<SearchIntentResp> searchIntentResp;
+	@JsonProperty("search_intent")
+	private List<SearchIntentResp> searchIntentResp;
 
 }

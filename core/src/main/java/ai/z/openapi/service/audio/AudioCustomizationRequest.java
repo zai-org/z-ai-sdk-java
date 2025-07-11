@@ -15,9 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Request parameters for audio customization API calls.
- * This class contains all the necessary parameters for generating customized audio,
- * including input text, model selection, voice cloning data, and response format options.
+ * Request parameters for audio customization API calls. This class contains all the
+ * necessary parameters for generating customized audio, including input text, model
+ * selection, voice cloning data, and response format options.
  */
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -26,39 +26,38 @@ import java.util.Map;
 @Data
 public class AudioCustomizationRequest extends CommonRequest implements ClientRequest<AudioCustomizationRequest> {
 
+	/**
+	 * Text to generate audio from
+	 */
+	private String input;
 
-    /**
-     * Text to generate audio from
-     */
-    private String input;
+	/**
+	 * Model code to call
+	 */
+	private String model;
 
-    /**
-     * Model code to call
-     */
-    private String model;
+	/**
+	 * Text description of the original audio to clone
+	 */
+	@JsonProperty("voice_text")
+	private String voiceText;
 
-    /**
-     * Text description of the original audio to clone
-     */
-    @JsonProperty("voice_text")
-    private String voiceText;
+	/**
+	 * Original audio file to clone
+	 */
+	@JsonProperty("voice_data")
+	private File voiceData;
 
-    /**
-     * Original audio file to clone
-     */
-    @JsonProperty("voice_data")
-    private File voiceData;
+	/**
+	 * Audio response format
+	 */
+	@JsonProperty("response_format")
+	private String responseFormat;
 
-    /**
-     * Audio response format
-     */
-    @JsonProperty("response_format")
-    private String responseFormat;
-
-    /**
-     * Sensitive word detection control
-     */
-    @JsonProperty("sensitive_word_check")
-    private SensitiveWordCheckRequest sensitiveWordCheck;
+	/**
+	 * Sensitive word detection control
+	 */
+	@JsonProperty("sensitive_word_check")
+	private SensitiveWordCheckRequest sensitiveWordCheck;
 
 }

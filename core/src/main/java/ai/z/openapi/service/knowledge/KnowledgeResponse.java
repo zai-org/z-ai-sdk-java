@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 public class KnowledgeResponse implements ClientResponse<KnowledgeInfo> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private KnowledgeInfo data;
+	private int code;
 
-    private ChatError error;
+	private String msg;
+
+	private boolean success;
+
+	private KnowledgeInfo data;
+
+	private ChatError error;
+
 }

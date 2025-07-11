@@ -17,59 +17,64 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class OkHttpRealtimeClientTest {
-    private static final Logger logger = LoggerFactory.getLogger(OkHttpRealtimeClientTest.class);
 
-    public static void main(String[] args) {
-        OkHttpRealtimeClient.CommunicationProvider communicationProvider = new OkHttpRealtimeClient.CommunicationProvider() {
-            public String getAuthToken() {
-                return Optional.ofNullable(System.getenv("API_KEY_01")) //
-                        .orElse("TODO");
-            }
+	private static final Logger logger = LoggerFactory.getLogger(OkHttpRealtimeClientTest.class);
 
-            public String getWebSocketUrl() {
-                return "wss://open.bigmodel.cn/api/paas/v4/realtime";
-            }
-        };
+	public static void main(String[] args) {
+		OkHttpRealtimeClient.CommunicationProvider communicationProvider = new OkHttpRealtimeClient.CommunicationProvider() {
+			public String getAuthToken() {
+				return Optional.ofNullable(System.getenv("API_KEY_01")) //
+					.orElse("TODO");
+			}
 
-        Consumer<RealtimeServerEvent> serverEventHandler = event -> {
-            logger.info("Received server event: {}, type: {}", event.getType(), event.getClass().getSimpleName());
-            if (event instanceof RealtimeError) {
-                logger.error("Received server error event: {}", JasonUtil.toJsonFromServerEvent(event));
-            }
-        };
+			public String getWebSocketUrl() {
+				return "wss://open.bigmodel.cn/api/paas/v4/realtime";
+			}
+		};
 
-        OkHttpRealtimeClient client = new OkHttpRealtimeClient(communicationProvider, serverEventHandler);
+		Consumer<RealtimeServerEvent> serverEventHandler = event -> {
+			logger.info("Received server event: {}, type: {}", event.getType(), event.getClass().getSimpleName());
+			if (event instanceof RealtimeError) {
+				logger.error("Received server error event: {}", JasonUtil.toJsonFromServerEvent(event));
+			}
+		};
 
-        try {
-            client.start();
-            logger.info("Client started");
+		OkHttpRealtimeClient client = new OkHttpRealtimeClient(communicationProvider, serverEventHandler);
 
-            client.waitForConnection();
-            logger.info("WebSocket connection established");
+		try {
+			client.start();
+			logger.info("Client started");
 
-            URL resourceUrl = Resources.getResource("Audio.ServerVad.Input");
-            List<String> lines = Resources.readLines(resourceUrl, Charsets.UTF_8);
-            for (String text : lines) {
-                if (!text.trim().isEmpty()) {
-                    RealtimeClientEvent clientEvent = JasonUtil.fromJsonToClientEvent(text);
-                    logger.info("Parse and send message: {}", clientEvent.getType());
-            logger.info("Parse and send message: {}", JasonUtil.toJsonFromClientEvent(clientEvent));
-                    client.sendMessage(clientEvent);
-                }
-            }
+			client.waitForConnection();
+			logger.info("WebSocket connection established");
 
-            Thread.sleep(5000);
-            client.stop();
-            logger.info("Client stopped");
-        } catch (Exception e) {
-            logger.error("Client runtime exception", e);
-        } finally {
-            try {
-                client.close();
-                logger.info("Client closed");
-            } catch (IOException e) {
-                logger.error("Exception occurred while closing client", e);
-            }
-        }
-    }
+			URL resourceUrl = Resources.getResource("Audio.ServerVad.Input");
+			List<String> lines = Resources.readLines(resourceUrl, Charsets.UTF_8);
+			for (String text : lines) {
+				if (!text.trim().isEmpty()) {
+					RealtimeClientEvent clientEvent = JasonUtil.fromJsonToClientEvent(text);
+					logger.info("Parse and send message: {}", clientEvent.getType());
+					logger.info("Parse and send message: {}", JasonUtil.toJsonFromClientEvent(clientEvent));
+					client.sendMessage(clientEvent);
+				}
+			}
+
+			Thread.sleep(5000);
+			client.stop();
+			logger.info("Client stopped");
+		}
+		catch (Exception e) {
+			logger.error("Client runtime exception", e);
+		}
+		finally {
+			try {
+				client.close();
+				logger.info("Client closed");
+			}
+			catch (IOException e) {
+				logger.error("Exception occurred while closing client", e);
+			}
+		}
+	}
+
 }

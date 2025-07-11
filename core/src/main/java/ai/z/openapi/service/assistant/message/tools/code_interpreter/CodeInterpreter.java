@@ -8,33 +8,34 @@ import java.util.List;
  */
 public class CodeInterpreter {
 
-    /**
-     * The generated code snippet that is input to the code sandbox.
-     */
-    @JsonProperty("input")
-    private String input;
+	/**
+	 * The generated code snippet that is input to the code sandbox.
+	 */
+	@JsonProperty("input")
+	private String input;
 
-    /**
-     * The output results after the code execution.
-     */
-    @JsonProperty("outputs")
-    private List<CodeInterpreterToolOutput> outputs;
+	/**
+	 * The output results after the code execution.
+	 */
+	@JsonProperty("outputs")
+	private List<CodeInterpreterToolOutput> outputs;
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getInput() {
-        return input;
-    }
+	public String getInput() {
+		return input;
+	}
 
-    public void setInput(String input) {
-        this.input = input;
-    }
+	public void setInput(String input) {
+		this.input = input;
+	}
 
-    public List<CodeInterpreterToolOutput> getOutputs() {
-        return outputs;
-    }
+	public List<CodeInterpreterToolOutput> getOutputs() {
+		return outputs;
+	}
 
-    public void setOutputs(List<CodeInterpreterToolOutput> outputs) {
-        this.outputs = outputs;
-    }
+	public void setOutputs(List<CodeInterpreterToolOutput> outputs) {
+		this.outputs = outputs;
+	}
+
 }

@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 public class DocumentObjectResponse implements ClientResponse<DocumentObject> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private DocumentObject data;
+	private int code;
 
-    private ChatError error;
+	private String msg;
+
+	private boolean success;
+
+	private DocumentObject data;
+
+	private ChatError error;
+
 }

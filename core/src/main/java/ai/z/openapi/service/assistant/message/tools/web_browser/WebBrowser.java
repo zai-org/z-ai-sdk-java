@@ -8,33 +8,34 @@ import java.util.List;
  */
 public class WebBrowser {
 
-    /**
-     * The input query for the web browser search.
-     */
-    @JsonProperty("input")
-    private String input;
+	/**
+	 * The input query for the web browser search.
+	 */
+	@JsonProperty("input")
+	private String input;
 
-    /**
-     * A list of search results returned by the web browser.
-     */
-    @JsonProperty("outputs")
-    private List<WebBrowserOutput> outputs;
+	/**
+	 * A list of search results returned by the web browser.
+	 */
+	@JsonProperty("outputs")
+	private List<WebBrowserOutput> outputs;
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getInput() {
-        return input;
-    }
+	public String getInput() {
+		return input;
+	}
 
-    public void setInput(String input) {
-        this.input = input;
-    }
+	public void setInput(String input) {
+		this.input = input;
+	}
 
-    public List<WebBrowserOutput> getOutputs() {
-        return outputs;
-    }
+	public List<WebBrowserOutput> getOutputs() {
+		return outputs;
+	}
 
-    public void setOutputs(List<WebBrowserOutput> outputs) {
-        this.outputs = outputs;
-    }
+	public void setOutputs(List<WebBrowserOutput> outputs) {
+		this.outputs = outputs;
+	}
+
 }

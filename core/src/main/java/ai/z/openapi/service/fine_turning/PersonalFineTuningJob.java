@@ -12,8 +12,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonalFineTuningJob {
 
-    String object;
+	String object;
 
-    private List<FineTuningJob> data;
+	private List<FineTuningJob> data;
 
 }

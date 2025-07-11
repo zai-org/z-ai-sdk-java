@@ -10,11 +10,13 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ConversationItemDeleted extends RealtimeServerEvent {
-    @JsonProperty("item_id")
-    private String itemId;
 
-    public ConversationItemDeleted() {
-        super.setType("conversation.item.deleted");
-        this.itemId = "";
-    }
+	@JsonProperty("item_id")
+	private String itemId;
+
+	public ConversationItemDeleted() {
+		super.setType("conversation.item.deleted");
+		this.itemId = "";
+	}
+
 }

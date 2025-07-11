@@ -8,20 +8,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Server event indicating that a new conversation has been created.
- * This event is sent immediately after session creation to establish the conversation context.
+ * Server event indicating that a new conversation has been created. This event is sent
+ * immediately after session creation to establish the conversation context.
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ConversationCreated extends RealtimeServerEvent {
-    /**
-     * The conversation object containing the conversation details and configuration.
-     */
-    @JsonProperty("conversation")
-    private ConversationObj conversation;
 
-    public ConversationCreated() {
-        super.setType("conversation.created");
-    }
+	/**
+	 * The conversation object containing the conversation details and configuration.
+	 */
+	@JsonProperty("conversation")
+	private ConversationObj conversation;
+
+	public ConversationCreated() {
+		super.setType("conversation.created");
+	}
+
 }

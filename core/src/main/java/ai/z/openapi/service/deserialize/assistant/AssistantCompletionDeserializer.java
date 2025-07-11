@@ -14,37 +14,38 @@ import ai.z.openapi.service.deserialize.ObjectDeserializer;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link AssistantCompletion} from any
- * JSON content, using appropriate {@link AssistantCompletion} type.
+ * Deserializer that can build instances of {@link AssistantCompletion} from any JSON
+ * content, using appropriate {@link AssistantCompletion} type.
  */
 public class AssistantCompletionDeserializer extends BaseNodeDeserializer<AssistantCompletion> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static AssistantCompletionDeserializer instance = new AssistantCompletionDeserializer();
+	private final static AssistantCompletionDeserializer instance = new AssistantCompletionDeserializer();
 
-    public AssistantCompletionDeserializer() {
-        super(AssistantCompletion.class, null);
-    }
+	public AssistantCompletionDeserializer() {
+		super(AssistantCompletion.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public AssistantCompletion getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public AssistantCompletion getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public AssistantCompletion deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new AssistantCompletion(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public AssistantCompletion deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new AssistantCompletion(jsonNodes);
+		}
+		return null;
+	}
+
 }

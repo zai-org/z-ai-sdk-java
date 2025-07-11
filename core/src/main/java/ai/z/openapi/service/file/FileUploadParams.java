@@ -15,13 +15,15 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Data
 public class FileUploadParams extends CommonRequest implements ClientRequest<FileUploadParams> {
-    /**
-     * The purpose of the file
-     */
-    private String purpose;
-    /**
-     * local file
-     */
-    private String filePath;
+
+	/**
+	 * The purpose of the file
+	 */
+	private String purpose;
+
+	/**
+	 * local file
+	 */
+	private String filePath;
 
 }

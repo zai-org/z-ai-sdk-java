@@ -12,184 +12,202 @@ import java.util.Map;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class OutputItemObj {
-    @JsonProperty("id")
-    private String id;
 
-    @JsonProperty("role")
-    private String role;
+	@JsonProperty("id")
+	private String id;
 
-    @JsonProperty("status")
-    private String status;
+	@JsonProperty("role")
+	private String role;
 
-    @JsonProperty("type")
-    private String type;
+	@JsonProperty("status")
+	private String status;
 
-    @JsonProperty("content")
-    private List<OutputMessage> content;
+	@JsonProperty("type")
+	private String type;
 
-    @JsonProperty("file_search_tool_call")
-    private FileSearchToolCall fileSearchToolCall;
+	@JsonProperty("content")
+	private List<OutputMessage> content;
 
-    @JsonProperty("function_tool_call")
-    private FunctionToolCall functionToolCall;
+	@JsonProperty("file_search_tool_call")
+	private FileSearchToolCall fileSearchToolCall;
 
-    @JsonProperty("web_search_tool_call")
-    private WebSearchToolCall webSearchToolCall;
+	@JsonProperty("function_tool_call")
+	private FunctionToolCall functionToolCall;
 
-    @JsonProperty("computer_tool_call")
-    private ComputerToolCall computerToolCall;
+	@JsonProperty("web_search_tool_call")
+	private WebSearchToolCall webSearchToolCall;
 
-    @JsonProperty("reasoning")
-    private Reasoning reasoning;
+	@JsonProperty("computer_tool_call")
+	private ComputerToolCall computerToolCall;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class OutputMessage {
-        @JsonProperty("id")
-        private String id;
+	@JsonProperty("reasoning")
+	private Reasoning reasoning;
 
-        @JsonProperty("role")
-        private String role;
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class OutputMessage {
 
-        @JsonProperty("status")
-        private String status;
+		@JsonProperty("id")
+		private String id;
 
-        @JsonProperty("type")
-        private String type;
+		@JsonProperty("role")
+		private String role;
 
-        @JsonProperty("content")
-        private List<String> content;
-    }
+		@JsonProperty("status")
+		private String status;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class FileSearchToolCall {
-        @JsonProperty("id")
-        private String id;
+		@JsonProperty("type")
+		private String type;
 
-        @JsonProperty("queries")
-        private List<String> queries;
+		@JsonProperty("content")
+		private List<String> content;
 
-        @JsonProperty("status")
-        private String status;
+	}
 
-        @JsonProperty("type")
-        private String type;
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class FileSearchToolCall {
 
-        @JsonProperty("results")
-        private List<FileSearchResult> results;
-    }
+		@JsonProperty("id")
+		private String id;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class FileSearchResult {
-        @JsonProperty("attributes")
-        private Map<String, Object> attributes;
+		@JsonProperty("queries")
+		private List<String> queries;
 
-        @JsonProperty("file_id")
-        private String fileId;
+		@JsonProperty("status")
+		private String status;
 
-        @JsonProperty("filename")
-        private String filename;
+		@JsonProperty("type")
+		private String type;
 
-        @JsonProperty("score")
-        private Double score;
+		@JsonProperty("results")
+		private List<FileSearchResult> results;
 
-        @JsonProperty("text")
-        private String text;
-    }
+	}
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class FunctionToolCall {
-        @JsonProperty("arguments")
-        private String arguments;
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class FileSearchResult {
 
-        @JsonProperty("call_id")
-        private String callId;
+		@JsonProperty("attributes")
+		private Map<String, Object> attributes;
 
-        @JsonProperty("id")
-        private String id;
+		@JsonProperty("file_id")
+		private String fileId;
 
-        @JsonProperty("name")
-        private String name;
+		@JsonProperty("filename")
+		private String filename;
 
-        @JsonProperty("type")
-        private String type;
+		@JsonProperty("score")
+		private Double score;
 
-        @JsonProperty("status")
-        private String status;
-    }
+		@JsonProperty("text")
+		private String text;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class WebSearchToolCall {
-        @JsonProperty("id")
-        private String id;
+	}
 
-        @JsonProperty("status")
-        private String status;
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class FunctionToolCall {
 
-        @JsonProperty("type")
-        private String type;
-    }
+		@JsonProperty("arguments")
+		private String arguments;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class ComputerToolCall {
-        @JsonProperty("action")
-        private Object action;
+		@JsonProperty("call_id")
+		private String callId;
 
-        @JsonProperty("call_id")
-        private String callId;
+		@JsonProperty("id")
+		private String id;
 
-        @JsonProperty("id")
-        private String id;
+		@JsonProperty("name")
+		private String name;
 
-        @JsonProperty("pending_safety_checks")
-        private List<PendingSafetyCheck> pendingSafetyChecks;
+		@JsonProperty("type")
+		private String type;
 
-        @JsonProperty("status")
-        private String status;
+		@JsonProperty("status")
+		private String status;
 
-        @JsonProperty("type")
-        private String type;
-    }
+	}
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class PendingSafetyCheck {
-        @JsonProperty("code")
-        private String code;
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class WebSearchToolCall {
 
-        @JsonProperty("id")
-        private String id;
+		@JsonProperty("id")
+		private String id;
 
-        @JsonProperty("message")
-        private String message;
-    }
+		@JsonProperty("status")
+		private String status;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = false)
-    public static class Reasoning {
-        @JsonProperty("id")
-        private String id;
+		@JsonProperty("type")
+		private String type;
 
-        @JsonProperty("summary")
-        private List<String> summary;
+	}
 
-        @JsonProperty("type")
-        private String type;
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class ComputerToolCall {
 
-        @JsonProperty("status")
-        private String status;
-    }
+		@JsonProperty("action")
+		private Object action;
+
+		@JsonProperty("call_id")
+		private String callId;
+
+		@JsonProperty("id")
+		private String id;
+
+		@JsonProperty("pending_safety_checks")
+		private List<PendingSafetyCheck> pendingSafetyChecks;
+
+		@JsonProperty("status")
+		private String status;
+
+		@JsonProperty("type")
+		private String type;
+
+	}
+
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class PendingSafetyCheck {
+
+		@JsonProperty("code")
+		private String code;
+
+		@JsonProperty("id")
+		private String id;
+
+		@JsonProperty("message")
+		private String message;
+
+	}
+
+	@Getter
+	@Setter
+	@EqualsAndHashCode(callSuper = false)
+	public static class Reasoning {
+
+		@JsonProperty("id")
+		private String id;
+
+		@JsonProperty("summary")
+		private List<String> summary;
+
+		@JsonProperty("type")
+		private String type;
+
+		@JsonProperty("status")
+		private String status;
+
+	}
+
 }

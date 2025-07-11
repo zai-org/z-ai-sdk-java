@@ -18,5 +18,9 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
+
+      - name: Validate Java Format
+        run: mvn spring-javaformat:validate
+
       - name: Build with Maven
         run: mvn -B package

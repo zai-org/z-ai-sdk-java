@@ -19,22 +19,22 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class ConversationParameters extends CommonRequest implements ClientRequest<ConversationParameters> {
 
-    /**
-     * The Assistant ID.
-     */
-    @JsonProperty("assistant_id")
-    private String assistantId;
+	/**
+	 * The Assistant ID.
+	 */
+	@JsonProperty("assistant_id")
+	private String assistantId;
 
-    /**
-     * The current page number for pagination.
-     */
-    @JsonProperty("page")
-    private int page;
+	/**
+	 * The current page number for pagination.
+	 */
+	@JsonProperty("page")
+	private int page;
 
-    /**
-     * The number of items per page for pagination.
-     */
-    @JsonProperty("page_size")
-    private int pageSize;
+	/**
+	 * The number of items per page for pagination.
+	 */
+	@JsonProperty("page_size")
+	private int pageSize;
 
 }

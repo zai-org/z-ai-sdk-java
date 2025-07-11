@@ -14,37 +14,38 @@ import ai.z.openapi.service.tools.WebSearchChoice;
 import java.io.IOException;
 
 /**
- * Deserializer that can build instances of {@link WebSearchChoice} from any
- * JSON content, using appropriate {@link WebSearchChoice} type.
+ * Deserializer that can build instances of {@link WebSearchChoice} from any JSON content,
+ * using appropriate {@link WebSearchChoice} type.
  */
 public class WebSearchChoiceDeserializer extends BaseNodeDeserializer<WebSearchChoice> {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper();
 
-    private final static WebSearchChoiceDeserializer instance = new WebSearchChoiceDeserializer();
+	private final static WebSearchChoiceDeserializer instance = new WebSearchChoiceDeserializer();
 
-    public WebSearchChoiceDeserializer() {
-        super(WebSearchChoice.class, null);
-    }
+	public WebSearchChoiceDeserializer() {
+		super(WebSearchChoice.class, null);
+	}
 
-    public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
-        if (nodeClass == ObjectNode.class) {
-            return ObjectDeserializer.getInstance();
-        }
-        return instance;
-    }
+	public static JsonDeserializer<? extends JsonNode> getDeserializer(Class<?> nodeClass) {
+		if (nodeClass == ObjectNode.class) {
+			return ObjectDeserializer.getInstance();
+		}
+		return instance;
+	}
 
-    @Override
-    public WebSearchChoice getNullValue(DeserializationContext ctxt) {
-        return null;
-    }
+	@Override
+	public WebSearchChoice getNullValue(DeserializationContext ctxt) {
+		return null;
+	}
 
-    @Override
-    public WebSearchChoice deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
-            ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
-            return new WebSearchChoice(jsonNodes);
-        }
-        return null;
-    }
+	@Override
+	public WebSearchChoice deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+		if (p.currentTokenId() == JsonTokenId.ID_START_OBJECT) {
+			ObjectNode jsonNodes = deserializeObject(p, ctxt, ctxt.getNodeFactory());
+			return new WebSearchChoice(jsonNodes);
+		}
+		return null;
+	}
+
 }

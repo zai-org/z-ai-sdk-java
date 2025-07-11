@@ -19,81 +19,82 @@ import java.util.concurrent.TimeUnit;
  */
 public class TokenManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(TokenManager.class);
-    private final ICache cache;
-    private static final String TOKEN_KEY_PREFIX = "zai_oapi_token";
-    
-    /**
-     * Additional delay time (5 minutes) to prevent token expiration issues.
-     */
-    private static final Long DELAY_EXPIRE_TIME = 5 * 60 * 1000L;
+	private static final Logger logger = LoggerFactory.getLogger(TokenManager.class);
 
-    /**
-     * Constructs TokenManager with specified cache implementation.
-     * 
-     * @param cache cache implementation for token storage
-     */
-    public TokenManager(ICache cache) {
-        this.cache = cache;
-    }
+	private final ICache cache;
 
-    /**
-     * Gets valid JWT token, either from cache or generates new one.
-     * 
-     * @param config ZAI configuration containing API credentials
-     * @return valid JWT token
-     */
-    public String getToken(ZAiConfig config) {
-        String tokenCacheKey = genTokenCacheKey(config.getApiId());
-        String cacheToken = cache.get(tokenCacheKey);
-        if (StringUtils.isNotEmpty(cacheToken)) {
-            return cacheToken;
-        }
-        String newToken = createJwt(config);
-        cache.set(tokenCacheKey, newToken, config.getExpireMillis(), TimeUnit.MILLISECONDS);
-        return newToken;
-    }
+	private static final String TOKEN_KEY_PREFIX = "zai_oapi_token";
 
-    /**
-     * Creates JWT token using HMAC256 algorithm.
-     * 
-     * @param config ZAI configuration
-     * @return JWT token string or null if creation fails
-     */
-    private static String createJwt(ZAiConfig config) {
-        Algorithm alg;
-        String algId = config.getAlg();
-        if ("HS256".equals(algId)) {
-            try {
-                alg = Algorithm.HMAC256(config.getApiSecret().getBytes(StandardCharsets.UTF_8));
-            } catch (Exception e) {
-                logger.error("Failed to create HMAC256 algorithm", e);
-                return null;
-            }
-        } else {
-            // Currently only HS256 is supported
-            logger.error("Algorithm: {} not supported", algId);
-            return null;
-        }
+	/**
+	 * Additional delay time (5 minutes) to prevent token expiration issues.
+	 */
+	private static final Long DELAY_EXPIRE_TIME = 5 * 60 * 1000L;
 
-        Map<String, Object> payload = new HashMap<>();
-        // here the api_key is the apiId
-        payload.put("api_key", config.getApiId());
-        payload.put("exp", System.currentTimeMillis() + config.getExpireMillis()+ DELAY_EXPIRE_TIME);
-        payload.put("timestamp", Calendar.getInstance().getTimeInMillis());
-        Map<String, Object> headerClaims = new HashMap<>();
-        headerClaims.put("alg", "HS256");
-        headerClaims.put("sign_type", "SIGN");
-        return JWT.create().withPayload(payload).withHeader(headerClaims).sign(alg);
-    }
+	/**
+	 * Constructs TokenManager with specified cache implementation.
+	 * @param cache cache implementation for token storage
+	 */
+	public TokenManager(ICache cache) {
+		this.cache = cache;
+	}
 
-    /**
-     * Generates cache key for token storage.
-     * 
-     * @param apiKey API key
-     * @return formatted cache key
-     */
-    private String genTokenCacheKey(String apiKey) {
-        return String.format("%s-%s", TOKEN_KEY_PREFIX, apiKey);
-    }
+	/**
+	 * Gets valid JWT token, either from cache or generates new one.
+	 * @param config ZAI configuration containing API credentials
+	 * @return valid JWT token
+	 */
+	public String getToken(ZAiConfig config) {
+		String tokenCacheKey = genTokenCacheKey(config.getApiId());
+		String cacheToken = cache.get(tokenCacheKey);
+		if (StringUtils.isNotEmpty(cacheToken)) {
+			return cacheToken;
+		}
+		String newToken = createJwt(config);
+		cache.set(tokenCacheKey, newToken, config.getExpireMillis(), TimeUnit.MILLISECONDS);
+		return newToken;
+	}
+
+	/**
+	 * Creates JWT token using HMAC256 algorithm.
+	 * @param config ZAI configuration
+	 * @return JWT token string or null if creation fails
+	 */
+	private static String createJwt(ZAiConfig config) {
+		Algorithm alg;
+		String algId = config.getAlg();
+		if ("HS256".equals(algId)) {
+			try {
+				alg = Algorithm.HMAC256(config.getApiSecret().getBytes(StandardCharsets.UTF_8));
+			}
+			catch (Exception e) {
+				logger.error("Failed to create HMAC256 algorithm", e);
+				return null;
+			}
+		}
+		else {
+			// Currently only HS256 is supported
+			logger.error("Algorithm: {} not supported", algId);
+			return null;
+		}
+
+		Map<String, Object> payload = new HashMap<>();
+		// here the api_key is the apiId
+		payload.put("api_key", config.getApiId());
+		payload.put("exp", System.currentTimeMillis() + config.getExpireMillis() + DELAY_EXPIRE_TIME);
+		payload.put("timestamp", Calendar.getInstance().getTimeInMillis());
+		Map<String, Object> headerClaims = new HashMap<>();
+		headerClaims.put("alg", "HS256");
+		headerClaims.put("sign_type", "SIGN");
+		return JWT.create().withPayload(payload).withHeader(headerClaims).sign(alg);
+	}
+
+	/**
+	 * Generates cache key for token storage.
+	 * @param apiKey API key
+	 * @return formatted cache key
+	 */
+	private String genTokenCacheKey(String apiKey) {
+		return String.format("%s-%s", TOKEN_KEY_PREFIX, apiKey);
+	}
+
 }

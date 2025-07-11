@@ -11,150 +11,157 @@ import ai.z.openapi.service.deserialize.tools.ChoiceDeltaToolCallDeserializer;
 
 import java.util.Iterator;
 
-
 @JsonDeserialize(using = ChoiceDeltaToolCallDeserializer.class)
 public class ChoiceDeltaToolCall extends ObjectNode {
 
-    /**
-     * Index
-     */
-    @JsonProperty("index")
-    private int index;
+	/**
+	 * Index
+	 */
+	@JsonProperty("index")
+	private int index;
 
-    /**
-     * ID
-     */
-    @JsonProperty("id")
-    private String id;
+	/**
+	 * ID
+	 */
+	@JsonProperty("id")
+	private String id;
 
-    /**
-     * Search intent
-     */
-    @JsonProperty("search_intent")
-    private SearchIntent searchIntent;
+	/**
+	 * Search intent
+	 */
+	@JsonProperty("search_intent")
+	private SearchIntent searchIntent;
 
-    /**
-     * Search result
-     */
-    @JsonProperty("search_result")
-    private SearchResult searchResult;
+	/**
+	 * Search result
+	 */
+	@JsonProperty("search_result")
+	private SearchResult searchResult;
 
-    /**
-     * Recommended query
-     */
-    @JsonProperty("search_recommend")
-    private SearchRecommend searchRecommend;
+	/**
+	 * Recommended query
+	 */
+	@JsonProperty("search_recommend")
+	private SearchRecommend searchRecommend;
 
-    /**
-     * Tool call type
-     */
-    @JsonProperty("type")
-    private String type;
+	/**
+	 * Tool call type
+	 */
+	@JsonProperty("type")
+	private String type;
 
-    public ChoiceDeltaToolCall() {
-        super(JsonNodeFactory.instance);
-    }
+	public ChoiceDeltaToolCall() {
+		super(JsonNodeFactory.instance);
+	}
 
-    public ChoiceDeltaToolCall(ObjectNode objectNode) {
-        super(JsonNodeFactory.instance);
-        ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-        if (objectNode.get("index") != null) {
-            this.setIndex(objectNode.get("index").asInt());
-        } else {
-            this.setIndex(0);
-        }
+	public ChoiceDeltaToolCall(ObjectNode objectNode) {
+		super(JsonNodeFactory.instance);
+		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
+		if (objectNode.get("index") != null) {
+			this.setIndex(objectNode.get("index").asInt());
+		}
+		else {
+			this.setIndex(0);
+		}
 
-        if (objectNode.get("id") != null) {
-            this.setId(objectNode.get("id").asText());
-        } else {
-            this.setId(null);
-        }
+		if (objectNode.get("id") != null) {
+			this.setId(objectNode.get("id").asText());
+		}
+		else {
+			this.setId(null);
+		}
 
-        if (objectNode.get("search_intent") != null) {
-            this.setSearchIntent(objectMapper.convertValue(objectNode.get("search_intent"), SearchIntent.class));
-        } else {
-            this.setSearchIntent(null);
-        }
+		if (objectNode.get("search_intent") != null) {
+			this.setSearchIntent(objectMapper.convertValue(objectNode.get("search_intent"), SearchIntent.class));
+		}
+		else {
+			this.setSearchIntent(null);
+		}
 
-        if (objectNode.get("search_result") != null) {
-            this.setSearchResult(objectMapper.convertValue(objectNode.get("search_result"), SearchResult.class));
-        } else {
-            this.setSearchResult(null);
-        }
+		if (objectNode.get("search_result") != null) {
+			this.setSearchResult(objectMapper.convertValue(objectNode.get("search_result"), SearchResult.class));
+		}
+		else {
+			this.setSearchResult(null);
+		}
 
-        if (objectNode.get("search_recommend") != null) {
-            this.setSearchRecommend(objectMapper.convertValue(objectNode.get("search_recommend"), SearchRecommend.class));
-        } else {
-            this.setSearchRecommend(null);
-        }
+		if (objectNode.get("search_recommend") != null) {
+			this.setSearchRecommend(
+					objectMapper.convertValue(objectNode.get("search_recommend"), SearchRecommend.class));
+		}
+		else {
+			this.setSearchRecommend(null);
+		}
 
-        if (objectNode.get("type") != null) {
-            this.setType(objectNode.get("type").asText());
-        } else {
-            this.setType(null);
-        }
+		if (objectNode.get("type") != null) {
+			this.setType(objectNode.get("type").asText());
+		}
+		else {
+			this.setType(null);
+		}
 
-        Iterator<String> fieldNames = objectNode.fieldNames();
-        while (fieldNames.hasNext()) {
-            String fieldName = fieldNames.next();
-            JsonNode field = objectNode.get(fieldName);
-            this.set(fieldName, field);
-        }
-    }
+		Iterator<String> fieldNames = objectNode.fieldNames();
+		while (fieldNames.hasNext()) {
+			String fieldName = fieldNames.next();
+			JsonNode field = objectNode.get(fieldName);
+			this.set(fieldName, field);
+		}
+	}
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public int getIndex() {
-        return index;
-    }
+	public int getIndex() {
+		return index;
+	}
 
-    public void setIndex(int index) {
-        this.index = index;
-        this.put("index", index);
-    }
+	public void setIndex(int index) {
+		this.index = index;
+		this.put("index", index);
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-        this.put("id", id);
-    }
+	public void setId(String id) {
+		this.id = id;
+		this.put("id", id);
+	}
 
-    public SearchIntent getSearchIntent() {
-        return searchIntent;
-    }
+	public SearchIntent getSearchIntent() {
+		return searchIntent;
+	}
 
-    public void setSearchIntent(SearchIntent searchIntent) {
-        this.searchIntent = searchIntent;
-        this.set("search_intent", searchIntent);
-    }
+	public void setSearchIntent(SearchIntent searchIntent) {
+		this.searchIntent = searchIntent;
+		this.set("search_intent", searchIntent);
+	}
 
-    public SearchResult getSearchResult() {
-        return searchResult;
-    }
+	public SearchResult getSearchResult() {
+		return searchResult;
+	}
 
-    public void setSearchResult(SearchResult searchResult) {
-        this.searchResult = searchResult;
-        this.set("search_result", searchResult);
-    }
+	public void setSearchResult(SearchResult searchResult) {
+		this.searchResult = searchResult;
+		this.set("search_result", searchResult);
+	}
 
-    public SearchRecommend getSearchRecommend() {
-        return searchRecommend;
-    }
+	public SearchRecommend getSearchRecommend() {
+		return searchRecommend;
+	}
 
-    public void setSearchRecommend(SearchRecommend searchRecommend) {
-        this.searchRecommend = searchRecommend;
-        this.set("search_recommend", searchRecommend);
-    }
+	public void setSearchRecommend(SearchRecommend searchRecommend) {
+		this.searchRecommend = searchRecommend;
+		this.set("search_recommend", searchRecommend);
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-        this.put("type", type);
-    }
+	public void setType(String type) {
+		this.type = type;
+		this.put("type", type);
+	}
+
 }

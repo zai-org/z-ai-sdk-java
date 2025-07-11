@@ -7,61 +7,62 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class WebBrowserOutput {
 
-    /**
-     * The title of the search result.
-     */
-    @JsonProperty("title")
-    private String title;
+	/**
+	 * The title of the search result.
+	 */
+	@JsonProperty("title")
+	private String title;
 
-    /**
-     * The URL link to the search result's webpage.
-     */
-    @JsonProperty("link")
-    private String link;
+	/**
+	 * The URL link to the search result's webpage.
+	 */
+	@JsonProperty("link")
+	private String link;
 
-    /**
-     * The textual content extracted from the search result.
-     */
-    @JsonProperty("content")
-    private String content;
+	/**
+	 * The textual content extracted from the search result.
+	 */
+	@JsonProperty("content")
+	private String content;
 
-    /**
-     * Any error message encountered during the search or retrieval process.
-     */
-    @JsonProperty("error_msg")
-    private String errorMsg;
+	/**
+	 * Any error message encountered during the search or retrieval process.
+	 */
+	@JsonProperty("error_msg")
+	private String errorMsg;
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getLink() {
-        return link;
-    }
+	public String getLink() {
+		return link;
+	}
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public String getErrorMsg() {
-        return errorMsg;
-    }
+	public String getErrorMsg() {
+		return errorMsg;
+	}
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
 }

@@ -9,140 +9,148 @@ import okhttp3.ResponseBody;
 import okio.BufferedSource;
 
 public class HttpxBinaryResponseContent implements Closeable {
-    private final retrofit2.Response<ResponseBody> response;
 
-    public HttpxBinaryResponseContent(retrofit2.Response<ResponseBody> response) {
-        if (response == null || response.body() == null) {
-            throw new IllegalArgumentException("Response or ResponseBody cannot be null");
-        }
-        this.response = response;
-    }
+	private final retrofit2.Response<ResponseBody> response;
 
-    public byte[] getContent() throws IOException {
-        if (response.body() == null) {
-            throw new IOException("ResponseBody is null");
-        }
-        try (BufferedSource source = response.body().source()) {
-            return source.readByteArray();
-        }
-    }
+	public HttpxBinaryResponseContent(retrofit2.Response<ResponseBody> response) {
+		if (response == null || response.body() == null) {
+			throw new IllegalArgumentException("Response or ResponseBody cannot be null");
+		}
+		this.response = response;
+	}
 
-    public String getText() throws IOException {
-        if (response.body() == null) {
-            throw new IOException("ResponseBody is null");
-        }
-        try (BufferedSource source = response.body().source()) {
-            return source.readUtf8();
-        }
-    }
+	public byte[] getContent() throws IOException {
+		if (response.body() == null) {
+			throw new IOException("ResponseBody is null");
+		}
+		try (BufferedSource source = response.body().source()) {
+			return source.readByteArray();
+		}
+	}
 
-    public String getEncoding() {
-        return response.body() != null && response.body().contentType() != null 
-            ? Objects.requireNonNull(Objects.requireNonNull(response.body().contentType()).charset()).toString()
-            : null;
-    }
+	public String getText() throws IOException {
+		if (response.body() == null) {
+			throw new IOException("ResponseBody is null");
+		}
+		try (BufferedSource source = response.body().source()) {
+			return source.readUtf8();
+		}
+	}
 
-    public Iterator<byte[]> iterBytes(int chunkSize) throws IOException {
-        if (response.body() == null) {
-            throw new IOException("ResponseBody is null");
-        }
-        return new Iterator<byte[]>() {
-            final BufferedSource source = response.body().source();
-            final byte[] buffer = new byte[chunkSize];
-            boolean hasMore = true;
+	public String getEncoding() {
+		return response.body() != null && response.body().contentType() != null
+				? Objects.requireNonNull(Objects.requireNonNull(response.body().contentType()).charset()).toString()
+				: null;
+	}
 
-            @Override
-            public boolean hasNext() {
-                try {
-                    if (source.exhausted()) {
-                        hasMore = false;
-                    }
-                } catch (IOException e) {
-                    hasMore = false;
-                }
-                return hasMore;
-            }
+	public Iterator<byte[]> iterBytes(int chunkSize) throws IOException {
+		if (response.body() == null) {
+			throw new IOException("ResponseBody is null");
+		}
+		return new Iterator<byte[]>() {
+			final BufferedSource source = response.body().source();
 
-            @Override
-            public byte[] next() {
-                try {
-                    source.read(buffer);
-                } catch (IOException e) {
-                    // Handle the exception
-                }
-                return buffer;
-            }
-        };
-    }
+			final byte[] buffer = new byte[chunkSize];
 
-    public Iterator<String> iterText(int chunkSize) throws IOException {
-        if (response.body() == null) {
-            throw new IOException("ResponseBody is null");
-        }
-        return new Iterator<String>() {
-            final BufferedSource source = response.body().source();
-            final byte[] buffer = new byte[chunkSize];
-            boolean hasMore = true;
+			boolean hasMore = true;
 
-            @Override
-            public boolean hasNext() {
-                try {
-                    if (source.exhausted()) {
-                        hasMore = false;
-                    }
-                } catch (IOException e) {
-                    hasMore = false;
-                }
-                return hasMore;
-            }
+			@Override
+			public boolean hasNext() {
+				try {
+					if (source.exhausted()) {
+						hasMore = false;
+					}
+				}
+				catch (IOException e) {
+					hasMore = false;
+				}
+				return hasMore;
+			}
 
-            @Override
-            public String next() {
-                try {
-                    int bytesRead = source.read(buffer);
-                    return new String(buffer, 0, bytesRead);
-                } catch (IOException e) {
-                    // Handle the exception
-                }
-                return "";
-            }
-        };
-    }
+			@Override
+			public byte[] next() {
+				try {
+					source.read(buffer);
+				}
+				catch (IOException e) {
+					// Handle the exception
+				}
+				return buffer;
+			}
+		};
+	}
 
-    public void writeToFile(String file) throws IOException {
-        if (response.body() == null) {
-            throw new IOException("ResponseBody is null");
-        }
+	public Iterator<String> iterText(int chunkSize) throws IOException {
+		if (response.body() == null) {
+			throw new IOException("ResponseBody is null");
+		}
+		return new Iterator<String>() {
+			final BufferedSource source = response.body().source();
 
-        try (BufferedSource source = response.body().source();
-             FileOutputStream fos = new FileOutputStream(file)) {
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = source.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
-            }
-        }
-    }
+			final byte[] buffer = new byte[chunkSize];
 
-    public void streamToFile(String file, int chunkSize) throws IOException {
-        if (response.body() == null) {
-            throw new IOException("ResponseBody is null");
-        }
+			boolean hasMore = true;
 
-        try (BufferedSource source = response.body().source();
-             FileOutputStream fos = new FileOutputStream(file)) {
-            byte[] buffer = new byte[chunkSize];
-            int bytesRead;
-            while ((bytesRead = source.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
-            }
-        }
-    }
+			@Override
+			public boolean hasNext() {
+				try {
+					if (source.exhausted()) {
+						hasMore = false;
+					}
+				}
+				catch (IOException e) {
+					hasMore = false;
+				}
+				return hasMore;
+			}
 
-    @Override
-    public void close() throws IOException {
-        if (response.body() != null) {
-            response.body().close();
-        }
-    }
+			@Override
+			public String next() {
+				try {
+					int bytesRead = source.read(buffer);
+					return new String(buffer, 0, bytesRead);
+				}
+				catch (IOException e) {
+					// Handle the exception
+				}
+				return "";
+			}
+		};
+	}
+
+	public void writeToFile(String file) throws IOException {
+		if (response.body() == null) {
+			throw new IOException("ResponseBody is null");
+		}
+
+		try (BufferedSource source = response.body().source(); FileOutputStream fos = new FileOutputStream(file)) {
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+			while ((bytesRead = source.read(buffer)) != -1) {
+				fos.write(buffer, 0, bytesRead);
+			}
+		}
+	}
+
+	public void streamToFile(String file, int chunkSize) throws IOException {
+		if (response.body() == null) {
+			throw new IOException("ResponseBody is null");
+		}
+
+		try (BufferedSource source = response.body().source(); FileOutputStream fos = new FileOutputStream(file)) {
+			byte[] buffer = new byte[chunkSize];
+			int bytesRead;
+			while ((bytesRead = source.read(buffer)) != -1) {
+				fos.write(buffer, 0, bytesRead);
+			}
+		}
+	}
+
+	@Override
+	public void close() throws IOException {
+		if (response.body() != null) {
+			response.body().close();
+		}
+	}
+
 }

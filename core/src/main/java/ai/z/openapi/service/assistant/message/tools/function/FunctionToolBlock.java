@@ -12,33 +12,34 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
 @JsonTypeField("function")
 public class FunctionToolBlock extends ToolsType {
 
-    /**
-     * The function tool object that contains the name, arguments, and outputs.
-     */
-    @JsonProperty("function")
-    private FunctionTool function;
+	/**
+	 * The function tool object that contains the name, arguments, and outputs.
+	 */
+	@JsonProperty("function")
+	private FunctionTool function;
 
-    /**
-     * The type of tool being called, always "function".
-     */
-    @JsonProperty("type")
-    private String type = "function";
+	/**
+	 * The type of tool being called, always "function".
+	 */
+	@JsonProperty("type")
+	private String type = "function";
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public FunctionTool getFunction() {
-        return function;
-    }
+	public FunctionTool getFunction() {
+		return function;
+	}
 
-    public void setFunction(FunctionTool function) {
-        this.function = function;
-    }
+	public void setFunction(FunctionTool function) {
+		this.function = function;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

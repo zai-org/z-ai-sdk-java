@@ -7,19 +7,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class DrawingToolOutput {
 
-    /**
-     * The generated image in a string format.
-     */
-    @JsonProperty("image")
-    private String image;
+	/**
+	 * The generated image in a string format.
+	 */
+	@JsonProperty("image")
+	private String image;
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getImage() {
-        return image;
-    }
+	public String getImage() {
+		return image;
+	}
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 }

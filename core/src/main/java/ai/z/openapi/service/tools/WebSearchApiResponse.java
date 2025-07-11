@@ -7,13 +7,17 @@ import lombok.Data;
 
 @Data
 public class WebSearchApiResponse implements FlowableClientResponse<WebSearchPro> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private WebSearchPro data;
-    private ChatError error;
+	private int code;
 
-    private Flowable<WebSearchPro> flowable;
+	private String msg;
+
+	private boolean success;
+
+	private WebSearchPro data;
+
+	private ChatError error;
+
+	private Flowable<WebSearchPro> flowable;
 
 }

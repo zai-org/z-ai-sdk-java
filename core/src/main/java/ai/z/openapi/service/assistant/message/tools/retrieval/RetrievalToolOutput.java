@@ -7,33 +7,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class RetrievalToolOutput {
 
-    /**
-     * The text snippet retrieved from the knowledge base.
-     */
-    @JsonProperty("text")
-    private String text;
+	/**
+	 * The text snippet retrieved from the knowledge base.
+	 */
+	@JsonProperty("text")
+	private String text;
 
-    /**
-     * The name of the document from which the text snippet was retrieved, returned only in intelligent configuration.
-     */
-    @JsonProperty("document")
-    private String document;
+	/**
+	 * The name of the document from which the text snippet was retrieved, returned only
+	 * in intelligent configuration.
+	 */
+	@JsonProperty("document")
+	private String document;
 
-    // Getters and Setters
+	// Getters and Setters
 
-    public String getText() {
-        return text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    public String getDocument() {
-        return document;
-    }
+	public String getDocument() {
+		return document;
+	}
 
-    public void setDocument(String document) {
-        this.document = document;
-    }
+	public void setDocument(String document) {
+		this.document = document;
+	}
+
 }

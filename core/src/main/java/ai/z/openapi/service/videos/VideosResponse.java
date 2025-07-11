@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 public class VideosResponse implements ClientResponse<VideoObject> {
-    private int code;
-    private String msg;
-    private boolean success;
 
-    private VideoObject data;
+	private int code;
 
-    private ChatError error;
+	private String msg;
+
+	private boolean success;
+
+	private VideoObject data;
+
+	private ChatError error;
+
 }
