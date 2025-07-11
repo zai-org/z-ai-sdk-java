@@ -77,7 +77,7 @@ This SDK uses the following core dependencies:
 ```java
 import ai.z.openapi.ZAiClient;
 import ai.z.openapi.service.model.*;
-import ai.z.openapi.Constants;
+import ai.z.openapi.core.Constants;
 
 // Create client with API key, recommend export the ENV api-key
 // export ZAI_API_KEY=your.api.key
@@ -113,7 +113,7 @@ ZAiClient client = ZAiClient.builder()
 ```java
 import ai.z.openapi.ZAiClient;
 import ai.z.openapi.service.model.*;
-import ai.z.openapi.Constants;
+import ai.z.openapi.core.Constants;
 import java.util.Arrays;
 
 // Create client

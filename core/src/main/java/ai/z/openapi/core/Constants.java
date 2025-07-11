@@ -1,4 +1,4 @@
-package ai.z.openapi;
+package ai.z.openapi.core;
 
 /**
  * Constants class containing all the configuration values and model identifiers used

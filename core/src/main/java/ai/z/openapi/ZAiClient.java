@@ -50,8 +50,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 
-import static ai.z.openapi.Constants.ZHIPU_AI_BASE_URL;
-import static ai.z.openapi.Constants.Z_AI_BASE_URL;
+import static ai.z.openapi.core.Constants.ZHIPU_AI_BASE_URL;
+import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
 
 /**
  * ZAiClient is the main entry point for interacting with the Z.ai API. This client

@@ -1,5 +1,6 @@
 package ai.z.openapi;
 
+import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZAiConfig;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatMessage;
@@ -12,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.z.openapi.mock.MockClient;
 import ai.z.openapi.service.web_search.WebSearchRequest;
 import ai.z.openapi.service.web_search.WebSearchResponse;
-import ai.z.openapi.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Testcontainers
 public class WebSearchTest {

@@ -75,7 +75,7 @@ dependencies {
 ```java
 import ai.z.openapi.ZAiClient;
 import ai.z.openapi.service.model.*;
-import ai.z.openapi.Constants;
+import ai.z.openapi.core.Constants;
 
 // 创建客户端 推荐使用环境变量设置API凭证
 // export ZAI_API_KEY=your.api.key
@@ -111,7 +111,7 @@ ZAiClient client = ZAiClient.builder()
 ```java
 import ai.z.openapi.ZAiClient;
 import ai.z.openapi.service.model.*;
-import ai.z.openapi.Constants;
+import ai.z.openapi.core.Constants;
 import java.util.Arrays;
 
 // 创建客户端

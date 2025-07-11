@@ -1,5 +1,6 @@
 package ai.z.openapi;
 
+import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZAiConfig;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatMessage;

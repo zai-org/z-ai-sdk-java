@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.util.concurrent.TimeUnit;
 
-import static ai.z.openapi.Constants.Z_AI_BASE_URL;
+import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
 
 /**
  * Configuration class for ZAI SDK containing API credentials, JWT settings, HTTP client
