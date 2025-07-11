@@ -1,6 +1,6 @@
 package ai.z.openapi;
 
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.assistant.AssistantApiResponse;
 import ai.z.openapi.service.assistant.AssistantCompletion;
 import ai.z.openapi.service.assistant.AssistantExtraParameters;
@@ -29,14 +29,14 @@ public class TestAssistantClientApiService {
 
 	private final static Logger logger = LoggerFactory.getLogger(TestAssistantClientApiService.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
 	private static final ObjectMapper mapper = new ObjectMapper();
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

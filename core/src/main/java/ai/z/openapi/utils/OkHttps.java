@@ -1,6 +1,6 @@
 package ai.z.openapi.utils;
 
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.token.AuthenticationInterceptor;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
@@ -39,7 +39,7 @@ public final class OkHttps {
 	 * @return a fully configured OkHttpClient instance
 	 * @throws IllegalArgumentException if config is null
 	 */
-	public static OkHttpClient create(ZAiConfig config) {
+	public static OkHttpClient create(ZaiConfig config) {
 		if (config == null) {
 			throw new IllegalArgumentException("Configuration cannot be null");
 		}
@@ -60,7 +60,7 @@ public final class OkHttps {
 	 * @param builder the OkHttpClient builder to configure
 	 * @param config the configuration containing timeout settings
 	 */
-	private static void configureTimeouts(OkHttpClient.Builder builder, ZAiConfig config) {
+	private static void configureTimeouts(OkHttpClient.Builder builder, ZaiConfig config) {
 		TimeUnit timeUnit = config.getTimeOutTimeUnit();
 
 		// Configure call timeout
@@ -101,7 +101,7 @@ public final class OkHttps {
 	 * @param builder the OkHttpClient builder to configure
 	 * @param config the configuration containing connection pool settings
 	 */
-	private static void configureConnectionPool(OkHttpClient.Builder builder, ZAiConfig config) {
+	private static void configureConnectionPool(OkHttpClient.Builder builder, ZaiConfig config) {
 		ConnectionPool connectionPool = new ConnectionPool(config.getConnectionPoolMaxIdleConnections(),
 				config.getConnectionPoolKeepAliveDuration(), config.getConnectionPoolTimeUnit());
 		builder.connectionPool(connectionPool);

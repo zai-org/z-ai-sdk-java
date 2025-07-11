@@ -3,7 +3,7 @@ package ai.z.openapi;
 import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.cache.ICache;
 import ai.z.openapi.core.cache.LocalCache;
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.token.TokenManager;
 import ai.z.openapi.service.file.FileApiResponse;
 import ai.z.openapi.service.file.QueryBatchRequest;
@@ -71,10 +71,10 @@ public class ZAIClientTest {
 
 	private static final ZaiClient client;
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");
@@ -89,7 +89,7 @@ public class ZAIClientTest {
 
 	@Test
 	public void testTokenManager() {
-		ZAiConfig zAiConfig = new ZAiConfig();
+		ZaiConfig zAiConfig = new ZaiConfig();
 		zAiConfig.setApiKey("a.b");
 		ICache cache = LocalCache.getInstance();
 		TokenManager tokenManager = new TokenManager(cache);
@@ -99,7 +99,7 @@ public class ZAIClientTest {
 
 	@Test
 	public void testTokenManagerCache() {
-		ZAiConfig zAiConfig = new ZAiConfig();
+		ZaiConfig zAiConfig = new ZaiConfig();
 		zAiConfig.setApiKey("a.b");
 		String tokenCacheKey = String.format("%s-%s", "zai_oapi_token", zAiConfig.getApiKey());
 		ICache cache = LocalCache.getInstance();

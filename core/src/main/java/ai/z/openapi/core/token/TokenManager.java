@@ -2,7 +2,7 @@ package ai.z.openapi.core.token;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.cache.ICache;
 import ai.z.openapi.utils.StringUtils;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class TokenManager {
 	 * @param config ZAI configuration containing API credentials
 	 * @return valid JWT token
 	 */
-	public String getToken(ZAiConfig config) {
+	public String getToken(ZaiConfig config) {
 		String tokenCacheKey = genTokenCacheKey(config.getApiId());
 		String cacheToken = cache.get(tokenCacheKey);
 		if (StringUtils.isNotEmpty(cacheToken)) {
@@ -59,7 +59,7 @@ public class TokenManager {
 	 * @param config ZAI configuration
 	 * @return JWT token string or null if creation fails
 	 */
-	private static String createJwt(ZAiConfig config) {
+	private static String createJwt(ZaiConfig config) {
 		Algorithm alg;
 		String algId = config.getAlg();
 		if ("HS256".equals(algId)) {

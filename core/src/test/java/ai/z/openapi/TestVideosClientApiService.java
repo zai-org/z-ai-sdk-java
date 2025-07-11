@@ -1,6 +1,6 @@
 package ai.z.openapi;
 
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.model.SensitiveWordCheckRequest;
 import ai.z.openapi.service.videos.VideoCreateParams;
 import ai.z.openapi.service.videos.VideosResponse;
@@ -19,12 +19,12 @@ public class TestVideosClientApiService {
 
 	private final static Logger logger = LoggerFactory.getLogger(TestVideosClientApiService.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import ai.z.openapi.mock.MockClient;
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.audio.AudioTranscriptionsRequest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -19,13 +19,13 @@ public class TranscriptionsTest {
 
 	private final static Logger logger = LoggerFactory.getLogger(TranscriptionsTest.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
 	private static final ObjectMapper mapper = new ObjectMapper();
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

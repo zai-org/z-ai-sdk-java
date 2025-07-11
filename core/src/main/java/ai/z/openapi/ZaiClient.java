@@ -29,7 +29,7 @@ import ai.z.openapi.service.document.DocumentService;
 import ai.z.openapi.service.document.DocumentServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
 import ai.z.openapi.service.assistant.AssistantServiceImpl;
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.model.ClientRequest;
 import ai.z.openapi.core.model.ClientResponse;
 import ai.z.openapi.core.model.FlowableClientResponse;
@@ -136,7 +136,7 @@ public class ZaiClient extends AbstractClientBaseService {
 	 * settings
 	 * @throws IllegalArgumentException if config is null or invalid
 	 */
-	public ZaiClient(ZAiConfig config) {
+	public ZaiClient(ZaiConfig config) {
 		this.httpClient = OkHttps.create(config);
 		this.retrofit = new Retrofit.Builder()
 			.baseUrl(StringUtils.isEmpty(config.getBaseUrl()) ? Z_AI_BASE_URL : config.getBaseUrl())
@@ -457,7 +457,7 @@ public class ZaiClient extends AbstractClientBaseService {
 	public static final class Builder {
 
 		/** Configuration object that accumulates all builder settings */
-		private final ZAiConfig config = new ZAiConfig();
+		private final ZaiConfig config = new ZaiConfig();
 
 		public Builder() {
 		}

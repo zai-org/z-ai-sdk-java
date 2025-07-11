@@ -1,6 +1,6 @@
 package ai.z.openapi.core.token;
 
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.utils.StringUtils;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -14,9 +14,9 @@ import java.util.Objects;
  */
 public class AuthenticationInterceptor implements Interceptor {
 
-	private final ZAiConfig config;
+	private final ZaiConfig config;
 
-	public AuthenticationInterceptor(ZAiConfig config) {
+	public AuthenticationInterceptor(ZaiConfig config) {
 		Objects.requireNonNull(config.getApiKey(), "Z.ai token required");
 		this.config = config;
 	}

@@ -1,7 +1,7 @@
 package ai.z.openapi;
 
 import ai.z.openapi.core.Constants;
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.ChatMessageAccumulator;
@@ -33,12 +33,12 @@ public class CodeGeexTest {
 
 	private final static Logger logger = LoggerFactory.getLogger(CodeGeexTest.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

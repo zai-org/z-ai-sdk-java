@@ -18,7 +18,7 @@ import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZAiConfig {
+public class ZaiConfig {
 
 	// Environment variable names
 	private static final String ENV_BASE_URL = "ZAI_BASE_URL";
@@ -128,7 +128,7 @@ public class ZAiConfig {
 	 * @param apiKey combined secret key in format {apiKey}.{apiSecret}
 	 * @throws RuntimeException if apiSecretKey format is invalid
 	 */
-	public ZAiConfig(String apiKey) {
+	public ZaiConfig(String apiKey) {
 		this.apiKey = apiKey;
 		String[] arrStr = apiKey.split("\\.");
 		if (arrStr.length != 2) {

@@ -1,7 +1,7 @@
 package ai.z.openapi;
 
 import ai.z.openapi.core.Constants;
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.ChatMessageRole;
@@ -29,7 +29,7 @@ public class WebSearchTest {
 
 	private final static Logger logger = LoggerFactory.getLogger(WebSearchTest.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
@@ -38,7 +38,7 @@ public class WebSearchTest {
 	private static final ObjectMapper mapper = new ObjectMapper();
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

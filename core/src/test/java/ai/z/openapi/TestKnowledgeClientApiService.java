@@ -1,6 +1,6 @@
 package ai.z.openapi;
 
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.knowledge.KnowledgeBaseParams;
 import ai.z.openapi.service.knowledge.KnowledgeEditResponse;
 import ai.z.openapi.service.knowledge.KnowledgeInfo;
@@ -31,12 +31,12 @@ public class TestKnowledgeClientApiService {
 
 	private final static Logger logger = LoggerFactory.getLogger(TestKnowledgeClientApiService.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

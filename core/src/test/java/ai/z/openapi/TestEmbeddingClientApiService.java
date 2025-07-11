@@ -1,6 +1,6 @@
 package ai.z.openapi;
 
-import ai.z.openapi.core.config.ZAiConfig;
+import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.mock.MockClient;
 import ai.z.openapi.service.embedding.Embedding;
 import ai.z.openapi.service.embedding.EmbeddingCreateParams;
@@ -19,12 +19,12 @@ public class TestEmbeddingClientApiService {
 
 	private final static Logger logger = LoggerFactory.getLogger(TestEmbeddingClientApiService.class);
 
-	private static final ZAiConfig zaiConfig;
+	private static final ZaiConfig zaiConfig;
 
 	private static final ZaiClient client;
 
 	static {
-		zaiConfig = new ZAiConfig();
+		zaiConfig = new ZaiConfig();
 		String apiKey = zaiConfig.getApiKey();
 		if (apiKey == null) {
 			zaiConfig.setApiKey("test-api-key.test-api-secret");

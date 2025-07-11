@@ -20,7 +20,7 @@ public class ZaiClient extends AbstractClientBaseService {
     // ... other services
     
     // Constructor
-    public ZaiClient(ZAiConfig config) {
+    public ZaiClient(ZaiConfig config) {
         // Initialize HTTP client and Retrofit
     }
     
@@ -61,7 +61,7 @@ public interface FlowableClientResponse<T> extends ClientResponse<T> {
 
 ### 2. Configuration Management
 
-#### ZAiConfig
+#### ZaiConfig
 Main configuration class that contains all SDK settings:
 
 ```java
@@ -69,7 +69,7 @@ Main configuration class that contains all SDK settings:
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZAiConfig {
+public class ZaiConfig {
     private String baseUrl;
     private String apiSecretKey;
     private String apiKey;
@@ -172,11 +172,11 @@ public class ChatServiceImpl implements ChatService {
 
 ```java
 // Simple configuration with API secret key
-ZAiConfig config = new ZAiConfig("your.api.key.your.api.secret");
+ZaiConfig config = new ZaiConfig("your.api.key.your.api.secret");
 ZaiClient client = new ZaiClient(config);
 
 // Or using separate API key and secret
-ZAiConfig config = new ZAiConfig("your.api.key", "your.api.secret");
+ZaiConfig config = new ZaiConfig("your.api.key", "your.api.secret");
 ZaiClient client = new ZaiClient(config);
 ```
 
@@ -202,10 +202,10 @@ ZaiClient client = new ZaiClient.Builder("your.api.key.your.api.secret")
     .build();
 ```
 
-### Custom Configuration with ZAiConfig
+### Custom Configuration with ZaiConfig
 
 ```java
-ZAiConfig config = ZAiConfig.builder()
+ZaiConfig config = ZaiConfig.builder()
     .apiSecretKey("your.api.key.your.api.secret")
     .baseUrl("https://custom.api.endpoint")
     .requestTimeOut(60)
@@ -543,7 +543,7 @@ client.registerService("CUSTOM_SERVICE", new CustomService());
 
 ```java
 // Extend configuration for custom needs
-ZAiConfiguration customConfig = ZAiConfigurationBuilder.newBuilder()
+ZaiConfiguration customConfig = ZaiConfigurationBuilder.newBuilder()
     .apiSecretKey("your.api.key")
     .baseUrl("https://custom.endpoint")
     // Add custom settings
@@ -560,7 +560,7 @@ customConfig.getNetwork().addMetadata("customNetwork", "value");
 
 ```java
 // Use builder pattern for configuration
-ZAiConfig config = ZAiConfig.builder()
+ZaiConfig config = ZaiConfig.builder()
     .apiSecretKey("your.api.key.your.api.secret")
     .baseUrl("https://open.bigmodel.cn/")
     .requestTimeOut(60)
@@ -719,7 +719,7 @@ This guide helps you migrate from older versions of the Z-AI SDK to the current 
 #### Key Changes in Current Version
 
 1. **Unified Client Architecture**: All services are now accessed through `ZaiClient`
-2. **Improved Configuration**: `ZAiConfig` with builder pattern for better flexibility
+2. **Improved Configuration**: `ZaiConfig` with builder pattern for better flexibility
 3. **Standardized Request/Response**: All requests implement `ClientRequest`, responses implement `ClientResponse`
 4. **Enhanced Streaming**: Better support for streaming responses with `FlowableClientResponse`
 5. **Comprehensive Service Coverage**: Support for Chat, Agents, Embeddings, Files, Audio, Images, and more
@@ -733,7 +733,7 @@ String apiKey = "your-api-key";
 String apiSecret = "your-api-secret";
 
 // New approach
-ZAiConfig config = ZAiConfig.builder()
+ZaiConfig config = ZaiConfig.builder()
     .apiKey(apiKey)
     .apiSecret(apiSecret)
     .baseUrl("https://open.bigmodel.cn/")
@@ -819,7 +819,7 @@ if (streamResponse.isSuccess() && streamResponse.getFlowable() != null) {
 ### Best Practices for Migration
 
 1. **Update Dependencies**: Ensure you're using the latest version of the SDK
-2. **Review Configuration**: Update your configuration to use `ZAiConfig.builder()`
+2. **Review Configuration**: Update your configuration to use `ZaiConfig.builder()`
 3. **Update Service Access**: Use `ZaiClient` to access all services
 4. **Standardize Error Handling**: Use the new response structure for error handling
 5. **Test Thoroughly**: Test all functionality after migration
