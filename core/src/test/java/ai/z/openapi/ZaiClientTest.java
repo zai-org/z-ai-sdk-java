@@ -65,9 +65,9 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Testcontainers
-public class ZAIClientTest {
+public class ZaiClientTest {
 
-	private final static Logger logger = LoggerFactory.getLogger(ZAIClientTest.class);
+	private final static Logger logger = LoggerFactory.getLogger(ZaiClientTest.class);
 
 	private static final ZaiClient client;
 
@@ -543,7 +543,7 @@ public class ZAIClientTest {
 			HttpxBinaryResponseContent httpxBinaryResponseContent = client.files()
 				.retrieveFileContent("20240514_ea19d21b-d256-4586-b0df-e80a45e3c286");
 			String filePath = "demo_output.jsonl";
-			String resourcePath = ZAIClientTest.class.getClassLoader().getResource("").getPath();
+			String resourcePath = ZaiClientTest.class.getClassLoader().getResource("").getPath();
 
 			httpxBinaryResponseContent.streamToFile(resourcePath + "1" + filePath, 1000);
 
