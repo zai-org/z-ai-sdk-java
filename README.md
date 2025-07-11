@@ -32,7 +32,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z</groupId>
     <artifactId>z-ai-sdk</artifactId>
-    <version>4.0.1</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 
@@ -41,7 +41,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z:z-ai-sdk:4.0.1'
+    implementation 'ai.z:z-ai-sdk:0.0.1'
 }
 ```
 
@@ -49,7 +49,7 @@ Or `build.gradle.kts` (for Kotlin DSL):
 
 ```kotlin
 dependencies {
-    implementation("ai.z:z-ai-sdk:4.0.1")
+    implementation("ai.z:z-ai-sdk:0.0.1")
 }
 ```
 
