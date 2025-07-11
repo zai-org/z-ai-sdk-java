@@ -1,0 +1,51 @@
+package ai.z.openapi.service.audio;
+
+import ai.z.openapi.core.model.ClientRequest;
+import ai.z.openapi.service.CommonRequest;
+import ai.z.openapi.service.model.SensitiveWordCheckRequest;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class AudioSpeechRequest extends CommonRequest implements ClientRequest<AudioSpeechRequest> {
+
+    /**
+     * Model code to call
+     */
+    private String model;
+
+    /**
+     * Text to generate speech from
+     */
+    private String input;
+
+
+    /**
+     * Voice tone for speech generation
+     */
+    private String voice;
+
+    /**
+     * Format of the generated speech file
+     */
+    @JsonProperty("response_format")
+    private String responseFormat;
+
+    /**
+     * Sensitive word detection control
+     */
+    @JsonProperty("sensitive_word_check")
+    private SensitiveWordCheckRequest sensitiveWordCheck;
+
+}
