@@ -1,6 +1,5 @@
 package ai.z.openapi.api.agents;
 
-
 import ai.z.openapi.service.agents.AgentAsyncResultRetrieveParams;
 import ai.z.openapi.service.agents.AgentsCompletionRequest;
 import ai.z.openapi.service.model.ModelData;

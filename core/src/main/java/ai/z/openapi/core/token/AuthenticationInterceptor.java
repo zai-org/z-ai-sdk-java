@@ -24,7 +24,7 @@ AuthenticationInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        String accessToken = null;
+        String accessToken;
         if(this.config.isDisableTokenCache()){
             accessToken = this.config.getApiKey();
         }else {
@@ -39,6 +39,7 @@ AuthenticationInterceptor implements Interceptor {
                 .newBuilder()
                 .header("Authorization", "Bearer " + accessToken)
                 .header("x-source-channel", source_channel)
+                .header("Accept-Language", "en-US,en")
                 .build();
         return chain.proceed(request);
     }

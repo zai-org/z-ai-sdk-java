@@ -32,7 +32,6 @@ public class ZAiConfig {
     private static final String ENV_CONNECT_TIMEOUT = "ZAI_CONNECT_TIMEOUT";
     private static final String ENV_READ_TIMEOUT = "ZAI_READ_TIMEOUT";
     private static final String ENV_WRITE_TIMEOUT = "ZAI_WRITE_TIMEOUT";
-    private static final String ENV_SOURCE_CHANNEL = "ZAI_SOURCE_CHANNEL";
 
     /**
      * Base URL for API endpoints.
@@ -112,7 +111,7 @@ public class ZAiConfig {
     /**
      * Source channel identifier for request tracking.
      */
-    private String source_channel;
+    private String source_channel = "java-sdk";
 
     /**
      * Constructor with combined API secret key.
@@ -374,13 +373,9 @@ public class ZAiConfig {
     }
 
     /**
-     * Gets source channel with system property and environment variable fallback.
+     * Gets source channel with system property.
      */
     public String getSource_channel() {
-        if (source_channel != null && !source_channel.isEmpty()) {
-            return source_channel;
-        }
-        String propValue = System.getProperty(ENV_SOURCE_CHANNEL);
-        return propValue != null ? propValue : System.getenv(ENV_SOURCE_CHANNEL);
+        return source_channel;
     }
 }
