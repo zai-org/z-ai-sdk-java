@@ -2,16 +2,15 @@ name: Publish package to the Maven Central Repository
 on:
   release:
     types: [created]
-  workflow_call:
-    inputs:
-      working:
-        required: false
-        type: string
-        default: '.'
-        description: "From which folder this pipeline executes"
+  workflow_dispatch:
 
 jobs:
-  publish:
+  pre-build:
+    uses:
+      ./.github/workflows/build.yml
+  publish-release:
+    needs:
+      - pre-build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
