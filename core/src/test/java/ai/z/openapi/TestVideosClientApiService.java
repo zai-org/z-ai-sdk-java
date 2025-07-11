@@ -66,7 +66,7 @@ public class TestVideosClientApiService {
     @Test
     public void testVideoByImage() throws IOException {
         Base64.Encoder encoder = Base64.getEncoder();
-        String file = ClassLoader.getSystemResource("20.png").getFile();
+        String file = ClassLoader.getSystemResource("image_to_video.png").getFile();
         byte[] bytes = FileUtils.readFileToByteArray(new File(file));
         String imageUrl  = encoder.encodeToString( bytes);
         VideoCreateParams build = VideoCreateParams.builder()
