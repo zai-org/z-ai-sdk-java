@@ -42,11 +42,6 @@ public class TranscriptionsTest {
         return mapper;
     }
 
-    @Test
-    public void test() {
-
-    }
-
     /**
      * SSE-V4: Function calling
      */

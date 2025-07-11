@@ -390,6 +390,7 @@ public class ZAiClient extends AbstractClientBaseService {
      * @return the wrapped response containing either a success stream or error information
      */
     @Override
+    @SuppressWarnings("unchecked")
     public <Data, Param, TReq extends ClientRequest<Param>, TResp extends FlowableClientResponse<Data>>
     TResp streamRequest(TReq request,
                         FlowableRequestSupplier<Param, retrofit2.Call<ResponseBody>> requestSupplier,
