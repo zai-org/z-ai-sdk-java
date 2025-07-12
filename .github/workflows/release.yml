@@ -1,0 +1,32 @@
+name: Publish package to the Maven Central Repository
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  pre-build:
+    uses:
+      ./.github/workflows/build.yml
+  publish-release:
+    needs:
+      - pre-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Publish package to Maven Central
+        run: mvn --batch-mode clean deploy -P release
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
