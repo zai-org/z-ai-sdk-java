@@ -20,21 +20,13 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           server-id: ossrh
-          server-username: ${{ secrets.OSSRH_USERNAME }}
-          server-password: ${{ secrets.OSSRH_TOKEN }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-      - name: Debug secrets
-        run: |
-          if [ -z "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
-            echo "GPG_PRIVATE_KEY is empty"
-            exit 1
-          else
-            echo "GPG_PRIVATE_KEY is set"
-          fi
-      - name: Import GPG key
-        run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
-          gpg --list-secret-keys
       - name: Publish package to Maven Central
-        run: mvn --batch-mode clean deploy -P release -Dgpg.passphrase="${{ secrets.GPG_PASSPHRASE }}" -Dgpg.keyname="gongchao@apache.org"
+        run: mvn --batch-mode clean deploy -P release
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

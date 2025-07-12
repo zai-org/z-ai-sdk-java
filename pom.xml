@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>Java sdk parent</name>
-    <description>Parent for Z.ai Big Model API</description>
+    <description>Parent for Z.ai Open Platform API SDK</description>
     <url>https://z.ai</url>
     <licenses>
         <license>
