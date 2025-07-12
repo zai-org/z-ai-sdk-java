@@ -24,6 +24,14 @@ jobs:
           server-password: ${{ secrets.OSSRH_TOKEN }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Debug secrets
+        run: |
+          if [ -z "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
+            echo "GPG_PRIVATE_KEY is empty"
+            exit 1
+          else
+            echo "GPG_PRIVATE_KEY is set"
+          fi
       - name: Import GPG key
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
