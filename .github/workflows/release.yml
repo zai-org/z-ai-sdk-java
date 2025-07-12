@@ -23,7 +23,7 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
-          gpg-private-key: GPG_PRIVATE_KEY
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: Publish package to Maven Central
         run: mvn --batch-mode clean deploy -P release
         env:
