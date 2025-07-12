@@ -20,10 +20,9 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           server-id: ossrh
-          server-username: ${{ secrets.MAVEN_USERNAME }}
-          server-password: ${{ secrets.MAVEN_PASSWORD }}
-      - name: Publish package
-        run: mvn clean deploy -P release
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_TOKEN }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Publish package to Maven Central
+        run: mvn --batch-mode clean deploy -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
