@@ -24,5 +24,9 @@ jobs:
           server-password: ${{ secrets.OSSRH_TOKEN }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
+          gpg --list-secret-keys
       - name: Publish package to Maven Central
         run: mvn --batch-mode clean deploy -P release -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
