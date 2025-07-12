@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - 'action*'
+  workflow_call:
 
 jobs:
   build:
