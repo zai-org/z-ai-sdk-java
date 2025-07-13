@@ -4,7 +4,7 @@ import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatMessage;
-import ai.z.openapi.service.model.ChatMessageAccumulator;
+import ai.z.openapi.service.model.Usage;
 import ai.z.openapi.service.model.ChatMessageRole;
 import ai.z.openapi.service.model.Choice;
 import ai.z.openapi.service.model.ChatCompletionResponse;
@@ -135,23 +135,35 @@ public class CodeGeexTest {
 		if (sseModelApiResp.isSuccess()) {
 			AtomicBoolean isFirst = new AtomicBoolean(true);
 			List<Choice> choices = new ArrayList<>();
-			AtomicReference<ChatMessageAccumulator> lastAccumulator = new AtomicReference<>();
+			AtomicReference<Usage> lastUsage = new AtomicReference<>();
+			AtomicReference<String> lastId = new AtomicReference<>();
+			AtomicReference<Long> lastCreated = new AtomicReference<>();
 
-			mapStreamToAccumulator(sseModelApiResp.getFlowable()).doOnNext(accumulator -> {
+			sseModelApiResp.getFlowable().doOnNext(modelData -> {
 				{
 					if (isFirst.getAndSet(false)) {
 						logger.info("Response: ");
 					}
-					if (accumulator.getDelta() != null && accumulator.getDelta().getTool_calls() != null) {
-						String jsonString = mapper.writeValueAsString(accumulator.getDelta().getTool_calls());
-						logger.info("tool_calls: {}", jsonString);
+					if (modelData.getChoices() != null && !modelData.getChoices().isEmpty()) {
+						Choice choice = modelData.getChoices().get(0);
+						if (choice.getDelta() != null && choice.getDelta().getTool_calls() != null) {
+							String jsonString = mapper.writeValueAsString(choice.getDelta().getTool_calls());
+							logger.info("tool_calls: {}", jsonString);
+						}
+						if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
+							logger.info(choice.getDelta().getContent());
+						}
+						choices.add(choice);
 					}
-					if (accumulator.getDelta() != null && accumulator.getDelta().getContent() != null) {
-						logger.info(accumulator.getDelta().getContent());
+					if (modelData.getUsage() != null) {
+						lastUsage.set(modelData.getUsage());
 					}
-					choices.add(accumulator.getChoice());
-					lastAccumulator.set(accumulator);
-
+					if (modelData.getId() != null) {
+						lastId.set(modelData.getId());
+					}
+					if (modelData.getCreated() != null) {
+						lastCreated.set(modelData.getCreated());
+					}
 				}
 			})
 				.doOnComplete(() -> System.out.println("Stream completed."))
@@ -159,14 +171,11 @@ public class CodeGeexTest {
 																					// errors
 				.blockingSubscribe();// Use blockingSubscribe instead of blockingGet()
 
-			ChatMessageAccumulator chatMessageAccumulator = lastAccumulator.get();
 			ModelData data = new ModelData();
 			data.setChoices(choices);
-			if (chatMessageAccumulator != null) {
-				data.setUsage(chatMessageAccumulator.getUsage());
-				data.setId(chatMessageAccumulator.getId());
-				data.setCreated(chatMessageAccumulator.getCreated());
-			}
+			data.setUsage(lastUsage.get());
+			data.setId(lastId.get());
+			data.setCreated(lastCreated.get());
 			data.setRequestId(chatCompletionRequest.getRequestId());
 			sseModelApiResp.setFlowable(null);// Clear flowable before printing
 			sseModelApiResp.setData(data);
@@ -177,13 +186,6 @@ public class CodeGeexTest {
 		for (Thread t : Thread.getAllStackTraces().keySet()) {
 			logger.info("Thread: " + t.getName() + " State: " + t.getState());
 		}
-	}
-
-	public static Flowable<ChatMessageAccumulator> mapStreamToAccumulator(Flowable<ModelData> flowable) {
-		return flowable.map(chunk -> {
-			return new ChatMessageAccumulator(null, chunk.getChoices().get(0).getDelta(), chunk.getChoices().get(0),
-					chunk.getUsage(), chunk.getCreated(), chunk.getId());
-		});
 	}
 
 }

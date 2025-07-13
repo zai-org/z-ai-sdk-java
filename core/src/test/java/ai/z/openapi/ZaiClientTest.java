@@ -24,7 +24,8 @@ import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatFunction;
 import ai.z.openapi.service.model.ChatFunctionParameters;
 import ai.z.openapi.service.model.ChatMessage;
-import ai.z.openapi.service.model.ChatMessageAccumulator;
+import java.util.concurrent.atomic.AtomicReference;
+import ai.z.openapi.service.model.Usage;
 import ai.z.openapi.service.model.ChatMessageRole;
 import ai.z.openapi.service.model.ChatMeta;
 import ai.z.openapi.service.model.ChatTool;
@@ -192,31 +193,41 @@ public class ZaiClientTest {
 		if (sseModelApiResp.isSuccess()) {
 			AtomicBoolean isFirst = new AtomicBoolean(true);
 			List<Choice> choices = new ArrayList<>();
-			ChatMessageAccumulator chatMessageAccumulator = mapStreamToAccumulator(sseModelApiResp.getFlowable())
-				.doOnNext(accumulator -> {
-					{
-						if (isFirst.getAndSet(false)) {
-							logger.info("Response: ");
-						}
-						if (accumulator.getDelta() != null && accumulator.getDelta().getTool_calls() != null) {
-							String jsonString = mapper.writeValueAsString(accumulator.getDelta().getTool_calls());
-							logger.info("tool_calls: {}", jsonString);
-						}
-						if (accumulator.getDelta() != null && accumulator.getDelta().getContent() != null) {
-							logger.info(accumulator.getDelta().getContent());
-						}
-						choices.add(accumulator.getChoice());
+			AtomicReference<Usage> usageRef = new AtomicReference<>();
+			AtomicReference<String> idRef = new AtomicReference<>();
+			AtomicReference<Long> createdRef = new AtomicReference<>();
+
+			sseModelApiResp.getFlowable().doOnNext(chunk -> {
+				if (isFirst.getAndSet(false)) {
+					logger.info("Response: ");
+				}
+				if (chunk.getChoices() != null && !chunk.getChoices().isEmpty()) {
+					Choice choice = chunk.getChoices().get(0);
+					if (choice.getDelta() != null && choice.getDelta().getTool_calls() != null) {
+						String jsonString = mapper.writeValueAsString(choice.getDelta().getTool_calls());
+						logger.info("tool_calls: {}", jsonString);
 					}
-				})
-				.doOnComplete(System.out::println)
-				.lastElement()
-				.blockingGet();
+					if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
+						logger.info(choice.getDelta().getContent());
+					}
+					choices.add(choice);
+				}
+				if (chunk.getUsage() != null) {
+					usageRef.set(chunk.getUsage());
+				}
+				if (chunk.getId() != null) {
+					idRef.set(chunk.getId());
+				}
+				if (chunk.getCreated() != null) {
+					createdRef.set(chunk.getCreated());
+				}
+			}).doOnComplete(System.out::println).blockingSubscribe();
 
 			ModelData data = new ModelData();
 			data.setChoices(choices);
-			data.setUsage(chatMessageAccumulator.getUsage());
-			data.setId(chatMessageAccumulator.getId());
-			data.setCreated(chatMessageAccumulator.getCreated());
+			data.setUsage(usageRef.get());
+			data.setId(idRef.get());
+			data.setCreated(createdRef.get());
 			data.setRequestId(chatCompletionRequest.getRequestId());
 			sseModelApiResp.setFlowable(null);// Clear flowable before printing
 			sseModelApiResp.setData(data);
@@ -277,31 +288,41 @@ public class ZaiClientTest {
 		if (sseModelApiResp.isSuccess()) {
 			AtomicBoolean isFirst = new AtomicBoolean(true);
 			List<Choice> choices = new ArrayList<>();
-			ChatMessageAccumulator chatMessageAccumulator = mapStreamToAccumulator(sseModelApiResp.getFlowable())
-				.doOnNext(accumulator -> {
-					{
-						if (isFirst.getAndSet(false)) {
-							logger.info("Response: ");
-						}
-						if (accumulator.getDelta() != null && accumulator.getDelta().getTool_calls() != null) {
-							String jsonString = mapper.writeValueAsString(accumulator.getDelta().getTool_calls());
-							logger.info("tool_calls: {}", jsonString);
-						}
-						if (accumulator.getDelta() != null && accumulator.getDelta().getContent() != null) {
-							logger.info("accumulator.getDelta().getContent(): {}", accumulator.getDelta().getContent());
-						}
-						choices.add(accumulator.getChoice());
+			AtomicReference<Usage> usageRef = new AtomicReference<>();
+			AtomicReference<String> idRef = new AtomicReference<>();
+			AtomicReference<Long> createdRef = new AtomicReference<>();
+
+			sseModelApiResp.getFlowable().doOnNext(chunk -> {
+				if (isFirst.getAndSet(false)) {
+					logger.info("Response: ");
+				}
+				if (chunk.getChoices() != null && !chunk.getChoices().isEmpty()) {
+					Choice choice = chunk.getChoices().get(0);
+					if (choice.getDelta() != null && choice.getDelta().getTool_calls() != null) {
+						String jsonString = mapper.writeValueAsString(choice.getDelta().getTool_calls());
+						logger.info("tool_calls: {}", jsonString);
 					}
-				})
-				.doOnComplete(System.out::println)
-				.lastElement()
-				.blockingGet();
+					if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
+						logger.info("accumulator.getDelta().getContent(): {}", choice.getDelta().getContent());
+					}
+					choices.add(choice);
+				}
+				if (chunk.getUsage() != null) {
+					usageRef.set(chunk.getUsage());
+				}
+				if (chunk.getId() != null) {
+					idRef.set(chunk.getId());
+				}
+				if (chunk.getCreated() != null) {
+					createdRef.set(chunk.getCreated());
+				}
+			}).doOnComplete(System.out::println).blockingSubscribe();
 
 			ModelData data = new ModelData();
 			data.setChoices(choices);
-			data.setUsage(chatMessageAccumulator.getUsage());
-			data.setId(chatMessageAccumulator.getId());
-			data.setCreated(chatMessageAccumulator.getCreated());
+			data.setUsage(usageRef.get());
+			data.setId(idRef.get());
+			data.setCreated(createdRef.get());
 			data.setRequestId(chatCompletionRequest.getRequestId());
 			sseModelApiResp.setFlowable(null);// Clear flowable before printing
 			sseModelApiResp.setData(data);
@@ -852,13 +873,6 @@ public class ZaiClientTest {
 		request.setTaskId(taskId);
 		QueryModelResultResponse queryResultResp = client.chat().retrieveAsyncResult(request);
 		logger.info("model output {}", mapper.writeValueAsString(queryResultResp));
-	}
-
-	public static Flowable<ChatMessageAccumulator> mapStreamToAccumulator(Flowable<ModelData> flowable) {
-		return flowable.map(chunk -> {
-			return new ChatMessageAccumulator(null, chunk.getChoices().get(0).getDelta(), chunk.getChoices().get(0),
-					chunk.getUsage(), chunk.getCreated(), chunk.getId());
-		});
 	}
 
 }
