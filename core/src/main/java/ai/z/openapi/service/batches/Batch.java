@@ -21,7 +21,7 @@ public class Batch {
 	private String completionWindow;
 
 	@JsonProperty("created_at")
-	private long createdAt;
+	private Long createdAt;
 
 	@JsonProperty("endpoint")
 	private String endpoint;

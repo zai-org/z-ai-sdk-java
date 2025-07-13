@@ -1,24 +1,22 @@
 package ai.z.openapi.service.tools;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
-import ai.z.openapi.service.deserialize.tools.WebSearchMessageDeserializer;
 
-import java.util.Iterator;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents a web search message containing role and tool call information. This class
  * is used for web search operations and tool interactions.
  */
-@JsonDeserialize(using = WebSearchMessageDeserializer.class)
-public class WebSearchMessage extends ObjectNode {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class WebSearchMessage {
 
 	/**
 	 * Role in the conversation.
@@ -31,55 +29,5 @@ public class WebSearchMessage extends ObjectNode {
 	 */
 	@JsonProperty("tool_calls")
 	private List<WebSearchMessageToolCall> toolCalls;
-
-	public WebSearchMessage() {
-		super(JsonNodeFactory.instance);
-	}
-
-	public WebSearchMessage(ObjectNode objectNode) {
-		super(JsonNodeFactory.instance);
-		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-		if (objectNode.get("role") != null) {
-			this.setRole(objectNode.get("role").asText());
-		}
-		else {
-			this.setRole(null);
-		}
-		if (objectNode.get("tool_calls") != null) {
-			this.setToolCalls(objectMapper.convertValue(objectNode.get("tool_calls"),
-					new TypeReference<List<WebSearchMessageToolCall>>() {
-					}));
-		}
-		else {
-			this.setToolCalls(null);
-		}
-
-		Iterator<String> fieldNames = objectNode.fieldNames();
-		while (fieldNames.hasNext()) {
-			String fieldName = fieldNames.next();
-			JsonNode field = objectNode.get(fieldName);
-			this.set(fieldName, field);
-		}
-	}
-
-	// Getters and Setters
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-		this.put("role", role);
-	}
-
-	public List<WebSearchMessageToolCall> getToolCalls() {
-		return toolCalls;
-	}
-
-	public void setToolCalls(List<WebSearchMessageToolCall> toolCalls) {
-		this.toolCalls = toolCalls;
-		this.putPOJO("tool_calls", toolCalls);
-	}
 
 }
