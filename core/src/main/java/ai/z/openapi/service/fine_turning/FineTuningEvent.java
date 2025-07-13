@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true) // Ignore unknown properties
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FineTuningEvent {
 
 	private String object;
