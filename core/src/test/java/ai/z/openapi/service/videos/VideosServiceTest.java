@@ -4,6 +4,10 @@ import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.config.ZaiConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -191,13 +195,16 @@ public class VideosServiceTest {
 	@Test
 	@DisplayName("Test Video Generation with Image Input")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testVideoGenerationWithImage() throws JsonProcessingException {
+	void testVideoGenerationWithImage() throws IOException {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
-
+		String file = ClassLoader.getSystemResource("image_to_video.png").getFile();
+		byte[] bytes = FileUtils.readFileToByteArray(new File(file));
+		Base64.Encoder encoder = Base64.getEncoder();
+		String imageUrl = encoder.encodeToString(bytes);
 		VideoCreateParams request = VideoCreateParams.builder()
 			.model(MODEL_COGVIDEOX)
 			.prompt("Transform this image into a dynamic video scene")
-			.imageUrl("https://example.com/sample-image.jpg")
+			.imageUrl(imageUrl)
 			.requestId(requestId)
 			.withAudio(Boolean.FALSE)
 			.duration(3)
