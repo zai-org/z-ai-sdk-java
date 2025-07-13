@@ -7,8 +7,6 @@ package ai.z.openapi.core;
  * This class provides centralized access to: - API base URLs - Model identifiers for
  * different AI capabilities - Invocation method constants
  *
- * @author Z.AI SDK Team
- * @since 1.0.0
  */
 public final class Constants {
 

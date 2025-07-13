@@ -181,7 +181,7 @@ public class CodeGeexTest {
 
 	public static Flowable<ChatMessageAccumulator> mapStreamToAccumulator(Flowable<ModelData> flowable) {
 		return flowable.map(chunk -> {
-			return new ChatMessageAccumulator(chunk.getChoices().get(0).getDelta(), null, chunk.getChoices().get(0),
+			return new ChatMessageAccumulator(null, chunk.getChoices().get(0).getDelta(), chunk.getChoices().get(0),
 					chunk.getUsage(), chunk.getCreated(), chunk.getId());
 		});
 	}

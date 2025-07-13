@@ -39,6 +39,7 @@ import ai.z.openapi.service.tools.WebSearchMessage;
 import ai.z.openapi.service.tools.WebSearchMessageToolCall;
 import ai.z.openapi.service.tools.WebSearchPro;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -77,6 +78,7 @@ public class MessageDeserializeFactory {
 	public static ObjectMapper defaultObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		SimpleModule module = new SimpleModule();
 

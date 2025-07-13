@@ -7,8 +7,6 @@ package ai.z.openapi.utils;
  *
  * @param <Param> the type of input parameter
  * @param <Data> the type of data returned by the operation
- * @author Z.AI SDK Team
- * @since 1.0.0
  */
 @FunctionalInterface
 public interface FlowableRequestSupplier<Param, Data> {

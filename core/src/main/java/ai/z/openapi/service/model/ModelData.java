@@ -23,6 +23,7 @@ public final class ModelData extends ObjectNode {
 	@JsonProperty("choices")
 	private List<Choice> choices;
 
+	@JsonProperty("usage")
 	private Usage usage;
 
 	@JsonProperty("request_id")

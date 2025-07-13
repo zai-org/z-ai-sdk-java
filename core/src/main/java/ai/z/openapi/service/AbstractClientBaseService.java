@@ -10,10 +10,12 @@ import ai.z.openapi.service.model.ZAiError;
 import ai.z.openapi.service.model.ZAiHttpException;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
+import ai.z.openapi.utils.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+import java.util.Objects;
 import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,14 +87,18 @@ public abstract class AbstractClientBaseService {
 		}
 		catch (HttpException e) {
 			logger.error("HTTP exception: {}", e.getMessage());
-			try {
-				if (e.response() == null || e.response().errorBody() == null) {
+			if (e.response() == null || e.response().errorBody() == null) {
+				throw e;
+			}
+			try (ResponseBody responseBody = Objects.requireNonNull(e.response()).errorBody()) {
+				if (responseBody == null) {
 					throw e;
 				}
-				String errorBody = e.response().errorBody().string();
-
+				String errorBody = responseBody.string();
+				if (StringUtils.isEmpty(errorBody)) {
+					throw e;
+				}
 				ZAiError error = mapper.readValue(errorBody, ZAiError.class);
-
 				throw new ZAiHttpException(error, e, e.code());
 			}
 			catch (IOException ex) {

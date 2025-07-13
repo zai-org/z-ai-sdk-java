@@ -28,10 +28,7 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public ChatCompletionResponse createChatCompletion(ChatCompletionCreateParams request) {
-		String paramMsg = validateParams(request);
-		if (StringUtils.isNotEmpty(paramMsg)) {
-			return new ChatCompletionResponse(-100, String.format("invalid param: %s", paramMsg));
-		}
+		validateParams(request);
 		if (request.getStream()) {
 			return streamChatCompletion(request);
 		}
@@ -65,17 +62,16 @@ public class ChatServiceImpl implements ChatService {
 		return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
 	}
 
-	private String validateParams(ChatCompletionCreateParams request) {
+	private void validateParams(ChatCompletionCreateParams request) {
 		if (request == null) {
-			return "request can not be null";
+			throw new IllegalArgumentException("request cannot be null");
 		}
 		if (request.getMessages() == null || request.getMessages().isEmpty()) {
-			return "message can not be empty";
+			throw new IllegalArgumentException("request messages cannot be null or empty");
 		}
 		if (request.getModel() == null) {
-			return "model can not be empty";
+			throw new IllegalArgumentException("request model cannot be null");
 		}
-		return null;
 	}
 
 }
