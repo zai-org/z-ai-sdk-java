@@ -6,19 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import ai.z.openapi.service.assistant.AssistantChoice;
-import ai.z.openapi.service.assistant.CompletionUsage;
-import ai.z.openapi.service.assistant.ErrorInfo;
 import ai.z.openapi.service.deserialize.assistant.AssistantChoiceDeserializer;
-import ai.z.openapi.service.deserialize.assistant.CompletionUsageDeserializer;
-import ai.z.openapi.service.deserialize.assistant.ErrorInfoDeserializer;
-import ai.z.openapi.service.deserialize.knowledge.KnowledgeInfoDeserializer;
-import ai.z.openapi.service.deserialize.knowledge.KnowledgePageDeserializer;
-import ai.z.openapi.service.deserialize.knowledge.KnowledgeStatisticsDeserializer;
-import ai.z.openapi.service.deserialize.knowledge.KnowledgeUsedDeserializer;
-import ai.z.openapi.service.knowledge.KnowledgeInfo;
-import ai.z.openapi.service.knowledge.KnowledgePage;
-import ai.z.openapi.service.knowledge.KnowledgeStatistics;
-import ai.z.openapi.service.knowledge.KnowledgeUsed;
 
 public class MessageDeserializeFactory {
 
@@ -29,14 +17,7 @@ public class MessageDeserializeFactory {
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		SimpleModule module = new SimpleModule();
 
-		module.addDeserializer(KnowledgeInfo.class, new KnowledgeInfoDeserializer());
-		module.addDeserializer(KnowledgeUsed.class, new KnowledgeUsedDeserializer());
-		module.addDeserializer(KnowledgeStatistics.class, new KnowledgeStatisticsDeserializer());
-		module.addDeserializer(KnowledgePage.class, new KnowledgePageDeserializer());
-		module.addDeserializer(KnowledgeInfo.class, new KnowledgeInfoDeserializer());
 		module.addDeserializer(AssistantChoice.class, new AssistantChoiceDeserializer());
-		module.addDeserializer(CompletionUsage.class, new CompletionUsageDeserializer());
-		module.addDeserializer(ErrorInfo.class, new ErrorInfoDeserializer());
 		mapper.registerModule(module);
 
 		return mapper;
