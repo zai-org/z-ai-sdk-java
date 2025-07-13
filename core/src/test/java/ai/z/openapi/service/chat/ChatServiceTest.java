@@ -179,6 +179,7 @@ public class ChatServiceTest {
 		assertTrue(response.isSuccess(), "Asynchronous response should be successful");
 		assertNotNull(response.getData(), "Asynchronous response data should not be null");
 		assertNotNull(response.getData().getId(), "Asynchronous response task id should not be null");
+		assertNotNull(response.getData().getTaskStatus(), "Asynchronous response task status should not be null");
 		// If there is a task ID, test querying asynchronous results
 		String taskId = response.getData().getId();
 		AsyncResultRetrieveParams retrieveParams = new AsyncResultRetrieveParams();
@@ -187,7 +188,9 @@ public class ChatServiceTest {
 		QueryModelResultResponse queryModelResultResponse = chatService.retrieveAsyncResult(retrieveParams);
 
 		assertNotNull(queryModelResultResponse, "Query asynchronous result response should not be null");
-		logger.info("Query asynchronous result: taskId={}, success={}", taskId, queryModelResultResponse.isSuccess());
+		assertNotNull(response.getData().getId(), "Asynchronous response task id should not be null");
+		assertNotNull(response.getData().getTaskStatus(), "Asynchronous response task status should not be null");
+		logger.info("Query asynchronous result: taskId={}, data={}", taskId, queryModelResultResponse);
 
 	}
 
