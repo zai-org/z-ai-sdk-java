@@ -105,9 +105,9 @@ public class WebSearchTest {
 			webSearchTool.setType("web_search");
 			WebSearch webSearch = new WebSearch();
 			webSearch.setEnable(Boolean.TRUE);
-			webSearch.setSearch_engine("search_std");
-			webSearch.setSearch_result(Boolean.TRUE);
-			webSearchTool.setWeb_search(webSearch);
+			webSearch.setSearchEngine("search_std");
+			webSearch.setSearchResult(Boolean.TRUE);
+			webSearchTool.setWebSearch(webSearch);
 
 			String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
 			Map<String, Object> extraJson = new HashMap<>();
@@ -136,9 +136,9 @@ public class WebSearchTest {
 		webSearchTool.setType("web_search");
 		WebSearch webSearch = new WebSearch();
 		webSearch.setEnable(Boolean.TRUE);
-		webSearch.setSearch_engine("search_std");
-		webSearch.setSearch_result(Boolean.TRUE);
-		webSearchTool.setWeb_search(webSearch);
+		webSearch.setSearchEngine("search_std");
+		webSearch.setSearchResult(Boolean.TRUE);
+		webSearchTool.setWebSearch(webSearch);
 
 		String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
 		Map<String, Object> extraJson = new HashMap<>();
@@ -170,10 +170,10 @@ public class WebSearchTest {
 			webSearchTool.setType("web_search");
 			WebSearch webSearch = new WebSearch();
 			webSearch.setEnable(Boolean.TRUE);
-			webSearch.setSearch_engine("search_std");
-			webSearch.setResult_sequence("before");
-			webSearch.setSearch_result(Boolean.TRUE);
-			webSearchTool.setWeb_search(webSearch);
+			webSearch.setSearchEngine("search_std");
+			webSearch.setResultSequence("before");
+			webSearch.setSearchResult(Boolean.TRUE);
+			webSearchTool.setWebSearch(webSearch);
 
 			String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
 			ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
@@ -203,10 +203,10 @@ public class WebSearchTest {
 		webSearchTool.setType("web_search");
 		WebSearch webSearch = new WebSearch();
 		webSearch.setEnable(Boolean.TRUE);
-		webSearch.setSearch_engine("search_std");
-		webSearch.setResult_sequence("before");
-		webSearch.setSearch_result(Boolean.TRUE);
-		webSearchTool.setWeb_search(webSearch);
+		webSearch.setSearchEngine("search_std");
+		webSearch.setResultSequence("before");
+		webSearch.setSearchResult(Boolean.TRUE);
+		webSearchTool.setWebSearch(webSearch);
 
 		String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
 		ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()

@@ -81,7 +81,9 @@ public class ChatServiceTest {
 		assertTrue(response.isSuccess(), "Response should be successful");
 		assertNotNull(response.getData(), "Response data should not be null");
 		assertEquals(requestId, response.getData().getRequestId(), "Request ID should match");
-
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
 		logger.info("Synchronous chat completion response: {}", mapper.writeValueAsString(response));
 	}
 
@@ -142,7 +144,7 @@ public class ChatServiceTest {
 	@Test
 	@DisplayName("Test Asynchronous Chat Completion")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testAsyncChatCompletion() throws JsonProcessingException {
+	void testAsyncChatCompletion() {
 		// Prepare test data
 		List<ChatMessage> messages = new ArrayList<>();
 		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(),
@@ -179,9 +181,9 @@ public class ChatServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Retrieve Asynchronous Result")
+	@DisplayName("Test Retrieve Asynchronous Result Error")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testRetrieveAsyncResult() {
+	void testRetrieveAsyncResultError() {
 		AsyncResultRetrieveParams retrieveParams = new AsyncResultRetrieveParams();
 		retrieveParams.setTaskId("mock-task-id-" + System.currentTimeMillis());
 
@@ -248,7 +250,16 @@ public class ChatServiceTest {
 
 		assertTrue(response.isSuccess(), "Function calling response should be successful");
 		assertNotNull(response.getData(), "Function calling response data should not be null");
-
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
+		assertEquals("tool_calls", response.getData().getChoices().get(0).getFinishReason());
+		assertNotNull(response.getData().getChoices().get(0).getMessage(),
+				"Response data choice message should not be null");
+		assertNotNull(response.getData().getChoices().get(0).getMessage().getToolCalls(),
+				"Response data choice message tool call should not be null");
+		assertFalse(response.getData().getChoices().get(0).getMessage().getToolCalls().isEmpty(),
+				"Response data choice message tool call should not be null");
 		logger.info("Function calling response: {}", mapper.writeValueAsString(response));
 	}
 
@@ -327,10 +338,10 @@ public class ChatServiceTest {
 		webSearchTool.setType(ChatToolType.WEB_SEARCH.value());
 
 		WebSearch webSearch = new WebSearch();
-		webSearch.setSearch_query("AI technology development");
-		webSearch.setSearch_result(true);
+		webSearch.setSearchQuery("AI technology development");
+		webSearch.setSearchResult(true);
 		webSearch.setEnable(true);
-		webSearchTool.setWeb_search(webSearch);
+		webSearchTool.setWebSearch(webSearch);
 
 		chatToolList.add(webSearchTool);
 

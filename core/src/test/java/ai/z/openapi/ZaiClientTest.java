@@ -51,7 +51,6 @@ import ai.z.openapi.service.embedding.EmbeddingResponse;
 import ai.z.openapi.mock.MockClient;
 import ai.z.openapi.service.image.CreateImageRequest;
 import ai.z.openapi.service.image.ImageResponse;
-import io.reactivex.Flowable;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -374,10 +373,10 @@ public class ZaiClientTest {
 		ChatTool chatTool1 = new ChatTool();
 		chatTool1.setType(ChatToolType.WEB_SEARCH.value());
 		WebSearch webSearch = new WebSearch();
-		webSearch.setSearch_query("Tsinghua University enrollment rate");
-		webSearch.setSearch_result(true);
+		webSearch.setSearchQuery("Tsinghua University enrollment rate");
+		webSearch.setSearchResult(true);
 		webSearch.setEnable(false);
-		chatTool1.setWeb_search(webSearch);
+		chatTool1.setWebSearch(webSearch);
 
 		chatToolList.add(chatTool);
 		chatToolList.add(chatTool1);
@@ -441,12 +440,12 @@ public class ZaiClientTest {
 		extraJson.put("temperature", 0.5);
 
 		ChatMeta meta = new ChatMeta();
-		meta.setUser_info(
+		meta.setUserInfo(
 				"I am Lu Xingchen, a male, a well-known director, and also Su Mengyuan's collaborative director. I am good at filming music-themed movies. Su Mengyuan's attitude towards me is respectful, and she regards me as a mentor and friend.");
-		meta.setBot_info(
+		meta.setBotInfo(
 				"Su Mengyuan, whose real name is Su Yuanxin, is a popular domestic female singer and actress. After participating in talent shows, she quickly became famous and entered the entertainment industry with her unique voice and outstanding stage charm. She is beautiful in appearance, but her real charm lies in her talent and diligence. Su Mengyuan is an excellent graduate of the music academy, good at creation, and has many popular original songs. In addition to her achievements in music, she is also enthusiastic about charity, actively participates in public welfare activities, and spreads positive energy through practical actions. At work, she is very dedicated to her work, always fully devoted to her roles when filming, winning praise from industry insiders and fans' love. Although in the entertainment industry, she always maintains a low-key and humble attitude, deeply respected by peers. In expression, Su Mengyuan likes to use 'we' and 'together', emphasizing team spirit.");
-		meta.setBot_name("Su Mengyuan");
-		meta.setUser_name("Lu Xingchen");
+		meta.setBotName("Su Mengyuan");
+		meta.setUserName("Lu Xingchen");
 
 		extraJson.put("invoke_method", Constants.INVOKE_METHOD);
 		ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()

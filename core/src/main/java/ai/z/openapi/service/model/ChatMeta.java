@@ -1,6 +1,10 @@
 package ai.z.openapi.service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Meta information for hyper-realistic conversations. Contains role and user information
@@ -8,26 +12,33 @@ import lombok.Data;
  * role/bot name - user_name: user name
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatMeta {
 
 	/**
 	 * User information.
 	 */
-	private String user_info;
+	@JsonProperty("user_info")
+	private String userInfo;
 
 	/**
 	 * Bot/role information.
 	 */
-	private String bot_info;
+	@JsonProperty("bot_info")
+	private String botInfo;
 
 	/**
 	 * Bot/role name.
 	 */
-	private String bot_name;
+	@JsonProperty("bot_name")
+	private String botName;
 
 	/**
 	 * User name.
 	 */
-	private String user_name;
+	@JsonProperty("user_name")
+	private String userName;
 
 }

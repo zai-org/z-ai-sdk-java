@@ -84,11 +84,6 @@ public class MessageDeserializeFactory {
 
 		module.addDeserializer(ModelData.class, new ModelDataDeserializer());
 		module.addDeserializer(Choice.class, new ChoiceDeserializer());
-		module.addDeserializer(ChatMessage.class, new ChatMessageDeserializer());
-		module.addDeserializer(Delta.class, new DeltaDeserializer());
-		module.addDeserializer(ToolCalls.class, new ToolCallsDeserializer());
-		module.addDeserializer(ChatFunctionCall.class, new ChatFunctionCallDeserializer());
-		module.addDeserializer(CodeGeexContext.class, new CodeGeexContextDeserializer());
 		module.addDeserializer(ChoiceDelta.class, new ChoiceDeltaDeserializer());
 		module.addDeserializer(ChoiceDeltaToolCall.class, new ChoiceDeltaToolCallDeserializer());
 		module.addDeserializer(SearchChatMessage.class, new SearchChatMessageDeserializer());
