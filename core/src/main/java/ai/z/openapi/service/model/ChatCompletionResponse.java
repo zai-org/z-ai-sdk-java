@@ -2,9 +2,15 @@ package ai.z.openapi.service.model;
 
 import ai.z.openapi.core.model.FlowableClientResponse;
 import io.reactivex.Flowable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatCompletionResponse implements FlowableClientResponse<ModelData> {
 
 	private int code;
@@ -18,13 +24,5 @@ public class ChatCompletionResponse implements FlowableClientResponse<ModelData>
 	private Flowable<ModelData> flowable;
 
 	private ChatError error;
-
-	public ChatCompletionResponse() {
-	}
-
-	public ChatCompletionResponse(int code, String msg) {
-		this.code = code;
-		this.msg = msg;
-	}
 
 }

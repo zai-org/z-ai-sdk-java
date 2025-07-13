@@ -3,7 +3,18 @@ package ai.z.openapi.service.chat;
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
-import ai.z.openapi.service.model.*;
+import ai.z.openapi.service.model.AsyncResultRetrieveParams;
+import ai.z.openapi.service.model.ChatCompletionCreateParams;
+import ai.z.openapi.service.model.ChatCompletionResponse;
+import ai.z.openapi.service.model.ChatFunction;
+import ai.z.openapi.service.model.ChatFunctionParameters;
+import ai.z.openapi.service.model.ChatMessage;
+import ai.z.openapi.service.model.ChatMessageRole;
+import ai.z.openapi.service.model.ChatTool;
+import ai.z.openapi.service.model.ChatToolType;
+import ai.z.openapi.service.model.Choice;
+import ai.z.openapi.service.model.QueryModelResultResponse;
+import ai.z.openapi.service.model.WebSearch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -357,6 +368,14 @@ public class ChatServiceTest {
 		ChatCompletionResponse response = chatService.createChatCompletion(request);
 
 		assertNotNull(response, "Web search response should not be null");
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
+		assertNotNull(response.getData().getChoices().get(0).getMessage(),
+				"Response data choice message should not be null");
+		assertNotNull(response.getData().getWebSearch(), "Response data web search should not be null");
+		assertFalse(response.getData().getWebSearch().isEmpty(), "Response data web search should not be empty");
+
 		logger.info("Web search response: {}", mapper.writeValueAsString(response));
 	}
 
@@ -387,6 +406,11 @@ public class ChatServiceTest {
 		ChatCompletionResponse response = chatService.createChatCompletion(request);
 
 		assertNotNull(response, "Multi-turn conversation response should not be null");
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
+		assertNotNull(response.getData().getChoices().get(0).getMessage(),
+				"Response data choice message should not be null");
 		logger.info("Multi-turn conversation response: {}", mapper.writeValueAsString(response));
 	}
 
