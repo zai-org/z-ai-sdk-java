@@ -12,9 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Request parameters for agent completion API calls. This class contains all the
@@ -32,7 +30,7 @@ public class AgentsCompletionRequest extends CommonRequest implements ClientRequ
 	 * Agent ID
 	 */
 	@JsonProperty("agent_id")
-	private String agent_id;
+	private String agentId;
 
 	/**
 	 * Message body
@@ -55,6 +53,6 @@ public class AgentsCompletionRequest extends CommonRequest implements ClientRequ
 	 * @return
 	 */
 	@JsonProperty("custom_variables")
-	private ObjectNode custom_variables;
+	private ObjectNode customVariables;
 
 }

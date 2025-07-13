@@ -25,6 +25,7 @@ public class AgentServiceImpl implements AgentService {
 
 	@Override
 	public ChatCompletionResponse createAgentCompletion(AgentsCompletionRequest request) {
+		validateParams(request);
 		if (request.getStream()) {
 			return streamAgentCompletion(request);
 		}
@@ -47,6 +48,18 @@ public class AgentServiceImpl implements AgentService {
 	private ChatCompletionResponse syncAgentCompletion(AgentsCompletionRequest request) {
 		RequestSupplier<AgentsCompletionRequest, ModelData> supplier = agentsApi::agentsCompletionSync;
 		return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
+	}
+
+	private void validateParams(AgentsCompletionRequest request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getMessages() == null || request.getMessages().isEmpty()) {
+			throw new IllegalArgumentException("request messages cannot be null or empty");
+		}
+		if (request.getAgentId() == null) {
+			throw new IllegalArgumentException("request agent_id cannot be null");
+		}
 	}
 
 }
