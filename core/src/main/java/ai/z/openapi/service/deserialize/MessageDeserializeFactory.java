@@ -51,8 +51,6 @@ import ai.z.openapi.service.deserialize.assistant.AssistantChoiceDeserializer;
 import ai.z.openapi.service.deserialize.assistant.AssistantCompletionDeserializer;
 import ai.z.openapi.service.deserialize.assistant.CompletionUsageDeserializer;
 import ai.z.openapi.service.deserialize.assistant.ErrorInfoDeserializer;
-import ai.z.openapi.service.deserialize.embedding.EmbeddingDeserializer;
-import ai.z.openapi.service.deserialize.embedding.EmbeddingResultDeserializer;
 import ai.z.openapi.service.deserialize.image.ImageDeserializer;
 import ai.z.openapi.service.deserialize.image.ImageResultDeserializer;
 import ai.z.openapi.service.deserialize.knowledge.KnowledgeInfoDeserializer;
@@ -61,15 +59,12 @@ import ai.z.openapi.service.deserialize.knowledge.KnowledgeStatisticsDeserialize
 import ai.z.openapi.service.deserialize.knowledge.KnowledgeUsedDeserializer;
 import ai.z.openapi.service.deserialize.videos.VideoObjectDeserializer;
 import ai.z.openapi.service.deserialize.videos.VideoResultDeserializer;
-import ai.z.openapi.service.embedding.Embedding;
-import ai.z.openapi.service.embedding.EmbeddingResult;
 import ai.z.openapi.service.image.Image;
 import ai.z.openapi.service.image.ImageResult;
 import ai.z.openapi.service.knowledge.KnowledgeInfo;
 import ai.z.openapi.service.knowledge.KnowledgePage;
 import ai.z.openapi.service.knowledge.KnowledgeStatistics;
 import ai.z.openapi.service.knowledge.KnowledgeUsed;
-import ai.z.openapi.service.model.params.CodeGeexContext;
 import ai.z.openapi.service.videos.VideoObject;
 import ai.z.openapi.service.videos.VideoResult;
 
@@ -106,8 +101,6 @@ public class MessageDeserializeFactory {
 		module.addDeserializer(DocumentData.class, new DocumentDataDeserializer());
 		module.addDeserializer(DocumentDataFailInfo.class, new DocumentDataFailInfoDeserializer());
 		module.addDeserializer(DocumentPage.class, new DocumentPageDeserializer());
-		module.addDeserializer(EmbeddingResult.class, new EmbeddingResultDeserializer());
-		module.addDeserializer(Embedding.class, new EmbeddingDeserializer());
 		module.addDeserializer(KnowledgeInfo.class, new KnowledgeInfoDeserializer());
 		module.addDeserializer(AssistantChoice.class, new AssistantChoiceDeserializer());
 		module.addDeserializer(AssistantCompletion.class, new AssistantCompletionDeserializer());
