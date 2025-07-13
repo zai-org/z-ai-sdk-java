@@ -15,14 +15,10 @@ import ai.z.openapi.service.deserialize.knowledge.KnowledgeInfoDeserializer;
 import ai.z.openapi.service.deserialize.knowledge.KnowledgePageDeserializer;
 import ai.z.openapi.service.deserialize.knowledge.KnowledgeStatisticsDeserializer;
 import ai.z.openapi.service.deserialize.knowledge.KnowledgeUsedDeserializer;
-import ai.z.openapi.service.deserialize.videos.VideoObjectDeserializer;
-import ai.z.openapi.service.deserialize.videos.VideoResultDeserializer;
 import ai.z.openapi.service.knowledge.KnowledgeInfo;
 import ai.z.openapi.service.knowledge.KnowledgePage;
 import ai.z.openapi.service.knowledge.KnowledgeStatistics;
 import ai.z.openapi.service.knowledge.KnowledgeUsed;
-import ai.z.openapi.service.videos.VideoObject;
-import ai.z.openapi.service.videos.VideoResult;
 
 public class MessageDeserializeFactory {
 
@@ -33,8 +29,6 @@ public class MessageDeserializeFactory {
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		SimpleModule module = new SimpleModule();
 
-		module.addDeserializer(VideoResult.class, new VideoResultDeserializer());
-		module.addDeserializer(VideoObject.class, new VideoObjectDeserializer());
 		module.addDeserializer(KnowledgeInfo.class, new KnowledgeInfoDeserializer());
 		module.addDeserializer(KnowledgeUsed.class, new KnowledgeUsedDeserializer());
 		module.addDeserializer(KnowledgeStatistics.class, new KnowledgeStatisticsDeserializer());
