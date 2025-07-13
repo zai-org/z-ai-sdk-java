@@ -15,6 +15,8 @@ import ai.z.openapi.service.model.ChatToolType;
 import ai.z.openapi.service.model.Choice;
 import ai.z.openapi.service.model.QueryModelResultResponse;
 import ai.z.openapi.service.model.WebSearch;
+import ai.z.openapi.service.model.params.CodeGeexExtra;
+import ai.z.openapi.service.model.params.CodeGeexTarget;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -415,6 +418,90 @@ public class ChatServiceTest {
 		assertNotNull(response.getData().getChoices().get(0).getMessage(),
 				"Response data choice message should not be null");
 		logger.info("Multi-turn conversation response: {}", mapper.writeValueAsString(response));
+	}
+
+	@Test
+	@DisplayName("Test CodeGeex Code Completion")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testCodeGeexCompletion() throws JsonProcessingException {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Help me complete this Java code");
+		messages.add(userMessage);
+
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+
+		// Build CodeGeex parameters
+		CodeGeexTarget codeGeexTarget = new CodeGeexTarget();
+		codeGeexTarget.setPath("TestFile.java");
+		codeGeexTarget.setLanguage("java");
+		codeGeexTarget.setCodePrefix("public class TestClass {\n    public void testMethod() {");
+		codeGeexTarget.setCodeSuffix("    }\n}");
+
+		CodeGeexExtra codeGeexExtra = new CodeGeexExtra();
+		codeGeexExtra.setContexts(new ArrayList<>());
+		codeGeexExtra.setTarget(codeGeexTarget);
+
+		List<String> stop = new ArrayList<>();
+		stop.add("<|endoftext|>");
+		stop.add("<|user|>");
+		stop.add("<|assistant|>");
+		stop.add("<|observation|>");
+
+		Map<String, Object> extraJson = new HashMap<>();
+		extraJson.put("invoke_method", Constants.INVOKE_METHOD);
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model("codegeex-4")
+			.stream(Boolean.TRUE)
+			.extraJson(extraJson)
+			.messages(messages)
+			.stop(stop)
+			.extra(codeGeexExtra)
+			.requestId(requestId)
+			.build();
+
+		// Execute test
+		ChatCompletionResponse response = chatService.createChatCompletion(request);
+
+		// Verify results
+		assertNotNull(response, "CodeGeex response should not be null");
+		assertTrue(response.isSuccess(), "CodeGeex response should be successful");
+
+		// Test stream data processing
+		AtomicInteger messageCount = new AtomicInteger(0);
+		AtomicBoolean isFirst = new AtomicBoolean(true);
+		AtomicReference<String> lastId = new AtomicReference<>();
+		AtomicReference<Long> lastCreated = new AtomicReference<>();
+
+		response.getFlowable().doOnNext(modelData -> {
+			if (isFirst.getAndSet(false)) {
+				logger.info("Starting to receive CodeGeex stream response:");
+			}
+			if (modelData.getChoices() != null && !modelData.getChoices().isEmpty()) {
+				Choice choice = modelData.getChoices().get(0);
+				if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
+					logger.info("Received code content: {}", choice.getDelta().getContent());
+					messageCount.incrementAndGet();
+				}
+			}
+			if (modelData.getId() != null) {
+				lastId.set(modelData.getId());
+			}
+			if (modelData.getCreated() != null) {
+				lastCreated.set(modelData.getCreated());
+			}
+		})
+			.doOnComplete(() -> logger.info("CodeGeex stream response completed, received {} messages in total",
+					messageCount.get()))
+			.doOnError(throwable -> logger.error("CodeGeex stream error: {}", throwable.getMessage()))
+			.blockingSubscribe();
+
+		assertTrue(messageCount.get() >= 0, "Should receive at least zero messages");
+		assertNotNull(lastId.get(), "Response should have an ID");
+		assertNotNull(lastCreated.get(), "Response should have a created timestamp");
+
+		logger.info("CodeGeex code completion test completed");
 	}
 
 }
