@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import ai.z.openapi.mock.MockClient;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.audio.AudioTranscriptionsRequest;
 import org.junit.jupiter.api.Test;
@@ -46,21 +45,6 @@ public class TranscriptionsTest {
 	 */
 	@Test
 	public void testInvokeTranscriptions() throws JsonProcessingException {
-		// Check if using test API key, skip real API call if so
-		if (zaiConfig.getApiKey() != null && zaiConfig.getApiKey().contains("test-api-key")) {
-			logger.info("Using test API key, skipping real API call, using mock data");
-
-			AudioTranscriptionsRequest audioTranscriptionsRequest = new AudioTranscriptionsRequest();
-			audioTranscriptionsRequest.setFile(new java.io.File("src/test/resources/asr.wav"));
-			audioTranscriptionsRequest.setModel("glm-asr");
-			audioTranscriptionsRequest.setStream(false);
-
-			// Use mock data
-			ChatCompletionResponse mockResponse = MockClient.mockTranscriptionsApi(audioTranscriptionsRequest);
-			logger.info("Mock transcription response: {}", mapper.writeValueAsString(mockResponse));
-			return;
-		}
-
 		AudioTranscriptionsRequest audioTranscriptionsRequest = new AudioTranscriptionsRequest();
 		audioTranscriptionsRequest.setFile(new java.io.File("src/test/resources/asr.wav"));
 		audioTranscriptionsRequest.setModel("glm-asr");
@@ -71,21 +55,6 @@ public class TranscriptionsTest {
 
 	@Test
 	public void testSSEInvokeTranscriptions() {
-		// Check if using test API key, skip real API call if so
-		if (zaiConfig.getApiKey() != null && zaiConfig.getApiKey().contains("test-api-key")) {
-			logger.info("Using test API key, skipping real API call, using mock data");
-
-			AudioTranscriptionsRequest audioTranscriptionsRequest = new AudioTranscriptionsRequest();
-			audioTranscriptionsRequest.setFile(new java.io.File("src/test/resources/asr.webm"));
-			audioTranscriptionsRequest.setModel("glm-asr");
-			audioTranscriptionsRequest.setStream(true);
-
-			// Use mock data
-			ChatCompletionResponse mockResponse = MockClient.mockTranscriptionsApi(audioTranscriptionsRequest);
-			logger.info("Mock SSE transcription response: {}", mockResponse);
-			return;
-		}
-
 		AudioTranscriptionsRequest audioTranscriptionsRequest = new AudioTranscriptionsRequest();
 		audioTranscriptionsRequest.setFile(new java.io.File("src/test/resources/asr.webm"));
 		audioTranscriptionsRequest.setModel("glm-asr");

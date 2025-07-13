@@ -49,7 +49,6 @@ public class DeserializeTest {
 				+ "            }\n" + "        }\n" + "    ";
 		Choice choice = mapper.readValue(json, Choice.class);
 		assert choice != null;
-		assert choice instanceof Choice;
 		assert choice.getFinishReason().equals("length");
 
 	}
@@ -60,7 +59,6 @@ public class DeserializeTest {
 				+ "    \"name\": \"1222\"\n" + "}";
 		ChatMessage chatMessage = mapper.readValue(json, ChatMessage.class);
 		assert chatMessage != null;
-		assert chatMessage instanceof ChatMessage;
 		assert chatMessage.getRole().equals("assistant");
 		assert chatMessage.getContent().equals("123");
 		assert chatMessage.getName().equals("1222");
@@ -73,7 +71,6 @@ public class DeserializeTest {
 		Delta delta = mapper.readValue(json, Delta.class);
 
 		assert delta != null;
-		assert delta instanceof Delta;
 		assert delta.getRole().equals("assistant");
 		assert delta.getContent().equals("123");
 
@@ -91,7 +88,6 @@ public class DeserializeTest {
 		ToolCalls toolCalls = mapper.readValue(json, ToolCalls.class);
 
 		assert toolCalls != null;
-		assert toolCalls instanceof ToolCalls;
 		assert toolCalls.getId().equals("call_8655897249605738470");
 		assert toolCalls.getType().equals("function");
 		assert toolCalls.getFunction().getName().equals("get_current_weather");
@@ -110,7 +106,6 @@ public class DeserializeTest {
 				+ "                        }";
 		ChatFunctionCall chatFunctionCall = mapper.readValue(json, ChatFunctionCall.class);
 		assert chatFunctionCall != null;
-		assert chatFunctionCall instanceof ChatFunctionCall;
 		assert chatFunctionCall.getName().equals("get_current_weather");
 		assert chatFunctionCall.getArguments() instanceof TextNode;
 		assert chatFunctionCall.getArguments().asText().equals("{\"location\":\"Beijing\",\"unit\":\"celsius\"}");

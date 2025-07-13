@@ -11,11 +11,9 @@ import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ModelData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ai.z.openapi.mock.MockClient;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import ai.z.openapi.service.model.params.CodeGeexExtra;
 import ai.z.openapi.service.model.params.CodeGeexTarget;
-import io.reactivex.Flowable;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,53 +50,6 @@ public class CodeGeexTest {
 
 	@Test
 	public void testCodegeex() throws JsonProcessingException {
-		// Check if using test API key, skip real API call if so
-		if (zaiConfig.getApiKey() != null && zaiConfig.getApiKey().contains("test-api-key")) {
-			logger.info("Using test API key, skipping real API call, using mock data");
-
-			List<ChatMessage> messages = new ArrayList<>();
-			ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "Help me check Beijing weather");
-			messages.add(chatMessage);
-			String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
-
-			CodeGeexTarget codeGeexTarget = new CodeGeexTarget();
-			codeGeexTarget.setPath("111");
-			codeGeexTarget.setLanguage("python");
-			codeGeexTarget
-				.setCodePrefix("EventSource.Factory factory = EventSources.createFactory(OkHttpUtils.getInstance());");
-			codeGeexTarget.setCodeSuffix("TaskMonitorLocal taskMonitorLocal = getTaskMonitorLocal(algoMqReq);");
-			CodeGeexExtra codeGeexExtra = new CodeGeexExtra();
-			codeGeexExtra.setContexts(new ArrayList<>());
-			codeGeexExtra.setTarget(codeGeexTarget);
-			List<String> stop = new ArrayList<>();
-			stop.add("<|endoftext|>");
-			stop.add("<|user|>");
-			stop.add("<|assistant|>");
-			stop.add("<|observation|>");
-
-			Map<String, Object> extraJson = new HashMap<>();
-			extraJson.put("invoke_method", Constants.INVOKE_METHOD);
-
-			ChatCompletionCreateParams chatCompletionRequest = ChatCompletionCreateParams.builder()
-				.model("codegeex-4")
-				.stream(Boolean.TRUE)
-				.extraJson(extraJson)
-				.messages(messages)
-				.stop(stop)
-				.extra(codeGeexExtra)
-				.requestId(requestId)
-				.build();
-
-			// Use mock data
-			ChatCompletionResponse sseModelApiResp = MockClient.mockModelApi(chatCompletionRequest);
-			if (sseModelApiResp.isSuccess()) {
-				sseModelApiResp.getFlowable().doOnNext(modelData -> {
-					logger.info("Mock CodeGeex response: {}", mapper.writeValueAsString(modelData));
-				}).blockingSubscribe();
-			}
-			return;
-		}
-
 		List<ChatMessage> messages = new ArrayList<>();
 		ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "Help me check Beijing weather");
 		messages.add(chatMessage);
