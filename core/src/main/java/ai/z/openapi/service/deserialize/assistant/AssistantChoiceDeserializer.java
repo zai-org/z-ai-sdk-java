@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ai.z.openapi.service.assistant.AssistantChoice;
 import ai.z.openapi.service.deserialize.BaseNodeDeserializer;
@@ -18,8 +17,6 @@ import java.io.IOException;
  * using appropriate {@link AssistantChoice} type.
  */
 public class AssistantChoiceDeserializer extends BaseNodeDeserializer<AssistantChoice> {
-
-	private final static ObjectMapper MAPPER = new ObjectMapper();
 
 	private final static AssistantChoiceDeserializer instance = new AssistantChoiceDeserializer();
 
