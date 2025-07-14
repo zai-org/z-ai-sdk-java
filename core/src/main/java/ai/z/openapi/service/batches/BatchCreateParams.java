@@ -15,6 +15,9 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BatchCreateParams implements ClientRequest<BatchCreateParams> {
 
 	/**
@@ -41,16 +44,5 @@ public class BatchCreateParams implements ClientRequest<BatchCreateParams> {
 	 */
 	@JsonProperty("metadata")
 	private Map<String, String> metadata;
-
-	public BatchCreateParams() {
-	}
-
-	public BatchCreateParams(String completionWindow, String endpoint, String inputFileId,
-			Map<String, String> metadata) {
-		this.completionWindow = completionWindow;
-		this.endpoint = endpoint;
-		this.inputFileId = inputFileId;
-		this.metadata = metadata;
-	}
 
 }

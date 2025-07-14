@@ -14,7 +14,7 @@ public class WebSearchDTO {
 	 * Creation time
 	 */
 	@JsonProperty("created")
-	private Integer created;
+	private Long created;
 
 	/**
 	 * ID

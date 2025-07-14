@@ -1,8 +1,5 @@
 package ai.z.openapi.service.videos;
 
-import ai.z.openapi.service.videos.VideoCreateParams;
-import ai.z.openapi.service.videos.VideosResponse;
-
 /**
  * Videos service interface
  */

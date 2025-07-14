@@ -20,6 +20,7 @@ public class FineTuningServiceImpl implements FineTuningService {
 
 	@Override
 	public CreateFineTuningJobApiResponse createFineTuningJob(FineTuningJobRequest request) {
+		validateRequest(request, "FineTuningJobRequest");
 		RequestSupplier<FineTuningJobRequest, FineTuningJob> supplier = fineTuningApi::createFineTuningJob;
 		return this.zAiClient.executeRequest(request, supplier, CreateFineTuningJobApiResponse.class);
 	}
@@ -27,6 +28,7 @@ public class FineTuningServiceImpl implements FineTuningService {
 	@Override
 	public QueryFineTuningEventApiResponse listFineTuningJobEvents(
 			QueryFineTuningJobRequest queryFineTuningJobRequest) {
+		validateRequest(queryFineTuningJobRequest, "QueryFineTuningJobRequest");
 		RequestSupplier<QueryFineTuningJobRequest, FineTuningEvent> supplier = (params) -> fineTuningApi
 			.listFineTuningJobEvents(params.getJobId(), params.getLimit(), params.getAfter());
 		return this.zAiClient.executeRequest(queryFineTuningJobRequest, supplier,
@@ -35,6 +37,7 @@ public class FineTuningServiceImpl implements FineTuningService {
 
 	@Override
 	public QueryFineTuningJobApiResponse retrieveFineTuningJob(QueryFineTuningJobRequest queryFineTuningJobRequest) {
+		validateRequest(queryFineTuningJobRequest, "QueryFineTuningJobRequest");
 		RequestSupplier<QueryFineTuningJobRequest, FineTuningJob> supplier = (params) -> fineTuningApi
 			.retrieveFineTuningJob(params.getJobId(), params.getLimit(), params.getAfter());
 		return this.zAiClient.executeRequest(queryFineTuningJobRequest, supplier, QueryFineTuningJobApiResponse.class);
@@ -43,6 +46,7 @@ public class FineTuningServiceImpl implements FineTuningService {
 	@Override
 	public QueryPersonalFineTuningJobApiResponse listPersonalFineTuningJobs(
 			QueryPersonalFineTuningJobRequest queryPersonalFineTuningJobRequest) {
+		validateRequest(queryPersonalFineTuningJobRequest, "QueryPersonalFineTuningJobRequest");
 		RequestSupplier<QueryPersonalFineTuningJobRequest, PersonalFineTuningJob> supplier = (params) -> fineTuningApi
 			.queryPersonalFineTuningJobs(params.getLimit(), params.getAfter());
 		return this.zAiClient.executeRequest(queryPersonalFineTuningJobRequest, supplier,
@@ -51,6 +55,7 @@ public class FineTuningServiceImpl implements FineTuningService {
 
 	@Override
 	public QueryFineTuningJobApiResponse cancelFineTuningJob(FineTuningJobIdRequest fineTuningJobIdRequest) {
+		validateRequest(fineTuningJobIdRequest, "FineTuningJobIdRequest");
 		RequestSupplier<FineTuningJobIdRequest, FineTuningJob> supplier = (params) -> fineTuningApi
 			.cancelFineTuningJob(params.getJobId());
 		return this.zAiClient.executeRequest(fineTuningJobIdRequest, supplier, QueryFineTuningJobApiResponse.class);
@@ -58,6 +63,7 @@ public class FineTuningServiceImpl implements FineTuningService {
 
 	@Override
 	public QueryFineTuningJobApiResponse deleteFineTuningJob(FineTuningJobIdRequest fineTuningJobIdRequest) {
+		validateRequest(fineTuningJobIdRequest, "FineTuningJobIdRequest");
 		RequestSupplier<FineTuningJobIdRequest, FineTuningJob> supplier = (params) -> fineTuningApi
 			.deleteFineTuningJob(params.getJobId());
 		return this.zAiClient.executeRequest(fineTuningJobIdRequest, supplier, QueryFineTuningJobApiResponse.class);
@@ -65,9 +71,16 @@ public class FineTuningServiceImpl implements FineTuningService {
 
 	@Override
 	public FineTunedModelsStatusResponse deleteFineTunedModel(FineTuningJobModelRequest fineTuningJobModelRequest) {
+		validateRequest(fineTuningJobModelRequest, "FineTuningJobModelRequest");
 		RequestSupplier<FineTuningJobModelRequest, FineTunedModelsStatus> supplier = (params) -> fineTuningApi
 			.deleteFineTuningModel(params.getFineTunedModel());
 		return this.zAiClient.executeRequest(fineTuningJobModelRequest, supplier, FineTunedModelsStatusResponse.class);
+	}
+
+	private void validateRequest(Object request, String requestType) {
+		if (request == null) {
+			throw new IllegalArgumentException(requestType + " cannot be null");
+		}
 	}
 
 }

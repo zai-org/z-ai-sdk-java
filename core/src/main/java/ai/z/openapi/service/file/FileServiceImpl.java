@@ -28,6 +28,13 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public FileApiResponse uploadFile(FileUploadParams request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getFilePath() == null) {
+			throw new IllegalArgumentException("request path cannot be null");
+		}
+
 		RequestSupplier<FileUploadParams, File> supplier = (params) -> {
 			try {
 				java.io.File file = new java.io.File(params.getFilePath());

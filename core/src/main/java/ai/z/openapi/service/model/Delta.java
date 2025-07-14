@@ -1,102 +1,26 @@
 package ai.z.openapi.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import ai.z.openapi.service.deserialize.DeltaDeserializer;
-import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
-import lombok.*;
 
-import java.util.Iterator;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@JsonDeserialize(using = DeltaDeserializer.class)
-public class Delta extends ObjectNode {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Delta {
 
 	private String role;
 
 	private String content;
 
-	@Setter
 	private Audio audio;
 
 	@JsonProperty("tool_calls")
 	private List<ToolCalls> tool_calls;
-
-	public Delta() {
-		super(JsonNodeFactory.instance);
-	}
-
-	public Delta(ObjectNode objectNode) {
-		super(JsonNodeFactory.instance);
-		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-		if (objectNode.get("role") != null) {
-			this.setRole(objectNode.get("role").asText());
-		}
-		else {
-			this.setRole(null);
-		}
-		if (objectNode.get("content") != null) {
-			this.setContent(objectNode.get("content").asText());
-		}
-		else {
-			this.setContent(null);
-		}
-		if (objectNode.get("tool_calls") != null) {
-			this.setTool_calls(
-					objectMapper.convertValue(objectNode.get("tool_calls"), new TypeReference<List<ToolCalls>>() {
-					}));
-		}
-		else {
-			this.setTool_calls(null);
-		}
-		if (objectNode.get("audio") != null) {
-			Audio audio = objectMapper.convertValue(objectNode.get("audio"), new TypeReference<Audio>() {
-			});
-			this.setAudio(audio);
-		}
-		else {
-			this.setAudio(null);
-		}
-
-		Iterator<String> fieldNames = objectNode.fieldNames();
-
-		while (fieldNames.hasNext()) {
-			String fieldName = fieldNames.next();
-
-			JsonNode field = objectNode.get(fieldName);
-			this.set(fieldName, field);
-		}
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-		this.put("role", role);
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-		this.put("content", content);
-	}
-
-	public void setTool_calls(List<ToolCalls> tool_calls) {
-		this.tool_calls = tool_calls;
-
-		ArrayNode toolCalls = this.putArray("tool_calls");
-		if (tool_calls == null) {
-			toolCalls.removeAll();
-		}
-		else {
-			for (ToolCalls toolCall : tool_calls) {
-				toolCalls.add(toolCall);
-			}
-		}
-	}
 
 }

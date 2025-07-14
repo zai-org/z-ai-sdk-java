@@ -1,11 +1,17 @@
 package ai.z.openapi.service.batches;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Batch {
 
 	@JsonProperty("id")
@@ -15,7 +21,7 @@ public class Batch {
 	private String completionWindow;
 
 	@JsonProperty("created_at")
-	private long createdAt;
+	private Long createdAt;
 
 	@JsonProperty("endpoint")
 	private String endpoint;

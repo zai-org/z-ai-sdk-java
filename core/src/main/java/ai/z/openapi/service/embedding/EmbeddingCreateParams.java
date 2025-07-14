@@ -5,9 +5,7 @@ import ai.z.openapi.service.CommonRequest;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Creates an embedding vector representing the input text.

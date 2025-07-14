@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true) // Ignore unknown properties
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FineTuningEventData {
 
 	/**

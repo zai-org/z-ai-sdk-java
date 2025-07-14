@@ -3,10 +3,18 @@ package ai.z.openapi.service.knowledge.document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents the details required for uploading a file to the knowledge base.
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UploadDetail {
 
 	/**
@@ -50,63 +58,5 @@ public class UploadDetail {
 	 */
 	@JsonProperty("callback_header")
 	private Map<String, String> callbackHeader;
-
-	// Getters and Setters
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public int getKnowledgeType() {
-		return knowledgeType;
-	}
-
-	public void setKnowledgeType(int knowledgeType) {
-		this.knowledgeType = knowledgeType;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public Integer getSentenceSize() {
-		return sentenceSize;
-	}
-
-	public void setSentenceSize(Integer sentenceSize) {
-		this.sentenceSize = sentenceSize;
-	}
-
-	public List<String> getCustomSeparator() {
-		return customSeparator;
-	}
-
-	public void setCustomSeparator(List<String> customSeparator) {
-		this.customSeparator = customSeparator;
-	}
-
-	public String getCallbackUrl() {
-		return callbackUrl;
-	}
-
-	public void setCallbackUrl(String callbackUrl) {
-		this.callbackUrl = callbackUrl;
-	}
-
-	public Map<String, String> getCallbackHeader() {
-		return callbackHeader;
-	}
-
-	public void setCallbackHeader(Map<String, String> callbackHeader) {
-		this.callbackHeader = callbackHeader;
-	}
 
 }

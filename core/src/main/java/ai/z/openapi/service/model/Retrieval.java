@@ -1,21 +1,23 @@
 package ai.z.openapi.service.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.Map;
-
-@Getter
-public class Retrieval extends ObjectNode {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Retrieval {
 
 	/**
 	 * When involving knowledge base ID, please go to the knowledge base module of the
 	 * open platform to create or obtain it.
 	 */
-	private String knowledge_id;
+	@JsonProperty("knowledge_id")
+	private String knowledgeId;
 
 	/**
 	 * Knowledge base template when requesting the model, default template: Find the
@@ -29,24 +31,7 @@ public class Retrieval extends ObjectNode {
 	 * user-side question placeholder must be {{ knowledge}} and {{question}}, other
 	 * template content can be defined by users according to actual scenarios
 	 */
-	private String prompt_template;
-
-	public Retrieval() {
-		super(JsonNodeFactory.instance);
-	}
-
-	public Retrieval(JsonNodeFactory nc, Map<String, JsonNode> kids) {
-		super(nc, kids);
-	}
-
-	public void setKnowledge_id(String knowledge_id) {
-		this.knowledge_id = knowledge_id;
-		this.put("knowledge_id", knowledge_id);
-	}
-
-	public void setPrompt_template(String prompt_template) {
-		this.prompt_template = prompt_template;
-		this.put("prompt_template", prompt_template);
-	}
+	@JsonProperty("prompt_template")
+	private String promptTemplate;
 
 }

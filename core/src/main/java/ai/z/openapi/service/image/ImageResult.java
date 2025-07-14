@@ -1,27 +1,23 @@
 package ai.z.openapi.service.image;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
-import ai.z.openapi.service.deserialize.image.ImageResultDeserializer;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-import java.util.Iterator;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 /**
  * An object with a list of image results.
  */
 
-@Getter
-@JsonDeserialize(using = ImageResultDeserializer.class)
-public class ImageResult extends ObjectNode {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ImageResult {
 
 	/**
 	 * The creation time in epoch seconds.
@@ -32,6 +28,8 @@ public class ImageResult extends ObjectNode {
 	/**
 	 * List of image results.
 	 */
+	@JsonProperty("data")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	List<Image> data;
 
 	/**
@@ -40,67 +38,5 @@ public class ImageResult extends ObjectNode {
 	 */
 	@JsonProperty("request_id")
 	private String requestId;
-
-	public ImageResult() {
-		super(JsonNodeFactory.instance);
-	}
-
-	public ImageResult(ObjectNode objectNode) {
-		super(JsonNodeFactory.instance);
-		ObjectMapper objectMapper = MessageDeserializeFactory.defaultObjectMapper();
-		if (objectNode.get("created") != null) {
-			this.setCreated(objectNode.get("created").asLong());
-		}
-		else {
-			this.setCreated(null);
-		}
-		if (objectNode.get("data") != null) {
-			List<Image> data = objectMapper.convertValue(objectNode.get("data"), new TypeReference<List<Image>>() {
-			});
-
-			this.setData(data);
-		}
-		else {
-			this.setData(null);
-		}
-
-		if (objectNode.get("request_id") != null) {
-			this.setRequestId(objectNode.get("request_id").asText());
-		}
-		else {
-			this.setRequestId(null);
-		}
-
-		Iterator<String> fieldNames = objectNode.fieldNames();
-		while (fieldNames.hasNext()) {
-			String fieldName = fieldNames.next();
-			JsonNode field = objectNode.get(fieldName);
-			this.set(fieldName, field);
-		}
-	}
-
-	public void setCreated(Long created) {
-		this.created = created;
-		this.put("created", created);
-	}
-
-	public void setData(List<Image> data) {
-		this.data = data;
-		ArrayNode jsonNodes = this.putArray("data");
-		if (data == null) {
-			jsonNodes.removeAll();
-		}
-		else {
-
-			for (Image image : data) {
-				jsonNodes.add(image);
-			}
-		}
-	}
-
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-		this.put("request_id", requestId);
-	}
 
 }

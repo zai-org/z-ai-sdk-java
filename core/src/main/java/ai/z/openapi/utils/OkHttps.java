@@ -12,8 +12,6 @@ import java.util.concurrent.TimeUnit;
  * factory methods to create properly configured HTTP clients with authentication,
  * timeouts, and connection pooling based on Z.AI configuration.
  *
- * @author Z.AI SDK Team
- * @since 1.0.0
  */
 public final class OkHttps {
 

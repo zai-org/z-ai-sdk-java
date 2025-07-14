@@ -44,6 +44,7 @@ public class AudioServiceImpl implements AudioService {
 
 	@Override
 	public AudioSpeechApiResponse createSpeech(AudioSpeechRequest request) {
+		validateSpeechParams(request);
 		RequestSupplier<AudioSpeechRequest, java.io.File> supplier = (params) -> {
 			try {
 				Single<ResponseBody> responseBody = audioApi.audioSpeech(params);
@@ -61,6 +62,7 @@ public class AudioServiceImpl implements AudioService {
 
 	@Override
 	public AudioCustomizationApiResponse createCustomSpeech(AudioCustomizationRequest request) {
+		validateCustomSpeechParams(request);
 		RequestSupplier<AudioCustomizationRequest, java.io.File> supplier = (params) -> {
 			try {
 				java.io.File voiceFile = params.getVoiceData();
@@ -117,6 +119,7 @@ public class AudioServiceImpl implements AudioService {
 
 	@Override
 	public ChatCompletionResponse createTranscription(AudioTranscriptionsRequest request) {
+		validateTranscriptionParams(request);
 		if (request.getStream()) {
 			return createTranscriptionStream(request);
 		}
@@ -193,6 +196,48 @@ public class AudioServiceImpl implements AudioService {
 			}
 		};
 		return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
+	}
+
+	private void validateSpeechParams(AudioSpeechRequest request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getModel() == null) {
+			throw new IllegalArgumentException("request model cannot be null");
+		}
+		if (request.getInput() == null || request.getInput().trim().isEmpty()) {
+			throw new IllegalArgumentException("request input cannot be null or empty");
+		}
+	}
+
+	private void validateCustomSpeechParams(AudioCustomizationRequest request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getModel() == null) {
+			throw new IllegalArgumentException("request model cannot be null");
+		}
+		if (request.getInput() == null || request.getInput().trim().isEmpty()) {
+			throw new IllegalArgumentException("request input cannot be null or empty");
+		}
+		if (request.getVoiceData() == null) {
+			throw new IllegalArgumentException("request voice data cannot be null");
+		}
+	}
+
+	private void validateTranscriptionParams(AudioTranscriptionsRequest request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getModel() == null) {
+			throw new IllegalArgumentException("request model cannot be null");
+		}
+		if (request.getFile() == null) {
+			throw new IllegalArgumentException("request file cannot be null");
+		}
+		if (!request.getFile().exists()) {
+			throw new IllegalArgumentException("request file does not exist");
+		}
 	}
 
 	private void writeResponseBodyToFile(ResponseBody body, java.io.File file) {

@@ -9,8 +9,6 @@ import io.reactivex.Single;
  *
  * @param <Param> the type of input parameter
  * @param <Data> the type of data wrapped in Single
- * @author Z.AI SDK Team
- * @since 1.0.0
  */
 @FunctionalInterface
 public interface RequestSupplier<Param, Data> {

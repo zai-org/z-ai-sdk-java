@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.core.model.ClientRequest;
 import ai.z.openapi.service.CommonRequest;
 import ai.z.openapi.service.model.SensitiveWordCheckRequest;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -22,7 +26,6 @@ public class CreateImageRequest extends CommonRequest implements ClientRequest<C
 	 * A text description of the desired image(s). The maximum length is 1000 characters
 	 * for dall-e-2 and 4000 characters for dall-e-3.
 	 */
-	@NonNull
 	private String prompt;
 
 	/**

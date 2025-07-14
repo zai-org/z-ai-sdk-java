@@ -348,6 +348,7 @@ public class ZaiClient extends AbstractClientBaseService {
 	 * @return the wrapped response containing either success data or error information
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public <Data, Param, TReq extends ClientRequest<Param>, TResp extends ClientResponse<Data>> TResp executeRequest(
 			TReq request, RequestSupplier<Param, Data> requestSupplier, Class<TResp> tRespClass) {
 		Single<Data> apiCall = requestSupplier.get((Param) request);
@@ -357,14 +358,14 @@ public class ZaiClient extends AbstractClientBaseService {
 			// Execute the API call synchronously
 			Data response = execute(apiCall);
 			tResp.setCode(200);
-			tResp.setMsg("Call successful");
+			tResp.setMsg("Call Successful");
 			tResp.setData(response);
 			tResp.setSuccess(true);
 		}
 		catch (ZAiHttpException e) {
-			logger.error("API request failed with business error", e);
+			logger.error("API request failed with call error", e);
 			tResp.setCode(e.statusCode);
-			tResp.setMsg("Business error");
+			tResp.setMsg("Call Failed");
 			tResp.setSuccess(false);
 			ChatError chatError = new ChatError();
 			chatError.setCode(Integer.parseInt(e.code));
