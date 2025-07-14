@@ -1,10 +1,16 @@
 package ai.z.openapi.service.assistant.message.tools.code_interpreter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents the output result of a code tool.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CodeInterpreterToolOutput {
 
 	/**
@@ -24,31 +30,5 @@ public class CodeInterpreterToolOutput {
 	 */
 	@JsonProperty("error_msg")
 	private String errorMsg;
-
-	// Getters and Setters
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getLogs() {
-		return logs;
-	}
-
-	public void setLogs(String logs) {
-		this.logs = logs;
-	}
-
-	public String getErrorMsg() {
-		return errorMsg;
-	}
-
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
-	}
 
 }

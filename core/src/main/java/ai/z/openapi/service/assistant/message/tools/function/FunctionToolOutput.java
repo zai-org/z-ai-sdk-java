@@ -1,10 +1,16 @@
 package ai.z.openapi.service.assistant.message.tools.function;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents the output of a function tool, containing the generated content.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FunctionToolOutput {
 
 	/**
@@ -12,13 +18,5 @@ public class FunctionToolOutput {
 	 */
 	@JsonProperty("content")
 	private String content;
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 
 }

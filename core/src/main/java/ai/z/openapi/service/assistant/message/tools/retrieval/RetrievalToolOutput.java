@@ -1,10 +1,18 @@
 package ai.z.openapi.service.assistant.message.tools.retrieval;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents the output of a retrieval tool.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RetrievalToolOutput {
 
 	/**
@@ -19,23 +27,5 @@ public class RetrievalToolOutput {
 	 */
 	@JsonProperty("document")
 	private String document;
-
-	// Getters and Setters
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public String getDocument() {
-		return document;
-	}
-
-	public void setDocument(String document) {
-		this.document = document;
-	}
 
 }

@@ -1,15 +1,23 @@
 package ai.z.openapi.service.assistant.message.tools.retrieval;
 
+import ai.z.openapi.service.assistant.message.tools.ToolsType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.deserialize.JsonTypeField;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-/**
- * This class represents a block for invoking the retrieval tool.
- */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeField("retrieval")
-public class RetrievalToolBlock {
+public class RetrievalToolBlock extends ToolsType {
 
 	/**
 	 * An instance of the RetrievalTool class containing the retrieval outputs.
@@ -22,23 +30,5 @@ public class RetrievalToolBlock {
 	 */
 	@JsonProperty("type")
 	private String type = "retrieval";
-
-	// Getters and Setters
-
-	public RetrievalTool getRetrieval() {
-		return retrieval;
-	}
-
-	public void setRetrieval(RetrievalTool retrieval) {
-		this.retrieval = retrieval;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 }
