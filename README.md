@@ -329,16 +329,53 @@ The ZaiClient provides access to comprehensive AI services:
 - `glm-4` - Standard GLM-4 model
 - `glm-4-air` - Lightweight version for speed
 - `glm-4-flash` - Ultra-fast response model
+- `glm-4-0520` - GLM-4 model version 0520
+- `glm-4-airx` - Extended Air model with additional features
 - `glm-4-long` - Optimized for long-context conversations
 - `glm-4-voice` - Specialized for voice interactions
+- `glm-4.1v-thinking-flash` - Visual reasoning model with thinking capabilities
+- `glm-z1-air` - Optimized for mathematical and logical reasoning
+- `glm-z1-airx` - Fastest domestic inference model with 200 tokens/s
+- `glm-z1-flash` - Completely free reasoning model service
+- `glm-4-air-250414` - Enhanced with reinforcement learning optimization
+- `glm-4-flash-250414` - Latest free language model
+- `glm-4-flashx` - Enhanced Flash version with ultra-fast inference speed
+- `glm-4-9b` - Open-source model with 9 billion parameters
+- `glm-4-assistant` - AI assistant for various business scenarios
+- `glm-4-alltools` - Agent model for complex task planning and execution
+- `chatglm3-6b` - Open-source base model with 6 billion parameters
+- `codegeex-4` - Code generation and completion model
+
+### Audio Speech Recognition
+- `glm-asr` - Context-aware audio transcription model
+
+### Real-time Interaction
+- `glm-realtime-air` - Real-time video call model with cross-modal reasoning
+- `glm-realtime-flash` - Fast real-time video call model
 
 ### Vision Models
 - `glm-4v-plus` - Enhanced vision model
 - `glm-4v` - Standard vision model
+- `glm-4v-plus-0111` - Variable resolution video and image understanding
+- `glm-4v-flash` - Free and powerful image understanding model
 
 ### Image Generation
 - `cogview-3-plus` - Enhanced image generation
 - `cogview-3` - Standard image generation
+- `cogview-3-flash` - Free image generation model
+- `cogview-4-250304` - Advanced image generation with text capabilities
+- `cogview-4` - Advanced image generation for precise and personalized AI image expression
+
+### Video Generation
+- `cogvideox` - Video generation from text or images
+- `cogvideox-flash` - Free video generation model
+- `cogvideox-2` - New video generation model
+- `viduq1-text` - High-performance video generation from text input
+- `viduq1-image` - Video generation from first frame image and text description
+- `viduq1-start-end` - Video generation from first and last frame images
+- `vidu2-image` - Enhanced video generation from first frame image and text description
+- `vidu2-start-end` - Enhanced video generation from first and last frame images
+- `vidu2-reference` - Video generation with reference images of people, objects, etc.
 
 ### Embeddings
 - `embedding-3` - Latest embedding model
@@ -347,6 +384,7 @@ The ZaiClient provides access to comprehensive AI services:
 ### Specialized
 - `charglm-3` - Character interaction model
 - `cogtts` - Text-to-speech model
+- `rerank` - Text reordering and relevance scoring
 
 ## 📈 Release Notes
 
