@@ -1,11 +1,19 @@
 package ai.z.openapi.service.assistant.message.tools.code_interpreter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
  * This class represents a code interpreter that executes code and returns the results.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CodeInterpreter {
 
 	/**
@@ -19,23 +27,5 @@ public class CodeInterpreter {
 	 */
 	@JsonProperty("outputs")
 	private List<CodeInterpreterToolOutput> outputs;
-
-	// Getters and Setters
-
-	public String getInput() {
-		return input;
-	}
-
-	public void setInput(String input) {
-		this.input = input;
-	}
-
-	public List<CodeInterpreterToolOutput> getOutputs() {
-		return outputs;
-	}
-
-	public void setOutputs(List<CodeInterpreterToolOutput> outputs) {
-		this.outputs = outputs;
-	}
 
 }

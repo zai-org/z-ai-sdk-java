@@ -49,6 +49,25 @@ This SDK uses the following core dependencies:
 | Jackson | 2.11.3 |
 | Retrofit2 | 2.9.0 |
 
+### Code Format
+
+use `mvn spring-javaformat:apply` to format code.
+
+### Run Test
+
+1. limit inner test 
+
+```shell
+mvn test 
+```
+
+2. integration test
+
+```shell
+export ZAI_API_KEY=your.api.key
+mvn test
+```
+
 
 Have Fun!
 ---
