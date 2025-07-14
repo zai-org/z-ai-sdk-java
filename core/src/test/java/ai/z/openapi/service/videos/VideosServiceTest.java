@@ -71,7 +71,7 @@ public class VideosServiceTest {
 			.prompt("A beautiful sunset over the ocean with waves gently crashing on the shore")
 			.requestId(requestId)
 			.withAudio(Boolean.TRUE)
-			.quality("standard")
+			.quality("speed")
 			.duration(5)
 			.build();
 

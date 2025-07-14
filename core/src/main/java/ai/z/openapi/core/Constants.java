@@ -75,6 +75,93 @@ public final class Constants {
 	 */
 	public static final String ModelChatGLM4Voice = "glm-4-voice";
 
+	/**
+	 * GLM-4.1V Thinking Flash model - Visual reasoning model with thinking capabilities.
+	 */
+	public static final String ModelChatGLM41VThinkingFlash = "glm-4.1v-thinking-flash";
+
+	/**
+	 * GLM-Z1 Air model - Optimized for mathematical and logical reasoning.
+	 */
+	public static final String ModelChatGLMZ1Air = "glm-z1-air";
+
+	/**
+	 * GLM-Z1 AirX model - Fastest domestic inference model with 200 tokens/s.
+	 */
+	public static final String ModelChatGLMZ1AirX = "glm-z1-airx";
+
+	/**
+	 * GLM-Z1 Flash model - Completely free reasoning model service.
+	 */
+	public static final String ModelChatGLMZ1Flash = "glm-z1-flash";
+
+	/**
+	 * GLM-4 Air 250414 model - Enhanced with reinforcement learning optimization.
+	 */
+	public static final String ModelChatGLM4Air250414 = "glm-4-air-250414";
+
+	/**
+	 * GLM-4 Flash 250414 model - Latest free language model.
+	 */
+	public static final String ModelChatGLM4Flash250414 = "glm-4-flash-250414";
+
+	/**
+	 * GLM-4 FlashX model - Enhanced Flash version with ultra-fast inference speed.
+	 */
+	public static final String ModelChatGLM4FlashX = "glm-4-flashx";
+
+	/**
+	 * GLM-4 9B model - Open-source model with 9 billion parameters.
+	 */
+	public static final String ModelChatGLM49B = "glm-4-9b";
+
+	/**
+	 * GLM-4 Assistant model - AI assistant for various business scenarios.
+	 */
+	public static final String ModelChatGLM4Assistant = "glm-4-assistant";
+
+	/**
+	 * GLM-4 AllTools model - Agent model for complex task planning and execution.
+	 */
+	public static final String ModelChatGLM4AllTools = "glm-4-alltools";
+
+	/**
+	 * ChatGLM3 6B model - Open-source base model with 6 billion parameters.
+	 */
+	public static final String ModelChatGLM36B = "chatglm3-6b";
+
+	/**
+	 * CodeGeeX-4 model - Code generation and completion model.
+	 */
+	public static final String ModelCodeGeeX4 = "codegeex-4";
+
+	// =============================================================================
+	// Audio Speech Recognition Models
+	// =============================================================================
+
+	/**
+	 * GLM-ASR model - Context-aware audio transcription model that converts audio to
+	 * fluent and readable text. Supports Chinese, English, and various Chinese dialects.
+	 * Improved performance in noisy environments.
+	 */
+	public static final String ModelGLMASR = "glm-asr";
+
+	// =============================================================================
+	// Real-time Interaction Models
+	// =============================================================================
+
+	/**
+	 * GLM-Realtime Air model - Real-time video call model with cross-modal reasoning
+	 * capabilities across text, audio, and video. Supports real-time interruption.
+	 */
+	public static final String ModelGLMRealtimeAir = "glm-realtime-air";
+
+	/**
+	 * GLM-Realtime Flash model - Fast real-time video call model with cross-modal
+	 * reasoning capabilities. Supports camera interaction and screen sharing.
+	 */
+	public static final String ModelGLMRealtimeFlash = "glm-realtime-flash";
+
 	// =============================================================================
 	// Vision Models (Image Understanding)
 	// =============================================================================
@@ -89,6 +176,16 @@ public final class Constants {
 	 */
 	public static final String ModelChatGLM4V = "glm-4v";
 
+	/**
+	 * GLM-4V Plus 0111 model - Variable resolution video and image understanding.
+	 */
+	public static final String ModelChatGLM4VPlus0111 = "glm-4v-plus-0111";
+
+	/**
+	 * GLM-4V Flash model - Free and powerful image understanding model.
+	 */
+	public static final String ModelChatGLM4VFlash = "glm-4v-flash";
+
 	// =============================================================================
 	// Image Generation Models
 	// =============================================================================
@@ -102,6 +199,75 @@ public final class Constants {
 	 * CogView-3 standard model - Standard image generation model.
 	 */
 	public static final String ModelCogView = "cogview-3";
+
+	/**
+	 * CogView-3 Flash model - Free image generation model.
+	 */
+	public static final String ModelCogView3Flash = "cogview-3-flash";
+
+	/**
+	 * CogView-4 250304 model - Advanced image generation with text capabilities.
+	 */
+	public static final String ModelCogView4250304 = "cogview-4-250304";
+
+	/**
+	 * CogView-4 model - Advanced image generation for precise and personalized AI image
+	 * expression.
+	 */
+	public static final String ModelCogView4 = "cogview-4";
+
+	// =============================================================================
+	// Video Generation Models
+	// =============================================================================
+
+	/**
+	 * CogVideoX model - Video generation from text or images.
+	 */
+	public static final String ModelCogVideoX = "cogvideox";
+
+	/**
+	 * CogVideoX Flash model - Free video generation model.
+	 */
+	public static final String ModelCogVideoXFlash = "cogvideox-flash";
+
+	/**
+	 * CogVideoX-2 model - New video generation model.
+	 */
+	public static final String ModelCogVideoX2 = "cogvideox-2";
+
+	/**
+	 * Vidu Q1 Text model - High-performance video generation from text input. Supports
+	 * general and anime styles.
+	 */
+	public static final String ModelViduQ1Text = "viduq1-text";
+
+	/**
+	 * Vidu Q1 Image model - Video generation from first frame image and text description.
+	 */
+	public static final String ModelViduQ1Image = "viduq1-image";
+
+	/**
+	 * Vidu Q1 Start-End model - Video generation from first and last frame images.
+	 */
+	public static final String ModelViduQ1StartEnd = "viduq1-start-end";
+
+	/**
+	 * Vidu 2 Image model - Enhanced video generation from first frame image and text
+	 * description.
+	 */
+	public static final String ModelVidu2Image = "vidu2-image";
+
+	/**
+	 * Vidu 2 Start-End model - Enhanced video generation from first and last frame
+	 * images.
+	 */
+	public static final String ModelVidu2StartEnd = "vidu2-start-end";
+
+	/**
+	 * Vidu 2 Reference model - Video generation with reference images of people, objects,
+	 * etc.
+	 */
+	public static final String ModelVidu2Reference = "vidu2-reference";
 
 	// =============================================================================
 	// Embedding Models
@@ -131,23 +297,9 @@ public final class Constants {
 	 */
 	public static final String ModelTTS = "cogtts";
 
-	// =============================================================================
-	// API Invocation Methods
-	// =============================================================================
-
 	/**
-	 * Asynchronous invocation method - For non-blocking API calls.
+	 * Rerank model - Text reordering and relevance scoring.
 	 */
-	public static final String INVOKE_METHOD_ASYNC = "async-invoke";
-
-	/**
-	 * Server-Sent Events invocation method - For streaming responses.
-	 */
-	public static final String INVOKE_METHOD_SSE = "sse-invoke";
-
-	/**
-	 * Standard synchronous invocation method - For blocking API calls.
-	 */
-	public static final String INVOKE_METHOD = "invoke";
+	public static final String ModelRerank = "rerank";
 
 }

@@ -1,6 +1,7 @@
 package ai.z.openapi.service.audio;
 
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.Choice;
@@ -62,9 +63,9 @@ public class AudioServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		AudioSpeechRequest request = AudioSpeechRequest.builder()
-			.model("tts-1")
+			.model(Constants.ModelTTS)
 			.input("Hello, this is a test for text-to-speech functionality.")
-			.voice("alloy")
+			.voice("tongtong")
 			.requestId(requestId)
 			.build();
 
@@ -90,7 +91,7 @@ public class AudioServiceTest {
 		File voiceFile = new File("src/test/resources/asr.wav");
 
 		AudioCustomizationRequest request = AudioCustomizationRequest.builder()
-			.model("tts-1")
+			.model(Constants.ModelTTS)
 			.input("This is a test for custom voice generation.")
 			.voiceData(voiceFile)
 			.voiceText("Sample voice text for cloning")
@@ -120,7 +121,7 @@ public class AudioServiceTest {
 		File audioFile = new File("src/test/resources/asr.wav");
 
 		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
-			.model("glm-asr")
+			.model(Constants.ModelGLMASR)
 			.file(audioFile)
 			.stream(false)
 			.requestId(requestId)
@@ -145,10 +146,10 @@ public class AudioServiceTest {
 	void testStreamAudioTranscription() throws JsonProcessingException {
 		// Prepare test data
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
-		File audioFile = new File("src/test/resources/asr.webm");
+		File audioFile = new File("src/test/resources/asr.wav");
 
 		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
-			.model("glm-asr")
+			.model(Constants.ModelGLMASR)
 			.file(audioFile)
 			.stream(true)
 			.requestId(requestId)
@@ -214,7 +215,7 @@ public class AudioServiceTest {
 	@DisplayName("Test Parameter Validation - Invalid Audio File")
 	void testValidation_InvalidAudioFile() {
 		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
-			.model("glm-asr")
+			.model(Constants.ModelGLMASR)
 			.file(new File("non-existent-file.wav"))
 			.stream(false)
 			.build();
@@ -227,7 +228,7 @@ public class AudioServiceTest {
 	@Test
 	@DisplayName("Test Parameter Validation - Null Model in Speech Request")
 	void testValidation_NullModelInSpeechRequest() {
-		AudioSpeechRequest request = AudioSpeechRequest.builder().input("Test input").voice("alloy").build();
+		AudioSpeechRequest request = AudioSpeechRequest.builder().input("Test input").voice("tongtong").build();
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			audioService.createSpeech(request);
@@ -237,7 +238,11 @@ public class AudioServiceTest {
 	@Test
 	@DisplayName("Test Parameter Validation - Empty Input in Speech Request")
 	void testValidation_EmptyInputInSpeechRequest() {
-		AudioSpeechRequest request = AudioSpeechRequest.builder().model("tts-1").input("").voice("alloy").build();
+		AudioSpeechRequest request = AudioSpeechRequest.builder()
+			.model(Constants.ModelTTS)
+			.input("")
+			.voice("tongtong")
+			.build();
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			audioService.createSpeech(request);
@@ -248,7 +253,7 @@ public class AudioServiceTest {
 	@DisplayName("Test Parameter Validation - Null Voice Data in Custom Speech Request")
 	void testValidation_NullVoiceDataInCustomSpeechRequest() {
 		AudioCustomizationRequest request = AudioCustomizationRequest.builder()
-			.model("tts-1")
+			.model(Constants.ModelTTS)
 			.input("Test input")
 			.voiceText("Voice text")
 			.build();
@@ -262,7 +267,7 @@ public class AudioServiceTest {
 	@DisplayName("Test Parameter Validation - Null File in Transcription Request")
 	void testValidation_NullFileInTranscriptionRequest() {
 		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
-			.model("glm-asr")
+			.model(Constants.ModelGLMASR)
 			.stream(false)
 			.build();
 
@@ -275,13 +280,15 @@ public class AudioServiceTest {
 	@DisplayName("Test Speech Generation with Different Voice Options")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testSpeechGenerationWithDifferentVoices() throws JsonProcessingException {
-		String[] voices = { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
+		// Test with available voice options (currently limited to 'tongtong' as of
+		// 2025-01-14)
+		String[] voices = { "tongtong" };
 
 		for (String voice : voices) {
 			String requestId = String.format(REQUEST_ID_TEMPLATE + "-%s", System.currentTimeMillis(), voice);
 
 			AudioSpeechRequest request = AudioSpeechRequest.builder()
-				.model("tts-1")
+				.model(Constants.ModelTTS)
 				.input("Testing voice: " + voice)
 				.voice(voice)
 				.requestId(requestId)
@@ -305,7 +312,7 @@ public class AudioServiceTest {
 			File file = new File("src/test/resources/" + audioFile);
 
 			AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
-				.model("glm-asr")
+				.model(Constants.ModelGLMASR)
 				.file(file)
 				.stream(false)
 				.requestId(requestId)

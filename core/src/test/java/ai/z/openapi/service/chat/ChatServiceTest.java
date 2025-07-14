@@ -449,7 +449,7 @@ public class ChatServiceTest {
 		stop.add("<|observation|>");
 
 		Map<String, Object> extraJson = new HashMap<>();
-		extraJson.put("invoke_method", Constants.INVOKE_METHOD);
+		extraJson.put("invoke_method", "invoke");
 
 		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
 			.model("codegeex-4")
