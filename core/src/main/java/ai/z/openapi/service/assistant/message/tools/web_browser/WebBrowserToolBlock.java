@@ -1,6 +1,5 @@
 package ai.z.openapi.service.assistant.message.tools.web_browser;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.assistant.message.tools.ToolsType;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class WebBrowserToolBlock extends ToolsType {
 
 	/**

@@ -1,13 +1,11 @@
 package ai.z.openapi.service.assistant.message;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.deserialize.JsonTypeField;
 
 /**
  * This class represents a block of text content in a conversation.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeField("content")
 public class TextContentBlock extends MessageContent {
 
