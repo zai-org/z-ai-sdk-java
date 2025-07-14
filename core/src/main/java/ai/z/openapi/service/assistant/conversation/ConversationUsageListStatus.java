@@ -1,6 +1,5 @@
 package ai.z.openapi.service.assistant.conversation;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -8,7 +7,6 @@ import lombok.Data;
  * This class represents the response containing a list of conversation usage data.
  */
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConversationUsageListStatus {
 
 	/**

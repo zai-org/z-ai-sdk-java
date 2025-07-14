@@ -1,10 +1,16 @@
 package ai.z.openapi.service.assistant.message.tools.drawing_tool;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents the output of a drawing tool, containing the generated image.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DrawingToolOutput {
 
 	/**
@@ -12,15 +18,5 @@ public class DrawingToolOutput {
 	 */
 	@JsonProperty("image")
 	private String image;
-
-	// Getters and Setters
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 }

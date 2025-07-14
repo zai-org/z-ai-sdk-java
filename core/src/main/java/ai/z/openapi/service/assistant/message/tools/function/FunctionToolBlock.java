@@ -1,15 +1,21 @@
 package ai.z.openapi.service.assistant.message.tools.function;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.assistant.message.tools.ToolsType;
-import ai.z.openapi.service.deserialize.JsonTypeField;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents a block of function tool data.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeField("function")
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FunctionToolBlock extends ToolsType {
 
 	/**
@@ -23,23 +29,5 @@ public class FunctionToolBlock extends ToolsType {
 	 */
 	@JsonProperty("type")
 	private String type = "function";
-
-	// Getters and Setters
-
-	public FunctionTool getFunction() {
-		return function;
-	}
-
-	public void setFunction(FunctionTool function) {
-		this.function = function;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 }

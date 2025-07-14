@@ -1,15 +1,21 @@
 package ai.z.openapi.service.assistant.message.tools.code_interpreter;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.assistant.message.tools.ToolsType;
-import ai.z.openapi.service.deserialize.JsonTypeField;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents a block of code tool data.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeField("code_interpreter")
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CodeInterpreterToolBlock extends ToolsType {
 
 	/**
@@ -23,23 +29,5 @@ public class CodeInterpreterToolBlock extends ToolsType {
 	 */
 	@JsonProperty("type")
 	private String type = "code_interpreter";
-
-	// Getters and Setters
-
-	public CodeInterpreter getCodeInterpreter() {
-		return codeInterpreter;
-	}
-
-	public void setCodeInterpreter(CodeInterpreter codeInterpreter) {
-		this.codeInterpreter = codeInterpreter;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 }

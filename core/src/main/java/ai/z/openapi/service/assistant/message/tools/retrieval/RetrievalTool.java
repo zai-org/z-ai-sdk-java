@@ -1,11 +1,20 @@
 package ai.z.openapi.service.assistant.message.tools.retrieval;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
  * This class represents the outputs of a retrieval tool.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RetrievalTool {
 
 	/**
@@ -14,13 +23,5 @@ public class RetrievalTool {
 	 */
 	@JsonProperty("outputs")
 	private List<RetrievalToolOutput> outputs;
-
-	public List<RetrievalToolOutput> getOutputs() {
-		return outputs;
-	}
-
-	public void setOutputs(List<RetrievalToolOutput> outputs) {
-		this.outputs = outputs;
-	}
 
 }

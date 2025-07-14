@@ -1,15 +1,21 @@
 package ai.z.openapi.service.assistant.message.tools.drawing_tool;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.assistant.message.tools.ToolsType;
-import ai.z.openapi.service.deserialize.JsonTypeField;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents a block of drawing tool data.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeField("drawing_tool")
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DrawingToolBlock extends ToolsType {
 
 	/**
@@ -23,23 +29,5 @@ public class DrawingToolBlock extends ToolsType {
 	 */
 	@JsonProperty("type")
 	private String type = "drawing_tool";
-
-	// Getters and Setters
-
-	public DrawingTool getDrawingTool() {
-		return drawingTool;
-	}
-
-	public void setDrawingTool(DrawingTool drawingTool) {
-		this.drawingTool = drawingTool;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 }

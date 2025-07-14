@@ -1,6 +1,5 @@
 package ai.z.openapi.service.assistant.message;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.assistant.message.tools.ToolsType;
 import ai.z.openapi.service.deserialize.JsonTypeField;
@@ -10,7 +9,6 @@ import java.util.List;
 /**
  * This class represents a block of tool call data in a conversation.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeField("tool_calls")
 public class ToolsDeltaBlock extends MessageContent {
 

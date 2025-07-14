@@ -1,11 +1,18 @@
 package ai.z.openapi.service.assistant.message.tools.web_browser;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
  * This class represents the input and outputs of a web browser search.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebBrowser {
 
 	/**
@@ -19,23 +26,5 @@ public class WebBrowser {
 	 */
 	@JsonProperty("outputs")
 	private List<WebBrowserOutput> outputs;
-
-	// Getters and Setters
-
-	public String getInput() {
-		return input;
-	}
-
-	public void setInput(String input) {
-		this.input = input;
-	}
-
-	public List<WebBrowserOutput> getOutputs() {
-		return outputs;
-	}
-
-	public void setOutputs(List<WebBrowserOutput> outputs) {
-		this.outputs = outputs;
-	}
 
 }
