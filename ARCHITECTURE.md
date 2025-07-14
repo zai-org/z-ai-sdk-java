@@ -2,67 +2,47 @@
 
 ## Overview
 
-The Z.ai SDK Java provides a service-oriented architecture that offers clean separation of concerns, comprehensive configuration management, and support for both synchronous and streaming operations. The SDK is built around a client-service pattern with reactive programming support.
+The Z.ai SDK for Java provides a robust, service-oriented architecture designed for seamless integration with Z.ai's suite of AI services. It features a clean separation of concerns, comprehensive configuration management, and robust support for synchronous, asynchronous, and streaming operations. The SDK is built on a client-service pattern and leverages reactive programming with RxJava for handling streams.
 
-## Architecture Components
+## Core Components
 
-### 1. Core Client Architecture
+### 1. Main Client: `ZaiClient`
 
-#### ZaiClient
-The main client class that serves as the entry point for all AI services:
+The `ZaiClient` class is the central entry point for all interactions with the Z.ai API. It manages service instances and handles the underlying HTTP communication.
 
 ```java
 public class ZaiClient extends AbstractClientBaseService {
-    // Service instances
+    // Service instances (lazily initialized)
     private ChatService chatService;
     private AgentService agentService;
     private EmbeddingService embeddingService;
-    // ... other services
-    
+    private FileService fileService;
+    private AudioService audioService;
+    private ImageService imageService;
+    private BatchService batchService;
+    private FineTuningService fineTuningService;
+    private WebSearchService webSearchService;
+    private VideosService videosService;
+    private KnowledgeService knowledgeService;
+    private DocumentService documentService;
+    private AssistantService assistantService;
+
     // Constructor
     public ZaiClient(ZaiConfig config) {
-        // Initialize HTTP client and Retrofit
+        // Initializes OkHttpClient and Retrofit
     }
-    
-    // Service accessors
+
+    // Public, thread-safe service accessors
     public synchronized ChatService chat() { /* ... */ }
     public synchronized AgentService agents() { /* ... */ }
+    public synchronized EmbeddingService embeddings() { /* ... */ }
     // ... other service accessors
 }
 ```
 
-#### Base Request and Response Models
+### 2. Configuration: `ZaiConfig`
 
-**ClientRequest Interface**: Base interface for all service requests
-```java
-public interface ClientRequest<T> {
-    // Marker interface for type safety
-}
-```
-
-**ClientResponse Interface**: Base interface for all service responses
-```java
-public interface ClientResponse<T> {
-    T getData();
-    void setData(T data);
-    void setCode(int code);
-    void setMsg(String msg);
-    void setSuccess(boolean success);
-    void setError(ChatError error);
-}
-```
-
-**FlowableClientResponse Interface**: Extended interface for streaming responses
-```java
-public interface FlowableClientResponse<T> extends ClientResponse<T> {
-    void setFlowable(Flowable<T> stream);
-}
-```
-
-### 2. Configuration Management
-
-#### ZaiConfig
-Main configuration class that contains all SDK settings:
+Configuration is managed through the `ZaiConfig` class, which uses a builder pattern for easy and flexible setup.
 
 ```java
 @Data
@@ -70,759 +50,171 @@ Main configuration class that contains all SDK settings:
 @NoArgsConstructor
 @AllArgsConstructor
 public class ZaiConfig {
-    private String baseUrl;
-    private String apiSecretKey;
+    private String baseUrl; // API endpoint URL
+    private String apiSecretKey; // In format {apiKey}.{apiSecret}
     private String apiKey;
     private String apiSecret;
-    private int expireMillis = 30 * 60 * 1000; // 30 minutes
-    private String alg = "HS256";
-    private boolean disableTokenCache;
-    
-    // Connection pool settings
+    private int expireMillis = 30 * 60 * 1000; // JWT token expiration
+    private String alg = "HS256"; // JWT algorithm
+    private boolean disableTokenCache; // Control for token caching
+
+    // Network settings
     private int connectionPoolMaxIdleConnections = 5;
     private long connectionPoolKeepAliveDuration = 1;
     private TimeUnit connectionPoolTimeUnit = TimeUnit.SECONDS;
-    
-    // Timeout settings
     private int requestTimeOut;
     private int connectTimeout;
     private int readTimeout;
     private int writeTimeout;
     private TimeUnit timeOutTimeUnit;
-    
+
     private String source_channel;
 }
 ```
 
-#### Configuration Features
+**Key Configuration Features**:
+- **Authentication**: Supports API key/secret and JWT-based authentication with configurable token caching.
+- **Networking**: Fine-grained control over connection pooling and request timeouts.
+- **Extensibility**: The builder pattern allows for easy addition of new configuration options.
 
-1. **Authentication Settings**
-   - API secret key in format `{apiKey}.{apiSecret}`
-   - JWT token expiration and algorithm configuration
-   - Token caching control
+### 3. Service Abstractions
 
-2. **Network Configuration**
-   - Base URL for API endpoints
-   - Connection pool settings (max idle connections, keep-alive duration)
-   - Timeout configurations (request, connect, read, write)
-
-3. **Token Management**
-   - JWT token generation and caching
-   - Configurable expiration times
-   - Option to disable token caching for direct API key usage
-
-### 3. Service Implementations
-
-#### ChatService
-Provides chat completion functionality with support for synchronous, asynchronous, and streaming operations:
+Services are defined by interfaces (e.g., `ChatService`, `EmbeddingService`) and implemented in corresponding `ServiceImpl` classes. This promotes a consistent, interface-driven design.
 
 ```java
+// Example: ChatService interface
 public interface ChatService {
-    /**
-     * Creates a chat completion, either streaming or non-streaming based on the request configuration.
-     */
     ChatCompletionResponse createChatCompletion(ChatCompletionCreateParams request);
-    
-    /**
-     * Creates an asynchronous chat completion.
-     */
     ChatCompletionResponse asyncChatCompletion(ChatCompletionCreateParams request);
-    
-    /**
-     * Retrieves the result of an asynchronous model operation.
-     */
     QueryModelResultResponse retrieveAsyncResult(AsyncResultRetrieveParams request);
 }
-```
 
-#### Service Implementation Pattern
-All services follow a consistent implementation pattern:
-
-```java
+// Implementation pattern
 public class ChatServiceImpl implements ChatService {
     private final ZaiClient zAiClient;
     private final ChatApi chatApi;
-    
+
     public ChatServiceImpl(ZaiClient zAiClient) {
         this.zAiClient = zAiClient;
         this.chatApi = this.zAiClient.retrofit().create(ChatApi.class);
     }
-    
-    @Override
-    public ChatCompletionResponse createChatCompletion(ChatCompletionCreateParams request) {
-        // Parameter validation
-        String paramMsg = validateParams(request);
-        if (StringUtils.isNotEmpty(paramMsg)) {
-            return new ChatCompletionResponse(-100, String.format("invalid param: %s", paramMsg));
-        }
-        
-        // Route to streaming or synchronous execution
-        if (request.getStream()) {
-            return streamChatCompletion(request);
-        } else {
-            return syncChatCompletion(request);
-        }
-    }
+
+    // Method implementations...
 }
 ```
 
-## Usage Examples
+### 4. Request/Response Models
 
-### Basic Configuration
+- **`ClientRequest<T>`**: A marker interface for all request objects, ensuring type safety.
+- **`ClientResponse<T>`**: A standard interface for all synchronous responses, providing access to data, status, and error information.
+- **`FlowableClientResponse<T>`**: An extension for streaming responses, providing a `Flowable<T>` for reactive stream handling.
 
-```java
-// Simple configuration with API secret key
-ZaiConfig config = new ZaiConfig("your.api.key.your.api.secret");
-ZaiClient client = new ZaiClient(config);
+## Usage Patterns
 
-// Or using separate API key and secret
-ZaiConfig config = new ZaiConfig("your.api.key", "your.api.secret");
-ZaiClient client = new ZaiClient(config);
-```
+### Client Instantiation
 
-### Builder Pattern Configuration
-
-```java
-// Using the Builder pattern for advanced configuration
-ZaiClient client = new ZaiClient.Builder("your.api.key.your.api.secret")
-    .enableTokenCache()
-    .networkConfig(
-        300,  // request timeout
-        100,  // connect timeout
-        100,  // read timeout
-        100,  // write timeout
-        TimeUnit.SECONDS
-    )
-    .connectionPool(
-        10,   // max idle connections
-        5,    // keep alive duration
-        TimeUnit.MINUTES
-    )
-    .tokenExpire(3600000) // 1 hour in milliseconds
-    .build();
-```
-
-### Custom Configuration with ZaiConfig
+**Using the `ZaiConfig` builder (Recommended):**
 
 ```java
 ZaiConfig config = ZaiConfig.builder()
     .apiSecretKey("your.api.key.your.api.secret")
-    .baseUrl("https://custom.api.endpoint")
+    .baseUrl("https://open.bigmodel.cn/")
     .requestTimeOut(60)
-    .connectTimeout(30)
-    .readTimeout(30)
-    .writeTimeout(30)
     .timeOutTimeUnit(TimeUnit.SECONDS)
-    .disableTokenCache(false)
-    .expireMillis(7200000) // 2 hours
-    .connectionPoolMaxIdleConnections(10)
-    .connectionPoolKeepAliveDuration(5)
-    .connectionPoolTimeUnit(TimeUnit.MINUTES)
     .build();
 
 ZaiClient client = new ZaiClient(config);
 ```
 
-### Service Usage
+### Service Interaction
+
+Access services directly from the `ZaiClient` instance.
 
 ```java
-// Get service instance
+// Get the chat service
 ChatService chatService = client.chat();
 
-// Create chat request
+// Build a request
 ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
     .model("glm-4")
-    .messages(Arrays.asList(
-        ChatMessage.builder()
-            .role(ChatMessage.Role.USER)
-            .content("Hello, world!")
-            .build()
+    .messages(Collections.singletonList(
+        ChatMessage.builder().role(ChatMessage.Role.USER).content("Hello!").build()
     ))
-    .stream(false) // Set to true for streaming
-    .temperature(0.7f)
-    .maxTokens(1024)
     .build();
 
-// Execute request
-try {
-    ChatCompletionResponse response = chatService.createChatCompletion(request);
-    
-    if (response.isSuccess()) {
-        ModelData data = response.getData();
-        if (data != null && data.getChoices() != null && !data.getChoices().isEmpty()) {
-            String content = data.getChoices().get(0).getMessage().getContent();
-            System.out.println("Response: " + content);
-        }
-    } else {
-        System.err.println("Error: " + response.getMsg());
-        if (response.getError() != null) {
-            System.err.println("Error details: " + response.getError().getMessage());
-        }
-    }
-} catch (Exception e) {
-    System.err.println("Request failed: " + e.getMessage());
+// Execute the request
+ChatCompletionResponse response = chatService.createChatCompletion(request);
+
+if (response.isSuccess()) {
+    System.out.println("Response: " + response.getData().getChoices().get(0).getMessage().getContent());
+} else {
+    System.err.println("Error: " + response.getError().getMessage());
 }
 ```
 
-### Streaming Usage
+### Streaming Operations
+
+For streaming, set `stream(true)` in the request and subscribe to the `Flowable`.
 
 ```java
-// Create streaming request
-ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()
-    .model("glm-4")
-    .messages(Arrays.asList(
-        ChatMessage.builder()
-            .role(ChatMessage.Role.USER)
-            .content("Tell me a story")
-            .build()
-    ))
-    .stream(true) // Enable streaming
-    .temperature(0.7f)
-    .maxTokens(1024)
-    .build();
-
-// Execute streaming request
+ChatCompletionCreateParams streamRequest = request.toBuilder().stream(true).build();
 ChatCompletionResponse response = chatService.createChatCompletion(streamRequest);
 
 if (response.isSuccess() && response.getFlowable() != null) {
     response.getFlowable().subscribe(
-        data -> {
-            // Handle streaming chunk
-            if (data.getChoices() != null && !data.getChoices().isEmpty()) {
-                String content = data.getChoices().get(0).getDelta().getContent();
-                if (content != null) {
-                    System.out.print(content);
-                }
-            }
-        },
+        data -> System.out.print(data.getChoices().get(0).getDelta().getContent()),
         error -> System.err.println("\nStream error: " + error.getMessage()),
-        () -> System.out.println("\nStream completed")
+        () -> System.out.println("\nStream complete.")
     );
-} else {
-    System.err.println("Failed to start streaming: " + response.getMsg());
-}
-```
-
-### Asynchronous Usage
-
-```java
-// Create async request
-ChatCompletionCreateParams asyncRequest = ChatCompletionCreateParams.builder()
-    .model("glm-4")
-    .messages(Arrays.asList(
-        ChatMessage.builder()
-            .role(ChatMessage.Role.USER)
-            .content("Generate a long document")
-            .build()
-    ))
-    .build();
-
-// Execute async request
-ChatCompletionResponse asyncResponse = chatService.asyncChatCompletion(asyncRequest);
-
-if (asyncResponse.isSuccess()) {
-    String taskId = asyncResponse.getData().getTaskId();
-    System.out.println("Async task started with ID: " + taskId);
-    
-    // Poll for results
-    AsyncResultRetrieveParams retrieveParams = new AsyncResultRetrieveParams();
-    retrieveParams.setId(taskId);
-    
-    QueryModelResultResponse result = chatService.retrieveAsyncResult(retrieveParams);
-    // Handle result...
 }
 ```
 
 ## Available Services
 
-The ZaiClient provides access to multiple AI services:
+The `ZaiClient` provides access to the following services:
 
-```java
-ZaiClient client = new ZaiClient(config);
-
-// Chat completion service
-ChatService chatService = client.chat();
-
-// Agent service for agent-based completions
-AgentService agentService = client.agents();
-
-// Embedding service for text embeddings
-EmbeddingService embeddingService = client.embeddings();
-
-// File management service
-FileService fileService = client.files();
-
-// Audio processing service
-AudioService audioService = client.audio();
-
-// Image generation service
-ImageService imageService = client.images();
-
-// Batch processing service
-BatchService batchService = client.batches();
-
-// Fine-tuning service
-FineTuningService fineTuningService = client.fineTuning();
-
-// Web search service
-WebSearchService webSearchService = client.webSearch();
-
-// Video processing service
-VideosService videosService = client.videos();
-
-// Knowledge base service
-KnowledgeService knowledgeService = client.knowledge();
-
-// Document management service
-DocumentService documentService = client.documents();
-
-// Assistant service
-AssistantService assistantService = client.assistants();
-```
-
-## Request and Response Models
-
-### Common Request Structure
-All requests extend `CommonRequest` which provides common fields:
-
-```java
-@Data
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
-public class CommonRequest {
-    @JsonProperty("request_id")
-    private String requestId;
-    
-    @JsonProperty("user_id")
-    private String userId;
-    
-    // Additional common fields...
-}
-```
-
-### Chat Request Example
-```java
-@Data
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ChatCompletionCreateParams extends CommonRequest implements ClientRequest<ChatCompletionCreateParams> {
-    private String model;
-    private List<ChatMessage> messages;
-    private Boolean stream;
-    private Float temperature;
-    @JsonProperty("max_tokens")
-    private Integer maxTokens;
-    private List<String> stop;
-    private List<ChatTool> tools;
-    // ... other fields
-}
-```
-
-### Response Structure
-All responses implement `ClientResponse` or `FlowableClientResponse`:
-
-```java
-@Data
-public class ChatCompletionResponse implements FlowableClientResponse<ModelData> {
-    private int code;
-    private String msg;
-    private boolean success;
-    private ModelData data;
-    private Flowable<ModelData> flowable; // For streaming responses
-    private ChatError error;
-}
-```
+- `chat()`: Chat completion and conversational AI.
+- `agents()`: Agent-based completions.
+- `embeddings()`: Text embedding generation.
+- `files()`: File management (upload, download, delete).
+- `audio()`: Audio processing (speech-to-text, text-to-speech).
+- `images()`: Image generation.
+- `batches()`: Batch processing for large-scale jobs.
+- `fineTuning()`: Model fine-tuning and management.
+- `webSearch()`: Integrated web search capabilities.
+- `videos()`: Video processing tasks.
+- `knowledge()`: Knowledge base management.
+- `documents()`: Document processing and analysis.
+- `assistants()`: AI assistant functionalities.
 
 ## Error Handling
 
-### Response Error Handling
+The SDK provides two primary mechanisms for error handling:
 
-```java
-ChatCompletionResponse response = chatService.createChatCompletion(request);
+1.  **Response-Level Errors**: Check `response.isSuccess()` and use `response.getError()` to get detailed error information from the API.
 
-// Check if the request was successful
-if (!response.isSuccess()) {
-    int errorCode = response.getCode();
-    String errorMessage = response.getMsg();
-    
-    System.err.println("Request failed with code: " + errorCode);
-    System.err.println("Error message: " + errorMessage);
-    
-    // Check for detailed error information
-    if (response.getError() != null) {
+    ```java
+    if (!response.isSuccess()) {
         ChatError error = response.getError();
-        System.err.println("Error code: " + error.getCode());
-        System.err.println("Error details: " + error.getMessage());
-        
-        // Handle specific error types
-        switch (errorCode) {
-            case 400:
-                System.err.println("Bad request - check your parameters");
-                break;
-            case 401:
-                System.err.println("Authentication failed - check your API key");
-                break;
-            case 429:
-                System.err.println("Rate limit exceeded - please retry later");
-                break;
-            case 500:
-                System.err.println("Server error - please try again");
-                break;
-            default:
-                System.err.println("Unexpected error occurred");
-        }
+        System.err.printf("API Error: [%s] %s%n", error.getCode(), error.getMessage());
     }
-    return;
-}
+    ```
 
-// Process successful response
-ModelData data = response.getData();
-if (data != null) {
-    // Handle successful response data
-    System.out.println("Request completed successfully");
-}
-```
+2.  **Exception Handling**: Use a `try-catch` block to handle network issues or unexpected client-side problems, such as `ZAiHttpException`.
 
-### Exception Handling
-
-```java
-try {
-    ChatCompletionResponse response = chatService.createChatCompletion(request);
-    // Process response...
-} catch (ZAiHttpException e) {
-    // Handle HTTP-specific errors
-    System.err.println("HTTP Error: " + e.getMessage());
-    System.err.println("Status Code: " + e.statusCode);
-    System.err.println("Error Code: " + e.code);
-} catch (Exception e) {
-    // Handle other exceptions
-    System.err.println("Unexpected error: " + e.getMessage());
-    e.printStackTrace();
-}
-```
-
-## Extension Points
-
-### Custom Service Implementation
-
-```java
-public class CustomService implements AIService<CustomRequest, CustomResponse> {
-    @Override
-    public CustomResponse execute(CustomRequest request) throws Exception {
-        // Implementation
+    ```java
+    try {
+        // API call
+    } catch (ZAiHttpException e) {
+        System.err.printf("HTTP Error: %d - %s%n", e.statusCode, e.getMessage());
+    } catch (Exception e) {
+        System.err.println("An unexpected error occurred: " + e.getMessage());
     }
-    
-    @Override
-    public CompletableFuture<CustomResponse> executeAsync(CustomRequest request) {
-        // Implementation
-    }
-    
-    @Override
-    public Flowable<CustomResponse> executeStream(CustomRequest request) throws Exception {
-        // Implementation
-    }
-    
-    @Override
-    public void validateRequest(CustomRequest request) throws IllegalArgumentException {
-        // Validation logic
-    }
-    
-    @Override
-    public String getServiceType() {
-        return "CUSTOM_SERVICE";
-    }
-}
-
-// Register custom service
-client.registerService("CUSTOM_SERVICE", new CustomService());
-```
-
-### Custom Configuration
-
-```java
-// Extend configuration for custom needs
-ZaiConfiguration customConfig = ZaiConfigurationBuilder.newBuilder()
-    .apiSecretKey("your.api.key")
-    .baseUrl("https://custom.endpoint")
-    // Add custom settings
-    .build();
-
-// Add custom metadata to configuration
-customConfig.getAuth().addMetadata("customAuth", "value");
-customConfig.getNetwork().addMetadata("customNetwork", "value");
-```
+    ```
 
 ## Best Practices
 
-### Configuration Management
-
-```java
-// Use builder pattern for configuration
-ZaiConfig config = ZaiConfig.builder()
-    .apiSecretKey("your.api.key.your.api.secret")
-    .baseUrl("https://open.bigmodel.cn/")
-    .requestTimeOut(60)
-    .connectTimeout(30)
-    .readTimeout(30)
-    .writeTimeout(30)
-    .timeOutTimeUnit(TimeUnit.SECONDS)
-    .disableTokenCache(false)
-    .expireMillis(3600000) // 1 hour
-    .connectionPoolMaxIdleConnections(10)
-    .connectionPoolKeepAliveDuration(5)
-    .connectionPoolTimeUnit(TimeUnit.MINUTES)
-    .build();
-
-ZaiClient client = new ZaiClient(config);
-```
-
-### Request Building
-
-```java
-// Use builder pattern for creating requests
-ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-    .model("glm-4")
-    .messages(Arrays.asList(
-        ChatMessage.builder()
-            .role(ChatMessage.Role.USER)
-            .content("Hello, world!")
-            .build()
-    ))
-    .temperature(0.7f)
-    .maxTokens(1000)
-    .stream(false)
-    .build();
-```
-
-### Error Handling
-
-```java
-// Comprehensive error handling
-ChatCompletionResponse response = chatService.createChatCompletion(request);
-
-if (!response.isSuccess()) {
-    System.err.println("Request failed: " + response.getMsg());
-    if (response.getError() != null) {
-        System.err.println("Error details: " + response.getError().getMessage());
-    }
-    return;
-}
-
-// Process successful response
-ModelData data = response.getData();
-if (data != null && data.getChoices() != null && !data.getChoices().isEmpty()) {
-    String content = data.getChoices().get(0).getMessage().getContent();
-    System.out.println("Response: " + content);
-}
-```
-
-### Streaming Best Practices
-
-```java
-// Handle streaming responses properly
-ChatCompletionCreateParams streamRequest = request.toBuilder()
-    .stream(true)
-    .build();
-
-ChatCompletionResponse response = chatService.createChatCompletion(streamRequest);
-
-if (response.isSuccess() && response.getFlowable() != null) {
-    response.getFlowable()
-        .observeOn(Schedulers.io())
-        .subscribe(
-            data -> {
-                // Process each streaming chunk
-                if (data.getChoices() != null && !data.getChoices().isEmpty()) {
-                    String content = data.getChoices().get(0).getDelta().getContent();
-                    if (content != null) {
-                        System.out.print(content);
-                    }
-                }
-            },
-            error -> {
-                System.err.println("Streaming error: " + error.getMessage());
-            },
-            () -> {
-                System.out.println("\nStreaming completed");
-            }
-        );
-}
-```
-
-### Resource Management
-
-```java
-// Properly manage client lifecycle
-try {
-    ZaiClient client = new ZaiClient(config);
-    ChatService chatService = client.chat();
-    
-    // Use the service...
-    ChatCompletionResponse response = chatService.createChatCompletion(request);
-    
-} catch (Exception e) {
-    System.err.println("Error: " + e.getMessage());
-} finally {
-    // Clean up resources if needed
-}
-```
-
-### Asynchronous Processing
-
-```java
-// Use async operations for long-running tasks
-ChatCompletionResponse asyncResponse = chatService.asyncChatCompletion(request);
-
-if (asyncResponse.isSuccess()) {
-    String taskId = asyncResponse.getData().getTaskId();
-    
-    // Poll for results
-    AsyncResultRetrieveParams retrieveParams = new AsyncResultRetrieveParams();
-    retrieveParams.setId(taskId);
-    
-    // Implement polling logic with backoff
-    CompletableFuture.supplyAsync(() -> {
-        try {
-            Thread.sleep(1000); // Wait before polling
-            return chatService.retrieveAsyncResult(retrieveParams);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
-    }).thenAccept(result -> {
-        // Handle result
-        if (result.isSuccess()) {
-            System.out.println("Async task completed");
-        }
-    });
-}
-```
-
-### Security Best Practices
-
-1. **API Key Management**: Store API keys securely, never hardcode them
-2. **Token Caching**: Enable token caching to reduce authentication overhead
-3. **Request Validation**: Always validate input parameters
-4. **Error Logging**: Log errors but never log sensitive information
-5. **Timeout Configuration**: Set appropriate timeouts to prevent hanging requests
-6. **Connection Pooling**: Configure connection pools for optimal performance
-7. **Rate Limiting**: Implement client-side rate limiting to respect API limits
-
-## Migration Guide
-
-### Upgrading to Latest Version
-
-This guide helps you migrate from older versions of the Z-AI SDK to the current architecture.
-
-#### Key Changes in Current Version
-
-1. **Unified Client Architecture**: All services are now accessed through `ZaiClient`
-2. **Improved Configuration**: `ZaiConfig` with builder pattern for better flexibility
-3. **Standardized Request/Response**: All requests implement `ClientRequest`, responses implement `ClientResponse`
-4. **Enhanced Streaming**: Better support for streaming responses with `FlowableClientResponse`
-5. **Comprehensive Service Coverage**: Support for Chat, Agents, Embeddings, Files, Audio, Images, and more
-
-#### Configuration Migration
-
-```java
-// If you were using basic configuration
-// Old approach (if applicable)
-String apiKey = "your-api-key";
-String apiSecret = "your-api-secret";
-
-// New approach
-ZaiConfig config = ZaiConfig.builder()
-    .apiKey(apiKey)
-    .apiSecret(apiSecret)
-    .baseUrl("https://open.bigmodel.cn/")
-    .enableTokenCache(true)
-    .tokenExpiredSeconds(3600)
-    .build();
-
-ZaiClient client = new ZaiClient(config);
-```
-
-#### Service Usage Migration
-
-```java
-// Modern service usage
-ChatService chatService = client.chat();
-EmbeddingService embeddingService = client.embeddings();
-FileService fileService = client.files();
-AudioService audioService = client.audio();
-ImageService imageService = client.images();
-// ... and more services
-```
-
-#### Request Building Migration
-
-```java
-// Use builder pattern for all requests
-ChatCompletionCreateParams chatRequest = ChatCompletionCreateParams.builder()
-    .model("glm-4")
-    .messages(Arrays.asList(
-        ChatMessage.builder()
-            .role(ChatMessage.Role.USER)
-            .content("Hello, world!")
-            .build()
-    ))
-    .temperature(0.7f)
-    .maxTokens(1000)
-    .build();
-```
-
-#### Response Handling Migration
-
-```java
-// Standardized response handling
-ChatCompletionResponse response = chatService.createChatCompletion(chatRequest);
-
-if (response.isSuccess()) {
-    ModelData data = response.getData();
-    // Process successful response
-} else {
-    System.err.println("Error: " + response.getMsg());
-    if (response.getError() != null) {
-        System.err.println("Details: " + response.getError().getMessage());
-    }
-}
-```
-
-#### Streaming Migration
-
-```java
-// Enhanced streaming support
-ChatCompletionCreateParams streamRequest = chatRequest.toBuilder()
-    .stream(true)
-    .build();
-
-ChatCompletionResponse streamResponse = chatService.createChatCompletion(streamRequest);
-
-if (streamResponse.isSuccess() && streamResponse.getFlowable() != null) {
-    streamResponse.getFlowable()
-        .subscribe(
-            data -> {
-                // Process streaming data
-            },
-            error -> {
-                // Handle streaming errors
-            },
-            () -> {
-                // Streaming completed
-            }
-        );
-}
-```
-
-### Best Practices for Migration
-
-1. **Update Dependencies**: Ensure you're using the latest version of the SDK
-2. **Review Configuration**: Update your configuration to use `ZaiConfig.builder()`
-3. **Update Service Access**: Use `ZaiClient` to access all services
-4. **Standardize Error Handling**: Use the new response structure for error handling
-5. **Test Thoroughly**: Test all functionality after migration
-6. **Update Documentation**: Update your internal documentation to reflect the new patterns
-
-This architecture provides a solid foundation for future enhancements while maintaining backward compatibility where possible.
+- **Singleton Client**: For most applications, create a single `ZaiClient` instance and share it to leverage connection pooling.
+- **Use Builders**: Always use the builder pattern for creating `ZaiConfig` and request objects.
+- **Resource Management**: While `ZaiClient` does not require explicit closing for resource management in typical use cases, ensure your application shuts down gracefully.
+- **Secure Key Management**: Store API keys securely using environment variables or a secrets management system. Do not hardcode them in your source code.

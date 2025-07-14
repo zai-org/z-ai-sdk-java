@@ -1,10 +1,16 @@
 package ai.z.openapi.service.assistant.message.tools.web_browser;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This class represents the output of a web browser search result.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebBrowserOutput {
 
 	/**
@@ -30,39 +36,5 @@ public class WebBrowserOutput {
 	 */
 	@JsonProperty("error_msg")
 	private String errorMsg;
-
-	// Getters and Setters
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getErrorMsg() {
-		return errorMsg;
-	}
-
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
-	}
 
 }

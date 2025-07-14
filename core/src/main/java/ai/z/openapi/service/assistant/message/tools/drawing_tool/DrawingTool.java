@@ -1,11 +1,18 @@
 package ai.z.openapi.service.assistant.message.tools.drawing_tool;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
  * The input string that was used to generate the drawing.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DrawingTool {
 
 	/**
@@ -19,23 +26,5 @@ public class DrawingTool {
 	 */
 	@JsonProperty("outputs")
 	private List<DrawingToolOutput> outputs;
-
-	// Getters and Setters
-
-	public String getInput() {
-		return input;
-	}
-
-	public void setInput(String input) {
-		this.input = input;
-	}
-
-	public List<DrawingToolOutput> getOutputs() {
-		return outputs;
-	}
-
-	public void setOutputs(List<DrawingToolOutput> outputs) {
-		this.outputs = outputs;
-	}
 
 }
