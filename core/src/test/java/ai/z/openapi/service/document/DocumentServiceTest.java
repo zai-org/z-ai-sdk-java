@@ -63,7 +63,7 @@ public class DocumentServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		DocumentCreateParams request = DocumentCreateParams.builder()
-			.filePath("/path/to/test/document.pdf")
+			.filePath("src/test/resources/document.pdf")
 			.purpose("retrieval")
 			.knowledgeId(TEST_KNOWLEDGE_ID)
 			.sentenceSize(200)
@@ -193,7 +193,7 @@ public class DocumentServiceTest {
 		uploadDetail.setUrl("https://example.com/test.pdf");
 
 		DocumentCreateParams request = DocumentCreateParams.builder()
-			.filePath("/path/to/file.pdf")
+			.filePath("src/test/resources/document.pdf\"")
 			.uploadDetail(Collections.singletonList(uploadDetail))
 			.purpose("retrieval")
 			.knowledgeId(TEST_KNOWLEDGE_ID)
@@ -208,7 +208,7 @@ public class DocumentServiceTest {
 	@DisplayName("Test Parameter Validation - Empty Knowledge ID")
 	void testValidation_EmptyKnowledgeId() {
 		DocumentCreateParams request = DocumentCreateParams.builder()
-			.filePath("/path/to/file.pdf")
+			.filePath("src/test/resources/document.pdf")
 			.purpose("retrieval")
 			.knowledgeId("")
 			.build();

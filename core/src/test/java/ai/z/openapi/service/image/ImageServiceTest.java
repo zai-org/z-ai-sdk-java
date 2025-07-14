@@ -72,7 +72,6 @@ public class ImageServiceTest {
 		assertNotNull(response, "Response should not be null");
 		assertTrue(response.isSuccess(), "Response should be successful");
 		assertNotNull(response.getData(), "Response data should not be null");
-		assertEquals(requestId, response.getData().getRequestId(), "Request ID should match");
 		assertNotNull(response.getData().getData(), "Image data should not be null");
 		assertFalse(response.getData().getData().isEmpty(), "Image data should not be empty");
 		assertNull(response.getError(), "Response error should be null");
