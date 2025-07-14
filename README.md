@@ -1,6 +1,6 @@
 # Z.ai Open Platform Java SDK
 
-[![Maven Central](https://img.shields.io/maven-central/v/ai.z/z-ai-sdk.svg)](https://search.maven.org/artifact/ai.z/z-ai-sdk)
+[![Maven Central](https://img.shields.io/maven-central/v/ai.z.openapi/z-ai-sdk.svg)](https://search.maven.org/artifact/ai.z/z-ai-sdk)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/java-1.8%2B-orange.svg)](https://www.oracle.com/java/)
 
