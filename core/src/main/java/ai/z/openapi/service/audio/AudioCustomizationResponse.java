@@ -12,7 +12,7 @@ import java.io.File;
  * information.
  */
 @Data
-public class AudioCustomizationApiResponse implements ClientResponse<File> {
+public class AudioCustomizationResponse implements ClientResponse<File> {
 
 	/**
 	 * Response status code.

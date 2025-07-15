@@ -30,6 +30,7 @@ import ai.z.openapi.service.document.DocumentServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
 import ai.z.openapi.service.assistant.AssistantServiceImpl;
 import ai.z.openapi.core.config.ZaiConfig;
+import ai.z.openapi.core.model.BiFlowableClientResponse;
 import ai.z.openapi.core.model.ClientRequest;
 import ai.z.openapi.core.model.ClientResponse;
 import ai.z.openapi.core.model.FlowableClientResponse;
@@ -376,19 +377,55 @@ public class ZaiClient extends AbstractClientBaseService {
 	}
 
 	/**
-	 * Executes a streaming API request and returns a response containing a Flowable
-	 * stream. This method is used for requests that return data as a continuous stream,
-	 * such as chat completions with streaming enabled.
-	 * @param <Data> the type of data expected in each stream element
-	 * @param <Param> the type of parameters for the request
-	 * @param <TReq> the type of client request
-	 * @param <TResp> the type of flowable client response
-	 * @param request the client request containing parameters
-	 * @param requestSupplier the supplier that creates the actual streaming API call
-	 * @param tRespClass the class of the response type
-	 * @param tDataClass the class of the data type for stream elements
-	 * @return the wrapped response containing either a success stream or error
-	 * information
+	 * Executes a streaming API request and returns a BiFlowableClientResponse where
+	 * response body and stream element type can differ.
+	 * @param request the request object
+	 * @param requestSupplier the streaming API supplier
+	 * @param tRespClass the client response class (must implement
+	 * BiFlowableClientResponse<Data, F>)
+	 * @param tStreamDataClass the stream data element class
+	 * @return a response containing a Flowable<F> stream
+	 */
+	@SuppressWarnings("unchecked")
+	public <Data, F, Param, TReq extends ClientRequest<Param>, TResp extends BiFlowableClientResponse<Data, F>> TResp biStreamRequest(
+			TReq request, FlowableRequestSupplier<Param, retrofit2.Call<ResponseBody>> requestSupplier,
+			Class<TResp> tRespClass, Class<F> tStreamDataClass) {
+		retrofit2.Call<ResponseBody> apiCall = requestSupplier.get((Param) request);
+		TResp tResp = convertToClientResponse(tRespClass);
+
+		try {
+			Flowable<F> stream = stream(apiCall, tStreamDataClass);
+			tResp.setCode(200);
+			tResp.setMsg("Stream initialized successfully");
+			tResp.setSuccess(true);
+			tResp.setFlowable(stream);
+		}
+		catch (ZAiHttpException e) {
+			handleStreamError(tResp, e);
+		}
+		return tResp;
+	}
+
+	private void handleStreamError(ClientResponse<?> response, ZAiHttpException e) {
+		logger.error("Streaming API request failed with business error", e);
+		response.setCode(e.statusCode);
+		response.setMsg("Business error");
+		response.setSuccess(false);
+		ChatError chatError = new ChatError();
+		chatError.setCode(Integer.parseInt(e.code));
+		chatError.setMessage(e.getMessage());
+		response.setError(chatError);
+	}
+
+	/**
+	 * Executes a streaming API request and returns a FlowableClientResponse with stream
+	 * elements of type Data.
+	 * @param request the request object
+	 * @param requestSupplier the streaming API supplier
+	 * @param tRespClass the client response class (must implement
+	 * FlowableClientResponse<Data>)
+	 * @param tDataClass the class representing stream data type
+	 * @return a response containing a Flowable<Data> stream
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -396,10 +433,9 @@ public class ZaiClient extends AbstractClientBaseService {
 			TReq request, FlowableRequestSupplier<Param, retrofit2.Call<ResponseBody>> requestSupplier,
 			Class<TResp> tRespClass, Class<Data> tDataClass) {
 		retrofit2.Call<ResponseBody> apiCall = requestSupplier.get((Param) request);
-
 		TResp tResp = convertToClientResponse(tRespClass);
+
 		try {
-			// Create a streaming response using the provided API call
 			Flowable<Data> stream = stream(apiCall, tDataClass);
 			tResp.setCode(200);
 			tResp.setMsg("Stream initialized successfully");
@@ -407,14 +443,7 @@ public class ZaiClient extends AbstractClientBaseService {
 			tResp.setFlowable(stream);
 		}
 		catch (ZAiHttpException e) {
-			logger.error("Streaming API request failed with business error", e);
-			tResp.setCode(e.statusCode);
-			tResp.setMsg("Business error");
-			tResp.setSuccess(false);
-			ChatError chatError = new ChatError();
-			chatError.setCode(Integer.parseInt(e.code));
-			chatError.setMessage(e.getMessage());
-			tResp.setError(chatError);
+			handleStreamError(tResp, e);
 		}
 		return tResp;
 	}

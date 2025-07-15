@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.File;
 
 @Data
-public class AudioSpeechApiResponse implements ClientResponse<File> {
+public class AudioSpeechResponse implements ClientResponse<File> {
 
 	private int code;
 

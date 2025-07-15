@@ -1,5 +1,6 @@
 package ai.z.openapi.service;
 
+import ai.z.openapi.core.model.BiFlowableClientResponse;
 import ai.z.openapi.core.model.ClientRequest;
 import ai.z.openapi.core.model.ClientResponse;
 import ai.z.openapi.core.model.FlowableClientResponse;
@@ -51,20 +52,38 @@ public abstract class AbstractClientBaseService {
 			TReq request, RequestSupplier<Param, Data> requestSupplier, Class<TResp> tRespClass);
 
 	/**
-	 * Executes a streaming API request that returns a continuous stream of data.
-	 * @param <Data> the type of data returned by the API stream
-	 * @param <Param> the type of parameters sent to the API
-	 * @param <TReq> the type of the request object
-	 * @param <TResp> the type of the streaming response object
-	 * @param request the request object containing parameters
-	 * @param requestSupplier the supplier that creates the streaming API call
-	 * @param tRespClass the class of the response type
-	 * @param tDataClass the class of the data type in the stream
-	 * @return the streaming response object containing the API result stream
+	 * Executes a streaming API request and returns a Flowable-based response. This
+	 * unified version supports both: - simplified response where Data == stream element
+	 * type (FlowableClientResponse<Data>) - and bi-type response where Data ≠ stream
+	 * element type (BiFlowableClientResponse<Data, F>)
+	 * @param <Data> type of response body
+	 * @param <F> type of each element in the stream (can be same as Data)
+	 * @param <Param> request param type
+	 * @param <TReq> request type
+	 * @param <TResp> response type (must extend BiFlowableClientResponse<Data, F>)
+	 * @param request the request to send
+	 * @param requestSupplier factory that creates the Retrofit call
+	 * @param tRespClass the response class type
+	 * @param tStreamClass the class of the stream element
+	 * @return streaming client response
 	 */
-	public abstract <Data, Param, TReq extends ClientRequest<Param>, TResp extends FlowableClientResponse<Data>> TResp streamRequest(
+	public abstract <Data, F, Param, TReq extends ClientRequest<Param>, TResp extends BiFlowableClientResponse<Data, F>> TResp biStreamRequest(
 			TReq request, FlowableRequestSupplier<Param, Call<ResponseBody>> requestSupplier, Class<TResp> tRespClass,
-			Class<Data> tDataClass);
+			Class<F> tStreamClass);
+
+	/**
+	 * Executes a streaming API request with the same type for response body and stream
+	 * element.
+	 * @param <T> data type for both response and stream
+	 * @param <Param> request param type
+	 * @param <TReq> request type
+	 * @param <TResp> response type (must extend FlowableClientResponse<T>)
+	 */
+	public <T, Param, TReq extends ClientRequest<Param>, TResp extends FlowableClientResponse<T>> TResp streamRequest(
+			TReq request, FlowableRequestSupplier<Param, Call<ResponseBody>> requestSupplier, Class<TResp> tRespClass,
+			Class<T> tClass) {
+		return this.<T, T, Param, TReq, TResp>biStreamRequest(request, requestSupplier, tRespClass, tClass);
+	}
 
 	/**
 	 * Executes a Single API call synchronously and handles errors.

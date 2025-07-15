@@ -3,7 +3,7 @@ package ai.z.openapi.service.audio;
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.api.audio.AudioApi;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
-import ai.z.openapi.service.model.ChatCompletionResponse;
+import ai.z.openapi.service.model.Audio;
 import ai.z.openapi.service.model.ModelData;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
@@ -43,7 +43,7 @@ public class AudioServiceImpl implements AudioService {
 	}
 
 	@Override
-	public AudioSpeechApiResponse createSpeech(AudioSpeechRequest request) {
+	public AudioSpeechResponse createSpeech(AudioSpeechRequest request) {
 		validateSpeechParams(request);
 		RequestSupplier<AudioSpeechRequest, java.io.File> supplier = (params) -> {
 			try {
@@ -57,11 +57,11 @@ public class AudioServiceImpl implements AudioService {
 				throw new RuntimeException(e);
 			}
 		};
-		return this.zAiClient.executeRequest(request, supplier, AudioSpeechApiResponse.class);
+		return this.zAiClient.executeRequest(request, supplier, AudioSpeechResponse.class);
 	}
 
 	@Override
-	public AudioCustomizationApiResponse createCustomSpeech(AudioCustomizationRequest request) {
+	public AudioCustomizationResponse createCustomSpeech(AudioCustomizationRequest request) {
 		validateCustomSpeechParams(request);
 		RequestSupplier<AudioCustomizationRequest, java.io.File> supplier = (params) -> {
 			try {
@@ -114,22 +114,22 @@ public class AudioServiceImpl implements AudioService {
 				throw new RuntimeException(e);
 			}
 		};
-		return this.zAiClient.executeRequest(request, supplier, AudioCustomizationApiResponse.class);
+		return this.zAiClient.executeRequest(request, supplier, AudioCustomizationResponse.class);
 	}
 
 	@Override
-	public ChatCompletionResponse createTranscription(AudioTranscriptionsRequest request) {
+	public AudioTranscriptionResponse createTranscription(AudioTranscriptionRequest request) {
 		validateTranscriptionParams(request);
 		if (request.getStream()) {
 			return createTranscriptionStream(request);
 		}
 		else {
-			return createTranscriptionSync(request);
+			return createTranscriptionBlock(request);
 		}
 	}
 
-	private ChatCompletionResponse createTranscriptionStream(AudioTranscriptionsRequest request) {
-		FlowableRequestSupplier<AudioTranscriptionsRequest, retrofit2.Call<ResponseBody>> supplier = params -> {
+	private AudioTranscriptionResponse createTranscriptionStream(AudioTranscriptionRequest request) {
+		FlowableRequestSupplier<AudioTranscriptionRequest, retrofit2.Call<ResponseBody>> supplier = params -> {
 			try {
 				java.io.File file = params.getFile();
 				Tika tika = new Tika();
@@ -153,18 +153,19 @@ public class AudioServiceImpl implements AudioService {
 					requestMap.put("user_id", RequestBody.create(MediaType.parse("text/plain"), params.getUserId()));
 				}
 
-				return audioApi.audioTranscriptionsStream(requestMap, fileData);
+				return audioApi.audioTranscriptionStream(requestMap, fileData);
 			}
 			catch (IOException e) {
 				log.error("Error create transcription: {}", e.getMessage(), e);
 				throw new RuntimeException(e);
 			}
 		};
-		return this.zAiClient.streamRequest(request, supplier, ChatCompletionResponse.class, ModelData.class);
+		return this.zAiClient.biStreamRequest(request, supplier, AudioTranscriptionResponse.class,
+				AudioTranscriptionChunk.class);
 	}
 
-	private ChatCompletionResponse createTranscriptionSync(AudioTranscriptionsRequest request) {
-		RequestSupplier<AudioTranscriptionsRequest, ModelData> supplier = (params) -> {
+	private AudioTranscriptionResponse createTranscriptionBlock(AudioTranscriptionRequest request) {
+		RequestSupplier<AudioTranscriptionRequest, AudioTranscriptionResult> supplier = (params) -> {
 			try {
 				java.io.File file = params.getFile();
 				Tika tika = new Tika();
@@ -188,14 +189,14 @@ public class AudioServiceImpl implements AudioService {
 					requestMap.put("user_id", RequestBody.create(MediaType.parse("text/plain"), params.getUserId()));
 				}
 
-				return audioApi.audioTranscriptions(requestMap, fileData);
+				return audioApi.audioTranscription(requestMap, fileData);
 			}
 			catch (IOException e) {
 				log.error("Error create transcription: {}", e.getMessage(), e);
 				throw new RuntimeException(e);
 			}
 		};
-		return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
+		return this.zAiClient.executeRequest(request, supplier, AudioTranscriptionResponse.class);
 	}
 
 	private void validateSpeechParams(AudioSpeechRequest request) {
@@ -225,7 +226,7 @@ public class AudioServiceImpl implements AudioService {
 		}
 	}
 
-	private void validateTranscriptionParams(AudioTranscriptionsRequest request) {
+	private void validateTranscriptionParams(AudioTranscriptionRequest request) {
 		if (request == null) {
 			throw new IllegalArgumentException("request cannot be null");
 		}
