@@ -5,7 +5,7 @@ import ai.z.openapi.service.model.ChatError;
 import lombok.Data;
 
 @Data
-public class KnowledgeResponse implements ClientResponse<KnowledgeInfo> {
+public class CreateKnowledgeResponse implements ClientResponse<KnowledgeId> {
 
 	private int code;
 
@@ -13,7 +13,7 @@ public class KnowledgeResponse implements ClientResponse<KnowledgeInfo> {
 
 	private boolean success;
 
-	private KnowledgeInfo data;
+	private KnowledgeId data;
 
 	private ChatError error;
 

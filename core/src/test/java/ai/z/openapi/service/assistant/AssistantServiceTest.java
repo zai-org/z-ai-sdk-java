@@ -1,12 +1,8 @@
 package ai.z.openapi.service.assistant;
 
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
-import ai.z.openapi.service.assistant.AssistantApiResponse;
-import ai.z.openapi.service.assistant.AssistantCompletion;
-import ai.z.openapi.service.assistant.AssistantParameters;
-import ai.z.openapi.service.assistant.ConversationMessage;
-import ai.z.openapi.service.assistant.MessageTextContent;
 import ai.z.openapi.service.assistant.conversation.ConversationParameters;
 import ai.z.openapi.service.assistant.conversation.ConversationUsageListResponse;
 import ai.z.openapi.service.assistant.message.MessageContent;
@@ -84,7 +80,7 @@ public class AssistantServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		AssistantParameters request = AssistantParameters.builder()
-			.model("GLM-4-Assistant")
+			.model(Constants.ModelChatGLM4Assistant)
 			.assistantId(TEST_ASSISTANT_ID)
 			.stream(false)
 			.messages(Collections.singletonList(message))

@@ -1,13 +1,5 @@
 package ai.z.openapi.service.knowledge;
 
-import ai.z.openapi.service.knowledge.KnowledgeBaseParams;
-import ai.z.openapi.service.knowledge.KnowledgeEditResponse;
-import ai.z.openapi.service.knowledge.QueryKnowledgeApiResponse;
-import ai.z.openapi.service.knowledge.KnowledgeResponse;
-import ai.z.openapi.service.knowledge.KnowledgeUsedResponse;
-import ai.z.openapi.service.knowledge.QueryKnowledgeRequest;
-import retrofit2.Response;
-
 /**
  * Knowledge service interface
  */
@@ -16,9 +8,9 @@ public interface KnowledgeService {
 	/**
 	 * Creates a new knowledge base.
 	 * @param request the knowledge creation request
-	 * @return KnowledgeResponse containing the creation result
+	 * @return CreateKnowledgeResponse containing the creation result
 	 */
-	KnowledgeResponse createKnowledge(KnowledgeBaseParams request);
+	CreateKnowledgeResponse createKnowledge(KnowledgeBaseParams request);
 
 	/**
 	 * Modifies an existing knowledge base.
