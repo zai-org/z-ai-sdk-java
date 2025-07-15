@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>ai.z.openapi</groupId>
-        <artifactId>z-ai-sdk-parent</artifactId>
+        <artifactId>zai-sdk-parent</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>z-ai-sdk</artifactId>
+    <artifactId>zai-sdk</artifactId>
 
     <packaging>jar</packaging>
 

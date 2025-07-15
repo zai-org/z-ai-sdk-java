@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ai.z.openapi</groupId>
-    <artifactId>z-ai-sdk-parent</artifactId>
+    <artifactId>zai-sdk-parent</artifactId>
     <version>${revision}</version>
 
     <packaging>pom</packaging>
@@ -45,7 +45,7 @@
     </scm>
 
     <properties>
-        <revision>0.0.0.1-alpha</revision>
+        <revision>0.0.0.2-alpha</revision>
         <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -229,7 +229,7 @@
                             <autoPublish>true</autoPublish>
                             <excludeArtifacts>
                                 <excludeArtifact>samples</excludeArtifact>
-                                <excludeArtifact>z-ai-sdk-parent</excludeArtifact>
+                                <excludeArtifact>zai-sdk-parent</excludeArtifact>
                             </excludeArtifacts>
                         </configuration>
                     </plugin>

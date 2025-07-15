@@ -1,6 +1,6 @@
 # Z.ai Open Platform Java SDK
 
-[![Maven Central](https://img.shields.io/maven-central/v/ai.z.openapi/z-ai-sdk.svg)](https://search.maven.org/artifact/ai.z/z-ai-sdk)
+[![Maven Central](https://img.shields.io/maven-central/v/ai.z.openapi/zai-sdk.svg)](https://search.maven.org/artifact/ai.z.openapi/zai-sdk)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/java-1.8%2B-orange.svg)](https://www.oracle.com/java/)
 
@@ -31,7 +31,7 @@ Add the following dependency to your `pom.xml`:
 ```xml
 <dependency>
     <groupId>ai.z</groupId>
-    <artifactId>z-ai-sdk</artifactId>
+    <artifactId>zai-sdk</artifactId>
     <version>0.0.1</version>
 </dependency>
 ```
@@ -41,7 +41,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z:z-ai-sdk:0.0.1'
+    implementation 'ai.z:zai-sdk:0.0.1'
 }
 ```
 
@@ -49,7 +49,7 @@ Or `build.gradle.kts` (for Kotlin DSL):
 
 ```kotlin
 dependencies {
-    implementation("ai.z:z-ai-sdk:0.0.1")
+    implementation("ai.z:zai-sdk:0.0.1")
 }
 ```
 
