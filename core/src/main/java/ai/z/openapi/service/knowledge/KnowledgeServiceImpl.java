@@ -22,10 +22,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	}
 
 	@Override
-	public KnowledgeResponse createKnowledge(KnowledgeBaseParams request) {
+	public CreateKnowledgeResponse createKnowledge(KnowledgeBaseParams request) {
 		validateCreateKnowledgeParams(request);
-		RequestSupplier<KnowledgeBaseParams, KnowledgeInfo> supplier = knowledgeApi::knowledgeCreate;
-		return this.zAiClient.executeRequest(request, supplier, KnowledgeResponse.class);
+		RequestSupplier<KnowledgeBaseParams, KnowledgeId> supplier = knowledgeApi::knowledgeCreate;
+		return this.zAiClient.executeRequest(request, supplier, CreateKnowledgeResponse.class);
 	}
 
 	@Override

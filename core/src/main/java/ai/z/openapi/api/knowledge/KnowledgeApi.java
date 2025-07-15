@@ -1,7 +1,7 @@
 package ai.z.openapi.api.knowledge;
 
 import ai.z.openapi.service.knowledge.KnowledgeBaseParams;
-import ai.z.openapi.service.knowledge.KnowledgeInfo;
+import ai.z.openapi.service.knowledge.KnowledgeId;
 import ai.z.openapi.service.knowledge.KnowledgePage;
 import ai.z.openapi.service.knowledge.KnowledgeUsed;
 import io.reactivex.Single;
@@ -30,7 +30,7 @@ public interface KnowledgeApi {
 	 * @return Knowledge base information with ID, status, and metadata
 	 */
 	@POST("knowledge")
-	Single<KnowledgeInfo> knowledgeCreate(@Body KnowledgeBaseParams knowledgeBaseParams);
+	Single<KnowledgeId> knowledgeCreate(@Body KnowledgeBaseParams knowledgeBaseParams);
 
 	/**
 	 * Modify an existing knowledge base Updates knowledge base configuration and settings

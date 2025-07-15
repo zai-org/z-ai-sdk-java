@@ -47,7 +47,4 @@ public class KnowledgeBaseParams implements ClientRequest<KnowledgeBaseParams> {
 	@JsonProperty("icon")
 	private String icon;
 
-	@JsonProperty("bucket_id")
-	private String bucketId;
-
 }

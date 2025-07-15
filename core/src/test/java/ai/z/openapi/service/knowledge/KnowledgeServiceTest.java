@@ -2,14 +2,6 @@ package ai.z.openapi.service.knowledge;
 
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.config.ZaiConfig;
-import ai.z.openapi.service.knowledge.KnowledgeBaseParams;
-import ai.z.openapi.service.knowledge.KnowledgeEditResponse;
-import ai.z.openapi.service.knowledge.KnowledgeResponse;
-import ai.z.openapi.service.knowledge.KnowledgeService;
-import ai.z.openapi.service.knowledge.KnowledgeServiceImpl;
-import ai.z.openapi.service.knowledge.KnowledgeUsedResponse;
-import ai.z.openapi.service.knowledge.QueryKnowledgeApiResponse;
-import ai.z.openapi.service.knowledge.QueryKnowledgeRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,16 +62,18 @@ public class KnowledgeServiceTest {
 			.icon("question")
 			.background("blue")
 			.customerIdentifier("test-customer")
-			.bucketId("test-bucket")
+			.knowledgeId(requestId)
 			.build();
 
 		// Execute test
-		KnowledgeResponse response = knowledgeService.createKnowledge(request);
+		CreateKnowledgeResponse response = knowledgeService.createKnowledge(request);
+		System.out.println(response.getError());
 
 		// Verify results
 		assertNotNull(response, "Response should not be null");
 		assertTrue(response.isSuccess(), "Response should be successful");
 		assertNotNull(response.getData(), "Response data should not be null");
+		assertNotNull(response.getData().getId(), "Knowledge ID should not be null");
 		assertNull(response.getError(), "Response error should be null");
 		logger.info("Create knowledge response: {}", mapper.writeValueAsString(response));
 	}
@@ -99,7 +93,7 @@ public class KnowledgeServiceTest {
 			.icon("book")
 			.background("green")
 			.customerIdentifier("test-customer")
-			.bucketId("test-bucket")
+			.knowledgeId(requestId)
 			.build();
 
 		// Execute test
@@ -207,7 +201,7 @@ public class KnowledgeServiceTest {
 			.name("") // Empty name
 			.build();
 
-		KnowledgeResponse response = knowledgeService.createKnowledge(request);
+		CreateKnowledgeResponse response = knowledgeService.createKnowledge(request);
 
 		// Should return error response
 		assertNotNull(response, "Response should not be null");
@@ -278,7 +272,7 @@ public class KnowledgeServiceTest {
 
 		// This should be validated either by the service or the API
 		assertDoesNotThrow(() -> {
-			KnowledgeResponse response = knowledgeService.createKnowledge(request);
+			CreateKnowledgeResponse response = knowledgeService.createKnowledge(request);
 			// If validation is done server-side, we expect an error response
 			if (!response.isSuccess()) {
 				assertNotNull(response.getError(), "Should contain validation error");
@@ -304,7 +298,7 @@ public class KnowledgeServiceTest {
 
 		// This should be validated either by the service or the API
 		assertDoesNotThrow(() -> {
-			KnowledgeResponse response = knowledgeService.createKnowledge(request);
+			CreateKnowledgeResponse response = knowledgeService.createKnowledge(request);
 			// If validation is done server-side, we expect an error response
 			if (!response.isSuccess()) {
 				assertNotNull(response.getError(), "Should contain validation error");
@@ -331,7 +325,7 @@ public class KnowledgeServiceTest {
 
 		// This should be validated either by the service or the API
 		assertDoesNotThrow(() -> {
-			KnowledgeResponse response = knowledgeService.createKnowledge(request);
+			CreateKnowledgeResponse response = knowledgeService.createKnowledge(request);
 			// If validation is done server-side, we expect an error response
 			if (!response.isSuccess()) {
 				assertNotNull(response.getError(), "Should contain validation error");
@@ -340,25 +334,25 @@ public class KnowledgeServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Bucket ID Length Validation")
+	@DisplayName("Test Knowledge ID Length Validation")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testBucketIdLengthValidation() {
+	void testKnowledgeIdLengthValidation() {
 		// Test with bucket ID exceeding 32 characters
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 33; i++) {
 			sb.append("a");
 		}
-		String longBucketId = sb.toString();
+		String longKnowledgeId = sb.toString();
 		KnowledgeBaseParams request = KnowledgeBaseParams.builder()
 			.embeddingId(1)
 			.name("Test Knowledge Base")
 			.description("Test description")
-			.bucketId(longBucketId)
+			.knowledgeId(longKnowledgeId)
 			.build();
 
 		// This should be validated either by the service or the API
 		assertDoesNotThrow(() -> {
-			KnowledgeResponse response = knowledgeService.createKnowledge(request);
+			CreateKnowledgeResponse response = knowledgeService.createKnowledge(request);
 			// If validation is done server-side, we expect an error response
 			if (!response.isSuccess()) {
 				assertNotNull(response.getError(), "Should contain validation error");
