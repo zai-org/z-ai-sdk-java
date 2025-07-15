@@ -13,20 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Import all required request and response classes
-import ai.z.openapi.service.fine_turning.FineTuningService;
-import ai.z.openapi.service.fine_turning.FineTuningServiceImpl;
-import ai.z.openapi.service.fine_turning.FineTuningJobRequest;
-import ai.z.openapi.service.fine_turning.CreateFineTuningJobApiResponse;
-import ai.z.openapi.service.fine_turning.QueryFineTuningJobRequest;
-import ai.z.openapi.service.fine_turning.QueryFineTuningJobApiResponse;
-import ai.z.openapi.service.fine_turning.QueryFineTuningEventApiResponse;
-import ai.z.openapi.service.fine_turning.QueryPersonalFineTuningJobRequest;
-import ai.z.openapi.service.fine_turning.QueryPersonalFineTuningJobApiResponse;
-import ai.z.openapi.service.fine_turning.FineTuningJobIdRequest;
-import ai.z.openapi.service.fine_turning.FineTuningJobModelRequest;
-import ai.z.openapi.service.fine_turning.FineTunedModelsStatusResponse;
-
 /**
  * FineTuningService test class for testing various functionalities of FineTuningService
  * and FineTuningServiceImpl

@@ -3,7 +3,6 @@ package ai.z.openapi.service.audio;
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
-import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.Choice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,17 +47,17 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test AudioService Instantiation")
-	void testAudioServiceInstantiation() {
+	@DisplayName("Should instantiate AudioService successfully")
+	void shouldInstantiateAudioServiceSuccessfully() {
 		assertNotNull(audioService, "AudioService should be properly instantiated");
 		assertInstanceOf(AudioServiceImpl.class, audioService,
 				"AudioService should be an instance of AudioServiceImpl");
 	}
 
 	@Test
-	@DisplayName("Test Text-to-Speech Generation")
+	@DisplayName("Should generate speech from text successfully")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testCreateSpeech() throws JsonProcessingException {
+	void shouldGenerateSpeechFromTextSuccessfully() throws JsonProcessingException {
 		// Prepare test data
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
@@ -70,7 +69,7 @@ public class AudioServiceTest {
 			.build();
 
 		// Execute test
-		AudioSpeechApiResponse response = audioService.createSpeech(request);
+		AudioSpeechResponse response = audioService.createSpeech(request);
 
 		// Verify results
 		assertNotNull(response, "Speech response should not be null");
@@ -83,9 +82,9 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Custom Speech Generation with Voice Cloning")
+	@DisplayName("Should generate custom speech with voice cloning successfully")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testCreateCustomSpeech() throws JsonProcessingException {
+	void shouldGenerateCustomSpeechWithVoiceCloningSuccessfully() throws JsonProcessingException {
 		// Prepare test data
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 		File voiceFile = new File("src/test/resources/asr.wav");
@@ -100,7 +99,7 @@ public class AudioServiceTest {
 			.build();
 
 		// Execute test
-		AudioCustomizationApiResponse response = audioService.createCustomSpeech(request);
+		AudioCustomizationResponse response = audioService.createCustomSpeech(request);
 
 		// Verify results
 		assertNotNull(response, "Custom speech response should not be null");
@@ -113,14 +112,14 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Synchronous Audio Transcription")
+	@DisplayName("Should transcribe audio with blocking")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testSyncAudioTranscription() throws JsonProcessingException {
+	void shouldTranscribeAudioWithBlocking() throws JsonProcessingException {
 		// Prepare test data
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 		File audioFile = new File("src/test/resources/asr.wav");
 
-		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
+		AudioTranscriptionRequest request = AudioTranscriptionRequest.builder()
 			.model(Constants.ModelGLMASR)
 			.file(audioFile)
 			.stream(false)
@@ -128,27 +127,26 @@ public class AudioServiceTest {
 			.build();
 
 		// Execute test
-		ChatCompletionResponse response = audioService.createTranscription(request);
+		AudioTranscriptionResponse response = audioService.createTranscription(request);
 
 		// Verify results
 		assertNotNull(response, "Transcription response should not be null");
 		assertTrue(response.isSuccess(), "Transcription response should be successful");
 		assertNotNull(response.getData(), "Transcription response data should not be null");
-		assertNotNull(response.getData().getChoices(), "Response choices should not be null");
-		assertFalse(response.getData().getChoices().isEmpty(), "Response choices should not be empty");
+		assertNotNull(response.getData().getText(), "Transcription text should not be null");
 		assertNull(response.getError(), "Response error should be null");
-		logger.info("Synchronous transcription response: {}", mapper.writeValueAsString(response));
+		logger.info("Blocking transcription response: {}", mapper.writeValueAsString(response));
 	}
 
 	@Test
-	@DisplayName("Test Stream Audio Transcription")
+	@DisplayName("Should transcribe audio with streaming")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testStreamAudioTranscription() throws JsonProcessingException {
+	void shouldTranscribeAudioWithStreaming() throws JsonProcessingException {
 		// Prepare test data
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 		File audioFile = new File("src/test/resources/asr.wav");
 
-		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
+		AudioTranscriptionRequest request = AudioTranscriptionRequest.builder()
 			.model(Constants.ModelGLMASR)
 			.file(audioFile)
 			.stream(true)
@@ -156,7 +154,7 @@ public class AudioServiceTest {
 			.build();
 
 		// Execute test
-		ChatCompletionResponse response = audioService.createTranscription(request);
+		AudioTranscriptionResponse response = audioService.createTranscription(request);
 
 		// Verify results
 		assertNotNull(response, "Stream transcription response should not be null");
@@ -188,33 +186,33 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Null Speech Request")
-	void testValidation_NullSpeechRequest() {
+	@DisplayName("Should throw exception when speech request is null")
+	void shouldThrowExceptionWhenSpeechRequestIsNull() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			audioService.createSpeech(null);
 		}, "Null speech request should throw IllegalArgumentException");
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Null Custom Speech Request")
-	void testValidation_NullCustomSpeechRequest() {
+	@DisplayName("Should throw exception when custom speech request is null")
+	void shouldThrowExceptionWhenCustomSpeechRequestIsNull() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			audioService.createCustomSpeech(null);
 		}, "Null custom speech request should throw IllegalArgumentException");
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Null Transcription Request")
-	void testValidation_NullTranscriptionRequest() {
+	@DisplayName("Should throw exception when transcription request is null")
+	void shouldThrowExceptionWhenTranscriptionRequestIsNull() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			audioService.createTranscription(null);
 		}, "Null transcription request should throw IllegalArgumentException");
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Invalid Audio File")
-	void testValidation_InvalidAudioFile() {
-		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
+	@DisplayName("Should throw exception when audio file does not exist")
+	void shouldThrowExceptionWhenAudioFileDoesNotExist() {
+		AudioTranscriptionRequest request = AudioTranscriptionRequest.builder()
 			.model(Constants.ModelGLMASR)
 			.file(new File("non-existent-file.wav"))
 			.stream(false)
@@ -226,8 +224,8 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Null Model in Speech Request")
-	void testValidation_NullModelInSpeechRequest() {
+	@DisplayName("Should throw exception when model is null in speech request")
+	void shouldThrowExceptionWhenModelIsNullInSpeechRequest() {
 		AudioSpeechRequest request = AudioSpeechRequest.builder().input("Test input").voice("tongtong").build();
 
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -236,8 +234,8 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Empty Input in Speech Request")
-	void testValidation_EmptyInputInSpeechRequest() {
+	@DisplayName("Should throw exception when input is empty in speech request")
+	void shouldThrowExceptionWhenInputIsEmptyInSpeechRequest() {
 		AudioSpeechRequest request = AudioSpeechRequest.builder()
 			.model(Constants.ModelTTS)
 			.input("")
@@ -250,8 +248,8 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Null Voice Data in Custom Speech Request")
-	void testValidation_NullVoiceDataInCustomSpeechRequest() {
+	@DisplayName("Should throw exception when voice data is null in custom speech request")
+	void shouldThrowExceptionWhenVoiceDataIsNullInCustomSpeechRequest() {
 		AudioCustomizationRequest request = AudioCustomizationRequest.builder()
 			.model(Constants.ModelTTS)
 			.input("Test input")
@@ -264,9 +262,9 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Parameter Validation - Null File in Transcription Request")
-	void testValidation_NullFileInTranscriptionRequest() {
-		AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
+	@DisplayName("Should throw exception when file is null in transcription request")
+	void shouldThrowExceptionWhenFileIsNullInTranscriptionRequest() {
+		AudioTranscriptionRequest request = AudioTranscriptionRequest.builder()
 			.model(Constants.ModelGLMASR)
 			.stream(false)
 			.build();
@@ -277,9 +275,9 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Speech Generation with Different Voice Options")
+	@DisplayName("Should generate speech successfully with different voice options")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testSpeechGenerationWithDifferentVoices() throws JsonProcessingException {
+	void shouldGenerateSpeechSuccessfullyWithDifferentVoiceOptions() throws JsonProcessingException {
 		// Test with available voice options (currently limited to 'tongtong' as of
 		// 2025-01-14)
 		String[] voices = { "tongtong" };
@@ -294,7 +292,7 @@ public class AudioServiceTest {
 				.requestId(requestId)
 				.build();
 
-			AudioSpeechApiResponse response = audioService.createSpeech(request);
+			AudioSpeechResponse response = audioService.createSpeech(request);
 
 			assertNotNull(response, "Speech response should not be null for voice: " + voice);
 			logger.info("Voice {} response: {}", voice, mapper.writeValueAsString(response));
@@ -302,23 +300,23 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Test Transcription with Different Audio Formats")
+	@DisplayName("Should transcribe different audio formats successfully")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testTranscriptionWithDifferentFormats() throws JsonProcessingException {
+	void shouldTranscribeDifferentAudioFormatsSuccessfully() throws JsonProcessingException {
 		String[] audioFiles = { "asr.wav", "asr.webm" };
 
 		for (String audioFile : audioFiles) {
 			String requestId = String.format(REQUEST_ID_TEMPLATE + "-%s", System.currentTimeMillis(), audioFile);
 			File file = new File("src/test/resources/" + audioFile);
 
-			AudioTranscriptionsRequest request = AudioTranscriptionsRequest.builder()
+			AudioTranscriptionRequest request = AudioTranscriptionRequest.builder()
 				.model(Constants.ModelGLMASR)
 				.file(file)
 				.stream(false)
 				.requestId(requestId)
 				.build();
 
-			ChatCompletionResponse response = audioService.createTranscription(request);
+			AudioTranscriptionResponse response = audioService.createTranscription(request);
 
 			assertNotNull(response, "Transcription response should not be null for file: " + audioFile);
 			logger.info("Audio file {} transcription response: {}", audioFile, mapper.writeValueAsString(response));

@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Request parameters for audio customization API calls. This class contains all the

@@ -66,11 +66,13 @@ public class ZaiConfig {
 	/**
 	 * JWT token expiration time in milliseconds (default: 30 minutes).
 	 */
+	@Builder.Default
 	private int expireMillis = 30 * 60 * 1000;
 
 	/**
 	 * JWT encryption algorithm (default: HS256).
 	 */
+	@Builder.Default
 	private String alg = "HS256";
 
 	/**
@@ -81,46 +83,55 @@ public class ZaiConfig {
 	/**
 	 * Maximum number of idle connections in the connection pool.
 	 */
+	@Builder.Default
 	private int connectionPoolMaxIdleConnections = 5;
 
 	/**
 	 * Keep alive duration for connections in the pool (in seconds).
 	 */
+	@Builder.Default
 	private long connectionPoolKeepAliveDuration = 1;
 
 	/**
 	 * Time unit for connection pool keep alive duration.
 	 */
+	@Builder.Default
 	private TimeUnit connectionPoolTimeUnit = TimeUnit.SECONDS;
 
 	/**
 	 * Request timeout in specified time unit.
 	 */
+	@Builder.Default
 	private int requestTimeOut = 300;
 
 	/**
 	 * Connection timeout in specified time unit.
 	 */
+	@Builder.Default
 	private int connectTimeout = 100;
 
 	/**
 	 * Read timeout in specified time unit.
 	 */
+	@Builder.Default
 	private int readTimeout = 100;
 
 	/**
 	 * Write timeout in specified time unit.
 	 */
+	@Builder.Default
 	private int writeTimeout = 100;
 
 	/**
 	 * Time unit for timeout configurations.
 	 */
+	@Builder.Default
 	private TimeUnit timeOutTimeUnit = TimeUnit.SECONDS;
 
 	/**
 	 * Source channel identifier for request tracking.
 	 */
+	@Builder.Default
 	private String source_channel = "java-sdk";
 
 	/**

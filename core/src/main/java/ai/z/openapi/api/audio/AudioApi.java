@@ -1,7 +1,7 @@
 package ai.z.openapi.api.audio;
 
 import ai.z.openapi.service.audio.AudioSpeechRequest;
-import ai.z.openapi.service.model.ModelData;
+import ai.z.openapi.service.audio.AudioTranscriptionResult;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -70,7 +70,7 @@ public interface AudioApi {
 	@Streaming
 	@POST("audio/transcriptions")
 	@Multipart
-	Call<ResponseBody> audioTranscriptionsStream(@PartMap Map<String, RequestBody> request,
+	Call<ResponseBody> audioTranscriptionStream(@PartMap Map<String, RequestBody> request,
 			@Part MultipartBody.Part file);
 
 	/**
@@ -87,6 +87,7 @@ public interface AudioApi {
 	 */
 	@POST("audio/transcriptions")
 	@Multipart
-	Single<ModelData> audioTranscriptions(@PartMap Map<String, RequestBody> request, @Part MultipartBody.Part file);
+	Single<AudioTranscriptionResult> audioTranscription(@PartMap Map<String, RequestBody> request,
+			@Part MultipartBody.Part file);
 
 }
