@@ -21,10 +21,6 @@ import ai.z.openapi.service.web_search.WebSearchService;
 import ai.z.openapi.service.web_search.WebSearchServiceImpl;
 import ai.z.openapi.service.videos.VideosService;
 import ai.z.openapi.service.videos.VideosServiceImpl;
-import ai.z.openapi.service.knowledge.KnowledgeService;
-import ai.z.openapi.service.knowledge.KnowledgeServiceImpl;
-import ai.z.openapi.service.document.DocumentService;
-import ai.z.openapi.service.document.DocumentServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
 import ai.z.openapi.service.assistant.AssistantServiceImpl;
 import ai.z.openapi.core.config.ZaiConfig;
@@ -115,12 +111,6 @@ public class ZaiClient extends AbstractClientBaseService {
 
 	/** Videos service for video processing */
 	private VideosService videosService;
-
-	/** Knowledge service for knowledge base operations */
-	private KnowledgeService knowledgeService;
-
-	/** Document service for document processing */
-	private DocumentService documentService;
 
 	/** Assistant service for AI assistant functionality */
 	private AssistantService assistantService;
@@ -251,30 +241,6 @@ public class ZaiClient extends AbstractClientBaseService {
 			this.videosService = new VideosServiceImpl(this);
 		}
 		return videosService;
-	}
-
-	/**
-	 * Returns the knowledge service for knowledge base operations. This service manages
-	 * knowledge bases and retrieval operations.
-	 * @return the KnowledgeService instance (lazily initialized)
-	 */
-	public synchronized KnowledgeService knowledge() {
-		if (knowledgeService == null) {
-			this.knowledgeService = new KnowledgeServiceImpl(this);
-		}
-		return knowledgeService;
-	}
-
-	/**
-	 * Returns the document service for document processing. This service handles document
-	 * parsing, analysis, and manipulation.
-	 * @return the DocumentService instance (lazily initialized)
-	 */
-	public synchronized DocumentService documents() {
-		if (documentService == null) {
-			this.documentService = new DocumentServiceImpl(this);
-		}
-		return documentService;
 	}
 
 	/**
