@@ -17,8 +17,6 @@ import ai.z.openapi.service.image.ImageService;
 import ai.z.openapi.service.image.ImageServiceImpl;
 import ai.z.openapi.service.batches.BatchService;
 import ai.z.openapi.service.batches.BatchServiceImpl;
-import ai.z.openapi.service.fine_turning.FineTuningService;
-import ai.z.openapi.service.fine_turning.FineTuningServiceImpl;
 import ai.z.openapi.service.web_search.WebSearchService;
 import ai.z.openapi.service.web_search.WebSearchServiceImpl;
 import ai.z.openapi.service.videos.VideosService;
@@ -111,9 +109,6 @@ public class ZaiClient extends AbstractClientBaseService {
 
 	/** Batch service for batch processing operations */
 	private BatchService batchService;
-
-	/** Fine-tuning service for model customization */
-	private FineTuningService fineTuningService;
 
 	/** Web search service for internet search capabilities */
 	private WebSearchService webSearchService;
@@ -232,18 +227,6 @@ public class ZaiClient extends AbstractClientBaseService {
 			this.batchService = new BatchServiceImpl(this);
 		}
 		return batchService;
-	}
-
-	/**
-	 * Returns the fine-tuning service for model customization. This service handles
-	 * training custom models on user data.
-	 * @return the FineTuningService instance (lazily initialized)
-	 */
-	public synchronized FineTuningService fineTuning() {
-		if (fineTuningService == null) {
-			this.fineTuningService = new FineTuningServiceImpl(this);
-		}
-		return fineTuningService;
 	}
 
 	/**
