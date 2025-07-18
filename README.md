@@ -317,7 +317,6 @@ The ZaiClient provides access to comprehensive AI services:
 | **Assistants** | AI assistant management | Create, configure, and manage assistants |
 | **Agents** | Agent-based completions | Specialized agent interactions |
 | **Knowledge** | Knowledge base operations | Document indexing and retrieval |
-| **Fine-tuning** | Model customization | Train custom models |
 | **Batch** | Batch processing | Bulk operations |
 | **Web Search** | Web search integration | Real-time web information |
 | **Videos** | Video processing | Video analysis and generation |
