@@ -1,5 +1,6 @@
 package ai.z.openapi.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Usage {
 
 	/**
@@ -37,5 +39,11 @@ public class Usage {
 	 */
 	@JsonProperty("total_calls")
 	private int totalCalls;
+
+	@JsonProperty("prompt_tokens_details")
+	private PromptTokensDetails promptTokensDetails;
+
+	@JsonProperty("completion_tokens_details")
+	private CompletionTokensDetails completionTokensDetails;
 
 }
