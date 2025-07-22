@@ -19,13 +19,11 @@ public class ImageGenerationExample {
             .model(Constants.ModelCogView3Plus)
             .prompt("A beautiful sunset over mountains, digital art style")
             .size("1024x1024")
-            .quality("standard")
-            .n(1)
             .build();
         
         try {
             // Execute request
-            ImageResponse response = client.images().generate(request);
+            ImageResponse response = client.images().createImage(request);
             
             if (response.isSuccess()) {
                 System.out.println("Successfully generated image:");

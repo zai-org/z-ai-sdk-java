@@ -23,7 +23,7 @@ public class EmbeddingsExample {
         
         try {
             // Execute request
-            EmbeddingResponse response = client.embeddings().create(request);
+            EmbeddingResponse response = client.embeddings().createEmbeddings(request);
             
             if (response.isSuccess()) {
                 System.out.println("Successfully generated embeddings:");

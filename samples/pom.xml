@@ -12,7 +12,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>ai.z</groupId>
+            <groupId>ai.z.openapi</groupId>
             <artifactId>zai-sdk</artifactId>
             <version>${revision}</version>
         </dependency>

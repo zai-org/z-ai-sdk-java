@@ -28,7 +28,7 @@ Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包�
 
 ```xml
 <dependency>
-    <groupId>ai.z</groupId>
+    <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
     <version>0.0.1</version>
 </dependency>

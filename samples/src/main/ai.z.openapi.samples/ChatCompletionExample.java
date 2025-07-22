@@ -14,7 +14,7 @@ public class ChatCompletionExample {
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
-        ZaiClient client = ZaiClient.builder().build();
+        ZaiClient client = ZaiClient.builder().ofZHIPU().build();
         
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
@@ -40,7 +40,7 @@ public class ChatCompletionExample {
             ChatCompletionResponse response = client.chat().createChatCompletion(request);
             
             if (response.isSuccess()) {
-                String content = response.getData().getChoices().get(0).getMessage().getContent();
+                Object content = response.getData().getChoices().get(0).getMessage().getContent();
                 System.out.println("Response: " + content);
             } else {
                 System.err.println("Error: " + response.getMsg());
