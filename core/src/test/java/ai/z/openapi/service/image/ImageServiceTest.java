@@ -79,7 +79,7 @@ public class ImageServiceTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { Constants.ModelCogView3Plus, Constants.ModelCogView })
+	@ValueSource(strings = { Constants.ModelCogView3Plus, Constants.ModelCogView3 })
 	@DisplayName("Test Different Image Models")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testDifferentImageModels(String model) throws JsonProcessingException {

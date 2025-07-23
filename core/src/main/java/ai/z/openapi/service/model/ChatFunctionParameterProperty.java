@@ -1,22 +1,23 @@
 package ai.z.openapi.service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ChatFunctionParameters {
+@NoArgsConstructor
+public class ChatFunctionParameterProperty {
 
 	private String type;
 
-	private Map<String, ChatFunctionParameterProperty> properties;
+	private String description;
 
-	private List<String> required;
+	@JsonProperty("enum")
+	private List<String> enums;
 }

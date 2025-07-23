@@ -198,7 +198,7 @@ public final class Constants {
 	/**
 	 * CogView-3 standard model - Standard image generation model.
 	 */
-	public static final String ModelCogView = "cogview-3";
+	public static final String ModelCogView3 = "cogview-3";
 
 	/**
 	 * CogView-3 Flash model - Free image generation model.
