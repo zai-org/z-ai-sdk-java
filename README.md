@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>ai.z</groupId>
+    <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
     <version>0.0.1</version>
 </dependency>

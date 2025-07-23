@@ -1,0 +1,63 @@
+package ai.z.openapi.samples;
+
+import ai.z.openapi.ZaiClient;
+import ai.z.openapi.service.model.*;
+import ai.z.openapi.core.Constants;
+import java.util.Arrays;
+
+/**
+ * Streaming Chat Example
+ * Demonstrates how to use ZaiClient for streaming chat conversations
+ */
+public class StreamingChatExample {
+    
+    public static void main(String[] args) {
+        // Create client
+        ZaiClient client = ZaiClient.builder().build();
+        
+        // Create chat request
+        ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()
+            .model(Constants.ModelChatGLM4)
+            .messages(Arrays.asList(
+                ChatMessage.builder()
+                    .role(ChatMessageRole.USER.value())
+                    .content("Tell me a story")
+                    .build()
+            ))
+            .stream(true) // 启用流式响应
+            .build();
+        
+        try {
+            // Execute streaming request
+            ChatCompletionResponse response = client.chat().createChatCompletion(streamRequest);
+            
+            if (response.isSuccess() && response.getFlowable() != null) {
+                System.out.println("Starting streaming response...");
+                response.getFlowable().subscribe(
+                    data -> {
+                        // Process each streaming response chunk
+                        if (data.getChoices() != null && !data.getChoices().isEmpty()) {
+                            // Get content of current chunk
+                            String content = data.getChoices().get(0).getDelta().getContent();
+                            if (content != null) {
+                                // Print current chunk content
+                                System.out.print(content);
+                            }
+                        }
+                    },
+                    error -> System.err.println("\nStream error: " + error.getMessage()),
+                    // Process streaming response completion event
+                    () -> System.out.println("\nStreaming response completed")
+                );
+                
+                // Wait for streaming response to complete
+                Thread.sleep(10000); // Wait for 10 seconds
+            } else {
+                System.err.println("Error: " + response.getMsg());
+            }
+        } catch (Exception e) {
+            System.err.println("Exception occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
