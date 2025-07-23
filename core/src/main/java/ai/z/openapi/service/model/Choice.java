@@ -1,10 +1,13 @@
 package ai.z.openapi.service.model;
 
+import ai.z.openapi.service.agents.AgentMessage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +23,12 @@ public class Choice {
 
 	@JsonProperty("message")
 	private ChatMessage message;
+
+	/**
+	 * for agent message
+	 */
+	@JsonProperty("messages")
+	private List<AgentMessage> messages;
 
 	@JsonProperty("delta")
 	private Delta delta;

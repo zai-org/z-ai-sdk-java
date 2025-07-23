@@ -68,9 +68,9 @@ public class AgentServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testSyncAgentCompletion() throws JsonProcessingException {
 		// Prepare test data
-		List<ChatMessage> messages = new ArrayList<>();
-		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(),
-				"Hello, please translate this to Chinese: How are you?");
+		List<AgentMessage> messages = new ArrayList<>();
+		AgentMessage userMessage = new AgentMessage(ChatMessageRole.USER.value(),
+				AgentContent.ofText("Hello, please translate this to Chinese: How are you?"));
 		messages.add(userMessage);
 
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
@@ -101,9 +101,9 @@ public class AgentServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testStreamAgentCompletion() throws JsonProcessingException {
 		// Prepare test data
-		List<ChatMessage> messages = new ArrayList<>();
-		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(),
-				"Please translate this to Chinese: The weather is beautiful today");
+		List<AgentMessage> messages = new ArrayList<>();
+		AgentMessage userMessage = new AgentMessage(ChatMessageRole.USER.value(),
+				AgentContent.ofText("Please translate this to Chinese: The weather is beautiful today"));
 		messages.add(userMessage);
 
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
@@ -207,8 +207,8 @@ public class AgentServiceTest {
 	@Test
 	@DisplayName("Test Parameter Validation - Null Agent ID")
 	void testValidation_NullAgentId() {
-		List<ChatMessage> messages = new ArrayList<>();
-		messages.add(new ChatMessage(ChatMessageRole.USER.value(), "Test message"));
+		List<AgentMessage> messages = new ArrayList<>();
+		messages.add(new AgentMessage(ChatMessageRole.USER.value(), "Test message"));
 
 		AgentsCompletionRequest request = AgentsCompletionRequest.builder().messages(messages).build();
 
@@ -231,14 +231,16 @@ public class AgentServiceTest {
 	@DisplayName("Test Multi-turn Conversation with Agent")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testMultiTurnConversationWithAgent() throws JsonProcessingException {
-		List<ChatMessage> messages = new ArrayList<>();
+		List<AgentMessage> messages = new ArrayList<>();
 
 		// First round of conversation
-		messages.add(new ChatMessage(ChatMessageRole.USER.value(), "Please translate 'Hello' to Chinese"));
-		messages.add(new ChatMessage(ChatMessageRole.ASSISTANT.value(), "你好"));
+		messages.add(new AgentMessage(ChatMessageRole.USER.value(),
+				AgentContent.ofText("Please translate 'Hello' to Chinese")));
+		messages.add(new AgentMessage(ChatMessageRole.ASSISTANT.value(), AgentContent.ofText("你好")));
 
 		// Second round of conversation
-		messages.add(new ChatMessage(ChatMessageRole.USER.value(), "Now translate 'Thank you' to Chinese"));
+		messages.add(new AgentMessage(ChatMessageRole.USER.value(),
+				AgentContent.ofText("Now translate 'Thank you' to Chinese")));
 
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
@@ -264,8 +266,9 @@ public class AgentServiceTest {
 	@DisplayName("Test Agent Completion with Custom Variables")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testAgentCompletionWithCustomVariables() throws JsonProcessingException {
-		List<ChatMessage> messages = new ArrayList<>();
-		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Translate this text");
+		List<AgentMessage> messages = new ArrayList<>();
+		AgentMessage userMessage = new AgentMessage(ChatMessageRole.USER.value(),
+				AgentContent.ofText("Translate this text"));
 		messages.add(userMessage);
 
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
