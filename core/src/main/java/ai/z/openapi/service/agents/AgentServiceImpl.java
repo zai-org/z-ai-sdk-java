@@ -9,6 +9,8 @@ import ai.z.openapi.utils.RequestSupplier;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 
+import java.util.Objects;
+
 /**
  * Agent completion service implementation
  */
@@ -26,7 +28,7 @@ public class AgentServiceImpl implements AgentService {
 	@Override
 	public ChatCompletionResponse createAgentCompletion(AgentsCompletionRequest request) {
 		validateParams(request);
-		if (request.getStream()) {
+		if (Objects.nonNull(request.getStream()) && request.getStream()) {
 			return streamAgentCompletion(request);
 		}
 		else {
