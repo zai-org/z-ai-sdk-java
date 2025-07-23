@@ -21,14 +21,8 @@ public class CogVideoXExample {
         //         .apiKey("your.api.key.your.api.secret")
         //         .build();
         
-        // Example 1: Basic Video Generation
+        // Basic Video Generation
         generateBasicVideo(client);
-        
-        // Example 2: Video Generation with Custom Settings
-        generateCustomVideo(client);
-        
-        // Example 3: Check Video Generation Result
-        checkVideoResult(client);
     }
     
     /**
@@ -50,42 +44,6 @@ public class CogVideoXExample {
             
             if (response.isSuccess()) {
                 System.out.println("Video generation request successful!");
-                System.out.println("Task ID: " + response.getData().getId());
-                System.out.println("\nNote: Video generation is an asynchronous process.");
-                System.out.println("Use the Task ID to check the status and retrieve the result later.");
-            } else {
-                System.err.println("Error: " + response.getMsg());
-            }
-        } catch (Exception e) {
-            System.err.println("Exception occurred: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
-    /**
-     * Example of video generation with custom settings
-     */
-    private static void generateCustomVideo(ZaiClient client) {
-        System.out.println("\n=== Custom CogVideoX Generation Example ===");
-        
-        // Create video generation request with custom settings
-        VideoCreateParams request = VideoCreateParams.builder()
-            .model(Constants.ModelCogVideoX2) // Using CogVideoX-2 model
-            .prompt("A futuristic city with flying cars and neon lights")
-            .requestId("cogvideox-custom-example-" + System.currentTimeMillis())
-            .quality("high") // High quality setting
-            .withAudio(true) // Generate with audio
-            .size("1280x720") // Custom resolution
-            .duration(10) // 10 seconds duration
-            .fps(30) // 30 frames per second
-            .build();
-        
-        try {
-            // Execute request
-            VideosResponse response = client.videos().videoGenerations(request);
-            
-            if (response.isSuccess()) {
-                System.out.println("Custom video generation request successful!");
                 System.out.println("Task ID: " + response.getData().getId());
                 System.out.println("\nNote: Video generation is an asynchronous process.");
                 System.out.println("Use the Task ID to check the status and retrieve the result later.");

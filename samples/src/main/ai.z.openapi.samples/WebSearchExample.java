@@ -33,12 +33,6 @@ public class WebSearchExample {
         
         // Example 1: Basic Web Search
         basicWebSearch(client);
-        
-        // Example 2: Web Search Pro (Non-streaming)
-        webSearchPro(client);
-        
-        // Example 3: Web Search Pro with Streaming
-        webSearchProStream(client);
     }
     
     /**

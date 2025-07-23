@@ -23,12 +23,6 @@ public class ViduTextToVideoExample {
         
         // Example: Generate video from text using Vidu
         generateVideoFromText(client);
-        
-        // Example: Generate video from text with custom settings
-        generateVideoFromTextWithCustomSettings(client);
-        
-        // Example: Check video generation result
-        checkVideoResult(client);
     }
     
     /**

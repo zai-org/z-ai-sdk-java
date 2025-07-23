@@ -26,11 +26,8 @@ public class ViduImageToVideoExample {
         //         .apiKey("your.api.key.your.api.secret")
         //         .build();
         
-        // Example: Generate video from image using Vidu
+        // Generate video from image using Vidu
         generateVideoFromImage(client);
-        
-        // Example: Check video generation result
-        checkVideoResult(client);
     }
     
     /**
