@@ -19,6 +19,18 @@ import lombok.NoArgsConstructor;
 public class CodeInterpreterToolBlock extends ToolsType {
 
 	/**
+	 * The index of the tool call.
+	 */
+	@JsonProperty("index")
+	private Integer index;
+
+	/**
+	 * The unique identifier of the tool call.
+	 */
+	@JsonProperty("id")
+	private String id;
+
+	/**
 	 * The code interpreter object.
 	 */
 	@JsonProperty("code_interpreter")
@@ -28,6 +40,7 @@ public class CodeInterpreterToolBlock extends ToolsType {
 	 * The type of tool being called, always "code_interpreter".
 	 */
 	@JsonProperty("type")
+	@Builder.Default
 	private String type = "code_interpreter";
 
 }

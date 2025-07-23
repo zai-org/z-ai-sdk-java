@@ -24,6 +24,12 @@ public class ToolsDeltaBlock extends MessageContent {
 	@JsonProperty("role")
 	private String role = "tool";
 
+	/**
+	 * Default constructor.
+	 */
+	public ToolsDeltaBlock() {
+	}
+
 	// Getters and Setters
 
 	public List<ToolsType> getToolCalls() {
