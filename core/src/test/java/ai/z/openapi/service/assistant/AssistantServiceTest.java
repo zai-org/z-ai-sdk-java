@@ -66,36 +66,37 @@ public class AssistantServiceTest {
 	// @DisplayName("Test Synchronous Assistant Completion - Basic Functionality")
 	// @EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	// void testSyncAssistantCompletion() throws JsonProcessingException {
-	// 	// Prepare test data
-	// 	MessageTextContent textContent = MessageTextContent.builder()
-	// 		.text("Hello, please introduce yourself")
-	// 		.type("text")
-	// 		.build();
+	// // Prepare test data
+	// MessageTextContent textContent = MessageTextContent.builder()
+	// .text("Hello, please introduce yourself")
+	// .type("text")
+	// .build();
 
-	// 	ConversationMessage message = ConversationMessage.builder()
-	// 		.role("user")
-	// 		.content(Collections.singletonList(textContent))
-	// 		.build();
+	// ConversationMessage message = ConversationMessage.builder()
+	// .role("user")
+	// .content(Collections.singletonList(textContent))
+	// .build();
 
-	// 	String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+	// String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
-	// 	AssistantParameters request = AssistantParameters.builder()
-	// 		.model(Constants.ModelChatGLM4Assistant)
-	// 		.assistantId(TEST_ASSISTANT_ID)
-	// 		.stream(false)
-	// 		.messages(Collections.singletonList(message))
-	// 		.requestId(requestId)
-	// 		.build();
+	// AssistantParameters request = AssistantParameters.builder()
+	// .model(Constants.ModelChatGLM4Assistant)
+	// .assistantId(TEST_ASSISTANT_ID)
+	// .stream(false)
+	// .messages(Collections.singletonList(message))
+	// .requestId(requestId)
+	// .build();
 
-	// 	// Execute test
-	// 	AssistantApiResponse response = assistantService.assistantCompletion(request);
+	// // Execute test
+	// AssistantApiResponse response = assistantService.assistantCompletion(request);
 
-	// 	// Verify results
-	// 	assertNotNull(response, "Response should not be null");
-	// 	assertTrue(response.isSuccess(), "Response should be successful");
-	// 	assertNotNull(response.getData(), "Response data should not be null");
-	// 	assertNull(response.getError(), "Response error should be null");
-	// 	logger.info("Synchronous assistant completion response: {}", mapper.writeValueAsString(response));
+	// // Verify results
+	// assertNotNull(response, "Response should not be null");
+	// assertTrue(response.isSuccess(), "Response should be successful");
+	// assertNotNull(response.getData(), "Response data should not be null");
+	// assertNull(response.getError(), "Response error should be null");
+	// logger.info("Synchronous assistant completion response: {}",
+	// mapper.writeValueAsString(response));
 	// }
 
 	@Test
