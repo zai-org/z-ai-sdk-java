@@ -182,6 +182,11 @@ public final class Constants {
 	public static final String ModelChatGLM4VPlus0111 = "glm-4v-plus-0111";
 
 	/**
+	 * GLM-4.1V-Thinking-FlashX Variable resolution video and image understanding.
+	 */
+	public static final String ModelChatGLM4ThinkingFlashX = "glm-4.1v-thinking-flashx";
+
+	/**
 	 * GLM-4V Flash model - Free and powerful image understanding model.
 	 */
 	public static final String ModelChatGLM4VFlash = "glm-4v-flash";
