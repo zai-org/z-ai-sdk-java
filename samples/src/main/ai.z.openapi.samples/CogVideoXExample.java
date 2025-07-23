@@ -1,0 +1,131 @@
+package ai.z.openapi.samples;
+
+import ai.z.openapi.ZaiClient;
+import ai.z.openapi.core.Constants;
+import ai.z.openapi.service.videos.VideoCreateParams;
+import ai.z.openapi.service.videos.VideosResponse;
+
+/**
+ * CogVideoX Example
+ * Demonstrates how to use ZaiClient to generate videos using CogVideoX models
+ */
+public class CogVideoXExample {
+    
+    public static void main(String[] args) {
+        // Create client, recommended to set API Key via environment variable
+        // export ZAI_API_KEY=your.api.key
+        ZaiClient client = ZaiClient.builder().build();
+        
+        // Or set API Key via code
+        // ZaiClient client = ZaiClient.builder()
+        //         .apiKey("your.api.key.your.api.secret")
+        //         .build();
+        
+        // Example 1: Basic Video Generation
+        generateBasicVideo(client);
+        
+        // Example 2: Video Generation with Custom Settings
+        generateCustomVideo(client);
+        
+        // Example 3: Check Video Generation Result
+        checkVideoResult(client);
+    }
+    
+    /**
+     * Example of basic video generation using CogVideoX
+     */
+    private static void generateBasicVideo(ZaiClient client) {
+        System.out.println("\n=== Basic CogVideoX Generation Example ===");
+        
+        // Create video generation request
+        VideoCreateParams request = VideoCreateParams.builder()
+            .model(Constants.ModelCogVideoX) // Using CogVideoX model
+            .prompt("A beautiful sunset over the ocean with waves gently crashing on the shore")
+            .requestId("cogvideox-example-" + System.currentTimeMillis())
+            .build();
+        
+        try {
+            // Execute request
+            VideosResponse response = client.videos().videoGenerations(request);
+            
+            if (response.isSuccess()) {
+                System.out.println("Video generation request successful!");
+                System.out.println("Task ID: " + response.getData().getId());
+                System.out.println("\nNote: Video generation is an asynchronous process.");
+                System.out.println("Use the Task ID to check the status and retrieve the result later.");
+            } else {
+                System.err.println("Error: " + response.getMsg());
+            }
+        } catch (Exception e) {
+            System.err.println("Exception occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Example of video generation with custom settings
+     */
+    private static void generateCustomVideo(ZaiClient client) {
+        System.out.println("\n=== Custom CogVideoX Generation Example ===");
+        
+        // Create video generation request with custom settings
+        VideoCreateParams request = VideoCreateParams.builder()
+            .model(Constants.ModelCogVideoX2) // Using CogVideoX-2 model
+            .prompt("A futuristic city with flying cars and neon lights")
+            .requestId("cogvideox-custom-example-" + System.currentTimeMillis())
+            .quality("high") // High quality setting
+            .withAudio(true) // Generate with audio
+            .size("1280x720") // Custom resolution
+            .duration(10) // 10 seconds duration
+            .fps(30) // 30 frames per second
+            .build();
+        
+        try {
+            // Execute request
+            VideosResponse response = client.videos().videoGenerations(request);
+            
+            if (response.isSuccess()) {
+                System.out.println("Custom video generation request successful!");
+                System.out.println("Task ID: " + response.getData().getId());
+                System.out.println("\nNote: Video generation is an asynchronous process.");
+                System.out.println("Use the Task ID to check the status and retrieve the result later.");
+            } else {
+                System.err.println("Error: " + response.getMsg());
+            }
+        } catch (Exception e) {
+            System.err.println("Exception occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Example of checking video generation result
+     * Note: You need to replace the taskId with a real task ID from a previous generation request
+     */
+    private static void checkVideoResult(ZaiClient client) {
+        System.out.println("\n=== Check Video Generation Result Example ===");
+        
+        // Replace with a real task ID from a previous generation request
+        String taskId = "your-task-id-here";
+        
+        System.out.println("Checking result for task ID: " + taskId);
+        System.out.println("Note: In a real application, replace 'your-task-id-here' with an actual task ID.");
+        
+        try {
+            // Skip the actual API call in this example to avoid errors with a fake task ID
+            if (!taskId.equals("your-task-id-here")) {
+                // Execute request to check result
+                VideosResponse response = client.videos().videoGenerationsResult(taskId);
+                
+                if (response.isSuccess()) {
+                    System.out.println("Video generation: " + response.getData());
+                } else {
+                    System.err.println("Error: " + response.getMsg());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
