@@ -19,6 +19,18 @@ import lombok.NoArgsConstructor;
 public class FunctionToolBlock extends ToolsType {
 
 	/**
+	 * The index of the tool call.
+	 */
+	@JsonProperty("index")
+	private Integer index;
+
+	/**
+	 * The unique identifier of the tool call.
+	 */
+	@JsonProperty("id")
+	private String id;
+
+	/**
 	 * The function tool object that contains the name, arguments, and outputs.
 	 */
 	@JsonProperty("function")
@@ -28,6 +40,7 @@ public class FunctionToolBlock extends ToolsType {
 	 * The type of tool being called, always "function".
 	 */
 	@JsonProperty("type")
+	@Builder.Default
 	private String type = "function";
 
 }

@@ -19,6 +19,18 @@ import lombok.NoArgsConstructor;
 public class DrawingToolBlock extends ToolsType {
 
 	/**
+	 * The index of the tool call.
+	 */
+	@JsonProperty("index")
+	private Integer index;
+
+	/**
+	 * The unique identifier of the tool call.
+	 */
+	@JsonProperty("id")
+	private String id;
+
+	/**
 	 * The drawing tool object that contains input and outputs.
 	 */
 	@JsonProperty("drawing_tool")
@@ -28,6 +40,7 @@ public class DrawingToolBlock extends ToolsType {
 	 * The type of tool being called, always "drawing_tool".
 	 */
 	@JsonProperty("type")
+	@Builder.Default
 	private String type = "drawing_tool";
 
 }

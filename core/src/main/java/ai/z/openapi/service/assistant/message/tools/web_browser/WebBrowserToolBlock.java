@@ -19,6 +19,18 @@ import lombok.NoArgsConstructor;
 public class WebBrowserToolBlock extends ToolsType {
 
 	/**
+	 * The index of the tool call.
+	 */
+	@JsonProperty("index")
+	private Integer index;
+
+	/**
+	 * The unique identifier of the tool call.
+	 */
+	@JsonProperty("id")
+	private String id;
+
+	/**
 	 * An instance of the WebBrowser class containing the search input and outputs.
 	 */
 	@JsonProperty("web_browser")
@@ -28,6 +40,7 @@ public class WebBrowserToolBlock extends ToolsType {
 	 * The type of tool being used, always set to "web_browser".
 	 */
 	@JsonProperty("type")
+	@Builder.Default
 	private String type = "web_browser";
 
 }
