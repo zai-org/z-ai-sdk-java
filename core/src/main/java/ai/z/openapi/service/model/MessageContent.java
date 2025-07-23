@@ -27,4 +27,5 @@ public class MessageContent {
 	/** 消息视频URL when type is video_url */
 	@JsonProperty("input_audio")
 	private InputAudio inputAudio;
+
 }

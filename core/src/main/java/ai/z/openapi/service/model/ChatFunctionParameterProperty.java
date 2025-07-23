@@ -20,4 +20,5 @@ public class ChatFunctionParameterProperty {
 
 	@JsonProperty("enum")
 	private List<String> enums;
+
 }

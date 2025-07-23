@@ -19,4 +19,5 @@ public class ChatFunctionParameters {
 	private Map<String, ChatFunctionParameterProperty> properties;
 
 	private List<String> required;
+
 }

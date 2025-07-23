@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ImageUrl {
 
-    private String url;
+	private String url;
+
 }

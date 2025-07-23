@@ -231,12 +231,16 @@ public class ChatServiceTest {
 		parameters.setType("object");
 
 		Map<String, ChatFunctionParameterProperty> properties = new HashMap<>();
-		ChatFunctionParameterProperty locationProperty = ChatFunctionParameterProperty
-				.builder().type("string").description("City name, for example: Beijing").build();
+		ChatFunctionParameterProperty locationProperty = ChatFunctionParameterProperty.builder()
+			.type("string")
+			.description("City name, for example: Beijing")
+			.build();
 		properties.put("location", locationProperty);
 
-		ChatFunctionParameterProperty unitProperty = ChatFunctionParameterProperty
-				.builder().type("string").enums(Arrays.asList("celsius", "fahrenheit")).build();
+		ChatFunctionParameterProperty unitProperty = ChatFunctionParameterProperty.builder()
+			.type("string")
+			.enums(Arrays.asList("celsius", "fahrenheit"))
+			.build();
 		properties.put("unit", unitProperty);
 
 		parameters.setProperties(properties);

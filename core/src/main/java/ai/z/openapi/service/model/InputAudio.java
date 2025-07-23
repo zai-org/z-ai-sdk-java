@@ -11,13 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class InputAudio {
 
-    /**
-     * audio data base64_string
-     */
-    private String data;
+	/**
+	 * audio data base64_string
+	 */
+	private String data;
 
-    /**
-     * wav
-     */
-    private String format;
+	/**
+	 * wav
+	 */
+	private String format;
+
 }
