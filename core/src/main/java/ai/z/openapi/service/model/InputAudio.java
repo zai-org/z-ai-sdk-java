@@ -9,6 +9,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VideoUrl {
-    private String url;
+public class InputAudio {
+
+    /**
+     * audio data base64_string
+     */
+    private String data;
+
+    /**
+     * wav
+     */
+    private String format;
 }
