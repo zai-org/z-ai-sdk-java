@@ -1,7 +1,6 @@
 package ai.z.openapi.service.assistant;
 
 import ai.z.openapi.ZaiClient;
-import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.assistant.conversation.ConversationParameters;
 import ai.z.openapi.service.assistant.conversation.ConversationUsageListResponse;
@@ -62,41 +61,42 @@ public class AssistantServiceTest {
 				"AssistantService should be an instance of AssistantServiceImpl");
 	}
 
-	@Test
-	@DisplayName("Test Synchronous Assistant Completion - Basic Functionality")
-	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testSyncAssistantCompletion() throws JsonProcessingException {
-		// Prepare test data
-		MessageTextContent textContent = MessageTextContent.builder()
-			.text("Hello, please introduce yourself")
-			.type("text")
-			.build();
+	// As of 2025-07-23, no models support synchronous completion
+	// @Test
+	// @DisplayName("Test Synchronous Assistant Completion - Basic Functionality")
+	// @EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	// void testSyncAssistantCompletion() throws JsonProcessingException {
+	// 	// Prepare test data
+	// 	MessageTextContent textContent = MessageTextContent.builder()
+	// 		.text("Hello, please introduce yourself")
+	// 		.type("text")
+	// 		.build();
 
-		ConversationMessage message = ConversationMessage.builder()
-			.role("user")
-			.content(Collections.singletonList(textContent))
-			.build();
+	// 	ConversationMessage message = ConversationMessage.builder()
+	// 		.role("user")
+	// 		.content(Collections.singletonList(textContent))
+	// 		.build();
 
-		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+	// 	String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
-		AssistantParameters request = AssistantParameters.builder()
-			.model(Constants.ModelChatGLM4Assistant)
-			.assistantId(TEST_ASSISTANT_ID)
-			.stream(false)
-			.messages(Collections.singletonList(message))
-			.requestId(requestId)
-			.build();
+	// 	AssistantParameters request = AssistantParameters.builder()
+	// 		.model(Constants.ModelChatGLM4Assistant)
+	// 		.assistantId(TEST_ASSISTANT_ID)
+	// 		.stream(false)
+	// 		.messages(Collections.singletonList(message))
+	// 		.requestId(requestId)
+	// 		.build();
 
-		// Execute test
-		AssistantApiResponse response = assistantService.assistantCompletion(request);
+	// 	// Execute test
+	// 	AssistantApiResponse response = assistantService.assistantCompletion(request);
 
-		// Verify results
-		assertNotNull(response, "Response should not be null");
-		assertTrue(response.isSuccess(), "Response should be successful");
-		assertNotNull(response.getData(), "Response data should not be null");
-		assertNull(response.getError(), "Response error should be null");
-		logger.info("Synchronous assistant completion response: {}", mapper.writeValueAsString(response));
-	}
+	// 	// Verify results
+	// 	assertNotNull(response, "Response should not be null");
+	// 	assertTrue(response.isSuccess(), "Response should be successful");
+	// 	assertNotNull(response.getData(), "Response data should not be null");
+	// 	assertNull(response.getError(), "Response error should be null");
+	// 	logger.info("Synchronous assistant completion response: {}", mapper.writeValueAsString(response));
+	// }
 
 	@Test
 	@DisplayName("Test Stream Assistant Completion")

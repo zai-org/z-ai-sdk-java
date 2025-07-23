@@ -21,6 +21,12 @@ public class TextContentBlock extends MessageContent {
 	@JsonProperty("role")
 	private String role = "assistant";
 
+	/**
+	 * Default constructor.
+	 */
+	public TextContentBlock() {
+	}
+
 	// Getters and Setters
 
 	public String getContent() {
