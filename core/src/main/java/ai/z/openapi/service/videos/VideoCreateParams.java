@@ -40,7 +40,7 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	 * Image size:
 	 */
 	@JsonProperty("image_url")
-	private String imageUrl;
+	private Object imageUrl;
 
 	/**
 	 * Call specified model to optimize the prompt, recommend using GLM-4-Air and
