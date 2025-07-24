@@ -24,7 +24,7 @@ public class StreamingChatExample {
                     .content("Tell me a story")
                     .build()
             ))
-            .stream(true) // 启用流式响应
+            .stream(true) // Enable streaming response
             .build();
         
         try {

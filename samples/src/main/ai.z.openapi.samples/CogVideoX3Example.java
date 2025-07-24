@@ -34,12 +34,12 @@ public class CogVideoX3Example {
      * Example of text-to-video generation using CogVideoX-3
      */
     private static void textToVideoExample(ZaiClient client) {
-        System.out.println("=== CogVideoX-3 文本生成视频示例 ===");
+        System.out.println("=== CogVideoX-3 Text-to-Video Generation Example ===");
         
         try {
             VideoCreateParams request = VideoCreateParams.builder()
                 .model("cogvideox-3")
-                .prompt("一只可爱的小猫在花园里追逐蝴蝶，阳光明媚，花朵盛开，画面清晰稳定")
+                .prompt("A cute kitten chasing butterflies in a garden, bright sunshine, blooming flowers, clear and stable picture")
                 .quality("quality")  // "quality" for quality priority, "speed" for speed priority
                 .withAudio(true)
                 .size("1920x1080")  // Video resolution, supports up to 4K
@@ -50,14 +50,14 @@ public class CogVideoX3Example {
             
             if (response.isSuccess()) {
                 String taskId = response.getData().getId();
-                System.out.println("视频生成任务已提交，任务ID: " + taskId);
-                System.out.println("请等待视频生成完成...");
+                System.out.println("Video generation task submitted, Task ID: " + taskId);
+                System.out.println("Please wait for video generation to complete...");
                 
                 // Wait and check result
                 Thread.sleep(60000); // Wait 1 minute
                 checkVideoResult(client, taskId);
             } else {
-                System.err.println("错误: " + response.getMsg());
+                System.err.println("Error: " + response.getMsg());
             }
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
@@ -69,13 +69,13 @@ public class CogVideoX3Example {
      * Example of image-to-video generation using CogVideoX-3
      */
     private static void imageToVideoExample(ZaiClient client) {
-        System.out.println("\n=== CogVideoX-3 图像生成视频示例 ===");
+        System.out.println("\n=== CogVideoX-3 Image-to-Video Generation Example ===");
         
         try {
             VideoCreateParams request = VideoCreateParams.builder()
                 .model("cogvideox-3")
                 .imageUrl("https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg")
-                .prompt("让画面动起来，展现自然的动态效果")
+                .prompt("Make the scene come alive, showing natural dynamic effects")
                 .quality("quality")
                 .withAudio(true)
                 .size("1920x1080")
@@ -86,14 +86,14 @@ public class CogVideoX3Example {
             
             if (response.isSuccess()) {
                 String taskId = response.getData().getId();
-                System.out.println("图生视频任务已提交，任务ID: " + taskId);
-                System.out.println("请等待视频生成完成...");
+                System.out.println("Image-to-video task submitted, Task ID: " + taskId);
+                System.out.println("Please wait for video generation to complete...");
                 
                 // Wait and check result
                 Thread.sleep(60000); // Wait 1 minute
                 checkVideoResult(client, taskId);
             } else {
-                System.err.println("错误: " + response.getMsg());
+                System.err.println("Error: " + response.getMsg());
             }
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
@@ -106,7 +106,7 @@ public class CogVideoX3Example {
      * This is a new feature in CogVideoX-3
      */
     private static void firstLastFrameVideoExample(ZaiClient client) {
-        System.out.println("\n=== CogVideoX-3 首尾帧视频生成示例 ===");
+        System.out.println("\n=== CogVideoX-3 First-Last Frame Video Generation Example ===");
         
         try {
             // Define first and last frame URLs
@@ -116,7 +116,7 @@ public class CogVideoX3Example {
             VideoCreateParams request = VideoCreateParams.builder()
                 .model("cogvideox-3")
                 .imageUrl(Arrays.asList(firstFrameUrl, lastFrameUrl))  // Pass first and last frame URLs
-                .prompt("龙王转成敖丙，水墨风晕染，主体转体缓缓变身，突出变身细节，旋转运镜，过渡丝滑、流畅自然")
+                .prompt("Dragon King transforms into Ao Bing, ink wash style rendering, main subject slowly transforms with rotating camera movement, smooth and natural transition")
                 .quality("quality")
                 .withAudio(true)
                 .size("1920x1080")
@@ -127,9 +127,9 @@ public class CogVideoX3Example {
             
             if (response.isSuccess()) {
                 String taskId = response.getData().getId();
-                System.out.println("首尾帧视频生成任务已提交，任务ID: " + taskId);
-                System.out.println("请等待视频生成完成...");
-                System.out.println("Note: 首尾帧生成功能可以创建连贯的转场视频，让静态帧自然衔接为动态叙事。");
+                System.out.println("First-last frame video generation task submitted, Task ID: " + taskId);
+                System.out.println("Please wait for video generation to complete...");
+                System.out.println("Note: First-last frame generation can create coherent transition videos, naturally connecting static frames into dynamic narratives.");
                 
                 // Wait and check result
                 Thread.sleep(60000); // Wait 1 minute
@@ -153,21 +153,21 @@ public class CogVideoX3Example {
                 VideoObject result = response.getData();
                 String status = result.getTaskStatus();
                 
-                System.out.println("任务状态: " + status);
+                System.out.println("Task status: " + status);
                 
                 if ("SUCCESS".equals(status)) {
-                    System.out.println("视频生成成功！");
+                    System.out.println("Video generation successful!");
                     if (result.getVideoResult() != null && !result.getVideoResult().isEmpty()) {
-                        System.out.println("视频URL: " + result.getVideoResult().get(0).getUrl());
+                        System.out.println("Video URL: " + result.getVideoResult().get(0).getUrl());
                     }
                 } else if ("PROCESSING".equals(status)) {
-                    System.out.println("视频仍在生成中，请稍后再次查询...");
+                    System.out.println("Video is still being generated, please check again later...");
                 }
             } else {
-                System.err.println("查询结果错误: " + response.getMsg());
+                System.err.println("Query result error: " + response.getMsg());
             }
         } catch (Exception e) {
-            System.err.println("查询视频结果时发生异常: " + e.getMessage());
+            System.err.println("Exception occurred while querying video result: " + e.getMessage());
             e.printStackTrace();
         }
     }

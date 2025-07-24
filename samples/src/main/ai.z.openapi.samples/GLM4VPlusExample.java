@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class GLM4VPlusExample {
 
     public static void main(String[] args) {
-        String apiKey = ""; // 请填写您自己的APIKey
+        String apiKey = ""; // Please fill in your own API Key
         ZaiClient client = ZaiClient.builder().ofZHIPU()
                 .apiKey(apiKey)
                 .build();
@@ -26,7 +26,7 @@ public class GLM4VPlusExample {
                                 .content(Arrays.asList(
                                         MessageContent.builder()
                                                 .type("text")
-                                                .text("这张图片中有什么？")
+                                                .text("What is in this image?")
                                                 .build(),
                                         MessageContent.builder()
                                                 .type("image_url")
@@ -44,7 +44,7 @@ public class GLM4VPlusExample {
             Object reply = response.getData().getChoices().get(0).getMessage().getContent();
             System.out.println(reply);
         } else {
-            System.err.println("错误: " + response.getMsg());
+            System.err.println("Error: " + response.getMsg());
         }
     }
 }

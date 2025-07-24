@@ -18,7 +18,7 @@ public class EmbeddingsExample {
         // Create embedding request
         EmbeddingCreateParams request = EmbeddingCreateParams.builder()
             .model(Constants.ModelEmbedding3)
-            .input(Arrays.asList("Hello world", "How are you?", "今天天气怎么样？"))
+            .input(Arrays.asList("Hello world", "How are you?", "How is the weather today?"))
             .build();
         
         try {
