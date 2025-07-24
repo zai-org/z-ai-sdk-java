@@ -4,32 +4,25 @@ import ai.z.openapi.ZaiClient;
 import ai.z.openapi.service.agents.AgentContent;
 import ai.z.openapi.service.agents.AgentMessage;
 import ai.z.openapi.service.agents.AgentsCompletionRequest;
-import ai.z.openapi.service.agents.AgentAsyncResultRetrieveParams;
 import ai.z.openapi.service.model.ChatCompletionResponse;
-import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.ChatMessageRole;
-import ai.z.openapi.service.model.Choice;
-import ai.z.openapi.service.model.ModelData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Agent Example
  * Demonstrates how to use ZaiClient for agent-based completions
  */
-public class AgentExample {
+public class AgentVideoExample {
     
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
-        ZaiClient client = ZaiClient.builder().ofZHIPU().build();
+        ZaiClient client = ZaiClient.builder().build();
 
         syncAgentCompletion(client);
     }
@@ -44,16 +37,17 @@ public class AgentExample {
         List<AgentMessage> messages = new ArrayList<>();
         AgentMessage userMessage = new AgentMessage(
             ChatMessageRole.USER.value(),
-                Arrays.asList(AgentContent.ofText("Hello, please translate this to French: How are you today?"))
+                Arrays.asList(AgentContent.ofText("The two figures in the painting gradually approach each other, then kissing passionately, alternating deep and determined intensity")
+                , AgentContent.ofImageUrl("https://img-repo-intl.imdr.cn/dr/sample-182141/xoJteuReBtNCdoMoH.jpg!w1080.jpg"))
         );
         messages.add(userMessage);
         
         // Create agent completion request
         AgentsCompletionRequest request = AgentsCompletionRequest.builder()
-            .agentId("general_translation") // Using translation agent
+            .agentId("vidu_template_agent") // Using translation agent
             .stream(false) // Non-streaming mode
             .messages(messages)
-            .customVariables(JsonNodeFactory.instance.objectNode().put("source_lang", "en").put("target_lang", "cn"))
+            .customVariables(JsonNodeFactory.instance.objectNode().put("template", "french_kiss"))
             .requestId("agent-example-" + System.currentTimeMillis())
             .build();
         
@@ -63,10 +57,7 @@ public class AgentExample {
             
             if (response.isSuccess()) {
                 System.out.println("Agent completion successful!");
-                
-                // Display agent response
-                Object content = response.getData().getChoices().get(0).getMessages();
-                System.out.println("\nResponse: " + new ObjectMapper().writeValueAsString(content));
+                System.out.println("\nResponse: " + new ObjectMapper().writeValueAsString(response.getData()));
             } else {
                 System.err.println("Error: " + response.getMsg());
             }
