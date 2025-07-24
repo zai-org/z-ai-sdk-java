@@ -82,6 +82,12 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	private String size;
 
 	/**
+	 * style anime general
+	 */
+	@JsonProperty("style")
+	private String style;
+
+	/**
 	 * Video duration in seconds
 	 */
 	@JsonProperty("duration")
