@@ -108,4 +108,10 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	@JsonProperty("movement_amplitude")
 	private String movementAmplitude;
 
+	/**
+	 * 16:9 : 16:9、9:16、1:1
+	 */
+	@JsonProperty("aspect_ratio")
+	private String aspectRatio;
+
 }
