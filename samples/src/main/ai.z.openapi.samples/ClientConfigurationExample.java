@@ -21,7 +21,7 @@ public class ClientConfigurationExample {
             .apiKey("your.api.key.your.api.secret")
             .baseUrl("https://api.z.ai/api/paas/v4/")
             .enableTokenCache()
-            .tokenExpire(3600000) // 1小时
+            .tokenExpire(3600000) // 1 hour
             .connectionPool(10, 5, TimeUnit.MINUTES)
             .build();
         System.out.println("✓ Advanced client created successfully");

@@ -41,15 +41,7 @@ public class CogVideoXExample {
         try {
             // Execute request
             VideosResponse response = client.videos().videoGenerations(request);
-            
-            if (response.isSuccess()) {
-                System.out.println("Video generation request successful!");
-                System.out.println("Task ID: " + response.getData().getId());
-                System.out.println("\nNote: Video generation is an asynchronous process.");
-                System.out.println("Use the Task ID to check the status and retrieve the result later.");
-            } else {
-                System.err.println("Error: " + response.getMsg());
-            }
+            System.out.println("Response: " + response.getData());
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
@@ -70,16 +62,13 @@ public class CogVideoXExample {
         System.out.println("Note: In a real application, replace 'your-task-id-here' with an actual task ID.");
         
         try {
-            // Skip the actual API call in this example to avoid errors with a fake task ID
-            if (!taskId.equals("your-task-id-here")) {
-                // Execute request to check result
-                VideosResponse response = client.videos().videoGenerationsResult(taskId);
-                
-                if (response.isSuccess()) {
-                    System.out.println("Video generation: " + response.getData());
-                } else {
-                    System.err.println("Error: " + response.getMsg());
-                }
+            // Execute request to check result
+            VideosResponse response = client.videos().videoGenerationsResult(taskId);
+
+            if (response.isSuccess()) {
+                System.out.println("Video generation: " + response.getData());
+            } else {
+                System.err.println("Error: " + response.getMsg());
             }
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
