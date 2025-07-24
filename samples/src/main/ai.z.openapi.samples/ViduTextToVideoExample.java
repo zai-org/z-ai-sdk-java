@@ -14,7 +14,7 @@ public class ViduTextToVideoExample {
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
-        ZaiClient client = ZaiClient.builder().build();
+        ZaiClient client = ZaiClient.builder().ofZHIPU().apiKey("331bed3423954249b387061f3861cf2a.Jjvlu8WXIEaCjKvj").build();
         
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
@@ -36,21 +36,14 @@ public class ViduTextToVideoExample {
             .model(Constants.ModelViduQ1Text) // Using Vidu Q1 Text model
             .prompt("A person walking through a beautiful forest with sunlight filtering through the trees")
             .requestId("vidu-text-example-" + System.currentTimeMillis())
+                .duration(5)
+                .size("1920x1080")
             .build();
         
         try {
             // Execute request
             VideosResponse response = client.videos().videoGenerations(request);
-            
-            if (response.isSuccess()) {
-                System.out.println("Video generation request successful!");
-                System.out.println("Task ID: " + response.getData().getId());
-                System.out.println("Data: " + response.getData());
-                System.out.println("\nNote: Video generation is an asynchronous process.");
-                System.out.println("Use the Task ID to check the status and retrieve the result later.");
-            } else {
-                System.err.println("Error: " + response.getMsg());
-            }
+            System.out.println("Data: " + response.getData());
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
@@ -70,8 +63,8 @@ public class ViduTextToVideoExample {
             .requestId("vidu-text-custom-example-" + System.currentTimeMillis())
             .quality("high") // High quality setting
             .withAudio(true) // Generate with audio
-            .size("1280x720") // Custom resolution
-            .duration(8) // 8 seconds duration
+                .duration(5)
+                .size("1920x1080")
             .fps(30) // 30 frames per second
             .build();
         

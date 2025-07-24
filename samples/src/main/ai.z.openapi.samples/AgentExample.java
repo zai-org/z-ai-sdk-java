@@ -30,11 +30,7 @@ public class AgentExample {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
         ZaiClient client = ZaiClient.builder().ofZHIPU().build();
-        
-        // Or set API Key via code
-        // ZaiClient client = ZaiClient.builder()
-        //         .apiKey("your.api.key.your.api.secret")
-        //         .build();
+
         syncAgentCompletion(client);
     }
     

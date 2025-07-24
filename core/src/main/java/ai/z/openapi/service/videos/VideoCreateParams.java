@@ -99,4 +99,7 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	@JsonProperty("sensitive_word_check")
 	private SensitiveWordCheckRequest sensitiveWordCheck;
 
+	@JsonProperty("movement_amplitude")
+	private String movementAmplitude;
+
 }
