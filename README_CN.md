@@ -28,7 +28,7 @@ Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包�
 
 ```xml
 <dependency>
-    <groupId>ai.z</groupId>
+    <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
     <version>0.0.1</version>
 </dependency>
@@ -66,6 +66,10 @@ dependencies {
 
 ## 🚀 快速开始
 
+**智谱AI API 地址 https://open.bigmodel.cn/api/paas/v4/**
+
+**Z.ai API 地址 https://api.z.ai/api/paas/v4/**
+
 ### 基本用法
 
 1. **使用API凭证创建ZaiClient**
@@ -79,15 +83,20 @@ import ai.z.openapi.core.Constants;
 
 // 创建客户端 推荐使用环境变量设置API凭证
 // export ZAI_API_KEY=your.api.key
+
+// 使用 Z.ai 平台客户端 https://api.z.ai/api/paas/v4/
 ZaiClient client = ZaiClient.builder().build();
+
+// 使用 智谱 AI 平台客户端 https://open.bigmodel.cn/api/paas/v4/
+ZaiClient zhipuClient = ZaiClient.builder().ofZHIPU().build();
 
 // 或代码设置凭证
 ZaiClient client = ZaiClient.builder()
     .apiKey("your.api.key.your.api.secret")
     .build();
 
-// 或为特定平台创建客户端
-ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key.your.api.secret").build();
+// 或为智谱AI平台 bigmodel.cn 创建客户端
+ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key").build();
 ```
 
 ### 客户端配置

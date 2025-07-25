@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ai.z.openapi.core.model.ClientRequest;
 import ai.z.openapi.service.CommonRequest;
-import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.SensitiveWordCheckRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +34,7 @@ public class AgentsCompletionRequest extends CommonRequest implements ClientRequ
 	/**
 	 * Message body
 	 */
-	private List<ChatMessage> messages;
+	private List<AgentMessage> messages;
 
 	/**
 	 * Synchronous call: false, SSE call: true

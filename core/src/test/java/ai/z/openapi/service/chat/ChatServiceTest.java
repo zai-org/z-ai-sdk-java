@@ -7,6 +7,7 @@ import ai.z.openapi.service.model.AsyncResultRetrieveParams;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ChatFunction;
+import ai.z.openapi.service.model.ChatFunctionParameterProperty;
 import ai.z.openapi.service.model.ChatFunctionParameters;
 import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.ChatMessageRole;
@@ -229,16 +230,19 @@ public class ChatServiceTest {
 		ChatFunctionParameters parameters = new ChatFunctionParameters();
 		parameters.setType("object");
 
-		Map<String, Object> properties = new HashMap<>();
-		Map<String, Object> locationProperty = new HashMap<>();
-		locationProperty.put("type", "string");
-		locationProperty.put("description", "City name, for example: Beijing");
+		Map<String, ChatFunctionParameterProperty> properties = new HashMap<>();
+		ChatFunctionParameterProperty locationProperty = ChatFunctionParameterProperty.builder()
+			.type("string")
+			.description("City name, for example: Beijing")
+			.build();
 		properties.put("location", locationProperty);
 
-		Map<String, Object> unitProperty = new HashMap<>();
-		unitProperty.put("type", "string");
-		unitProperty.put("enum", Arrays.asList("celsius", "fahrenheit"));
+		ChatFunctionParameterProperty unitProperty = ChatFunctionParameterProperty.builder()
+			.type("string")
+			.enums(Arrays.asList("celsius", "fahrenheit"))
+			.build();
 		properties.put("unit", unitProperty);
+
 		parameters.setProperties(properties);
 
 		ChatFunction function = ChatFunction.builder()

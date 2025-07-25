@@ -16,6 +16,18 @@ import lombok.NoArgsConstructor;
 public class RetrievalToolBlock extends ToolsType {
 
 	/**
+	 * The index of the tool call.
+	 */
+	@JsonProperty("index")
+	private Integer index;
+
+	/**
+	 * The unique identifier of the tool call.
+	 */
+	@JsonProperty("id")
+	private String id;
+
+	/**
 	 * An instance of the RetrievalTool class containing the retrieval outputs.
 	 */
 	@JsonProperty("retrieval")
@@ -25,6 +37,7 @@ public class RetrievalToolBlock extends ToolsType {
 	 * The type of tool being used, always set to "retrieval".
 	 */
 	@JsonProperty("type")
+	@Builder.Default
 	private String type = "retrieval";
 
 }

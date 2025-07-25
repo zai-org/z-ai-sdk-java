@@ -12,6 +12,8 @@ import ai.z.openapi.utils.RequestSupplier;
 import ai.z.openapi.utils.StringUtils;
 import okhttp3.ResponseBody;
 
+import java.util.Objects;
+
 /**
  * Chat completion service implementation
  */
@@ -29,7 +31,7 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public ChatCompletionResponse createChatCompletion(ChatCompletionCreateParams request) {
 		validateParams(request);
-		if (request.getStream()) {
+		if (Objects.nonNull(request.getStream()) && request.getStream()) {
 			return streamChatCompletion(request);
 		}
 		else {

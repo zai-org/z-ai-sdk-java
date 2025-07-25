@@ -40,7 +40,7 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	 * Image size:
 	 */
 	@JsonProperty("image_url")
-	private String imageUrl;
+	private Object imageUrl;
 
 	/**
 	 * Call specified model to optimize the prompt, recommend using GLM-4-Air and
@@ -82,6 +82,12 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	private String size;
 
 	/**
+	 * style anime general
+	 */
+	@JsonProperty("style")
+	private String style;
+
+	/**
 	 * Video duration in seconds
 	 */
 	@JsonProperty("duration")
@@ -98,5 +104,14 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	 */
 	@JsonProperty("sensitive_word_check")
 	private SensitiveWordCheckRequest sensitiveWordCheck;
+
+	@JsonProperty("movement_amplitude")
+	private String movementAmplitude;
+
+	/**
+	 * 16:9 : 16:9、9:16、1:1
+	 */
+	@JsonProperty("aspect_ratio")
+	private String aspectRatio;
 
 }

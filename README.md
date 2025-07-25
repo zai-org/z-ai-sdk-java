@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>ai.z</groupId>
+    <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
     <version>0.0.1</version>
 </dependency>
@@ -68,6 +68,10 @@ This SDK uses the following core dependencies:
 
 ## 🚀 Quick Start
 
+**ZHIPU AI API PATH https://open.bigmodel.cn/api/paas/v4/**
+
+**Z.ai API PATH https://api.z.ai/api/paas/v4/**
+
 ### Basic Usage
 
 1. **Create a ZaiClient** with your API credentials
@@ -81,15 +85,21 @@ import ai.z.openapi.core.Constants;
 
 // Create client with API key, recommend export the ENV api-key
 // export ZAI_API_KEY=your.api.key
+
+// For Z.ai platform https://api.z.ai/api/paas/v4/
 ZaiClient client = ZaiClient.builder().build();
+
+// For ZHIPU AI platform https://open.bigmodel.cn/api/paas/v4/
+ZaiClient zhipuClient = ZaiClient.builder().ofZHIPU().build();
+
 
 // Or set the api-key by code
 ZaiClient client = ZaiClient.builder()
         .apiKey("your.api.key.your.api.secret")
         .build();
 
-// Or create client for specific platform
-ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key.your.api.secret").build();
+// For ZHIPU AI platform https://open.bigmodel.cn/api/paas/v4/
+ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key").build();
 ```
 
 ### Client Configuration
