@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompletionTokensDetails {
 
-    @JsonProperty("reasoning_tokens")
-    private int reasoningTokens;
+	@JsonProperty("reasoning_tokens")
+	private int reasoningTokens;
+
 }

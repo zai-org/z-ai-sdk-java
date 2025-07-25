@@ -1,6 +1,5 @@
 package ai.z.openapi.service.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -15,6 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PromptTokensDetails {
 
-    @JsonProperty("cached_tokens")
-    private int cachedTokens;
+	@JsonProperty("cached_tokens")
+	private int cachedTokens;
+
 }
