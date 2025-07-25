@@ -107,4 +107,9 @@ public class ChatCompletionCreateParams extends CommonRequest implements ClientR
 	@JsonProperty("tool_choice")
 	private Object toolChoice;
 
+	/**
+	 * Configuration parameters for model reasoning
+	 */
+	private ChatThinking thinking;
+
 }
