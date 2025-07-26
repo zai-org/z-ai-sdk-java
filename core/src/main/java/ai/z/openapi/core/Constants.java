@@ -36,6 +36,26 @@ public final class Constants {
 	// =============================================================================
 
 	/**
+	 * GLM-4.5 model code
+	 */
+	public static final String ModelChatGLM4_5 = "glm-4.5";
+
+	/**
+	 * GLM-4.5-Air model code
+	 */
+	public static final String ModelChatGLM4_5_AIR = "glm-4.5-air";
+
+	/**
+	 * GLM-4.5-X model code
+	 */
+	public static final String ModelChatGLM4_5_X = "glm-4.5-x";
+
+	/**
+	 * GLM-4.5-AirX model code
+	 */
+	public static final String ModelChatGLM4_5_AIRX = "glm-4.5-airx";
+
+	/**
 	 * GLM-4 Plus model - Enhanced version with improved capabilities.
 	 */
 	public static final String ModelChatGLM4Plus = "glm-4-plus";
