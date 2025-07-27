@@ -18,7 +18,7 @@ public class StreamingChatExample {
         
         // Create chat request
         ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()
-            .model(Constants.ModelChatGLM4)
+            .model(Constants.ModelChatGLM4_5)
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
