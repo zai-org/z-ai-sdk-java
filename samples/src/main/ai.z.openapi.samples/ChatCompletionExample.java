@@ -1,6 +1,6 @@
 package ai.z.openapi.samples;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 
@@ -15,7 +15,8 @@ public class ChatCompletionExample {
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
-        ZaiClient client = ZaiClient.builder().ofZHIPU().build();
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
+        ZhipuAiClient client = ZhipuAiClient.builder().build();
 
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()

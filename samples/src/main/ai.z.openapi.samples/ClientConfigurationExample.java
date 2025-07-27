@@ -18,7 +18,7 @@ public class ClientConfigurationExample {
         // Complete configuration example
         System.out.println("\n=== Complete Configuration Example ===");
         ZaiClient advancedClient = ZaiClient.builder()
-            .apiKey("your.api.key.your.api.secret")
+            .apiKey("your.api.key")
             .baseUrl("https://api.z.ai/api/paas/v4/")
             .enableTokenCache()
             .tokenExpire(3600000) // 1 hour
@@ -34,7 +34,7 @@ public class ClientConfigurationExample {
         // Custom configuration example
         System.out.println("\n=== Custom Configuration Example ===");
         ZaiClient customClient = ZaiClient.builder()
-            .apiKey("your.api.key.your.api.secret")
+            .apiKey("your.api.key")
             .baseUrl("https://custom.api.endpoint/")
             .enableTokenCache()
             .tokenExpire(7200000)

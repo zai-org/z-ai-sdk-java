@@ -1,6 +1,6 @@
 package ai.z.openapi.service.web_search;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.tools.ToolsApi;
 import ai.z.openapi.api.web_search.WebSearchApi;
 import ai.z.openapi.service.tools.WebSearchApiResponse;
@@ -15,13 +15,13 @@ import okhttp3.ResponseBody;
  */
 public class WebSearchServiceImpl implements WebSearchService {
 
-	private final ZaiClient zAiClient;
+	private final AbstractAiClient zAiClient;
 
 	private final ToolsApi toolsApi;
 
 	private final WebSearchApi webSearchApi;
 
-	public WebSearchServiceImpl(ZaiClient zAiClient) {
+	public WebSearchServiceImpl(AbstractAiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.toolsApi = zAiClient.retrofit().create(ToolsApi.class);
 		this.webSearchApi = zAiClient.retrofit().create(WebSearchApi.class);

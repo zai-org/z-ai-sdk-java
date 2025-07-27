@@ -1,6 +1,6 @@
 package ai.z.openapi.service.videos;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.videos.VideosApi;
 import ai.z.openapi.service.model.AsyncResultRetrieveParams;
 import ai.z.openapi.utils.RequestSupplier;
@@ -11,11 +11,11 @@ import ai.z.openapi.utils.StringUtils;
  */
 public class VideosServiceImpl implements VideosService {
 
-	private final ZaiClient zAiClient;
+	private final AbstractAiClient zAiClient;
 
 	private final VideosApi videosApi;
 
-	public VideosServiceImpl(ZaiClient client) {
+	public VideosServiceImpl(AbstractAiClient client) {
 		this.zAiClient = client;
 		this.videosApi = client.retrofit().create(VideosApi.class);
 	}

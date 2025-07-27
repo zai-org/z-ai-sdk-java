@@ -14,7 +14,8 @@ public class ViduTextToVideoExample {
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
-        ZaiClient client = ZaiClient.builder().ofZHIPU().apiKey("331bed3423954249b387061f3861cf2a.Jjvlu8WXIEaCjKvj").build();
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
+        ZaiClient client = ZaiClient.builder().build();
         
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()

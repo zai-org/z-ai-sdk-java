@@ -13,6 +13,7 @@ public class EmbeddingsExample {
     
     public static void main(String[] args) {
         // Create client
+
         ZaiClient client = ZaiClient.builder().build();
         
         // Create embedding request
