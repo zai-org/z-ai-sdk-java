@@ -88,15 +88,15 @@ import ai.z.openapi.core.Constants;
 ZaiClient client = ZaiClient.builder().build();
 
 // 使用 智谱 AI 平台客户端 https://open.bigmodel.cn/api/paas/v4/
-ZaiClient zhipuClient = ZaiClient.builder().ofZHIPU().build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().build();
 
 // 或代码设置凭证
 ZaiClient client = ZaiClient.builder()
-    .apiKey("your.api.key.your.api.secret")
+    .apiKey("your.api.key")
     .build();
 
 // 或为智谱AI平台 bigmodel.cn 创建客户端
-ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key").build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().apiKey("your.api.key").build();
 ```
 
 ### 客户端配置
@@ -105,7 +105,7 @@ SDK提供了灵活的构建器模式来自定义您的客户端：
 
 ```java
 ZaiClient client = ZaiClient.builder()
-    .apiKey("your.api.key.your.api.secret")
+    .apiKey("your.api.key")
     .baseUrl("https://api.z.ai/api/paas/v4/")
     .enableTokenCache()
     .tokenExpire(3600000) // 1小时
@@ -125,7 +125,7 @@ import java.util.Arrays;
 
 // 创建客户端
 ZaiClient client = ZaiClient.builder()
-    .apiKey("your.api.key.your.api.secret")
+    .apiKey("your.api.key")
     .build();
 
 // 创建对话请求
@@ -281,7 +281,7 @@ public class AIController {
     
     public AIController() {
         this.zaiClient = ZaiClient.builder()
-            .apiKey("your.api.key.your.api.secret")
+            .apiKey("your.api.key")
             .enableTokenCache()
             .build();
     }

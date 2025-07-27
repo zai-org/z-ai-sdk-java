@@ -19,7 +19,7 @@ public class ViduTextToVideoExample {
         
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
-        //         .apiKey("your.api.key.your.api.secret")
+        //         .apiKey("your.api.key")
         //         .build();
         
         // Example: Generate video from text using Vidu

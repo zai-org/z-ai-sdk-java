@@ -22,7 +22,7 @@ public class CogVideoX3Example {
 
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
-        //         .apiKey("your.api.key.your.api.secret")
+        //         .apiKey("your.api.key")
         //         .build();
 
         // Video generation examples

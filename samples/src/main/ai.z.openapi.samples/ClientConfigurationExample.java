@@ -28,7 +28,7 @@ public class ClientConfigurationExample {
         
         // ZHIPU platform specific client
         System.out.println("\n=== ZHIPU Platform Specific Configuration ===");
-        ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key.your.api.secret").build();
+        ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key").build();
         System.out.println("✓ ZHIPU platform client created successfully");
         
         // Custom configuration example

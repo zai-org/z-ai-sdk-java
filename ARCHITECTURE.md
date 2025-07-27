@@ -117,7 +117,7 @@ public class ChatServiceImpl implements ChatService {
 
 ```java
 ZaiConfig config = ZaiConfig.builder()
-    .apiSecretKey("your.api.key.your.api.secret")
+    .apiSecretKey("your.api.key")
     .baseUrl("https://open.bigmodel.cn/")
     .requestTimeOut(60)
     .timeOutTimeUnit(TimeUnit.SECONDS)
