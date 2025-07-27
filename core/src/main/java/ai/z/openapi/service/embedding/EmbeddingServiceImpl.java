@@ -1,6 +1,6 @@
 package ai.z.openapi.service.embedding;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.embedding.EmbeddingApi;
 import ai.z.openapi.utils.RequestSupplier;
 
@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class EmbeddingServiceImpl implements EmbeddingService {
 
-	private final ZaiClient zAiClient;
+	private final AbstractAiClient zAiClient;
 
 	private final EmbeddingApi embeddingApi;
 
-	public EmbeddingServiceImpl(ZaiClient zAiClient) {
+	public EmbeddingServiceImpl(AbstractAiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.embeddingApi = zAiClient.retrofit().create(EmbeddingApi.class);
 	}

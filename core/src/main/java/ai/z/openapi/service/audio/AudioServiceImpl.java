@@ -1,10 +1,8 @@
 package ai.z.openapi.service.audio;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.audio.AudioApi;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
-import ai.z.openapi.service.model.Audio;
-import ai.z.openapi.service.model.ModelData;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,11 +31,11 @@ public class AudioServiceImpl implements AudioService {
 
 	protected static final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();
 
-	private final ZaiClient zAiClient;
+	private final AbstractAiClient zAiClient;
 
 	private final AudioApi audioApi;
 
-	public AudioServiceImpl(ZaiClient zAiClient) {
+	public AudioServiceImpl(AbstractAiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.audioApi = zAiClient.retrofit().create(AudioApi.class);
 	}

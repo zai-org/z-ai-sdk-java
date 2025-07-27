@@ -13,9 +13,10 @@ import java.util.Arrays;
 public class GLM41VThinkingExample {
 
     public static void main(String[] args) {
-        String apiKey = ""; // Please fill in your own API Key
-        ZaiClient client = ZaiClient.builder().ofZHIPU()
-                .apiKey(apiKey)
+
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
+        ZaiClient client = ZaiClient.builder()
+                .apiKey("your.api.key")
                 .build();
 
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()

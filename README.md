@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z:zai-sdk:0.0.1'
+    implementation 'ai.z:zai-sdk:0.0.2'
 }
 ```
 
@@ -47,7 +47,7 @@ Or `build.gradle.kts` (for Kotlin DSL):
 
 ```kotlin
 dependencies {
-    implementation("ai.z:zai-sdk:0.0.1")
+    implementation("ai.z:zai-sdk:0.0.2")
 }
 ```
 
@@ -72,12 +72,13 @@ This SDK uses the following core dependencies:
 
 ### Basic Usage
 
-1. **Create a ZaiClient** with your API credentials
+1. **Create a ZaiClient or ZhipuAiClient** with your API credentials
 2. **Access services** through the client
 3. **Call API methods** with typed parameters
 
 ```java
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 
@@ -88,16 +89,16 @@ import ai.z.openapi.core.Constants;
 ZaiClient client = ZaiClient.builder().build();
 
 // For ZHIPU AI platform https://open.bigmodel.cn/api/paas/v4/
-ZaiClient zhipuClient = ZaiClient.builder().ofZHIPU().build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().build();
 
 
 // Or set the api-key by code
 ZaiClient client = ZaiClient.builder()
-        .apiKey("your.api.key.your.api.secret")
+        .apiKey("your.api.key")
         .build();
 
 // For ZHIPU AI platform https://open.bigmodel.cn/api/paas/v4/
-ZaiClient zhipuClient = ZaiClient.ofZHIPU("your.api.key").build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().apiKey("your.api.key").build();
 ```
 
 ### Client Configuration
@@ -106,7 +107,7 @@ The SDK provides a flexible builder pattern for customizing your client:
 
 ```java
 ZaiClient client = ZaiClient.builder()
-    .apiKey("your.api.key.your.api.secret")
+    .apiKey("your.api.key")
     .baseUrl("https://api.z.ai/api/paas/v4/")
     .enableTokenCache()
     .tokenExpire(3600000) // 1 hour
@@ -126,7 +127,7 @@ import java.util.Arrays;
 
 // Create client
 ZaiClient client = ZaiClient.builder()
-    .apiKey("your.api.key.your.api.secret")
+    .apiKey("your.api.key")
     .build();
 
 // Create chat request
@@ -282,7 +283,7 @@ public class AIController {
     
     public AIController() {
         this.zaiClient = ZaiClient.builder()
-            .apiKey("your.api.key.your.api.secret")
+            .apiKey("your.api.key")
             .enableTokenCache()
             .build();
     }

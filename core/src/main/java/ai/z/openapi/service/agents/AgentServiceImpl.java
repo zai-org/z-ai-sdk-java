@@ -1,6 +1,6 @@
 package ai.z.openapi.service.agents;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.agents.AgentsApi;
 import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ModelData;
@@ -16,11 +16,11 @@ import java.util.Objects;
  */
 public class AgentServiceImpl implements AgentService {
 
-	private final ZaiClient zAiClient;
+	private final AbstractAiClient zAiClient;
 
 	private final AgentsApi agentsApi;
 
-	public AgentServiceImpl(ZaiClient zAiClient) {
+	public AgentServiceImpl(AbstractAiClient zAiClient) {
 		this.zAiClient = zAiClient;
 		this.agentsApi = zAiClient.retrofit().create(AgentsApi.class);
 	}
