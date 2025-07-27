@@ -39,7 +39,7 @@ Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包�
 
 ```groovy
 dependencies {
-    implementation 'ai.z:zai-sdk:0.0.1'
+    implementation 'ai.z:zai-sdk:0.0.2'
 }
 ```
 
@@ -47,7 +47,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("ai.z:zai-sdk:0.0.1")
+    implementation("ai.z:zai-sdk:0.0.2")
 }
 ```
 
