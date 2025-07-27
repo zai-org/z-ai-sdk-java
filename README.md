@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -78,6 +78,7 @@ This SDK uses the following core dependencies:
 
 ```java
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 

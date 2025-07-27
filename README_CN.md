@@ -30,7 +30,7 @@ Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包�
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -78,6 +78,7 @@ dependencies {
 
 ```java
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.service.model.*;
 import ai.z.openapi.core.Constants;
 
