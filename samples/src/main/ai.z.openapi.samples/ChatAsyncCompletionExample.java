@@ -1,6 +1,6 @@
 package ai.z.openapi.samples;
 
-import ai.z.openapi.ZaiClient;
+import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.core.Constants;
 import ai.z.openapi.service.model.AsyncResultRetrieveParams;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
@@ -21,7 +21,7 @@ public class ChatAsyncCompletionExample {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
-        ZaiClient client = ZaiClient.builder().build();
+        ZhipuAiClient client = ZhipuAiClient.builder().build();
         
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
