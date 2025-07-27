@@ -8,7 +8,7 @@
 
 **Not yet released.**
 
-The official Java SDK for Z.ai and ZHIPU AI platforms, providing a unified interface to access powerful AI capabilities including chat completion, embeddings, image generation, audio processing, and more.
+The official Java SDK for Z.ai platforms, providing a unified interface to access powerful AI capabilities including chat completion, embeddings, image generation, audio processing, and more.
 
 ## ✨ Features
 
