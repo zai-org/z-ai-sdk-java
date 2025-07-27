@@ -16,7 +16,7 @@ public class ChatCompletionExample {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api.key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
-        ZhipuAiClient client = ZhipuAiClient.builder().apiKey("your.api.key").build();
+        ZhipuAiClient client = ZhipuAiClient.builder().build();
 
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
@@ -25,7 +25,7 @@ public class ChatCompletionExample {
 
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-                .model(Constants.ModelChatGLM4_5_AIR)
+                .model(Constants.ModelChatGLM4_5)
                 .messages(Arrays.asList(
                         ChatMessage.builder()
                                 .role(ChatMessageRole.USER.value())

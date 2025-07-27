@@ -30,7 +30,7 @@ public class ChatAsyncCompletionExample {
         
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-            .model(Constants.ModelChatGLM4)
+            .model(Constants.ModelChatGLM4_5)
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
