@@ -147,7 +147,7 @@ ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
 ChatCompletionResponse response = client.chat().createChatCompletion(request);
 
 if (response.isSuccess()) {
-    String content = response.getData().getChoices().get(0).getMessage().getContent();
+    String content = response.getData().getChoices().get(0).getMessage().getContent().toString();
     System.out.println("回复: " + content);
 } else {
     System.err.println("错误: " + response.getMsg());
@@ -194,22 +194,24 @@ if (response.isSuccess() && response.getFlowable() != null) {
 ```java
 // 定义函数
 ChatTool weatherTool = ChatTool.builder()
-    .type(ChatToolType.FUNCTION.value())
-    .function(ChatFunction.builder()
-        .name("get_weather")
-        .description("获取指定地点的当前天气")
-        .parameters(ChatFunctionParameters.builder()
-            .type("object")
-            .properties(Map.of(
-                "location", Map.of(
-                    "type", "string",
-                    "description", "城市名称"
-                )
-            ))
-            .required(Arrays.asList("location"))
-            .build())
-        .build())
-    .build();
+                .type(ChatToolType.FUNCTION.value())
+                .function(ChatFunction.builder()
+                        .name("get_weather")
+                        .description("获取指定地点的当前天气")
+                        .parameters(ChatFunctionParameters.builder()
+                                .type("object")
+                                .properties(new HashMap<String, ChatFunctionParameterProperty>() {
+                                    {
+                                        put("location", ChatFunctionParameterProperty.builder()
+                                                .type("string")
+                                                .description("城市名称")
+                                                .build());
+                                    }
+                                })
+                                .required(Arrays.asList("location"))
+                                .build())
+                        .build())
+                .build();
 
 // 创建带函数的请求
 ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
@@ -239,7 +241,7 @@ EmbeddingCreateParams request = EmbeddingCreateParams.builder()
     .build();
 
 // 执行请求
-EmbeddingResponse response = client.embeddings().create(request);
+EmbeddingResponse response = client.embeddings().createEmbeddings(request);
 
 if (response.isSuccess()) {
     response.getData().getData().forEach(embedding -> {
@@ -258,12 +260,10 @@ CreateImageRequest request = CreateImageRequest.builder()
     .model(Constants.ModelCogView3Plus)
     .prompt("山间美丽的日落")
     .size("1024x1024")
-    .quality("standard")
-    .n(1)
     .build();
 
 // 执行请求
-ImageResponse response = client.images().generate(request);
+ImageResponse response = client.images().createImage(request);
 
 if (response.isSuccess()) {
     response.getData().getData().forEach(image -> {

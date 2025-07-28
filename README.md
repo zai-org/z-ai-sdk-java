@@ -148,7 +148,7 @@ ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
 ChatCompletionResponse response = client.chat().createChatCompletion(request);
 
 if (response.isSuccess()) {
-    String content = response.getData().getChoices().get(0).getMessage().getContent();
+    String content = response.getData().getChoices().get(0).getMessage().getContent().toString();
     System.out.println("Response: " + content);
 } else {
     System.err.println("Error: " + response.getMsg());
@@ -195,22 +195,24 @@ if (response.isSuccess() && response.getFlowable() != null) {
 ```java
 // Define function
 ChatTool weatherTool = ChatTool.builder()
-    .type(ChatToolType.FUNCTION.value())
-    .function(ChatFunction.builder()
-        .name("get_weather")
-        .description("Get current weather for a location")
-        .parameters(ChatFunctionParameters.builder()
-            .type("object")
-            .properties(Map.of(
-                "location", Map.of(
-                    "type", "string",
-                    "description", "City name"
-                )
-            ))
-            .required(Arrays.asList("location"))
-            .build())
-        .build())
-    .build();
+                .type(ChatToolType.FUNCTION.value())
+                .function(ChatFunction.builder()
+                        .name("get_weather")
+                        .description("Get current weather for a location")
+                        .parameters(ChatFunctionParameters.builder()
+                                .type("object")
+                                .properties(new HashMap<String, ChatFunctionParameterProperty>() {
+                                    {
+                                        put("location", ChatFunctionParameterProperty.builder()
+                                                .type("string")
+                                                .description("City name")
+                                                .build());
+                                    }
+                                })
+                                .required(Arrays.asList("location"))
+                                .build())
+                        .build())
+                .build();
 
 // Create request with function
 ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
@@ -240,7 +242,7 @@ EmbeddingCreateParams request = EmbeddingCreateParams.builder()
     .build();
 
 // Execute request
-EmbeddingResponse response = client.embeddings().create(request);
+EmbeddingResponse response = client.embeddings().createEmbeddings(request);
 
 if (response.isSuccess()) {
     response.getData().getData().forEach(embedding -> {
@@ -259,12 +261,10 @@ CreateImageRequest request = CreateImageRequest.builder()
     .model(Constants.ModelCogView3Plus)
     .prompt("A beautiful sunset over mountains")
     .size("1024x1024")
-    .quality("standard")
-    .n(1)
     .build();
 
 // Execute request
-ImageResponse response = client.images().generate(request);
+ImageResponse response = client.images().createImage(request);
 
 if (response.isSuccess()) {
     response.getData().getData().forEach(image -> {
