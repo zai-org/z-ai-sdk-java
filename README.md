@@ -39,15 +39,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z:zai-sdk:0.0.2'
-}
-```
-
-Or `build.gradle.kts` (for Kotlin DSL):
-
-```kotlin
-dependencies {
-    implementation("ai.z:zai-sdk:0.0.2")
+    implementation 'ai.z.openapi:zai-sdk:0.0.2'
 }
 ```
 
