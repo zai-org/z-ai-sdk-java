@@ -61,44 +61,6 @@ public class AssistantServiceTest {
 				"AssistantService should be an instance of AssistantServiceImpl");
 	}
 
-	// As of 2025-07-23, no models support synchronous completion
-	// @Test
-	// @DisplayName("Test Synchronous Assistant Completion - Basic Functionality")
-	// @EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	// void testSyncAssistantCompletion() throws JsonProcessingException {
-	// // Prepare test data
-	// MessageTextContent textContent = MessageTextContent.builder()
-	// .text("Hello, please introduce yourself")
-	// .type("text")
-	// .build();
-
-	// ConversationMessage message = ConversationMessage.builder()
-	// .role("user")
-	// .content(Collections.singletonList(textContent))
-	// .build();
-
-	// String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
-
-	// AssistantParameters request = AssistantParameters.builder()
-	// .model(Constants.ModelChatGLM4Assistant)
-	// .assistantId(TEST_ASSISTANT_ID)
-	// .stream(false)
-	// .messages(Collections.singletonList(message))
-	// .requestId(requestId)
-	// .build();
-
-	// // Execute test
-	// AssistantApiResponse response = assistantService.assistantCompletion(request);
-
-	// // Verify results
-	// assertNotNull(response, "Response should not be null");
-	// assertTrue(response.isSuccess(), "Response should be successful");
-	// assertNotNull(response.getData(), "Response data should not be null");
-	// assertNull(response.getError(), "Response error should be null");
-	// logger.info("Synchronous assistant completion response: {}",
-	// mapper.writeValueAsString(response));
-	// }
-
 	@Test
 	@DisplayName("Test Stream Assistant Completion")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
@@ -188,13 +150,14 @@ public class AssistantServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testQueryConversationUsage() {
 		// Prepare test data
-		ConversationParameters request = ConversationParameters.builder().assistantId(TEST_ASSISTANT_ID).build();
+		ConversationParameters request = ConversationParameters.builder()
+				.assistantId(TEST_ASSISTANT_ID).page(1).pageSize(5).build();
 
 		// Execute test
 		ConversationUsageListResponse response = assistantService.queryConversationUsage(request);
 
 		// Verify results
-		assertNotNull(response, "Response should not be null");
+		assertNotNull(response.getData(), "Response should not be null");
 		logger.info("Query conversation usage response: {}", response);
 	}
 
@@ -216,7 +179,7 @@ public class AssistantServiceTest {
 			.messages(Collections.singletonList(message))
 			.build();
 
-		AssistantApiResponse response = assistantService.assistantCompletion(request);
+		AssistantApiResponse response = assistantService.assistantCompletionStream(request);
 
 		// Should handle error gracefully
 		assertNotNull(response, "Response should not be null even for invalid assistant ID");
@@ -263,40 +226,10 @@ public class AssistantServiceTest {
 			.requestId(requestId)
 			.build();
 
-		AssistantApiResponse response = assistantService.assistantCompletion(request);
+		AssistantApiResponse response = assistantService.assistantCompletionStream(request);
 
 		assertNotNull(response, "Multi-turn conversation response should not be null");
 		logger.info("Multi-turn conversation response: {}", mapper.writeValueAsString(response));
-	}
-
-	@Test
-	@DisplayName("Test Assistant with Translation Parameters")
-	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void testAssistantWithTranslation() throws JsonProcessingException {
-		// This test is based on the existing
-		// TestAssistantClientApiService.testTranslateAssistantCompletion
-		MessageTextContent textContent = MessageTextContent.builder().text("Hello there").type("text").build();
-
-		ConversationMessage message = ConversationMessage.builder()
-			.role("user")
-			.content(Collections.singletonList(textContent))
-			.build();
-
-		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
-
-		AssistantParameters request = AssistantParameters.builder()
-			.assistantId("9996ijk789lmn012o345p999") // Translation assistant ID
-			.stream(false)
-			.messages(Collections.singletonList(message))
-			.requestId(requestId)
-			.build();
-
-		// Execute test
-		AssistantApiResponse response = assistantService.assistantCompletion(request);
-
-		// Verify results
-		assertNotNull(response, "Translation response should not be null");
-		logger.info("Translation assistant response: {}", mapper.writeValueAsString(response));
 	}
 
 }
