@@ -110,13 +110,13 @@ public class ImageServiceTest {
 	@DisplayName("Test Different Image Sizes")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testDifferentImageSizes() throws JsonProcessingException {
-		String[] sizes = { "256x256", "512x512", "1024x1024" };
+		String[] sizes = { "512x512", "1024x1024" };
 
 		for (String size : sizes) {
 			String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 			CreateImageRequest request = CreateImageRequest.builder()
-				.model(Constants.ModelCogView3Plus)
+				.model(Constants.ModelCogView4)
 				.prompt("A simple geometric pattern")
 				.size(size)
 				.requestId(requestId)
@@ -124,7 +124,8 @@ public class ImageServiceTest {
 
 			ImageResponse response = imageService.createImage(request);
 
-			assertNotNull(response, "Response should not be null for size: " + size);
+			assertNotNull(response.getData(), "Response should not be null for size: " + size);
+			assertEquals(200, response.getCode());
 			logger.info("Size {} response: {}", size, mapper.writeValueAsString(response));
 		}
 	}

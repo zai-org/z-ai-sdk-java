@@ -261,6 +261,11 @@ public final class Constants {
 	public static final String ModelCogVideoX2 = "cogvideox-2";
 
 	/**
+	 * CogVideoX-3 model
+	 */
+	public static final String ModelCogVideoX3 = "cogvideox-3";
+
+	/**
 	 * Vidu Q1 Text model - High-performance video generation from text input. Supports
 	 * general and anime styles.
 	 */
