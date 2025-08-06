@@ -151,7 +151,10 @@ public class AssistantServiceTest {
 	void testQueryConversationUsage() {
 		// Prepare test data
 		ConversationParameters request = ConversationParameters.builder()
-				.assistantId(TEST_ASSISTANT_ID).page(1).pageSize(5).build();
+			.assistantId(TEST_ASSISTANT_ID)
+			.page(1)
+			.pageSize(5)
+			.build();
 
 		// Execute test
 		ConversationUsageListResponse response = assistantService.queryConversationUsage(request);
@@ -228,22 +231,21 @@ public class AssistantServiceTest {
 
 		AssistantApiResponse response = assistantService.assistantCompletionStream(request);
 		response.getFlowable().doOnNext(accumulator -> {
-					if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
-						MessageContent delta = accumulator.getChoices().get(0).getDelta();
-						if (delta != null) {
-							try {
-								logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
-							}
-							catch (JsonProcessingException e) {
-								logger.error("Error processing message content", e);
-							}
-						}
+			if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
+				MessageContent delta = accumulator.getChoices().get(0).getDelta();
+				if (delta != null) {
+					try {
+						logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
 					}
-				})
-				.doOnComplete(
-						() -> logger.info("Stream response completed, received messages"))
-				.doOnError(throwable -> logger.error("Stream error: {}", throwable.getMessage()))
-				.blockingSubscribe();
+					catch (JsonProcessingException e) {
+						logger.error("Error processing message content", e);
+					}
+				}
+			}
+		})
+			.doOnComplete(() -> logger.info("Stream response completed, received messages"))
+			.doOnError(throwable -> logger.error("Stream error: {}", throwable.getMessage()))
+			.blockingSubscribe();
 		assertNotNull(response, "Multi-turn conversation response should not be null");
 	}
 

@@ -124,7 +124,8 @@ public class FileServiceTest {
 			assertNotNull(response, "Response should not be null");
 			assertTrue(response.isSuccess(), "Response should be successful");
 			assertNotNull(response.getData(), "Response data should not be null");
-			assertEquals(UploadFilePurpose.FILE_EXTRACT.value(), response.getData().getPurpose(), "Purpose should match");
+			assertEquals(UploadFilePurpose.FILE_EXTRACT.value(), response.getData().getPurpose(),
+					"Purpose should match");
 			assertNull(response.getError(), "Response error should be null");
 
 			logger.info("File upload with extra JSON response: {}", mapper.writeValueAsString(response));
@@ -198,7 +199,8 @@ public class FileServiceTest {
 		// Verify purpose filter if files exist
 		if (response.getData().getData() != null && !response.getData().getData().isEmpty()) {
 			response.getData().getData().forEach(file -> {
-				assertEquals(UploadFilePurpose.AGENT.value(), file.getPurpose(), "All files should have the specified purpose");
+				assertEquals(UploadFilePurpose.AGENT.value(), file.getPurpose(),
+						"All files should have the specified purpose");
 			});
 		}
 
