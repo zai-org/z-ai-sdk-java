@@ -221,15 +221,30 @@ public class AssistantServiceTest {
 
 		AssistantParameters request = AssistantParameters.builder()
 			.assistantId(TEST_ASSISTANT_ID)
-			.stream(false)
+			.stream(true)
 			.messages(messages)
 			.requestId(requestId)
 			.build();
 
 		AssistantApiResponse response = assistantService.assistantCompletionStream(request);
-
+		response.getFlowable().doOnNext(accumulator -> {
+					if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
+						MessageContent delta = accumulator.getChoices().get(0).getDelta();
+						if (delta != null) {
+							try {
+								logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
+							}
+							catch (JsonProcessingException e) {
+								logger.error("Error processing message content", e);
+							}
+						}
+					}
+				})
+				.doOnComplete(
+						() -> logger.info("Stream response completed, received messages"))
+				.doOnError(throwable -> logger.error("Stream error: {}", throwable.getMessage()))
+				.blockingSubscribe();
 		assertNotNull(response, "Multi-turn conversation response should not be null");
-		logger.info("Multi-turn conversation response: {}", mapper.writeValueAsString(response));
 	}
 
 }
