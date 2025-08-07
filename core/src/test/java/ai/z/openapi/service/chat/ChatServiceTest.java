@@ -508,4 +508,187 @@ public class ChatServiceTest {
 		logger.info("CodeGeex code completion test completed");
 	}
 
+	@Test
+	@DisplayName("Test Synchronous Chat Completion with Custom Headers")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testSyncChatCompletionWithCustomHeaders() throws JsonProcessingException {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Hello, please introduce yourself");
+		messages.add(userMessage);
+
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.build();
+
+		// Prepare custom headers
+		Map<String, String> customHeaders = new HashMap<>();
+		customHeaders.put("X-Custom-User-ID", "test-user-123");
+		customHeaders.put("X-Request-Source", "junit-test");
+		customHeaders.put("Session-Id", "session-" + System.currentTimeMillis());
+
+		// Execute test
+		ChatCompletionResponse response = chatService.createChatCompletion(request, customHeaders);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertTrue(response.isSuccess(), "Response should be successful");
+		assertNotNull(response.getData(), "Response data should not be null");
+		assertEquals(requestId, response.getData().getRequestId(), "Request ID should match");
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
+		logger.info("Synchronous chat completion with custom headers response: {}",
+				mapper.writeValueAsString(response));
+	}
+
+	@Test
+	@DisplayName("Test Stream Chat Completion with Custom Headers")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testStreamChatCompletionWithCustomHeaders() throws JsonProcessingException {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(),
+				"Please write a short poem about spring");
+		messages.add(userMessage);
+
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.TRUE)
+			.messages(messages)
+			.requestId(requestId)
+			.temperature(0.7F)
+			.maxTokens(100)
+			.build();
+
+		// Prepare custom headers
+		Map<String, String> customHeaders = new HashMap<>();
+		customHeaders.put("X-Custom-User-ID", "stream-test-user-456");
+		customHeaders.put("X-Request-Source", "junit-stream-test");
+		customHeaders.put("X-Stream-Mode", "enabled");
+		customHeaders.put("Content-Type", "application/json");
+
+		// Execute test
+		ChatCompletionResponse response = chatService.createChatCompletion(request, customHeaders);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertTrue(response.isSuccess(), "Response should be successful");
+
+		// Test stream data processing
+		AtomicInteger messageCount = new AtomicInteger(0);
+		AtomicBoolean isFirst = new AtomicBoolean(true);
+
+		response.getFlowable().doOnNext(modelData -> {
+			if (isFirst.getAndSet(false)) {
+				logger.info("Starting to receive stream response with custom headers:");
+			}
+			if (modelData.getChoices() != null && !modelData.getChoices().isEmpty()) {
+				Choice choice = modelData.getChoices().get(0);
+				if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
+					logger.info("Received content: {}", choice.getDelta().getContent());
+					messageCount.incrementAndGet();
+				}
+			}
+		})
+			.doOnComplete(() -> logger.info(
+					"Stream response with custom headers completed, received {} messages in total", messageCount.get()))
+			.blockingSubscribe();
+
+		assertTrue(messageCount.get() > 0, "Should receive at least one message");
+
+		logger.info("Stream chat completion with custom headers test completed");
+	}
+
+	@Test
+	@DisplayName("Test Custom Headers Validation - Null Headers")
+	void testCustomHeadersValidation_NullHeaders() {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Hello");
+		messages.add(userMessage);
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.build();
+
+		// Test with null custom headers
+		assertThrows(IllegalArgumentException.class, () -> {
+			chatService.createChatCompletion(request, null);
+		}, "Null custom headers should throw IllegalArgumentException");
+	}
+
+	@Test
+	@DisplayName("Test Custom Headers with Empty Map")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testCustomHeadersWithEmptyMap() throws JsonProcessingException {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Hello");
+		messages.add(userMessage);
+
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.build();
+
+		// Test with empty custom headers map
+		Map<String, String> emptyHeaders = new HashMap<>();
+		ChatCompletionResponse response = chatService.createChatCompletion(request, emptyHeaders);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertTrue(response.isSuccess(), "Response should be successful");
+		assertNotNull(response.getData(), "Response data should not be null");
+		logger.info("Chat completion with empty custom headers response: {}", mapper.writeValueAsString(response));
+	}
+
+	@Test
+	@DisplayName("Test Custom Headers with Special Characters")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testCustomHeadersWithSpecialCharacters() throws JsonProcessingException {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Hello");
+		messages.add(userMessage);
+
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.build();
+
+		// Prepare custom headers with special characters
+		Map<String, String> customHeaders = new HashMap<>();
+		customHeaders.put("X-User-Agent", "ZAI-SDK/1.0 (Java; Test)");
+		customHeaders.put("X-Client-Version", "v1.2.3-beta");
+		customHeaders.put("X-Request-Timestamp", String.valueOf(System.currentTimeMillis()));
+		customHeaders.put("X-Trace-ID", "trace-" + UUID.randomUUID());
+
+		// Execute test
+		ChatCompletionResponse response = chatService.createChatCompletion(request, customHeaders);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertTrue(response.isSuccess(), "Response should be successful");
+		assertNotNull(response.getData(), "Response data should not be null");
+		logger.info("Chat completion with special character headers response: {}", mapper.writeValueAsString(response));
+	}
+
 }
