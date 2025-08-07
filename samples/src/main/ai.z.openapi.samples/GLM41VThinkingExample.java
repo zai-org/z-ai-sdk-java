@@ -16,7 +16,7 @@ public class GLM41VThinkingExample {
 
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
         ZaiClient client = ZaiClient.builder()
-                .apiKey("your.api.key")
+                .apiKey("your.api_key")
                 .build();
 
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()

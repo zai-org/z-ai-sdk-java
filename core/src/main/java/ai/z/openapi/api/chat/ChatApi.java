@@ -7,9 +7,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Streaming;
+
+import java.util.Map;
 
 /**
  * Chat Completions API for advanced GLM-4 series models Provides synchronous,
@@ -35,6 +38,23 @@ public interface ChatApi {
 	@Streaming
 	@POST("chat/completions")
 	Call<ResponseBody> createChatCompletionStream(@Body ChatCompletionCreateParams request);
+
+	/**
+	 * Create a streaming chat completion with custom headers support Returns response
+	 * content incrementally through Server-Sent Events (SSE) for immediate user feedback
+	 * Optimized for interactive applications requiring low latency and progressive
+	 * content delivery Supports all GLM-4 models with configurable streaming parameters
+	 * and custom HTTP headers
+	 * @param request Chat completion parameters including model selection, messages, and
+	 * streaming settings
+	 * @param headers Custom HTTP headers to be added to the request
+	 * @return Streaming response body with incremental content, usage statistics, and
+	 * completion indicators
+	 */
+	@Streaming
+	@POST("chat/completions")
+	Call<ResponseBody> createChatCompletionStream(@Body ChatCompletionCreateParams request,
+			@HeaderMap Map<String, String> headers);
 
 	/**
 	 * Create an asynchronous chat completion for long-running tasks Submits the request
@@ -63,6 +83,22 @@ public interface ChatApi {
 	 */
 	@POST("chat/completions")
 	Single<ModelData> createChatCompletion(@Body ChatCompletionCreateParams request);
+
+	/**
+	 * Create a synchronous chat completion with custom headers support Waits for the
+	 * GLM-4 model to complete execution and returns the final result with custom HTTP
+	 * headers Supports complex reasoning, tool calling, function execution, and
+	 * multi-modal understanding Features advanced capabilities like web search
+	 * integration, code interpretation, and image analysis
+	 * @param request Chat completion parameters including model selection, conversation
+	 * messages, generation settings, tools configuration, and response format
+	 * @param headers Custom HTTP headers to be added to the request
+	 * @return Complete chat completion response with generated content, usage statistics,
+	 * tool call results, and reasoning traces
+	 */
+	@POST("chat/completions")
+	Single<ModelData> createChatCompletion(@Body ChatCompletionCreateParams request,
+			@HeaderMap Map<String, String> headers);
 
 	/**
 	 * Query the result of an asynchronous chat completion task Retrieves the completion

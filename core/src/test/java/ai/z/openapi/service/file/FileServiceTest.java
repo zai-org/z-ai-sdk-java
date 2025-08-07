@@ -37,13 +37,6 @@ public class FileServiceTest {
 	// Request ID template
 	private static final String REQUEST_ID_TEMPLATE = "file-test-%d";
 
-	// Test file purposes
-	private static final String PURPOSE_FINE_TUNE = "fine-tune";
-
-	private static final String PURPOSE_ASSISTANTS = "assistants";
-
-	private static final String PURPOSE_BATCH = "batch";
-
 	@BeforeEach
 	void setUp() {
 		ZaiConfig zaiConfig = new ZaiConfig();
@@ -74,7 +67,7 @@ public class FileServiceTest {
 
 			FileUploadParams request = FileUploadParams.builder()
 				.filePath(tempFile.toString())
-				.purpose(PURPOSE_ASSISTANTS)
+				.purpose(UploadFilePurpose.AGENT.value())
 				.requestId(requestId)
 				.build();
 
@@ -87,7 +80,7 @@ public class FileServiceTest {
 			assertNotNull(response.getData(), "Response data should not be null");
 			assertNotNull(response.getData().getId(), "File ID should not be null");
 			assertEquals("file", response.getData().getObject(), "Object type should be 'file'");
-			assertEquals(PURPOSE_ASSISTANTS, response.getData().getPurpose(), "Purpose should match");
+			assertEquals(UploadFilePurpose.AGENT.value(), response.getData().getPurpose(), "Purpose should match");
 			assertNotNull(response.getData().getFilename(), "Filename should not be null");
 			assertNotNull(response.getData().getBytes(), "File size should not be null");
 			assertTrue(response.getData().getBytes() > 0, "File size should be greater than 0");
@@ -119,7 +112,7 @@ public class FileServiceTest {
 
 			FileUploadParams request = FileUploadParams.builder()
 				.filePath(tempFile.toString())
-				.purpose(PURPOSE_FINE_TUNE)
+				.purpose(UploadFilePurpose.FILE_EXTRACT.value())
 				.requestId(requestId)
 				.extraJson(extraJson)
 				.build();
@@ -131,7 +124,8 @@ public class FileServiceTest {
 			assertNotNull(response, "Response should not be null");
 			assertTrue(response.isSuccess(), "Response should be successful");
 			assertNotNull(response.getData(), "Response data should not be null");
-			assertEquals(PURPOSE_FINE_TUNE, response.getData().getPurpose(), "Purpose should match");
+			assertEquals(UploadFilePurpose.FILE_EXTRACT.value(), response.getData().getPurpose(),
+					"Purpose should match");
 			assertNull(response.getError(), "Response error should be null");
 
 			logger.info("File upload with extra JSON response: {}", mapper.writeValueAsString(response));
@@ -149,7 +143,7 @@ public class FileServiceTest {
 
 		FileUploadParams request = FileUploadParams.builder()
 			.filePath("/non/existent/file.txt")
-			.purpose(PURPOSE_ASSISTANTS)
+			.purpose(UploadFilePurpose.AGENT.value())
 			.requestId(requestId)
 			.build();
 
@@ -187,7 +181,7 @@ public class FileServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		FileListParams request = FileListParams.builder()
-			.purpose(PURPOSE_ASSISTANTS)
+			.purpose(UploadFilePurpose.AGENT.value())
 			.limit(5)
 			.order("asc")
 			.requestId(requestId)
@@ -205,7 +199,8 @@ public class FileServiceTest {
 		// Verify purpose filter if files exist
 		if (response.getData().getData() != null && !response.getData().getData().isEmpty()) {
 			response.getData().getData().forEach(file -> {
-				assertEquals(PURPOSE_ASSISTANTS, file.getPurpose(), "All files should have the specified purpose");
+				assertEquals(UploadFilePurpose.AGENT.value(), file.getPurpose(),
+						"All files should have the specified purpose");
 			});
 		}
 
@@ -269,7 +264,7 @@ public class FileServiceTest {
 
 			FileUploadParams uploadRequest = FileUploadParams.builder()
 				.filePath(tempFile.toString())
-				.purpose(PURPOSE_ASSISTANTS)
+				.purpose(UploadFilePurpose.FILE_EXTRACT.value())
 				.requestId(requestId)
 				.build();
 

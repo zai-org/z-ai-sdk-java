@@ -15,7 +15,7 @@ public class GLM4VPlusExample {
     public static void main(String[] args) {
 
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
-        ZaiClient client = ZaiClient.builder().apiKey("your.api.key").build();
+        ZaiClient client = ZaiClient.builder().apiKey("your.api_key").build();
 
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
                 .model("glm-4v-plus-0111")

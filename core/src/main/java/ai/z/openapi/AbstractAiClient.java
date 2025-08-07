@@ -42,6 +42,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -474,6 +475,19 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 				throw new IllegalArgumentException("API secret key cannot be null or empty");
 			}
 			config.setApiKey(apiKey);
+			return self();
+		}
+
+		/**
+		 * Config the custom headers
+		 * @param customHeaders custom headers
+		 * @return this Builder instance for method chaining
+		 */
+		public B customHeaders(Map<String, String> customHeaders) {
+			if (customHeaders == null || customHeaders.isEmpty()) {
+				throw new IllegalArgumentException("Custom headers cannot be null or empty");
+			}
+			config.setCustomHeaders(customHeaders);
 			return self();
 		}
 

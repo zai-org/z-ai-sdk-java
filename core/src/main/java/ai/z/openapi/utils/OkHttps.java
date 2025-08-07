@@ -1,7 +1,7 @@
 package ai.z.openapi.utils;
 
 import ai.z.openapi.core.config.ZaiConfig;
-import ai.z.openapi.core.token.AuthenticationInterceptor;
+import ai.z.openapi.core.token.HttpRequestInterceptor;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 
@@ -42,7 +42,7 @@ public final class OkHttps {
 			throw new IllegalArgumentException("Configuration cannot be null");
 		}
 
-		OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor(new AuthenticationInterceptor(config));
+		OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor(new HttpRequestInterceptor(config));
 
 		// Configure timeouts
 		configureTimeouts(builder, config);

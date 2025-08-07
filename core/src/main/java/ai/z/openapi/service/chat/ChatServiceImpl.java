@@ -7,11 +7,12 @@ import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.AsyncResultRetrieveParams;
 import ai.z.openapi.service.model.QueryModelResultResponse;
 import ai.z.openapi.service.model.ModelData;
+import ai.z.openapi.service.model.ChatRequestWithHeaders;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
-import ai.z.openapi.utils.StringUtils;
 import okhttp3.ResponseBody;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -62,6 +63,38 @@ public class ChatServiceImpl implements ChatService {
 		RequestSupplier<ChatCompletionCreateParams, ModelData> supplier = chatApi::createChatCompletion;
 		// Handle response
 		return this.zAiClient.executeRequest(request, supplier, ChatCompletionResponse.class);
+	}
+
+	@Override
+	public ChatCompletionResponse createChatCompletion(ChatCompletionCreateParams request,
+			Map<String, String> customHeaders) {
+		if (Objects.isNull(customHeaders)) {
+			throw new IllegalArgumentException("customHeaders can not be null");
+		}
+		validateParams(request);
+		if (Objects.nonNull(request.getStream()) && request.getStream()) {
+			return streamChatCompletionWithHeaders(request, customHeaders);
+		}
+		else {
+			return syncChatCompletionWithHeaders(request, customHeaders);
+		}
+	}
+
+	private ChatCompletionResponse streamChatCompletionWithHeaders(ChatCompletionCreateParams request,
+			Map<String, String> customHeaders) {
+		ChatRequestWithHeaders requestWithHeaders = new ChatRequestWithHeaders(request, customHeaders);
+		FlowableRequestSupplier<ChatRequestWithHeaders, retrofit2.Call<ResponseBody>> supplier = (wrapper) -> chatApi
+			.createChatCompletionStream(wrapper.getRequest(), wrapper.getCustomHeaders());
+		return this.zAiClient.streamRequest(requestWithHeaders, supplier, ChatCompletionResponse.class,
+				ModelData.class);
+	}
+
+	private ChatCompletionResponse syncChatCompletionWithHeaders(ChatCompletionCreateParams request,
+			Map<String, String> customHeaders) {
+		ChatRequestWithHeaders requestWithHeaders = new ChatRequestWithHeaders(request, customHeaders);
+		RequestSupplier<ChatRequestWithHeaders, ModelData> supplier = (wrapper) -> chatApi
+			.createChatCompletion(wrapper.getRequest(), wrapper.getCustomHeaders());
+		return this.zAiClient.executeRequest(requestWithHeaders, supplier, ChatCompletionResponse.class);
 	}
 
 	private void validateParams(ChatCompletionCreateParams request) {

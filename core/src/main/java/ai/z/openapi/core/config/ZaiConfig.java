@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static ai.z.openapi.core.Constants.Z_AI_BASE_URL;
@@ -62,6 +63,11 @@ public class ZaiConfig {
 	 * API secret component.
 	 */
 	private String apiSecret;
+
+	/**
+	 * Custom Http Request Headers
+	 */
+	private Map<String, String> customHeaders;
 
 	/**
 	 * JWT token expiration time in milliseconds (default: 30 minutes).
@@ -406,6 +412,14 @@ public class ZaiConfig {
 	 */
 	public String getSource_channel() {
 		return source_channel;
+	}
+
+	/**
+	 * Get custom headers
+	 * @return
+	 */
+	public Map<String, String> getCustomHeaders() {
+		return customHeaders;
 	}
 
 }

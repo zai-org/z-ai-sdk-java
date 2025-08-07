@@ -303,7 +303,7 @@ public class AudioServiceTest {
 	@DisplayName("Should transcribe different audio formats successfully")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void shouldTranscribeDifferentAudioFormatsSuccessfully() throws JsonProcessingException {
-		String[] audioFiles = { "asr.wav", "asr.webm" };
+		String[] audioFiles = { "asr.wav", "asr.mp3" };
 
 		for (String audioFile : audioFiles) {
 			String requestId = String.format(REQUEST_ID_TEMPLATE + "-%s", System.currentTimeMillis(), audioFile);

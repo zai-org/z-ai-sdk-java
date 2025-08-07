@@ -1,6 +1,7 @@
 package ai.z.openapi.service.videos;
 
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,11 +36,6 @@ public class VideosServiceTest {
 	// Request ID template
 	private static final String REQUEST_ID_TEMPLATE = "video-test-%d";
 
-	// Video model constants
-	private static final String MODEL_COGVIDEOX = "cogvideox";
-
-	private static final String MODEL_COGVIDEO3 = "cogvideo-3";
-
 	@BeforeEach
 	void setUp() {
 		ZaiConfig zaiConfig = new ZaiConfig();
@@ -67,7 +63,7 @@ public class VideosServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		VideoCreateParams request = VideoCreateParams.builder()
-			.model(MODEL_COGVIDEOX)
+			.model(Constants.ModelCogVideoX3)
 			.prompt("A beautiful sunset over the ocean with waves gently crashing on the shore")
 			.requestId(requestId)
 			.withAudio(Boolean.TRUE)
@@ -80,6 +76,7 @@ public class VideosServiceTest {
 
 		// Verify results
 		assertNotNull(response, "Response should not be null");
+		assertEquals(200, response.getCode());
 		assertTrue(response.isSuccess(), "Response should be successful");
 		assertNotNull(response.getData(), "Response data should not be null");
 		assertNotNull(response.getData().getId(), "Response data ID should not be null");
@@ -95,7 +92,7 @@ public class VideosServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		VideoCreateParams request = VideoCreateParams.builder()
-			.model(MODEL_COGVIDEOX)
+			.model(Constants.ModelCogVideoX3)
 			.prompt("A person walking in a beautiful garden")
 			.requestId(requestId)
 			.build();
@@ -114,6 +111,7 @@ public class VideosServiceTest {
 
 		// Verify result response
 		assertNotNull(resultResponse, "Result response should not be null");
+		assertEquals(200, resultResponse.getCode());
 		assertNotNull(resultResponse.getData(), "Result response data should not be null");
 		assertNotNull(resultResponse.getData().getId(), "Result response task ID should not be null");
 		logger.info("Video generation result: taskId={}, response={}", taskId,
@@ -138,7 +136,7 @@ public class VideosServiceTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { MODEL_COGVIDEOX, MODEL_COGVIDEO3 })
+	@ValueSource(strings = { Constants.ModelCogVideoX2, Constants.ModelCogVideoX3 })
 	@DisplayName("Test Different Video Models")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testDifferentModels(String model) throws JsonProcessingException {
@@ -153,6 +151,7 @@ public class VideosServiceTest {
 		VideosResponse response = videosService.videoGenerations(request);
 
 		assertNotNull(response, "Response should not be null");
+		assertEquals(200, response.getCode());
 		logger.info("Model {} response: {}", model, mapper.writeValueAsString(response));
 	}
 
@@ -177,7 +176,7 @@ public class VideosServiceTest {
 	@Test
 	@DisplayName("Test Parameter Validation - Empty Prompt")
 	void testValidation_EmptyPrompt() {
-		VideoCreateParams request = VideoCreateParams.builder().model(MODEL_COGVIDEOX).prompt("").build();
+		VideoCreateParams request = VideoCreateParams.builder().model(Constants.ModelCogVideoX3).prompt("").build();
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			videosService.videoGenerations(request);
@@ -202,17 +201,18 @@ public class VideosServiceTest {
 		Base64.Encoder encoder = Base64.getEncoder();
 		String imageUrl = encoder.encodeToString(bytes);
 		VideoCreateParams request = VideoCreateParams.builder()
-			.model(MODEL_COGVIDEOX)
+			.model(Constants.ModelCogVideoX3)
 			.prompt("Transform this image into a dynamic video scene")
 			.imageUrl(imageUrl)
 			.requestId(requestId)
 			.withAudio(Boolean.FALSE)
-			.duration(3)
+			.duration(5)
 			.build();
 
 		VideosResponse response = videosService.videoGenerations(request);
 
 		assertNotNull(response, "Response should not be null");
+		assertEquals(200, response.getCode());
 		logger.info("Video generation with image response: {}", mapper.writeValueAsString(response));
 	}
 
@@ -223,19 +223,20 @@ public class VideosServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		VideoCreateParams request = VideoCreateParams.builder()
-			.model(MODEL_COGVIDEOX)
+			.model(Constants.ModelCogVideoX3)
 			.prompt("A futuristic city with flying cars and neon lights")
 			.requestId(requestId)
-			.quality("high")
+			.quality("speed")
 			.withAudio(Boolean.TRUE)
 			.size("1280x720")
-			.duration(10)
+			.duration(5)
 			.fps(30)
 			.build();
 
 		VideosResponse response = videosService.videoGenerations(request);
 
 		assertNotNull(response, "Response should not be null");
+		assertEquals(200, response.getCode());
 		logger.info("Video generation with custom settings response: {}", mapper.writeValueAsString(response));
 	}
 

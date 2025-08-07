@@ -19,13 +19,13 @@ public class ChatAsyncCompletionExample {
     
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
-        // export ZAI_API_KEY=your.api.key
+        // export ZAI_API_KEY=your.api_key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
         ZhipuAiClient client = ZhipuAiClient.builder().build();
         
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()
-        //         .apiKey("your.api.key")
+        //         .apiKey("your.api_key")
         //         .build();
         
         // Create chat request
