@@ -44,4 +44,9 @@ public class CreateImageRequest extends CommonRequest implements ClientRequest<C
 	@JsonProperty("sensitive_word_check")
 	private SensitiveWordCheckRequest sensitiveWordCheck;
 
+	/**
+	 * Forced watermark switch
+	 */
+	@JsonProperty("watermark_enabled")
+	private Boolean watermarkEnabled;
 }
