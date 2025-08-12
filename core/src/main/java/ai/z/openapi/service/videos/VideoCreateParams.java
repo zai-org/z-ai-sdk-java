@@ -114,4 +114,10 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	@JsonProperty("aspect_ratio")
 	private String aspectRatio;
 
+	/**
+	 * Forced watermark switch
+	 */
+	@JsonProperty("watermark_enabled")
+	private Boolean watermarkEnabled;
+
 }
