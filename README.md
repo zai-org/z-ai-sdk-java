@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z.openapi:zai-sdk:0.0.2'
+    implementation 'ai.z.openapi:zai-sdk:0.0.3'
 }
 ```
 
@@ -170,10 +170,8 @@ if (response.isSuccess() && response.getFlowable() != null) {
         data -> {
             // Handle streaming chunk
             if (data.getChoices() != null && !data.getChoices().isEmpty()) {
-                String content = data.getChoices().get(0).getDelta().getContent();
-                if (content != null) {
-                    System.out.print(content);
-                }
+                Delta delta = data.getChoices().get(0).getDelta();
+                System.out.print(delta + "\n");
             }
         },
         error -> System.err.println("\nStream error: " + error.getMessage()),
