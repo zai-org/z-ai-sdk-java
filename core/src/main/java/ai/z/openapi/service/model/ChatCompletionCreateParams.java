@@ -112,4 +112,10 @@ public class ChatCompletionCreateParams extends CommonRequest implements ClientR
 	 */
 	private ChatThinking thinking;
 
+	/**
+	 * Forced watermark switch
+	 */
+	@JsonProperty("watermark_enabled")
+	private Boolean watermarkEnabled;
+
 }
