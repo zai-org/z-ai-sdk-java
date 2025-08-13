@@ -42,7 +42,7 @@ public class ChatCompletionStreamExample {
                             // Get content of current chunk
                             Delta delta = data.getChoices().get(0).getDelta();
                             // Print current chunk
-                            System.out.print(delta);
+                            System.out.print(delta + "\n");
                         }
                     },
                     error -> System.err.println("\nStream error: " + error.getMessage()),
