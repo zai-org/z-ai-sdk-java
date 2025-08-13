@@ -18,6 +18,9 @@ public class Delta {
 
 	private String content;
 
+	@JsonProperty("reasoning_content")
+	private String reasoningContent;
+
 	private Audio audio;
 
 	@JsonProperty("tool_calls")

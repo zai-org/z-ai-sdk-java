@@ -25,24 +25,25 @@ public class ChatCompletionExample {
 
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-                .model(Constants.ModelChatGLM4_5)
-                .messages(Arrays.asList(
-                        ChatMessage.builder()
-                                .role(ChatMessageRole.USER.value())
-                                .content("Hello, how are you?")
-                                .build()
-                ))
-                .stream(false)
-                .temperature(0.7f)
-                .maxTokens(1024)
-                .build();
+            .model(Constants.ModelChatGLM4_5)
+            .messages(Arrays.asList(
+                ChatMessage.builder()
+                    .role(ChatMessageRole.USER.value())
+                    .content("Hello, how to learn english?")
+                    .build()
+            ))
+            .stream(false)
+            .thinking(ChatThinking.builder().type("enabled").build())
+            .temperature(0.7f)
+            .maxTokens(1024)
+            .build();
 
         try {
             // Execute request
             ChatCompletionResponse response = client.chat().createChatCompletion(request);
 
             if (response.isSuccess()) {
-                Object content = response.getData().getChoices().get(0).getMessage().getContent();
+                Object content = response.getData().getChoices().get(0).getMessage();
                 System.out.println("Response: " + content);
             } else {
                 System.err.println("Error: " + response.getMsg());

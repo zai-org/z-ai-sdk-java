@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Streaming Chat Example
  * Demonstrates how to use ZaiClient for streaming chat conversations
  */
-public class StreamingChatExample {
+public class ChatCompletionStreamExample {
     
     public static void main(String[] args) {
         // Create client
@@ -25,6 +25,7 @@ public class StreamingChatExample {
                     .content("Tell me a story")
                     .build()
             ))
+            .thinking(ChatThinking.builder().type("enabled").build())
             .stream(true) // Enable streaming response
             .build();
         
@@ -39,11 +40,9 @@ public class StreamingChatExample {
                         // Process each streaming response chunk
                         if (data.getChoices() != null && !data.getChoices().isEmpty()) {
                             // Get content of current chunk
-                            String content = data.getChoices().get(0).getDelta().getContent();
-                            if (content != null) {
-                                // Print current chunk content
-                                System.out.print(content);
-                            }
+                            Delta delta = data.getChoices().get(0).getDelta();
+                            // Print current chunk
+                            System.out.print(delta + "\n");
                         }
                     },
                     error -> System.err.println("\nStream error: " + error.getMessage()),
