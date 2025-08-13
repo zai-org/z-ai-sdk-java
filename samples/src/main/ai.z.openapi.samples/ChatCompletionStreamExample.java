@@ -40,11 +40,9 @@ public class ChatCompletionStreamExample {
                         // Process each streaming response chunk
                         if (data.getChoices() != null && !data.getChoices().isEmpty()) {
                             // Get content of current chunk
-                            String content = data.getChoices().get(0).getDelta().getContent();
-                            if (content != null) {
-                                // Print current chunk content
-                                System.out.print(content);
-                            }
+                            Delta delta = data.getChoices().get(0).getDelta();
+                            // Print current chunk
+                            System.out.print(delta);
                         }
                     },
                     error -> System.err.println("\nStream error: " + error.getMessage()),
