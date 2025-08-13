@@ -170,10 +170,8 @@ if (response.isSuccess() && response.getFlowable() != null) {
         data -> {
             // Handle streaming chunk
             if (data.getChoices() != null && !data.getChoices().isEmpty()) {
-                String content = data.getChoices().get(0).getDelta().getContent();
-                if (content != null) {
-                    System.out.print(content);
-                }
+                Delta delta = data.getChoices().get(0).getDelta();
+                System.out.print(delta + "\n");
             }
         },
         error -> System.err.println("\nStream error: " + error.getMessage()),
