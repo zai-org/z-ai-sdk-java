@@ -18,6 +18,9 @@ public class ChatMessage {
 
 	private Object content;
 
+	@JsonProperty("reasoning_content")
+	private String reasoningContent;
+
 	private Audio audio;
 
 	private String name;

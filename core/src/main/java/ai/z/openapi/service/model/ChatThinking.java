@@ -14,9 +14,11 @@ import lombok.NoArgsConstructor;
 public class ChatThinking {
 
 	/**
-	 * Model thinking type Only support by GLM-4.5 and above models. This parameter is
-	 * used to control whether the model enable the chain of thought. value: enabled,
-	 * disabled
+	 * Model thinking type Only support by GLM-4.5 and above models.<br>
+	 * Value: enabled, disabled <br>
+	 * Control whether the model enable the chain of thought.<br>
+	 * When enabled, GLM-4.5 will automatically determine whether to think, while GLM-4.5V
+	 * will think compulsorily.
 	 */
 	private String type;
 

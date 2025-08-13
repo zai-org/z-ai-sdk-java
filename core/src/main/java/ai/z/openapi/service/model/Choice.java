@@ -21,6 +21,9 @@ public class Choice {
 	@JsonProperty("index")
 	private Long index;
 
+	/**
+	 * Reasoning content, supports by GLM-4.5 series.
+	 */
 	@JsonProperty("message")
 	private ChatMessage message;
 
