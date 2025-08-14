@@ -7,28 +7,27 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 /**
- * This class represents a conversation message body.
+ * This class represents the text content of a message. Currently supports only type =
+ * text.
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ConversationMessage {
+public class AssistantMessageTextContent {
 
 	/**
-	 * The role of the user input, e.g., 'user'.
+	 * The type of the message content, currently only "text" is supported.
 	 */
-	@JsonProperty("role")
-	private String role;
+	@JsonProperty("type")
+	private String type;
 
 	/**
-	 * The content of the conversation message.
+	 * The text content of the message.
 	 */
-	@JsonProperty("content")
-	private List<MessageTextContent> content;
+	@JsonProperty("text")
+	private String text;
 
 }

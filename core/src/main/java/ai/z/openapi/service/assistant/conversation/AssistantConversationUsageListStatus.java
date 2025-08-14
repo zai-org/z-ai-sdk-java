@@ -7,7 +7,7 @@ import lombok.Data;
  * This class represents the response containing a list of conversation usage data.
  */
 @Data
-public class ConversationUsageListStatus {
+public class AssistantConversationUsageListStatus {
 
 	/**
 	 * The response code.
@@ -25,6 +25,6 @@ public class ConversationUsageListStatus {
 	 * The data containing the conversation usage list.
 	 */
 	@JsonProperty("data")
-	private ConversationUsageList data;
+	private AssistantConversationUsageList data;
 
 }

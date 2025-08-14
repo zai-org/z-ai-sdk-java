@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TranslateParameters {
+public class AssistantTranslateParameters {
 
 	/**
 	 * Source language for translation.

@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class QuerySupportParams extends CommonRequest implements ClientRequest<QuerySupportParams> {
+public class AssistantQuerySupportParams extends CommonRequest implements ClientRequest<AssistantQuerySupportParams> {
 
 	/**
 	 * List of assistant IDs to query support status for.

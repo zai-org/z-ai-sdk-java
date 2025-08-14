@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorInfo {
+public class AssistantErrorInfo {
 
 	/**
 	 * Error code.

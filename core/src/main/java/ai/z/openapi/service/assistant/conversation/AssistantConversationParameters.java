@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ConversationParameters extends CommonRequest implements ClientRequest<ConversationParameters> {
+public class AssistantConversationParameters extends CommonRequest implements ClientRequest<AssistantConversationParameters> {
 
 	/**
 	 * The Assistant ID.

@@ -9,7 +9,7 @@ import lombok.Data;
  * for retrieving conversation usage statistics.
  */
 @Data
-public class ConversationUsageListResponse implements ClientResponse<ConversationUsageListStatus> {
+public class AssistantConversationUsageListResponse implements ClientResponse<AssistantConversationUsageListStatus> {
 
 	/**
 	 * Response status code.
@@ -29,17 +29,17 @@ public class ConversationUsageListResponse implements ClientResponse<Conversatio
 	/**
 	 * The conversation usage list data.
 	 */
-	private ConversationUsageListStatus data;
+	private AssistantConversationUsageListStatus data;
 
 	/**
 	 * Error information if the request failed.
 	 */
 	private ChatError error;
 
-	public ConversationUsageListResponse() {
+	public AssistantConversationUsageListResponse() {
 	}
 
-	public ConversationUsageListResponse(int code, String msg) {
+	public AssistantConversationUsageListResponse(int code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}

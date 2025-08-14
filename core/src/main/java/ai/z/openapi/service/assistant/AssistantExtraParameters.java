@@ -18,6 +18,6 @@ public class AssistantExtraParameters {
 	/**
 	 * Translation agent parameters
 	 */
-	private TranslateParameters translate;
+	private AssistantTranslateParameters translate;
 
 }

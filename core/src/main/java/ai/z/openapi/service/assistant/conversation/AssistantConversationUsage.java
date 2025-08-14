@@ -7,7 +7,7 @@ import lombok.Data;
  * This class represents the usage data for a specific conversation.
  */
 @Data
-public class ConversationUsage {
+public class AssistantConversationUsage {
 
 	/**
 	 * The conversation ID.
@@ -37,6 +37,6 @@ public class ConversationUsage {
 	 * The usage statistics for the conversation.
 	 */
 	@JsonProperty("usage")
-	private Usage usage;
+	private AssistantUsage usage;
 
 }

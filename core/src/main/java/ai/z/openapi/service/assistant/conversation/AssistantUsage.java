@@ -7,7 +7,7 @@ import lombok.Data;
  * This class represents the usage statistics for a conversation.
  */
 @Data
-public class Usage {
+public class AssistantUsage {
 
 	/**
 	 * The number of tokens in the user's input.

@@ -9,7 +9,7 @@ import java.util.List;
  * This class represents a list of conversation usage data.
  */
 @Data
-public class ConversationUsageList {
+public class AssistantConversationUsageList {
 
 	/**
 	 * The Assistant ID.
@@ -27,6 +27,6 @@ public class ConversationUsageList {
 	 * The list of conversation usage data.
 	 */
 	@JsonProperty("conversation_list")
-	private List<ConversationUsage> conversationList;
+	private List<AssistantConversationUsage> conversationList;
 
 }

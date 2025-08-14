@@ -2,12 +2,12 @@ package ai.z.openapi.service.assistant;
 
 import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.assistant.AssistantApi;
-import ai.z.openapi.service.assistant.conversation.ConversationParameters;
-import ai.z.openapi.service.assistant.conversation.ConversationUsageListResponse;
-import ai.z.openapi.service.assistant.conversation.ConversationUsageListStatus;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationParameters;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationUsageListResponse;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationUsageListStatus;
 import ai.z.openapi.service.assistant.query_support.AssistantSupportResponse;
 import ai.z.openapi.service.assistant.query_support.AssistantSupportStatus;
-import ai.z.openapi.service.assistant.query_support.QuerySupportParams;
+import ai.z.openapi.service.assistant.query_support.AssistantQuerySupportParams;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
 import okhttp3.ResponseBody;
@@ -39,15 +39,15 @@ public class AssistantServiceImpl implements AssistantService {
 	}
 
 	@Override
-	public AssistantSupportResponse querySupport(QuerySupportParams request) {
-		RequestSupplier<QuerySupportParams, AssistantSupportStatus> supplier = assistantApi::querySupport;
+	public AssistantSupportResponse querySupport(AssistantQuerySupportParams request) {
+		RequestSupplier<AssistantQuerySupportParams, AssistantSupportStatus> supplier = assistantApi::querySupport;
 		return zAiClient.executeRequest(request, supplier, AssistantSupportResponse.class);
 	}
 
 	@Override
-	public ConversationUsageListResponse queryConversationUsage(ConversationParameters request) {
-		RequestSupplier<ConversationParameters, ConversationUsageListStatus> supplier = assistantApi::queryConversationUsage;
-		return zAiClient.executeRequest(request, supplier, ConversationUsageListResponse.class);
+	public AssistantConversationUsageListResponse queryConversationUsage(AssistantConversationParameters request) {
+		RequestSupplier<AssistantConversationParameters, AssistantConversationUsageListStatus> supplier = assistantApi::queryConversationUsage;
+		return zAiClient.executeRequest(request, supplier, AssistantConversationUsageListResponse.class);
 	}
 
 }

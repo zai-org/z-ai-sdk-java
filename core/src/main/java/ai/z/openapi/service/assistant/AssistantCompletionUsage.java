@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompletionUsage {
+public class AssistantCompletionUsage {
 
 	/**
 	 * Number of tokens in the input (prompt).
