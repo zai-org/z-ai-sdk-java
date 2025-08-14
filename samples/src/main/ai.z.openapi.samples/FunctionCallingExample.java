@@ -28,7 +28,7 @@ public class FunctionCallingExample {
     }
 
     public static void main(String[] args) {
-        ZaiClient client = ZaiClient.builder().apiKey("your_api_key").build();
+        ZaiClient client = ZaiClient.builder().build();
 
         // Define function tools
         Map<String, ChatFunctionParameterProperty> properties = new HashMap<>();
