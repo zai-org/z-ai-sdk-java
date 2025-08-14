@@ -2,10 +2,10 @@ package ai.z.openapi.api.assistant;
 
 import ai.z.openapi.service.assistant.AssistantCompletion;
 import ai.z.openapi.service.assistant.AssistantParameters;
-import ai.z.openapi.service.assistant.conversation.ConversationUsageListStatus;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationUsageListStatus;
 import ai.z.openapi.service.assistant.query_support.AssistantSupportStatus;
-import ai.z.openapi.service.assistant.conversation.ConversationParameters;
-import ai.z.openapi.service.assistant.query_support.QuerySupportParams;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationParameters;
+import ai.z.openapi.service.assistant.query_support.AssistantQuerySupportParams;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -46,7 +46,7 @@ public interface AssistantApi {
 	 * @return Assistant support status and available capabilities
 	 */
 	@POST("assistant/list")
-	Single<AssistantSupportStatus> querySupport(@Body QuerySupportParams request);
+	Single<AssistantSupportStatus> querySupport(@Body AssistantQuerySupportParams request);
 
 	/**
 	 * Query conversation usage statistics Retrieves usage metrics and conversation
@@ -55,6 +55,6 @@ public interface AssistantApi {
 	 * @return Conversation usage statistics and history information
 	 */
 	@POST("assistant/conversation/list")
-	Single<ConversationUsageListStatus> queryConversationUsage(@Body ConversationParameters request);
+	Single<AssistantConversationUsageListStatus> queryConversationUsage(@Body AssistantConversationParameters request);
 
 }

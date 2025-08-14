@@ -53,7 +53,7 @@ public class AssistantCompletion {
 	 * Error information
 	 */
 	@JsonProperty("last_error")
-	private ErrorInfo lastError;
+	private AssistantErrorInfo lastError;
 
 	/**
 	 * Incremental return information
@@ -71,6 +71,6 @@ public class AssistantCompletion {
 	 * Token count statistics
 	 */
 	@JsonProperty("usage")
-	private CompletionUsage usage;
+	private AssistantCompletionUsage usage;
 
 }

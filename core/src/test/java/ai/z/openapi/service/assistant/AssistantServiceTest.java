@@ -2,11 +2,11 @@ package ai.z.openapi.service.assistant;
 
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.config.ZaiConfig;
-import ai.z.openapi.service.assistant.conversation.ConversationParameters;
-import ai.z.openapi.service.assistant.conversation.ConversationUsageListResponse;
-import ai.z.openapi.service.assistant.message.MessageContent;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationParameters;
+import ai.z.openapi.service.assistant.conversation.AssistantConversationUsageListResponse;
+import ai.z.openapi.service.assistant.message.AssistantMessageContent;
 import ai.z.openapi.service.assistant.query_support.AssistantSupportResponse;
-import ai.z.openapi.service.assistant.query_support.QuerySupportParams;
+import ai.z.openapi.service.assistant.query_support.AssistantQuerySupportParams;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,12 +66,12 @@ public class AssistantServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testStreamAssistantCompletion() throws JsonProcessingException {
 		// Prepare test data
-		MessageTextContent textContent = MessageTextContent.builder()
+		AssistantMessageTextContent textContent = AssistantMessageTextContent.builder()
 			.text("Help me search for the release time of ZAI's CogVideoX")
 			.type("text")
 			.build();
 
-		ConversationMessage message = ConversationMessage.builder()
+		AssistantConversationMessage message = AssistantConversationMessage.builder()
 			.role("user")
 			.content(Collections.singletonList(textContent))
 			.build();
@@ -95,7 +95,7 @@ public class AssistantServiceTest {
 		// Test stream data processing
 		AtomicInteger messageCount = new AtomicInteger(0);
 		AtomicBoolean isFirst = new AtomicBoolean(true);
-		List<MessageContent> choices = new ArrayList<>();
+		List<AssistantMessageContent> choices = new ArrayList<>();
 		AtomicReference<AssistantCompletion> lastAccumulator = new AtomicReference<>();
 
 		response.getFlowable().doOnNext(accumulator -> {
@@ -103,7 +103,7 @@ public class AssistantServiceTest {
 				logger.info("Starting to receive stream response:");
 			}
 			if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
-				MessageContent delta = accumulator.getChoices().get(0).getDelta();
+				AssistantMessageContent delta = accumulator.getChoices().get(0).getDelta();
 				if (delta != null) {
 					try {
 						logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
@@ -133,7 +133,7 @@ public class AssistantServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testQuerySupport() {
 		// Prepare test data
-		QuerySupportParams request = QuerySupportParams.builder()
+		AssistantQuerySupportParams request = AssistantQuerySupportParams.builder()
 			.assistantIdList(Collections.singletonList(TEST_ASSISTANT_ID))
 			.build();
 
@@ -150,14 +150,14 @@ public class AssistantServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testQueryConversationUsage() {
 		// Prepare test data
-		ConversationParameters request = ConversationParameters.builder()
+		AssistantConversationParameters request = AssistantConversationParameters.builder()
 			.assistantId(TEST_ASSISTANT_ID)
 			.page(1)
 			.pageSize(5)
 			.build();
 
 		// Execute test
-		ConversationUsageListResponse response = assistantService.queryConversationUsage(request);
+		AssistantConversationUsageListResponse response = assistantService.queryConversationUsage(request);
 
 		// Verify results
 		assertNotNull(response.getData(), "Response should not be null");
@@ -169,9 +169,12 @@ public class AssistantServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testErrorHandling_InvalidAssistantId() {
 		// Test with invalid assistant ID
-		MessageTextContent textContent = MessageTextContent.builder().text("Hello").type("text").build();
+		AssistantMessageTextContent textContent = AssistantMessageTextContent.builder()
+			.text("Hello")
+			.type("text")
+			.build();
 
-		ConversationMessage message = ConversationMessage.builder()
+		AssistantConversationMessage message = AssistantConversationMessage.builder()
 			.role("user")
 			.content(Collections.singletonList(textContent))
 			.build();
@@ -193,32 +196,36 @@ public class AssistantServiceTest {
 	@DisplayName("Test Multi-turn Conversation")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testMultiTurnConversation() throws JsonProcessingException {
-		List<ConversationMessage> messages = new ArrayList<>();
+		List<AssistantConversationMessage> messages = new ArrayList<>();
 
 		// First round of conversation
-		MessageTextContent firstContent = MessageTextContent.builder()
+		AssistantMessageTextContent firstContent = AssistantMessageTextContent.builder()
 			.text("Hello, I would like to learn about machine learning")
 			.type("text")
 			.build();
-		messages
-			.add(ConversationMessage.builder().role("user").content(Collections.singletonList(firstContent)).build());
+		messages.add(AssistantConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(firstContent))
+			.build());
 
-		MessageTextContent assistantContent = MessageTextContent.builder()
+		AssistantMessageTextContent assistantContent = AssistantMessageTextContent.builder()
 			.text("Hello! Machine learning is an important branch of artificial intelligence...")
 			.type("text")
 			.build();
-		messages.add(ConversationMessage.builder()
+		messages.add(AssistantConversationMessage.builder()
 			.role("assistant")
 			.content(Collections.singletonList(assistantContent))
 			.build());
 
 		// Second round of conversation
-		MessageTextContent secondContent = MessageTextContent.builder()
+		AssistantMessageTextContent secondContent = AssistantMessageTextContent.builder()
 			.text("Can you introduce supervised learning in detail?")
 			.type("text")
 			.build();
-		messages
-			.add(ConversationMessage.builder().role("user").content(Collections.singletonList(secondContent)).build());
+		messages.add(AssistantConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(secondContent))
+			.build());
 
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
@@ -232,7 +239,7 @@ public class AssistantServiceTest {
 		AssistantApiResponse response = assistantService.assistantCompletionStream(request);
 		response.getFlowable().doOnNext(accumulator -> {
 			if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
-				MessageContent delta = accumulator.getChoices().get(0).getDelta();
+				AssistantMessageContent delta = accumulator.getChoices().get(0).getDelta();
 				if (delta != null) {
 					try {
 						logger.info("MessageContent: {}", mapper.writeValueAsString(delta));

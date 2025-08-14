@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +50,7 @@ public class AssistantParameters extends CommonRequest implements ClientRequest<
 	 * The list of conversation messages.
 	 */
 	@JsonProperty("messages")
-	private List<ConversationMessage> messages;
+	private List<AssistantConversationMessage> messages;
 
 	/**
 	 * The list of file attachments for the conversation, optional.
