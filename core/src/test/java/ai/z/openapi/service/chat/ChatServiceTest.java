@@ -174,23 +174,20 @@ public class ChatServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-				.model(Constants.ModelChatGLM4)
-				.stream(Boolean.FALSE)
-				.messages(messages)
-				.requestId(requestId)
-				.tools(Arrays.asList(
-						ChatTool.builder()
-								.type(ChatToolType.MCP.value())
-								.mcp(MCPTool.builder()
-										.server_url("https://open.bigmodel.cn/api/mcp/sogou/sse")
-										.server_label("sougou")
-										.transport_type("sse")
-										.headers(Collections.singletonMap(
-												"Authorization", "Bearer " + System.getProperty("ZAI_API_KEY")))
-										.build())
-								.build()))
-				.build();
-
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.tools(Arrays.asList(ChatTool.builder()
+				.type(ChatToolType.MCP.value())
+				.mcp(MCPTool.builder()
+					.server_url("https://open.bigmodel.cn/api/mcp/sogou/sse")
+					.server_label("sougou")
+					.transport_type("sse")
+					.headers(Collections.singletonMap("Authorization", "Bearer " + System.getProperty("ZAI_API_KEY")))
+					.build())
+				.build()))
+			.build();
 
 		// Execute test
 		ChatCompletionResponse response = chatService.createChatCompletion(request);
@@ -218,21 +215,18 @@ public class ChatServiceTest {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 
 		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-				.model(Constants.ModelChatGLM4)
-				.stream(Boolean.FALSE)
-				.messages(messages)
-				.requestId(requestId)
-				.tools(Arrays.asList(
-						ChatTool.builder()
-								.type(ChatToolType.MCP.value())
-								.mcp(MCPTool.builder()
-										.server_label("sougou_search")
-										.headers(Collections.singletonMap(
-												"Authorization", "Bearer " + System.getProperty("ZAI_API_KEY")))
-										.build())
-								.build()))
-				.build();
-
+			.model(Constants.ModelChatGLM4)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.tools(Arrays.asList(ChatTool.builder()
+				.type(ChatToolType.MCP.value())
+				.mcp(MCPTool.builder()
+					.server_label("sougou_search")
+					.headers(Collections.singletonMap("Authorization", "Bearer " + System.getProperty("ZAI_API_KEY")))
+					.build())
+				.build()))
+			.build();
 
 		// Execute test
 		ChatCompletionResponse response = chatService.createChatCompletion(request);
