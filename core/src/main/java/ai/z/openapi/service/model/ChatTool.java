@@ -23,4 +23,7 @@ public class ChatTool {
 	@JsonProperty("web_search")
 	private WebSearch webSearch;
 
+	@JsonProperty("mcp")
+	private MCPTool mcp;
+
 }
