@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebBrowser {
+public class AssistantWebBrowser {
 
 	/**
 	 * The input query for the web browser search.
@@ -25,6 +25,6 @@ public class WebBrowser {
 	 * A list of search results returned by the web browser.
 	 */
 	@JsonProperty("outputs")
-	private List<WebBrowserOutput> outputs;
+	private List<AssistantWebBrowserOutput> outputs;
 
 }

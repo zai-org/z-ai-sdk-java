@@ -15,13 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RetrievalTool {
+public class AssistantRetrievalTool {
 
 	/**
 	 * A list of text snippets and their respective document names retrieved from the
 	 * knowledge base.
 	 */
 	@JsonProperty("outputs")
-	private List<RetrievalToolOutput> outputs;
+	private List<AssistantRetrievalToolOutput> outputs;
 
 }

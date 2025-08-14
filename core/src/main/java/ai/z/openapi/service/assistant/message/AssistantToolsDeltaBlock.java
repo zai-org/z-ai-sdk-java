@@ -1,7 +1,7 @@
 package ai.z.openapi.service.assistant.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ai.z.openapi.service.assistant.message.tools.ToolsType;
+import ai.z.openapi.service.assistant.message.tools.AssistantToolsType;
 import ai.z.openapi.service.deserialize.JsonTypeField;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class AssistantToolsDeltaBlock extends AssistantMessageContent {
 	 * A list of tool call types.
 	 */
 	@JsonProperty("tool_calls")
-	private List<ToolsType> toolCalls;
+	private List<AssistantToolsType> toolCalls;
 
 	/**
 	 * The role of the speaker, default is "tool".
@@ -32,11 +32,11 @@ public class AssistantToolsDeltaBlock extends AssistantMessageContent {
 
 	// Getters and Setters
 
-	public List<ToolsType> getToolCalls() {
+	public List<AssistantToolsType> getToolCalls() {
 		return toolCalls;
 	}
 
-	public void setToolCalls(List<ToolsType> toolCalls) {
+	public void setToolCalls(List<AssistantToolsType> toolCalls) {
 		this.toolCalls = toolCalls;
 	}
 

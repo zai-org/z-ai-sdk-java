@@ -2,7 +2,6 @@ package ai.z.openapi.service.assistant.message.tools.code_interpreter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CodeInterpreter {
+public class AssistantCodeInterpreter {
 
 	/**
 	 * The generated code snippet that is input to the code sandbox.
@@ -26,6 +25,6 @@ public class CodeInterpreter {
 	 * The output results after the code execution.
 	 */
 	@JsonProperty("outputs")
-	private List<CodeInterpreterToolOutput> outputs;
+	private List<AssistantCodeInterpreterToolOutput> outputs;
 
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RetrievalToolOutput {
+public class AssistantRetrievalToolOutput {
 
 	/**
 	 * The text snippet retrieved from the knowledge base.

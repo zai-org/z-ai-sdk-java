@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CodeInterpreterToolOutput {
+public class AssistantCodeInterpreterToolOutput {
 
 	/**
 	 * The type of output, currently only "logs".

@@ -1,7 +1,7 @@
 package ai.z.openapi.service.assistant.message.tools.web_browser;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ai.z.openapi.service.assistant.message.tools.ToolsType;
+import ai.z.openapi.service.assistant.message.tools.AssistantToolsType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebBrowserToolBlock extends ToolsType {
+public class AssistantWebBrowserToolBlock extends AssistantToolsType {
 
 	/**
 	 * The index of the tool call.
@@ -34,7 +34,7 @@ public class WebBrowserToolBlock extends ToolsType {
 	 * An instance of the WebBrowser class containing the search input and outputs.
 	 */
 	@JsonProperty("web_browser")
-	private WebBrowser webBrowser;
+	private AssistantWebBrowser webBrowser;
 
 	/**
 	 * The type of tool being used, always set to "web_browser".

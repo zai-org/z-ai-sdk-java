@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import ai.z.openapi.service.assistant.message.AssistantMessageContent;
 import ai.z.openapi.service.assistant.message.AssistantTextContentBlock;
-import ai.z.openapi.service.assistant.message.tools.ToolsType;
+import ai.z.openapi.service.assistant.message.tools.AssistantToolsType;
 import ai.z.openapi.service.deserialize.JsonTypeField;
 import ai.z.openapi.service.deserialize.JsonTypeMapping;
 
@@ -66,9 +66,10 @@ public class AssistantMessageContentDeserializer extends JsonDeserializer<Assist
 								ParameterizedType listType = (ParameterizedType) field.getGenericType();
 								Class<?> listGenericType = (Class<?>) listType.getActualTypeArguments()[0];
 
-								if (listGenericType.equals(ToolsType.class)) {
+								if (listGenericType.equals(AssistantToolsType.class)) {
 									// Deserialize to List<ToolsType>
-									List<ToolsType> list = new ObjectMapper().readerForListOf(ToolsType.class)
+									List<AssistantToolsType> list = new ObjectMapper()
+										.readerForListOf(AssistantToolsType.class)
 										.readValue(node.get(name));
 									field.set(obj, list);
 								}

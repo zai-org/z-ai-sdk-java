@@ -1,7 +1,7 @@
-package ai.z.openapi.service.assistant.message.tools.code_interpreter;
+package ai.z.openapi.service.assistant.message.tools.function;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ai.z.openapi.service.assistant.message.tools.ToolsType;
+import ai.z.openapi.service.assistant.message.tools.AssistantToolsType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,14 +9,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * This class represents a block of code tool data.
+ * This class represents a block of function tool data.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CodeInterpreterToolBlock extends ToolsType {
+public class AssistantFunctionToolBlock extends AssistantToolsType {
 
 	/**
 	 * The index of the tool call.
@@ -31,16 +31,16 @@ public class CodeInterpreterToolBlock extends ToolsType {
 	private String id;
 
 	/**
-	 * The code interpreter object.
+	 * The function tool object that contains the name, arguments, and outputs.
 	 */
-	@JsonProperty("code_interpreter")
-	private CodeInterpreter codeInterpreter;
+	@JsonProperty("function")
+	private AssistantFunctionTool function;
 
 	/**
-	 * The type of tool being called, always "code_interpreter".
+	 * The type of tool being called, always "function".
 	 */
 	@JsonProperty("type")
 	@Builder.Default
-	private String type = "code_interpreter";
+	private String type = "function";
 
 }

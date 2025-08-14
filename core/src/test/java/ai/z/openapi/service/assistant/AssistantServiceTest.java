@@ -169,7 +169,10 @@ public class AssistantServiceTest {
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testErrorHandling_InvalidAssistantId() {
 		// Test with invalid assistant ID
-		AssistantMessageTextContent textContent = AssistantMessageTextContent.builder().text("Hello").type("text").build();
+		AssistantMessageTextContent textContent = AssistantMessageTextContent.builder()
+			.text("Hello")
+			.type("text")
+			.build();
 
 		AssistantConversationMessage message = AssistantConversationMessage.builder()
 			.role("user")
@@ -200,8 +203,10 @@ public class AssistantServiceTest {
 			.text("Hello, I would like to learn about machine learning")
 			.type("text")
 			.build();
-		messages
-			.add(AssistantConversationMessage.builder().role("user").content(Collections.singletonList(firstContent)).build());
+		messages.add(AssistantConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(firstContent))
+			.build());
 
 		AssistantMessageTextContent assistantContent = AssistantMessageTextContent.builder()
 			.text("Hello! Machine learning is an important branch of artificial intelligence...")
@@ -217,8 +222,10 @@ public class AssistantServiceTest {
 			.text("Can you introduce supervised learning in detail?")
 			.type("text")
 			.build();
-		messages
-			.add(AssistantConversationMessage.builder().role("user").content(Collections.singletonList(secondContent)).build());
+		messages.add(AssistantConversationMessage.builder()
+			.role("user")
+			.content(Collections.singletonList(secondContent))
+			.build());
 
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 

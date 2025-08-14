@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DrawingToolOutput {
+public class AssistantDrawingToolOutput {
 
 	/**
 	 * The generated image in a string format.

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebBrowserOutput {
+public class AssistantWebBrowserOutput {
 
 	/**
 	 * The title of the search result.

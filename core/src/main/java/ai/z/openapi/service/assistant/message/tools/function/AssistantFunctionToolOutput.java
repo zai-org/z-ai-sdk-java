@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FunctionToolOutput {
+public class AssistantFunctionToolOutput {
 
 	/**
 	 * The generated content as a string.
