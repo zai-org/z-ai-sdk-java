@@ -1,7 +1,7 @@
 package ai.z.openapi.service.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.reactivex.FlowableEmitter;
+import io.reactivex.rxjava3.core.FlowableEmitter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

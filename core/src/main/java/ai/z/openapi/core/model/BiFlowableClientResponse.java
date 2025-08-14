@@ -1,6 +1,6 @@
 package ai.z.openapi.core.model;
 
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 
 /**
  * A client response that supports a reactive Flowable stream with separate body type and

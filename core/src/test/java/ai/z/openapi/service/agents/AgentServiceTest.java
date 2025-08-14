@@ -9,7 +9,7 @@ import ai.z.openapi.service.model.Choice;
 import ai.z.openapi.service.model.ModelData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

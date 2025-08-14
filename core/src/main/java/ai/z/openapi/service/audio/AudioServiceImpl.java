@@ -6,7 +6,7 @@ import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

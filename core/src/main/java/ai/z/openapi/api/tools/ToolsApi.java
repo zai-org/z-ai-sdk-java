@@ -2,7 +2,7 @@ package ai.z.openapi.api.tools;
 
 import ai.z.openapi.service.tools.WebSearchParamsRequest;
 import ai.z.openapi.service.tools.WebSearchPro;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

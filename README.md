@@ -47,14 +47,14 @@ dependencies {
 
 This SDK uses the following core dependencies:
 
-| Library | Version |
-|---------|----------|
-| OkHttp | 4.12.0 |
-| Java JWT | 4.4.0 |
-| Jackson | 2.17.2 |
-| Retrofit2 | 2.11.0 |
-| RxJava | 3.1.8 |
-| SLF4J | 2.0.16 |
+| Library   | Version |
+|-----------|---------|
+| OkHttp3   | 3.14.9  |
+| Java JWT  | 4.2.2   |
+| Jackson   | 2.19.0  |
+| Retrofit2 | 2.12.0  |
+| RxJava3   | 3.1.10  |
+| SLF4J     | 2.0.17  |
 
 ## 🚀 Quick Start
 

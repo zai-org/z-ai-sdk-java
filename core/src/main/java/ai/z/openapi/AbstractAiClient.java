@@ -31,14 +31,14 @@ import ai.z.openapi.core.model.FlowableClientResponse;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.OkHttps;
 import ai.z.openapi.utils.RequestSupplier;
-import io.reactivex.Flowable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.lang.reflect.InvocationTargetException;
@@ -111,7 +111,7 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 		this.retrofit = new Retrofit.Builder().baseUrl(baseUrl)
 			.client(httpClient)
 			.addConverterFactory(JacksonConverterFactory.create(mapper))
-			.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+			.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
 			.build();
 	}
 

@@ -2,7 +2,7 @@ package ai.z.openapi.service.audio;
 
 import ai.z.openapi.core.model.BiFlowableClientResponse;
 import ai.z.openapi.service.model.ChatError;
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

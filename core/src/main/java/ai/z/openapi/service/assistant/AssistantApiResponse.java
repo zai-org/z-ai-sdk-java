@@ -2,7 +2,7 @@ package ai.z.openapi.service.assistant;
 
 import ai.z.openapi.core.model.FlowableClientResponse;
 import ai.z.openapi.service.model.ChatError;
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 import lombok.Data;
 
 /**

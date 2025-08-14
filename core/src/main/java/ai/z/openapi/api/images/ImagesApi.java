@@ -2,7 +2,7 @@ package ai.z.openapi.api.images;
 
 import ai.z.openapi.service.image.CreateImageRequest;
 import ai.z.openapi.service.image.ImageResult;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 

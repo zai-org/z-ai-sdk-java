@@ -6,7 +6,7 @@ import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ModelData;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 
 import java.util.Objects;

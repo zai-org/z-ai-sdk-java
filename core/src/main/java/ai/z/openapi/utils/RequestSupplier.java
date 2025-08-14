@@ -1,6 +1,6 @@
 package ai.z.openapi.utils;
 
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Functional interface for supplying single request operations using RxJava. This
