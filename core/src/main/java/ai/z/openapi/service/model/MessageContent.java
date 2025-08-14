@@ -14,18 +14,30 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MessageContent {
 
-	/** 消息类型 text image_url video_url */
+	/** Message Type: text image_url input_audio video_url file_url */
 	private String type;
 
-	/** 消息内容 when type is text */
+	/** Message Content: when type is text */
 	private String text;
 
-	/** 消息图片URL when type is image_url */
+	/** Message Content: when type is image_url */
 	@JsonProperty("image_url")
 	private ImageUrl imageUrl;
 
-	/** 消息视频URL when type is video_url */
+	/** Message Content: when type is input_audio */
 	@JsonProperty("input_audio")
 	private InputAudio inputAudio;
+
+	/**
+	 * Message Content: when type is video_url
+	 */
+	@JsonProperty("video_url")
+	private VideoUrl videoUrl;
+
+	/**
+	 * Message Content: when type is file_url Only support by GLM4.5V
+	 */
+	@JsonProperty("file_url")
+	private FileUrl fileUrl;
 
 }

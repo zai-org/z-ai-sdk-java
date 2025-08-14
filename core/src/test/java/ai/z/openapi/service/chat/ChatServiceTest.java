@@ -14,12 +14,17 @@ import ai.z.openapi.service.model.ChatMessageRole;
 import ai.z.openapi.service.model.ChatTool;
 import ai.z.openapi.service.model.ChatToolType;
 import ai.z.openapi.service.model.Choice;
+import ai.z.openapi.service.model.InputAudio;
+import ai.z.openapi.service.model.MessageContent;
 import ai.z.openapi.service.model.QueryModelResultResponse;
 import ai.z.openapi.service.model.WebSearch;
 import ai.z.openapi.service.model.params.CodeGeexExtra;
 import ai.z.openapi.service.model.params.CodeGeexTarget;
+import ai.z.openapi.service.videos.VideoCreateParams;
+import ai.z.openapi.service.videos.VideosResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +34,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -282,6 +289,44 @@ public class ChatServiceTest {
 		assertFalse(response.getData().getChoices().get(0).getMessage().getToolCalls().isEmpty(),
 				"Response data choice message tool call should not be null");
 		logger.info("Function calling response: {}", mapper.writeValueAsString(response));
+	}
+
+	@Test
+	@DisplayName("Test Audio with audio Input")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testAudioWithAudio() throws IOException {
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+		String file = ClassLoader.getSystemResource("asr.wav").getFile();
+		byte[] bytes = FileUtils.readFileToByteArray(new File(file));
+		Base64.Encoder encoder = Base64.getEncoder();
+		String audioBytes = encoder.encodeToString(bytes);
+
+		MessageContent messageContent = new MessageContent();
+		messageContent.setType("input_audio");
+		messageContent.setInputAudio(InputAudio.builder().format("wav").data(audioBytes).build());
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), Arrays.asList(messageContent));
+		messages.add(userMessage);
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+			.model(Constants.ModelChatGLM4Voice)
+			.stream(Boolean.FALSE)
+			.messages(messages)
+			.requestId(requestId)
+			.build();
+
+		// Execute test
+		ChatCompletionResponse response = chatService.createChatCompletion(request);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertTrue(response.isSuccess(), "Response should be successful");
+		assertNotNull(response.getData(), "Response data should not be null");
+		assertEquals(requestId, response.getData().getRequestId(), "Request ID should match");
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
+		logger.info("Synchronous chat completion response: {}", mapper.writeValueAsString(response));
 	}
 
 	@ParameterizedTest

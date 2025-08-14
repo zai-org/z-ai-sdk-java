@@ -16,6 +16,9 @@ public class ChatMessage {
 
 	private String role;
 
+	/**
+	 * Message content: String | MessageContent
+	 */
 	private Object content;
 
 	@JsonProperty("reasoning_content")
