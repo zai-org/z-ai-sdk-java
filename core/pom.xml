@@ -54,7 +54,6 @@
         <rxjava.version>3.1.8</rxjava.version>
         <jwt.version>4.2.2</jwt.version>
         <lombok.version>1.18.32</lombok.version>
-        <tika.version>2.9.0</tika.version>
         <junit.test.version>5.10.2</junit.test.version>
     </properties>
 
@@ -153,13 +152,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-        </dependency>
-
-        <!--file tika-->
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-core</artifactId>
-            <version>${tika.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Test JUnit -->

@@ -20,11 +20,9 @@ import ai.z.openapi.service.model.QueryModelResultResponse;
 import ai.z.openapi.service.model.WebSearch;
 import ai.z.openapi.service.model.params.CodeGeexExtra;
 import ai.z.openapi.service.model.params.CodeGeexTarget;
-import ai.z.openapi.service.videos.VideoCreateParams;
-import ai.z.openapi.service.videos.VideosResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.FileUtils;
+import java.nio.file.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -297,7 +295,7 @@ public class ChatServiceTest {
 	void testAudioWithAudio() throws IOException {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 		String file = ClassLoader.getSystemResource("asr.wav").getFile();
-		byte[] bytes = FileUtils.readFileToByteArray(new File(file));
+		byte[] bytes = Files.readAllBytes(new File(file).toPath());
 		Base64.Encoder encoder = Base64.getEncoder();
 		String audioBytes = encoder.encodeToString(bytes);
 

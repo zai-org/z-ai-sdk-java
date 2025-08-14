@@ -12,7 +12,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import org.apache.tika.Tika;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -128,35 +127,27 @@ public class AudioServiceImpl implements AudioService {
 
 	private AudioTranscriptionResponse createTranscriptionStream(AudioTranscriptionRequest request) {
 		FlowableRequestSupplier<AudioTranscriptionRequest, retrofit2.Call<ResponseBody>> supplier = params -> {
-			try {
-				java.io.File file = params.getFile();
-				Tika tika = new Tika();
-				String contentType = tika.detect(file);
-				RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
-				MultipartBody.Part fileData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+			java.io.File file = params.getFile();
+			String contentType = detectContentType(file);
+			RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
+			MultipartBody.Part fileData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-				Map<String, RequestBody> requestMap = new HashMap<>();
-				if (params.getModel() != null) {
-					requestMap.put("model", RequestBody.create(MediaType.parse("text/plain"), params.getModel()));
-				}
-				if (params.getStream() != null) {
-					requestMap.put("stream",
-							RequestBody.create(MediaType.parse("text/plain"), params.getStream().toString()));
-				}
-				if (params.getRequestId() != null) {
-					requestMap.put("request_id",
-							RequestBody.create(MediaType.parse("text/plain"), params.getRequestId()));
-				}
-				if (params.getUserId() != null) {
-					requestMap.put("user_id", RequestBody.create(MediaType.parse("text/plain"), params.getUserId()));
-				}
+			Map<String, RequestBody> requestMap = new HashMap<>();
+			if (params.getModel() != null) {
+				requestMap.put("model", RequestBody.create(MediaType.parse("text/plain"), params.getModel()));
+			}
+			if (params.getStream() != null) {
+				requestMap.put("stream",
+						RequestBody.create(MediaType.parse("text/plain"), params.getStream().toString()));
+			}
+			if (params.getRequestId() != null) {
+				requestMap.put("request_id", RequestBody.create(MediaType.parse("text/plain"), params.getRequestId()));
+			}
+			if (params.getUserId() != null) {
+				requestMap.put("user_id", RequestBody.create(MediaType.parse("text/plain"), params.getUserId()));
+			}
 
-				return audioApi.audioTranscriptionStream(requestMap, fileData);
-			}
-			catch (IOException e) {
-				log.error("Error create transcription: {}", e.getMessage(), e);
-				throw new RuntimeException(e);
-			}
+			return audioApi.audioTranscriptionStream(requestMap, fileData);
 		};
 		return this.zAiClient.biStreamRequest(request, supplier, AudioTranscriptionResponse.class,
 				AudioTranscriptionChunk.class);
@@ -164,35 +155,27 @@ public class AudioServiceImpl implements AudioService {
 
 	private AudioTranscriptionResponse createTranscriptionBlock(AudioTranscriptionRequest request) {
 		RequestSupplier<AudioTranscriptionRequest, AudioTranscriptionResult> supplier = (params) -> {
-			try {
-				java.io.File file = params.getFile();
-				Tika tika = new Tika();
-				String contentType = tika.detect(file);
-				RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
-				MultipartBody.Part fileData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+			java.io.File file = params.getFile();
+			String contentType = detectContentType(file);
+			RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
+			MultipartBody.Part fileData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-				Map<String, RequestBody> requestMap = new HashMap<>();
-				if (params.getModel() != null) {
-					requestMap.put("model", RequestBody.create(MediaType.parse("text/plain"), params.getModel()));
-				}
-				if (params.getStream() != null) {
-					requestMap.put("stream",
-							RequestBody.create(MediaType.parse("text/plain"), params.getStream().toString()));
-				}
-				if (params.getRequestId() != null) {
-					requestMap.put("request_id",
-							RequestBody.create(MediaType.parse("text/plain"), params.getRequestId()));
-				}
-				if (params.getUserId() != null) {
-					requestMap.put("user_id", RequestBody.create(MediaType.parse("text/plain"), params.getUserId()));
-				}
+			Map<String, RequestBody> requestMap = new HashMap<>();
+			if (params.getModel() != null) {
+				requestMap.put("model", RequestBody.create(MediaType.parse("text/plain"), params.getModel()));
+			}
+			if (params.getStream() != null) {
+				requestMap.put("stream",
+						RequestBody.create(MediaType.parse("text/plain"), params.getStream().toString()));
+			}
+			if (params.getRequestId() != null) {
+				requestMap.put("request_id", RequestBody.create(MediaType.parse("text/plain"), params.getRequestId()));
+			}
+			if (params.getUserId() != null) {
+				requestMap.put("user_id", RequestBody.create(MediaType.parse("text/plain"), params.getUserId()));
+			}
 
-				return audioApi.audioTranscription(requestMap, fileData);
-			}
-			catch (IOException e) {
-				log.error("Error create transcription: {}", e.getMessage(), e);
-				throw new RuntimeException(e);
-			}
+			return audioApi.audioTranscription(requestMap, fileData);
 		};
 		return this.zAiClient.executeRequest(request, supplier, AudioTranscriptionResponse.class);
 	}
@@ -251,6 +234,40 @@ public class AudioServiceImpl implements AudioService {
 		}
 		catch (IOException e) {
 			log.error("writeResponseBodyToFile error,msg:{}", e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Detect MIME type based on file extension
+	 * @param file the file to detect
+	 * @return MIME type string
+	 */
+	private String detectContentType(java.io.File file) {
+		String fileName = file.getName().toLowerCase();
+		if (fileName.endsWith(".mp3")) {
+			return "audio/mpeg";
+		}
+		else if (fileName.endsWith(".wav")) {
+			return "audio/wav";
+		}
+		else if (fileName.endsWith(".m4a")) {
+			return "audio/mp4";
+		}
+		else if (fileName.endsWith(".aac")) {
+			return "audio/aac";
+		}
+		else if (fileName.endsWith(".ogg")) {
+			return "audio/ogg";
+		}
+		else if (fileName.endsWith(".flac")) {
+			return "audio/flac";
+		}
+		else if (fileName.endsWith(".wma")) {
+			return "audio/x-ms-wma";
+		}
+		else {
+			// Default to audio/mpeg for unknown audio files
+			return "audio/mpeg";
 		}
 	}
 

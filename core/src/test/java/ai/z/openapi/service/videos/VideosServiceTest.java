@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
-import org.apache.commons.io.FileUtils;
+import java.nio.file.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -197,7 +197,7 @@ public class VideosServiceTest {
 	void testVideoGenerationWithImage() throws IOException {
 		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
 		String file = ClassLoader.getSystemResource("image_to_video.png").getFile();
-		byte[] bytes = FileUtils.readFileToByteArray(new File(file));
+		byte[] bytes = Files.readAllBytes(new File(file).toPath());
 		Base64.Encoder encoder = Base64.getEncoder();
 		String imageUrl = encoder.encodeToString(bytes);
 		VideoCreateParams request = VideoCreateParams.builder()
