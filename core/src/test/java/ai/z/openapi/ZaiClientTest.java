@@ -7,9 +7,7 @@ import ai.z.openapi.core.token.TokenManager;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers
 public class ZaiClientTest {
 
 	private final static Logger logger = LoggerFactory.getLogger(ZaiClientTest.class);

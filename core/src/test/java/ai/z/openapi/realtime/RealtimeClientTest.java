@@ -1,7 +1,6 @@
 package ai.z.openapi.realtime;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
+import java.nio.charset.StandardCharsets;
 import ai.z.openapi.service.realtime.JasonUtil;
 import ai.z.openapi.service.realtime.OkHttpRealtimeClient;
 import ai.z.openapi.service.realtime.RealtimeClientEvent;
@@ -15,8 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -85,10 +85,15 @@ public class RealtimeClientTest {
 	@Test
 	@DisplayName("Test Audio Resource File Loading")
 	void testAudioResourceFileLoading() throws IOException {
-		URL resourceUrl = Resources.getResource(TEST_RESOURCE_FILE);
-		assertNotNull(resourceUrl, "Test resource file should exist");
+		InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(TEST_RESOURCE_FILE);
+		assertNotNull(resourceStream, "Test resource file should exist");
 
-		List<String> lines = Resources.readLines(resourceUrl, Charsets.UTF_8);
+		List<String> lines = new java.util.ArrayList<>();
+		try (Scanner scanner = new Scanner(resourceStream, StandardCharsets.UTF_8.name())) {
+			while (scanner.hasNextLine()) {
+				lines.add(scanner.nextLine());
+			}
+		}
 		assertNotNull(lines, "Resource lines should not be null");
 		assertFalse(lines.isEmpty(), "Resource file should not be empty");
 
@@ -102,8 +107,15 @@ public class RealtimeClientTest {
 	@Test
 	@DisplayName("Test JSON Event Parsing")
 	void testJsonEventParsing() throws IOException {
-		URL resourceUrl = Resources.getResource(TEST_RESOURCE_FILE);
-		List<String> lines = Resources.readLines(resourceUrl, Charsets.UTF_8);
+		InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(TEST_RESOURCE_FILE);
+		assertNotNull(resourceStream, "Test resource file should exist");
+
+		List<String> lines = new java.util.ArrayList<>();
+		try (Scanner scanner = new Scanner(resourceStream, StandardCharsets.UTF_8.name())) {
+			while (scanner.hasNextLine()) {
+				lines.add(scanner.nextLine());
+			}
+		}
 
 		int parsedEventCount = 0;
 		for (String text : lines) {
@@ -137,8 +149,15 @@ public class RealtimeClientTest {
 			logger.info("WebSocket connection established");
 
 			// Load and send test events
-			URL resourceUrl = Resources.getResource(TEST_RESOURCE_FILE);
-			List<String> lines = Resources.readLines(resourceUrl, Charsets.UTF_8);
+			InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(TEST_RESOURCE_FILE);
+			assertNotNull(resourceStream, "Test resource file should exist");
+
+			List<String> lines = new java.util.ArrayList<>();
+			try (Scanner scanner = new Scanner(resourceStream, StandardCharsets.UTF_8.name())) {
+				while (scanner.hasNextLine()) {
+					lines.add(scanner.nextLine());
+				}
+			}
 
 			int sentEventCount = 0;
 			for (String text : lines) {
