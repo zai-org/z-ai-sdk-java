@@ -2,7 +2,7 @@ package ai.z.openapi.api.chat;
 
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ModelData;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

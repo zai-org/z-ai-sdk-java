@@ -2,7 +2,7 @@ package ai.z.openapi.service.agents;
 
 import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ModelData;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Agent completion service interface

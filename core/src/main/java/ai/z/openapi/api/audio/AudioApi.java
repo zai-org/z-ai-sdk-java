@@ -2,7 +2,7 @@ package ai.z.openapi.api.audio;
 
 import ai.z.openapi.service.audio.AudioSpeechRequest;
 import ai.z.openapi.service.audio.AudioTranscriptionResult;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

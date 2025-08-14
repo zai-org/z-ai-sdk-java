@@ -3,7 +3,7 @@ package ai.z.openapi.api.batches;
 import ai.z.openapi.service.batches.Batch;
 import ai.z.openapi.service.batches.BatchCreateParams;
 import ai.z.openapi.service.batches.BatchPage;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;

@@ -2,7 +2,7 @@ package ai.z.openapi.api.web_search;
 
 import ai.z.openapi.service.web_search.WebSearchDTO;
 import ai.z.openapi.service.web_search.WebSearchRequest;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 

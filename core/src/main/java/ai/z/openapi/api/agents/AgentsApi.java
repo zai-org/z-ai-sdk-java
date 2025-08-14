@@ -3,7 +3,7 @@ package ai.z.openapi.api.agents;
 import ai.z.openapi.service.agents.AgentAsyncResultRetrieveParams;
 import ai.z.openapi.service.agents.AgentsCompletionRequest;
 import ai.z.openapi.service.model.ModelData;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

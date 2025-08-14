@@ -6,7 +6,7 @@ import ai.z.openapi.service.assistant.conversation.AssistantConversationUsageLis
 import ai.z.openapi.service.assistant.query_support.AssistantSupportStatus;
 import ai.z.openapi.service.assistant.conversation.AssistantConversationParameters;
 import ai.z.openapi.service.assistant.query_support.AssistantQuerySupportParams;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

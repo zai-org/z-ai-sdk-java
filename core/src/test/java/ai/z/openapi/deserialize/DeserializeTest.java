@@ -11,9 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers
 public class DeserializeTest {
 
 	private final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();

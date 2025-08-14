@@ -3,7 +3,7 @@ package ai.z.openapi.api.file;
 import ai.z.openapi.service.file.File;
 import ai.z.openapi.service.file.FileDeleted;
 import ai.z.openapi.service.file.QueryFileResult;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
