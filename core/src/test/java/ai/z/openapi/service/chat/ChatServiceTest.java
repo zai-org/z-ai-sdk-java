@@ -3,6 +3,7 @@ package ai.z.openapi.service.chat;
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.Constants;
 import ai.z.openapi.core.config.ZaiConfig;
+import ai.z.openapi.service.model.*;
 import ai.z.openapi.service.model.AsyncResultRetrieveParams;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatCompletionResponse;
@@ -159,6 +160,50 @@ public class ChatServiceTest {
 		assertTrue(messageCount.get() > 0, "Should receive at least one message");
 
 		logger.info("Stream chat completion test completed");
+	}
+
+	@Test
+	@DisplayName("Test Synchronous Chat Completion - MCP Tool")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testSyncChatCompletion_MCP() throws JsonProcessingException {
+		// Prepare test data
+		List<ChatMessage> messages = new ArrayList<>();
+		ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), "Hello, please introduce GPT?");
+		messages.add(userMessage);
+
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+
+		ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
+				.model(Constants.ModelChatGLM4)
+				.stream(Boolean.FALSE)
+				.messages(messages)
+				.requestId(requestId)
+				.tools(Arrays.asList(
+						ChatTool.builder()
+								.type(ChatToolType.MCP.value())
+								.mcp(MCPTool.builder()
+										.server_url("https://open.bigmodel.cn/api/mcp/sogou/sse")
+										.server_label("sougou")
+										.transport_type("sse")
+										.headers(Collections.singletonMap(
+												"Authorization", "Bearer " + System.getProperty("ZAI_API_KEY")))
+										.build())
+								.build()))
+				.build();
+
+
+		// Execute test
+		ChatCompletionResponse response = chatService.createChatCompletion(request);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertTrue(response.isSuccess(), "Response should be successful");
+		assertNotNull(response.getData(), "Response data should not be null");
+		assertEquals(requestId, response.getData().getRequestId(), "Request ID should match");
+		assertNotNull(response.getData().getChoices(), "Response data should not be null");
+		assertFalse(response.getData().getChoices().isEmpty(), "Response data should not be empty");
+		assertNull(response.getError(), "Response error should be null");
+		logger.info("Synchronous chat completion response: {}", mapper.writeValueAsString(response));
 	}
 
 	@Test

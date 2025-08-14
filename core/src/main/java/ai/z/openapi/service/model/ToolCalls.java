@@ -27,9 +27,12 @@ public class ToolCalls {
 	private String id;
 
 	/**
-	 * Type of tool called by the model, currently only supports 'function'.
+	 * Type of tool called by the model, currently only supports 'function', 'mcp'.
 	 */
 	@JsonProperty("type")
 	private String type;
+
+	@JsonProperty("mcp")
+	private MCPToolCall mcp;
 
 }
