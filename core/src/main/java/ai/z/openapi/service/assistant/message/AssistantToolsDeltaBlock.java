@@ -10,7 +10,7 @@ import java.util.List;
  * This class represents a block of tool call data in a conversation.
  */
 @JsonTypeField("tool_calls")
-public class ToolsDeltaBlock extends MessageContent {
+public class AssistantToolsDeltaBlock extends AssistantMessageContent {
 
 	/**
 	 * A list of tool call types.
@@ -27,7 +27,7 @@ public class ToolsDeltaBlock extends MessageContent {
 	/**
 	 * Default constructor.
 	 */
-	public ToolsDeltaBlock() {
+	public AssistantToolsDeltaBlock() {
 	}
 
 	// Getters and Setters

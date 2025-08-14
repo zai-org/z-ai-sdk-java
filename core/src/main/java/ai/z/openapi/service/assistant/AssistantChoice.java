@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import ai.z.openapi.service.assistant.message.MessageContent;
+import ai.z.openapi.service.assistant.message.AssistantMessageContent;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import ai.z.openapi.service.deserialize.assistant.AssistantChoiceDeserializer;
 
@@ -31,7 +31,7 @@ public class AssistantChoice extends ObjectNode {
 	 * Current conversation output message content.
 	 */
 	@JsonProperty("delta")
-	private MessageContent delta;
+	private AssistantMessageContent delta;
 
 	/**
 	 * Reason for inference completion: - stop: inference naturally ended or triggered
@@ -66,7 +66,8 @@ public class AssistantChoice extends ObjectNode {
 			this.setIndex(0);
 		}
 		if (objectNode.has("delta")) {
-			MessageContent delta = objectMapper.convertValue(objectNode.get("delta"), MessageContent.class);
+			AssistantMessageContent delta = objectMapper.convertValue(objectNode.get("delta"),
+					AssistantMessageContent.class);
 			this.setDelta(delta);
 		}
 		else {
@@ -108,11 +109,11 @@ public class AssistantChoice extends ObjectNode {
 		this.put("index", index);
 	}
 
-	public MessageContent getDelta() {
+	public AssistantMessageContent getDelta() {
 		return delta;
 	}
 
-	public void setDelta(MessageContent delta) {
+	public void setDelta(AssistantMessageContent delta) {
 		this.delta = delta;
 		this.putPOJO("delta", delta);
 	}

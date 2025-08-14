@@ -4,7 +4,7 @@ import ai.z.openapi.ZaiClient;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.service.assistant.conversation.ConversationParameters;
 import ai.z.openapi.service.assistant.conversation.ConversationUsageListResponse;
-import ai.z.openapi.service.assistant.message.MessageContent;
+import ai.z.openapi.service.assistant.message.AssistantMessageContent;
 import ai.z.openapi.service.assistant.query_support.AssistantSupportResponse;
 import ai.z.openapi.service.assistant.query_support.QuerySupportParams;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -95,7 +95,7 @@ public class AssistantServiceTest {
 		// Test stream data processing
 		AtomicInteger messageCount = new AtomicInteger(0);
 		AtomicBoolean isFirst = new AtomicBoolean(true);
-		List<MessageContent> choices = new ArrayList<>();
+		List<AssistantMessageContent> choices = new ArrayList<>();
 		AtomicReference<AssistantCompletion> lastAccumulator = new AtomicReference<>();
 
 		response.getFlowable().doOnNext(accumulator -> {
@@ -103,7 +103,7 @@ public class AssistantServiceTest {
 				logger.info("Starting to receive stream response:");
 			}
 			if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
-				MessageContent delta = accumulator.getChoices().get(0).getDelta();
+				AssistantMessageContent delta = accumulator.getChoices().get(0).getDelta();
 				if (delta != null) {
 					try {
 						logger.info("MessageContent: {}", mapper.writeValueAsString(delta));
@@ -232,7 +232,7 @@ public class AssistantServiceTest {
 		AssistantApiResponse response = assistantService.assistantCompletionStream(request);
 		response.getFlowable().doOnNext(accumulator -> {
 			if (accumulator.getChoices() != null && !accumulator.getChoices().isEmpty()) {
-				MessageContent delta = accumulator.getChoices().get(0).getDelta();
+				AssistantMessageContent delta = accumulator.getChoices().get(0).getDelta();
 				if (delta != null) {
 					try {
 						logger.info("MessageContent: {}", mapper.writeValueAsString(delta));

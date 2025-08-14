@@ -14,21 +14,21 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AgentContent {
 
-	/** 消息类型 text image_url video_url */
+	/** Message type: text, image_url, video_url */
 	private String type;
 
-	/** 消息内容 when type is text */
+	/** Message content when type is text */
 	private String text;
 
-	/** 消息图片URL when type is image_url */
+	/** Message image URL when type is image_url */
 	@JsonProperty("image_url")
 	private String imageUrl;
 
-	/** 消息视频URL when type is video_url */
+	/** Message video URL when type is video_url */
 	@JsonProperty("video_url")
 	private String videoUrl;
 
-	/** 消息对象 when type is object */
+	/** Message object when type is object */
 	@JsonProperty("object")
 	private Object object;
 

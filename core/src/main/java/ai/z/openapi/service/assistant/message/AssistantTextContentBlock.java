@@ -7,7 +7,7 @@ import ai.z.openapi.service.deserialize.JsonTypeField;
  * This class represents a block of text content in a conversation.
  */
 @JsonTypeField("content")
-public class TextContentBlock extends MessageContent {
+public class AssistantTextContentBlock extends AssistantMessageContent {
 
 	/**
 	 * The content of the text block.
@@ -24,7 +24,7 @@ public class TextContentBlock extends MessageContent {
 	/**
 	 * Default constructor.
 	 */
-	public TextContentBlock() {
+	public AssistantTextContentBlock() {
 	}
 
 	// Getters and Setters

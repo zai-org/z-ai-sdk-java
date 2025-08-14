@@ -3,8 +3,8 @@ package ai.z.openapi.service.deserialize.assistant.message;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
-import ai.z.openapi.service.assistant.message.MessageContent;
-import ai.z.openapi.service.assistant.message.TextContentBlock;
+import ai.z.openapi.service.assistant.message.AssistantMessageContent;
+import ai.z.openapi.service.assistant.message.AssistantTextContentBlock;
 import ai.z.openapi.service.assistant.message.tools.ToolsType;
 import ai.z.openapi.service.deserialize.JsonTypeField;
 import ai.z.openapi.service.deserialize.JsonTypeMapping;
@@ -14,14 +14,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class MessageContentDeserializer extends JsonDeserializer<MessageContent> {
+public class AssistantMessageContentDeserializer extends JsonDeserializer<AssistantMessageContent> {
 
 	@Override
-	public MessageContent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+	public AssistantMessageContent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
 		JsonNode node = p.readValueAsTree();
 
 		// Get JsonTypeMapping annotation from MessageContent class
-		JsonTypeMapping mapping = MessageContent.class.getAnnotation(JsonTypeMapping.class);
+		JsonTypeMapping mapping = AssistantMessageContent.class.getAnnotation(JsonTypeMapping.class);
 		if (mapping == null) {
 			throw new IllegalStateException("Missing JsonTypeMapping annotation on MessageContent class");
 		}
@@ -84,7 +84,7 @@ public class MessageContentDeserializer extends JsonDeserializer<MessageContent>
 						}
 					}
 
-					return (MessageContent) obj;
+					return (AssistantMessageContent) obj;
 				}
 				catch (Exception e) {
 					throw new RuntimeException("Error while creating instance of " + clazz.getName(), e);
@@ -94,10 +94,10 @@ public class MessageContentDeserializer extends JsonDeserializer<MessageContent>
 
 		// Create instance of the class
 		try {
-			MessageContent obj = TextContentBlock.class.getDeclaredConstructor().newInstance();
+			AssistantMessageContent obj = AssistantTextContentBlock.class.getDeclaredConstructor().newInstance();
 
 			// Use reflection to manually set field values
-			for (Field field : TextContentBlock.class.getDeclaredFields()) {
+			for (Field field : AssistantTextContentBlock.class.getDeclaredFields()) {
 				field.setAccessible(true);
 				// field.getName() gets the value from JsonProperty annotation above
 				JsonProperty annotation = field.getAnnotation(JsonProperty.class);
@@ -132,7 +132,8 @@ public class MessageContentDeserializer extends JsonDeserializer<MessageContent>
 			return obj;
 		}
 		catch (Exception e) {
-			throw new RuntimeException("Error while creating instance of " + TextContentBlock.class.getName(), e);
+			throw new RuntimeException("Error while creating instance of " + AssistantTextContentBlock.class.getName(),
+					e);
 		}
 
 	}
