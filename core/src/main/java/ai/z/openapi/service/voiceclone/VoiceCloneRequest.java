@@ -15,19 +15,20 @@ import lombok.EqualsAndHashCode;
 @Data
 public class VoiceCloneRequest extends CommonRequest implements ClientRequest<VoiceCloneRequest> {
 
-    /** Voice name */
-    @JsonProperty("voice_name")
-    private String voiceName;
+	/** Voice name */
+	@JsonProperty("voice_name")
+	private String voiceName;
 
-    /** Text content corresponding to the sample audio */
-    @JsonProperty("voice_text_input")
-    private String voiceTextInput;
+	/** Text content corresponding to the sample audio */
+	@JsonProperty("voice_text_input")
+	private String voiceTextInput;
 
-    /** Target text for preview audio */
-    @JsonProperty("voice_text_output")
-    private String voiceTextOutput;
+	/** Target text for preview audio */
+	@JsonProperty("voice_text_output")
+	private String voiceTextOutput;
 
-    /** File ID of the audio file */
-    @JsonProperty("file_id")
-    private String fileId;
+	/** File ID of the audio file */
+	@JsonProperty("file_id")
+	private String fileId;
+
 }

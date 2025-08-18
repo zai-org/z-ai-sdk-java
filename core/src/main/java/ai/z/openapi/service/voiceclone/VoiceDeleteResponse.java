@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * Response wrapper for voice deletion API operations. This class contains the standard
- * response structure including status code, message, success flag, result data, and error information.
+ * response structure including status code, message, success flag, result data, and error
+ * information.
  */
 @Data
 @Builder
@@ -17,13 +18,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VoiceDeleteResponse implements ClientResponse<VoiceDeleteResult> {
 
-    private int code;
+	private int code;
 
-    private String msg;
+	private String msg;
 
-    private boolean success;
+	private boolean success;
 
-    private VoiceDeleteResult data;
+	private VoiceDeleteResult data;
 
-    private ChatError error;
+	private ChatError error;
+
 }

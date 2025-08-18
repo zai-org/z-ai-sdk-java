@@ -13,7 +13,8 @@ import java.io.Serializable;
 
 /**
  * Response wrapper for voice cloning API operations. This class contains the standard
- * response structure including status code, message, success flag, result data, and error information.
+ * response structure including status code, message, success flag, result data, and error
+ * information.
  */
 @Data
 @Builder
@@ -21,14 +22,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class VoiceCloneResponse implements ClientResponse<VoiceCloneResult> {
 
-    private int code;
+	private int code;
 
-    private String msg;
+	private String msg;
 
-    private boolean success;
+	private boolean success;
 
-    private VoiceCloneResult data;
+	private VoiceCloneResult data;
 
-    private ChatError error;
+	private ChatError error;
 
 }
