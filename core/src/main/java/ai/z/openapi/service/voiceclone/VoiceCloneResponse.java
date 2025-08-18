@@ -1,25 +1,34 @@
-package com.wd.paas.api.domain.v4.voiceclone;
+package ai.z.openapi.service.voiceclone;
 
+import ai.z.openapi.core.model.ClientResponse;
+import ai.z.openapi.service.batches.BatchPage;
+import ai.z.openapi.service.model.ChatError;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Response wrapper for voice cloning API operations. This class contains the standard
+ * response structure including status code, message, success flag, result data, and error information.
+ */
 @Data
-public class VoiceCloneResponse implements Serializable {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class VoiceCloneResponse implements ClientResponse<VoiceCloneResult> {
 
-    private static final long serialVersionUID = 7717182948782963979L;
+    private int code;
 
-    /** 音色ID */
-    private String voice_id;
+    private String msg;
 
-    /** 音频试听文件ID */
-    private String file_id;
+    private boolean success;
 
-    /** 文件 purpose */
-    private String file_purpose;
+    private VoiceCloneResult data;
 
-    //    /** 音频试听文件下载URL */
-    //    private String download_url;
+    private ChatError error;
 
-    private String request_id;
 }

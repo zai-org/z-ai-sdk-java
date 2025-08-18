@@ -6,9 +6,14 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Result data for voice list operations. This class contains the list
+ * of voice data returned from voice listing API calls.
+ */
 @Data
-public class VoiceCloneListResponse implements Serializable {
-    private static final long serialVersionUID = 6184357489443914981L;
+public class VoiceListResult {
+
     @JsonProperty("voice_list")
-    private List<VoiceVO> voiceList;
+    private List<VoiceData> voiceList;
+
 }

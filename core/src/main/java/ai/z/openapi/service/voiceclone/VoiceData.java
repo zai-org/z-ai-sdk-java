@@ -5,8 +5,12 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * Voice data entity containing voice information. This class contains voice details
+ * including voice ID, name, type, download URL, and creation time.
+ */
 @Data
-public class VoiceVO {
+public class VoiceData {
 
     @JsonProperty("voice_id")
     private String voiceId;
