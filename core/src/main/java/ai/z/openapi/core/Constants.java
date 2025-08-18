@@ -23,7 +23,7 @@ public final class Constants {
 	 * Base URL for the ZHIPU AI OpenAPI service. All API requests will be made to
 	 * endpoints under this base URL.
 	 */
-	public static final String ZHIPU_AI_BASE_URL = "https://dev.bigmodel.cn/api/paas/v4/";
+	public static final String ZHIPU_AI_BASE_URL = "https://open.bigmodel.cn/api/paas/v4/";
 
 	/**
 	 * Base URL for the Z.AI OpenAPI service. All API requests will be made to endpoints
