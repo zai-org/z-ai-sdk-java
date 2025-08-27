@@ -34,6 +34,7 @@ public class ZAiError {
 		 * ZAI error code, for example "401"
 		 */
 		String code;
+
 	}
 
 	/**

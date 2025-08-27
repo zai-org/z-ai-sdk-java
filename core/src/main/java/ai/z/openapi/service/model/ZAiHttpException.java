@@ -12,23 +12,23 @@ public class ZAiHttpException extends RuntimeException {
 	 */
 	public final String code;
 
-    /**
-     * ZAI error message
-     */
-    public final String msg;
+	/**
+	 * ZAI error message
+	 */
+	public final String msg;
 
 	public ZAiHttpException(ZAiError error, Exception parent, int statusCode) {
 		super(error.error.message, parent);
 		this.statusCode = statusCode;
 		this.code = error.error.code;
-        this.msg = error.error.message;
+		this.msg = error.error.message;
 	}
 
-    public ZAiHttpException(String errorMsg, String errorCode, Exception parent, int statusCode) {
-        super(errorMsg, parent);
-        this.statusCode = statusCode;
-        this.code = errorCode;
-        this.msg = errorMsg;
-    }
+	public ZAiHttpException(String errorMsg, String errorCode, Exception parent, int statusCode) {
+		super(errorMsg, parent);
+		this.statusCode = statusCode;
+		this.code = errorCode;
+		this.msg = errorMsg;
+	}
 
 }

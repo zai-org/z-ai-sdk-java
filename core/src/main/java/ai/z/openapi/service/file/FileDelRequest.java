@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Data
 @Builder
-public class FileDelRequest implements ClientRequest<FileDelRequest>  {
+public class FileDelRequest implements ClientRequest<FileDelRequest> {
 
 	private String fileId;
 

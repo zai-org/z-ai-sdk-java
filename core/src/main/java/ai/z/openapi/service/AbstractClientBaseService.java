@@ -118,32 +118,41 @@ public abstract class AbstractClientBaseService {
 				if (StringUtils.isEmpty(errorBody)) {
 					throw e;
 				}
-                // here not only the ZAiError, also has {"error": "message"} and others
-                JsonNode jsonNode = mapper.readTree(errorBody);
-                if (jsonNode.has("error")) {
-                    JsonNode errorNode = jsonNode.get("error");
-                    if (errorNode.isTextual()) {
-                        JsonNode codeNode = jsonNode.get("code");
-                        throw new ZAiHttpException(errorNode.asText(), codeNode == null ? null : codeNode.asText(), e, e.code());
-                    } else {
-                        ZAiError error = mapper.readValue(errorBody, ZAiError.class);
-                        throw new ZAiHttpException(error, e, e.code());
-                    }
-                } else if (jsonNode.has("msg")) {
-                    JsonNode msgNode = jsonNode.get("msg");
-                    JsonNode codeNode = jsonNode.get("code");
-                    throw new ZAiHttpException(msgNode.asText(), codeNode == null ? null : codeNode.asText(), e, e.code());
-                } else if (jsonNode.has("message")) {
-                    JsonNode msgNode = jsonNode.get("message");
-                    JsonNode codeNode = jsonNode.get("code");
-                    throw new ZAiHttpException(msgNode.asText(), codeNode == null ? null : codeNode.asText(), e, e.code());
-                } else {
-                    throw new ZAiHttpException(errorBody, null, e, e.code());
-                }
-			} catch (ZAiHttpException zAiHttpException) {
-                throw zAiHttpException;
-            } catch (Exception ex) {
-                logger.error(ex.getMessage(), ex);
+				// here not only the ZAiError, also has {"error": "message"} and others
+				JsonNode jsonNode = mapper.readTree(errorBody);
+				if (jsonNode.has("error")) {
+					JsonNode errorNode = jsonNode.get("error");
+					if (errorNode.isTextual()) {
+						JsonNode codeNode = jsonNode.get("code");
+						throw new ZAiHttpException(errorNode.asText(), codeNode == null ? null : codeNode.asText(), e,
+								e.code());
+					}
+					else {
+						ZAiError error = mapper.readValue(errorBody, ZAiError.class);
+						throw new ZAiHttpException(error, e, e.code());
+					}
+				}
+				else if (jsonNode.has("msg")) {
+					JsonNode msgNode = jsonNode.get("msg");
+					JsonNode codeNode = jsonNode.get("code");
+					throw new ZAiHttpException(msgNode.asText(), codeNode == null ? null : codeNode.asText(), e,
+							e.code());
+				}
+				else if (jsonNode.has("message")) {
+					JsonNode msgNode = jsonNode.get("message");
+					JsonNode codeNode = jsonNode.get("code");
+					throw new ZAiHttpException(msgNode.asText(), codeNode == null ? null : codeNode.asText(), e,
+							e.code());
+				}
+				else {
+					throw new ZAiHttpException(errorBody, null, e, e.code());
+				}
+			}
+			catch (ZAiHttpException zAiHttpException) {
+				throw zAiHttpException;
+			}
+			catch (Exception ex) {
+				logger.error(ex.getMessage(), ex);
 				// couldn't parse ZAiError error
 				throw e;
 			}

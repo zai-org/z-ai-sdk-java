@@ -15,13 +15,12 @@ public interface FileService {
 	 */
 	FileApiResponse uploadFile(FileUploadParams request);
 
-
-    /**
-     * Delete file by file ID.
-     * @param request the file id to delete.
-     * @return FileDelResponse containing the delete result
-     */
-    FileDelResponse deleteFile(FileDelRequest request);
+	/**
+	 * Delete file by file ID.
+	 * @param request the file id to delete.
+	 * @return FileDelResponse containing the delete result
+	 */
+	FileDelResponse deleteFile(FileDelRequest request);
 
 	/**
 	 * Lists all files.

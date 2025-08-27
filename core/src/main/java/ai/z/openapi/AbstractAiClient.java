@@ -319,9 +319,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			tResp.setMsg("Call Failed");
 			tResp.setSuccess(false);
 			ChatError chatError = new ChatError();
-            if (StringUtils.isNotEmpty(e.code)) {
-                chatError.setCode(Integer.parseInt(e.code));
-            }
+			if (StringUtils.isNotEmpty(e.code)) {
+				chatError.setCode(Integer.parseInt(e.code));
+			}
 			chatError.setMessage(e.getMessage());
 			tResp.setError(chatError);
 		}

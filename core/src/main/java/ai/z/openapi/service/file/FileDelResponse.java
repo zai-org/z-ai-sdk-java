@@ -15,5 +15,6 @@ public class FileDelResponse implements ClientResponse<FileDeleted> {
 
 	private FileDeleted data;
 
-    private ChatError error;
+	private ChatError error;
+
 }

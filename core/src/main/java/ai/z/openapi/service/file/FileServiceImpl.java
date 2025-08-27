@@ -70,13 +70,13 @@ public class FileServiceImpl implements FileService {
 		return this.zAiClient.executeRequest(request, supplier, FileApiResponse.class);
 	}
 
-    @Override
-    public FileDelResponse deleteFile(FileDelRequest request) {
-        RequestSupplier<FileDelRequest, FileDeleted> supplier = (params -> fileApi.deletedFile(params.getFileId()));
-        return this.zAiClient.executeRequest(request, supplier, FileDelResponse.class);
-    }
+	@Override
+	public FileDelResponse deleteFile(FileDelRequest request) {
+		RequestSupplier<FileDelRequest, FileDeleted> supplier = (params -> fileApi.deletedFile(params.getFileId()));
+		return this.zAiClient.executeRequest(request, supplier, FileDelResponse.class);
+	}
 
-    @Override
+	@Override
 	public QueryFileApiResponse listFiles(FileListParams queryFilesRequest) {
 		RequestSupplier<FileListParams, QueryFileResult> supplier = (params) -> fileApi.queryFileList(params.getAfter(),
 				params.getPurpose(), params.getOrder(), params.getLimit());
