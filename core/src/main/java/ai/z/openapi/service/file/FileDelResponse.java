@@ -1,9 +1,11 @@
 package ai.z.openapi.service.file;
 
+import ai.z.openapi.core.model.ClientResponse;
+import ai.z.openapi.service.model.ChatError;
 import lombok.Data;
 
 @Data
-public class FileDelResponse {
+public class FileDelResponse implements ClientResponse<FileDeleted> {
 
 	private int code;
 
@@ -13,4 +15,5 @@ public class FileDelResponse {
 
 	private FileDeleted data;
 
+    private ChatError error;
 }

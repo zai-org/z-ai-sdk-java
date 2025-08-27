@@ -33,6 +33,7 @@ import ai.z.openapi.core.model.FlowableClientResponse;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.OkHttps;
 import ai.z.openapi.utils.RequestSupplier;
+import ai.z.openapi.utils.StringUtils;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.OkHttpClient;
@@ -318,7 +319,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			tResp.setMsg("Call Failed");
 			tResp.setSuccess(false);
 			ChatError chatError = new ChatError();
-			chatError.setCode(Integer.parseInt(e.code));
+            if (StringUtils.isNotEmpty(e.code)) {
+                chatError.setCode(Integer.parseInt(e.code));
+            }
 			chatError.setMessage(e.getMessage());
 			tResp.setError(chatError);
 		}

@@ -8,23 +8,27 @@ public class ZAiHttpException extends RuntimeException {
 	public final int statusCode;
 
 	/**
-	 * ZAI error code, for example "invalid_api_key"
+	 * ZAI error code, for example "1233"
 	 */
 	public final String code;
 
-	public final String param;
-
-	/**
-	 * ZAI error type, for example "invalid_request_error"
-	 */
-	public final String type;
+    /**
+     * ZAI error message
+     */
+    public final String msg;
 
 	public ZAiHttpException(ZAiError error, Exception parent, int statusCode) {
 		super(error.error.message, parent);
 		this.statusCode = statusCode;
 		this.code = error.error.code;
-		this.param = error.error.param;
-		this.type = error.error.type;
+        this.msg = error.error.message;
 	}
+
+    public ZAiHttpException(String errorMsg, String errorCode, Exception parent, int statusCode) {
+        super(errorMsg, parent);
+        this.statusCode = statusCode;
+        this.code = errorCode;
+        this.msg = errorMsg;
+    }
 
 }

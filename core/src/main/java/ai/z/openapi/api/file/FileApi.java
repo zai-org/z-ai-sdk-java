@@ -32,15 +32,6 @@ public interface FileApi {
 	Single<File> uploadFile(@Body MultipartBody multipartBody);
 
 	/**
-	 * Retrieve file metadata and information Gets detailed information about a previously
-	 * uploaded file
-	 * @param fileId Unique identifier of the file to retrieve
-	 * @return File metadata including name, size, purpose, and creation time
-	 */
-	@GET("files/{file_id}")
-	Single<File> retrieveFile(@Path("file_id") String fileId);
-
-	/**
 	 * Delete a file from the platform Permanently removes the file and all associated
 	 * data
 	 * @param fileId Unique identifier of the file to delete
