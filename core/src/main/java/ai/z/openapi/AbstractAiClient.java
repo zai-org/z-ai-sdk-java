@@ -23,6 +23,8 @@ import ai.z.openapi.service.videos.VideosService;
 import ai.z.openapi.service.videos.VideosServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
 import ai.z.openapi.service.assistant.AssistantServiceImpl;
+import ai.z.openapi.service.voiceclone.VoiceCloneService;
+import ai.z.openapi.service.voiceclone.VoiceCloneServiceImpl;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.model.BiFlowableClientResponse;
 import ai.z.openapi.core.model.ClientRequest;
@@ -97,6 +99,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** Assistant service for AI assistant functionality */
 	private AssistantService assistantService;
+
+	/** Voice clone service for voice cloning operations */
+	private VoiceCloneService voiceCloneService;
 
 	/**
 	 * Constructs a new AbstractAiClient with the specified configuration.
@@ -236,6 +241,18 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.assistantService = new AssistantServiceImpl(this);
 		}
 		return assistantService;
+	}
+
+	/**
+	 * Returns the voice clone service for voice cloning operations. This service handles
+	 * voice cloning creation, deletion, and listing functionality.
+	 * @return the VoiceCloneService instance (lazily initialized)
+	 */
+	public synchronized VoiceCloneService voiceClone() {
+		if (voiceCloneService == null) {
+			this.voiceCloneService = new VoiceCloneServiceImpl(this);
+		}
+		return voiceCloneService;
 	}
 
 	// ==================== Utility Methods ====================
