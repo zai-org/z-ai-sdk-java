@@ -175,6 +175,26 @@ public class FileServiceTest {
 	}
 
 	@Test
+	@DisplayName("Test Delete File - Basic Functionality")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testDeleteFile() throws JsonProcessingException {
+
+		String fileId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+		FileDelRequest request = FileDelRequest.builder().fileId(fileId).build();
+
+		// Execute test
+		FileDelResponse response = fileService.deleteFile(request);
+
+		// Verify results
+		assertNotNull(response, "Response should not be null");
+		assertFalse(response.isSuccess(), "Response should be failed");
+		assertNull(response.getData(), "Response data should not be null");
+		assertNotNull(response.getError(), "Response error should be null");
+
+		logger.info("Delete file response: {}", mapper.writeValueAsString(response));
+	}
+
+	@Test
 	@DisplayName("Test List Files with Purpose Filter")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testListFilesWithPurpose() throws JsonProcessingException {

@@ -30,12 +30,8 @@ public class ZAiError {
 		 */
 		String message;
 
-		String type;
-
-		String param;
-
 		/**
-		 * ZAI error code, for example "invalid_api_key"
+		 * ZAI error code, for example "401"
 		 */
 		String code;
 
