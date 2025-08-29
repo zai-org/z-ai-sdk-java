@@ -75,17 +75,18 @@ public class VoiceCloneExample {
                 // Step 2: Create voice clone using the uploaded file
                 VoiceCloneRequest request = new VoiceCloneRequest();
                 request.setVoiceName("My Custom Voice");
-                request.setVoiceTextInput("Hello, this is a sample text for voice cloning training");
-                request.setVoiceTextOutput("Welcome to our voice synthesis system");
+                request.setText("Hello, this is a sample text for voice cloning training");
+                request.setInput("Welcome to our voice synthesis system");
                 request.setFileId(fileId);
                 request.setRequestId("clone-request-" + System.currentTimeMillis());
+                request.setModel("CogTTS-3.0-clone");
 
                 System.out.println("Creating voice clone...");
                 VoiceCloneResponse response = voiceCloneService.cloneVoice(request);
 
                 if (response.isSuccess()) {
                     System.out.println("Voice clone created successfully!");
-                    System.out.println("Voice ID: " + response.getData().getVoiceId());
+                    System.out.println("Voice: " + response.getData().getVoice());
                 } else {
                     System.err.println("Voice clone creation failed: " + response.getMsg());
                     if (response.getError() != null) {
@@ -118,7 +119,7 @@ public class VoiceCloneExample {
                 if (response.getData().getVoiceList() != null && !response.getData().getVoiceList().isEmpty()) {
                     System.out.println("Found " + response.getData().getVoiceList().size() + " voices:");
                     for (VoiceData voice : response.getData().getVoiceList()) {
-                        System.out.println("- Voice ID: " + voice.getVoiceId());
+                        System.out.println("- Voice: " + voice.getVoice());
                         System.out.println("  Name: " + voice.getVoiceName());
                         System.out.println("  Type: " + voice.getVoiceType());
                         if (voice.getDownloadUrl() != null) {
@@ -142,24 +143,24 @@ public class VoiceCloneExample {
 
     /**
      * Example of deleting a voice clone
-     * Note: Replace "your-voice-id" with an actual voice ID from your account
+     * Note: Replace "your-voice" with an actual voice from your account
      */
     private static void deleteVoiceExample(VoiceCloneService voiceCloneService) {
         try {
-            // Note: This is just an example - replace with actual voice ID
-            String voiceIdToDelete = "your-voice-id-here";
+            // Note: This is just an example - replace with actual voice
+            String voiceToDelete = "your-voice-here";
             
             VoiceDeleteRequest request = new VoiceDeleteRequest();
-            request.setVoiceId(voiceIdToDelete);
+            request.setVoice(voiceToDelete);
             request.setRequestId("delete-request-" + System.currentTimeMillis());
 
-            System.out.println("Deleting voice clone with ID: " + voiceIdToDelete);
+            System.out.println("Deleting voice: " + voiceToDelete);
             VoiceDeleteResponse response = voiceCloneService.deleteVoice(request);
 
             if (response.isSuccess()) {
                 System.out.println("Voice clone deleted successfully!");
-                if (response.getData().getDeleteTime() != null) {
-                    System.out.println("Deletion time: " + response.getData().getDeleteTime());
+                if (response.getData().getUpdateTime() != null) {
+                    System.out.println("Deletion time: " + response.getData().getUpdateTime());
                 }
             } else {
                 System.err.println("Voice deletion failed: " + response.getMsg());
@@ -168,9 +169,9 @@ public class VoiceCloneExample {
                 }
             }
         } catch (Exception e) {
-            // Expected to fail with example voice ID
-            System.out.println("Note: This example uses a placeholder voice ID and is expected to fail.");
-            System.out.println("Replace 'your-voice-id-here' with an actual voice ID to test deletion.");
+            // Expected to fail with example voice
+            System.out.println("Note: This example uses a placeholder voice and is expected to fail.");
+            System.out.println("Replace 'your-voice-here' with an actual voice to test deletion.");
         }
     }
 }

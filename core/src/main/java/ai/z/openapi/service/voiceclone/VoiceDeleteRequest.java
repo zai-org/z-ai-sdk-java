@@ -8,13 +8,13 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Request parameters for voice deletion API. This class contains the necessary parameters
- * for deleting a voice, specifically the voice ID.
+ * for deleting a voice, specifically the voice.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class VoiceDeleteRequest extends CommonRequest implements ClientRequest<VoiceDeleteRequest> {
 
-	@JsonProperty("voice_id")
-	private String voiceId;
+	@JsonProperty("voice")
+	private String voice;
 
 }

@@ -25,15 +25,15 @@ public interface VoiceCloneApi {
 	 * synthesize speech matching the characteristics of the provided sample.
 	 * @param request voice clone creation parameters including voice name, sample text,
 	 * target text, and audio file reference
-	 * @return voice clone creation result with voice ID and preview file information
+	 * @return voice clone creation result with voice and preview file information
 	 */
 	@POST("voice/clone")
 	Single<VoiceCloneResult> cloneVoice(@Body VoiceCloneRequest request);
 
 	/**
-	 * Deletes an existing voice clone by voice ID. Permanently removes the voice model
-	 * and associated data from the system. This operation cannot be undone.
-	 * @param request voice deletion parameters containing the voice ID to delete
+	 * Deletes an existing voice clone by voice. Permanently removes the voice model and
+	 * associated data from the system. This operation cannot be undone.
+	 * @param request voice deletion parameters containing the voice to delete
 	 * @return voice deletion result with confirmation and deletion timestamp
 	 */
 	@POST("voice/delete")
@@ -41,8 +41,8 @@ public interface VoiceCloneApi {
 
 	/**
 	 * Retrieves a list of available voice clones with optional filtering. Returns
-	 * metadata and details for voice clones including voice IDs, names, types, download
-	 * URLs, and creation timestamps.
+	 * metadata and details for voice clones including voice, names, types, download URLs,
+	 * and creation timestamps.
 	 * @param voiceType optional voice type filter
 	 * @param voiceName optional voice name filter
 	 * @return list of voice clone data with comprehensive metadata
@@ -52,7 +52,7 @@ public interface VoiceCloneApi {
 
 	/**
 	 * Retrieves a list of available voice clones with optional filtering and Request-Id
-	 * header. Returns metadata and details for voice clones including voice IDs, names,
+	 * header. Returns metadata and details for voice clones including voice, names,
 	 * types, download URLs, and creation timestamps.
 	 * @param voiceType optional voice type filter
 	 * @param voiceName optional voice name filter

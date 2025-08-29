@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Result data for voice cloning operations. This class contains the voice cloning result
- * information including voice ID, audio file ID, and file purpose.
+ * information including voice, audio file ID, and file purpose.
  */
 @Data
 @Builder
@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VoiceCloneResult {
 
-	/** Voice ID */
-	@JsonProperty("voice_id")
-	private String voiceId;
+	/** Voice */
+	@JsonProperty("voice")
+	private String voice;
 
 	/** Audio preview file ID */
 	@JsonProperty("file_id")

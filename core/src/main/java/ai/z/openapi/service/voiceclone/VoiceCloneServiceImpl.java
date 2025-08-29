@@ -58,8 +58,11 @@ public class VoiceCloneServiceImpl implements VoiceCloneService {
 		if (request.getVoiceName() == null || request.getVoiceName().trim().isEmpty()) {
 			throw new IllegalArgumentException("voice name cannot be null or empty");
 		}
-		if (request.getVoiceTextInput() == null || request.getVoiceTextInput().trim().isEmpty()) {
-			throw new IllegalArgumentException("voice text input cannot be null or empty");
+		if (request.getText() == null || request.getText().trim().isEmpty()) {
+			throw new IllegalArgumentException("text cannot be null or empty");
+		}
+		if (request.getInput() == null || request.getInput().trim().isEmpty()) {
+			throw new IllegalArgumentException("input cannot be null or empty");
 		}
 		if (request.getFileId() == null || request.getFileId().trim().isEmpty()) {
 			throw new IllegalArgumentException("file ID cannot be null or empty");
@@ -70,8 +73,8 @@ public class VoiceCloneServiceImpl implements VoiceCloneService {
 		if (request == null) {
 			throw new IllegalArgumentException("request cannot be null");
 		}
-		if (request.getVoiceId() == null || request.getVoiceId().trim().isEmpty()) {
-			throw new IllegalArgumentException("voice ID cannot be null or empty");
+		if (request.getVoice() == null || request.getVoice().trim().isEmpty()) {
+			throw new IllegalArgumentException("voice cannot be null or empty");
 		}
 	}
 
