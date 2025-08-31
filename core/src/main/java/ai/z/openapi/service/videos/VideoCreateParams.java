@@ -120,4 +120,11 @@ public class VideoCreateParams implements ClientRequest<VideoCreateParams> {
 	@JsonProperty("watermark_enabled")
 	private Boolean watermarkEnabled;
 
+
+	/**
+	 * Is it necessary to perform off peak execution
+	 */
+	@JsonProperty("off_peak")
+	private Boolean offPeak;
+
 }
