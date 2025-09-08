@@ -79,7 +79,7 @@ public class VoiceCloneExample {
                 request.setInput("Welcome to our voice synthesis system");
                 request.setFileId(fileId);
                 request.setRequestId("clone-request-" + System.currentTimeMillis());
-                request.setModel("CogTTS-3.0-clone");
+                request.setModel("CogTTS-clone");
 
                 System.out.println("Creating voice clone...");
                 VoiceCloneResponse response = voiceCloneService.cloneVoice(request);
