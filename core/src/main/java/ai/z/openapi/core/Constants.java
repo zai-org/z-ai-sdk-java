@@ -41,6 +41,11 @@ public final class Constants {
 	public static final String ModelChatGLM4_5 = "glm-4.5";
 
 	/**
+	 * GLM-4.5V model code
+	 */
+	public static final String ModelChatGLM4_5V = "glm-4.5v";
+
+	/**
 	 * GLM-4.5-Air model code
 	 */
 	public static final String ModelChatGLM4_5_AIR = "glm-4.5-air";

@@ -7,9 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -74,6 +72,14 @@ public class ChatCompletionCreateParams extends CommonRequest implements ClientR
 	 * currently only supports single stop word format
 	 */
 	private List<String> stop;
+
+	/**
+	 * Specifies the response format of the model. Defaults to text. Supports two
+	 * formats:"text" "json_object". When using JSON mode, it’s recommended to clearly
+	 * request JSON output in the prompt.
+	 */
+	@JsonProperty("response_format")
+	private ResponseFormat responseFormat;
 
 	/**
 	 * Sensitive word detection control
