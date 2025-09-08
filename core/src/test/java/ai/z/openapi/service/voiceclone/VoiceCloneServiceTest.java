@@ -15,8 +15,6 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Paths;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -76,7 +74,7 @@ public class VoiceCloneServiceTest {
 		request.setText("This is sample text for voice cloning training");
 		request.setInput("This is target text for voice preview generation");
 		request.setFileId(fileId); // Use the actual file ID from upload
-		request.setModel("CogTTS-3.0-clone");
+		request.setModel("CogTTS-clone");
 
 		// Execute voice cloning
 		VoiceCloneResponse response = voiceCloneService.cloneVoice(request);
