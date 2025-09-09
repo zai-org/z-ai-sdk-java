@@ -50,4 +50,14 @@ public class AudioSpeechRequest extends CommonRequest implements ClientRequest<A
 	@JsonProperty("watermark_enabled")
 	private Boolean watermarkEnabled;
 
+	/**
+	 * Voice speed for speech generation
+	 */
+	private Float speed;
+
+	/**
+	 * Volume of the generated speech file
+	 */
+	private Float volume;
+
 }
