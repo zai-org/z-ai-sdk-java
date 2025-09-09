@@ -59,4 +59,5 @@ public class AudioSpeechRequest extends CommonRequest implements ClientRequest<A
 	 * Volume of the generated speech file
 	 */
 	private Float volume;
+
 }
