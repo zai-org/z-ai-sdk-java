@@ -20,15 +20,19 @@ public class VoiceCloneRequest extends CommonRequest implements ClientRequest<Vo
 	private String voiceName;
 
 	/** Text content corresponding to the sample audio */
-	@JsonProperty("voice_text_input")
-	private String voiceTextInput;
+	@JsonProperty("text")
+	private String text;
 
 	/** Target text for preview audio */
-	@JsonProperty("voice_text_output")
-	private String voiceTextOutput;
+	@JsonProperty("input")
+	private String input;
 
 	/** File ID of the audio file */
 	@JsonProperty("file_id")
 	private String fileId;
+
+	/** Model */
+	@JsonProperty("model")
+	private String model;
 
 }
