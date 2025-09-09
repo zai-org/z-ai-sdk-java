@@ -41,6 +41,15 @@ public class WebSearch {
 	@JsonProperty("search_prompt")
 	private String searchPrompt;
 
+    /**
+     * Whether to perform search intent recognition.
+     * By default, search intent recognition is performed.
+     * true: perform search intent recognition and perform search after there is search intent;
+     * false: skip search intent recognition and perform search directly
+     */
+    @JsonProperty("search_intent")
+    private String searchIntent;
+
 	/**
 	 * Specify the search engine to use.
 	 */
