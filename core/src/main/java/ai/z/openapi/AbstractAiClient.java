@@ -1,6 +1,8 @@
 package ai.z.openapi;
 
 import ai.z.openapi.service.AbstractClientBaseService;
+import ai.z.openapi.service.fileparsing.FileParsingService;
+import ai.z.openapi.service.fileparsing.FileParsingServiceImpl;
 import ai.z.openapi.service.model.ChatError;
 import ai.z.openapi.service.model.ZAiHttpException;
 import ai.z.openapi.service.chat.ChatService;
@@ -104,6 +106,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 	/** Voice clone service for voice cloning operations */
 	private VoiceCloneService voiceCloneService;
 
+	/** FileParsing service for fileParsing operations */
+	private FileParsingService fileParsingService;
+
 	/**
 	 * Constructs a new AbstractAiClient with the specified configuration.
 	 * @param config the configuration object containing API keys, timeouts, and other
@@ -115,10 +120,10 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 		logger.info("ZAI Init the client: {}, baseUrl: {}", this.getClass().getSimpleName(), baseUrl);
 		this.httpClient = OkHttps.create(config);
 		this.retrofit = new Retrofit.Builder().baseUrl(baseUrl)
-			.client(httpClient)
-			.addConverterFactory(JacksonConverterFactory.create(mapper))
-			.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-			.build();
+				.client(httpClient)
+				.addConverterFactory(JacksonConverterFactory.create(mapper))
+				.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+				.build();
 	}
 
 	// ==================== Service Accessor Methods ====================
@@ -254,6 +259,18 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.voiceCloneService = new VoiceCloneServiceImpl(this);
 		}
 		return voiceCloneService;
+	}
+
+	/**
+	 * Returns the file service for file operations. This service handles file uploads,
+	 * downloads, and management.
+	 * @return the FileParsingService instance (lazily initialized)
+	 */
+	public synchronized FileParsingService fileParsing() {
+		if (fileParsingService == null) {
+			this.fileParsingService = new FileParsingServiceImpl(this);
+		}
+		return fileParsingService;
 	}
 
 	// ==================== Utility Methods ====================
@@ -566,7 +583,7 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 		 * @return this Builder instance for method chaining
 		 */
 		public B networkConfig(int requestTimeOut, int connectTimeout, int readTimeout, int writeTimeout,
-				TimeUnit timeUnit) {
+							   TimeUnit timeUnit) {
 			config.setRequestTimeOut(requestTimeOut);
 			config.setConnectTimeout(connectTimeout);
 			config.setReadTimeout(readTimeout);
