@@ -69,10 +69,10 @@ public class WebSearchRequest implements ClientRequest<WebSearchRequest> {
 	@JsonProperty("content_size")
 	private String contentSize;
 
-    /**
-     * Whether to include image in search results.
-     */
-    @JsonProperty("include_image")
-    private Boolean includeImage;
+	/**
+	 * Whether to include image in search results.
+	 */
+	@JsonProperty("include_image")
+	private Boolean includeImage;
 
 }

@@ -27,6 +27,6 @@ public class WebSearchResp {
 	@JsonProperty("publish_date")
 	private String publishDate;
 
-    private List<String> images;
+	private List<String> images;
 
 }
