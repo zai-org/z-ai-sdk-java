@@ -57,6 +57,11 @@ public class AudioSpeechRequest extends CommonRequest implements ClientRequest<A
 	private Boolean watermarkEnabled;
 
 	/**
+	 * Is streaming response
+	 */
+	private Boolean stream;
+
+	/**
 	 * Voice speed for speech generation
 	 */
 	private Float speed;
