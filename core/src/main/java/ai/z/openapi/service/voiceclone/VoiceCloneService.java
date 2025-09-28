@@ -15,8 +15,8 @@ public interface VoiceCloneService {
 	VoiceCloneResponse cloneVoice(VoiceCloneRequest request);
 
 	/**
-	 * Deletes an existing voice clone by voice ID.
-	 * @param request the voice deletion request containing the voice ID to delete
+	 * Deletes an existing voice clone by voice.
+	 * @param request the voice deletion request containing the voice to delete
 	 * @return VoiceDeleteResponse containing the deletion result and timestamp
 	 */
 	VoiceDeleteResponse deleteVoice(VoiceDeleteRequest request);

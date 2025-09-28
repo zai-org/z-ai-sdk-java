@@ -65,6 +65,7 @@ public class AudioServiceTest {
 			.model(Constants.ModelTTS)
 			.input("Hello, this is a test for text-to-speech functionality.")
 			.voice("tongtong")
+			.encodeFormat("base64")
 			.requestId(requestId)
 			.build();
 

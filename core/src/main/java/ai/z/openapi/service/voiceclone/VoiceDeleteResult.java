@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * Result data for voice deletion operations. This class contains the deletion result
- * information including voice ID and deletion timestamp.
+ * information including voice and deletion timestamp.
  */
 @Data
 @Builder
@@ -20,11 +20,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class VoiceDeleteResult {
 
-	@JsonProperty("voice_id")
-	private String voiceId;
+	@JsonProperty("voice")
+	private String voice;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonProperty("delete_time")
-	private Date deleteTime;
+	@JsonProperty("update_time")
+	private Date updateTime;
 
 }

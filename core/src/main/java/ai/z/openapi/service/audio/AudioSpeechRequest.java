@@ -39,6 +39,12 @@ public class AudioSpeechRequest extends CommonRequest implements ClientRequest<A
 	private String responseFormat;
 
 	/**
+	 * Encode format of the generated speech file
+	 */
+	@JsonProperty("encode_format")
+	private String encodeFormat;
+
+	/**
 	 * Sensitive word detection control
 	 */
 	@JsonProperty("sensitive_word_check")

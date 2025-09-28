@@ -15,8 +15,6 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Paths;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -73,9 +71,10 @@ public class VoiceCloneServiceTest {
 		// Now we can use the uploaded file ID to create a voice clone
 		VoiceCloneRequest request = new VoiceCloneRequest();
 		request.setVoiceName("Test");
-		request.setVoiceTextInput("This is sample text for voice cloning training");
-		request.setVoiceTextOutput("This is target text for voice preview generation");
+		request.setText("This is sample text for voice cloning training");
+		request.setInput("This is target text for voice preview generation");
 		request.setFileId(fileId); // Use the actual file ID from upload
+		request.setModel("CogTTS-clone");
 
 		// Execute voice cloning
 		VoiceCloneResponse response = voiceCloneService.cloneVoice(request);
@@ -112,10 +111,10 @@ public class VoiceCloneServiceTest {
 	@DisplayName("Test voice deletion")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void testDeleteVoice() throws JsonProcessingException {
-		// Create a voice deletion request with a test voice ID
+		// Create a voice deletion request with a test voice
 		// In a real scenario, this would be an ID from a previously created voice clone
 		VoiceDeleteRequest request = new VoiceDeleteRequest();
-		request.setVoiceId("Test voice Id");
+		request.setVoice("Test voice");
 
 		// Execute the voice deletion
 		VoiceDeleteResponse response = voiceCloneService.deleteVoice(request);
