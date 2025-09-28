@@ -90,7 +90,7 @@ public class AudioServiceTest {
 		AudioSpeechRequest audioSpeechRequest = AudioSpeechRequest.builder()
 			.model(Constants.ModelTTS)
 			.encodeFormat("base64")
-			.input("你好,欢迎来到智谱开放平台")
+			.input("Hello, this is a test for text-to-speech functionality.")
 			.voice("female")
 			.speed(1.0f)
 			.volume(1.0f)
