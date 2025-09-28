@@ -1,22 +1,12 @@
 package ai.z.openapi.api.fileparsing;
 
-import ai.z.openapi.service.fileparsing.FileParsingUploadResp;
 import ai.z.openapi.service.fileparsing.FileParsingDownloadResp;
+import ai.z.openapi.service.fileparsing.FileParsingUploadResp;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
-import retrofit2.http.Streaming;
-import retrofit2.http.Part;
-import retrofit2.http.Multipart;
-import retrofit2.http.Header;
-
-import java.io.File;
+import retrofit2.http.*;
 
 /**
  * File Parsing API
@@ -41,8 +31,8 @@ public interface FileParsingApi {
      * Get a file parsing result.
      * Retrieves the parsing result by taskId and format type.
      *
-     * @param taskId          The unique task ID for the parsing job
-     * @param formatType      The format type of the parsing result
+     * @param taskId     The unique task ID for the parsing job
+     * @param formatType The format type of the parsing result
      * @return Parsing result content (JSON or raw format)
      */
     @Streaming
@@ -51,4 +41,17 @@ public interface FileParsingApi {
             @Path("taskId") String taskId,
             @Path("formatType") String formatType
     );
+
+    /**
+     * Executes a synchronous file parsing operation.
+     * Uploads a file and returns the parsing result with specified tool and file type.
+     *
+     * @param multipartBody The multipart request body containing the file and related metadata (tool type, file type)
+     * @return Parsing result content as a FileParsingDownloadResp object
+     */
+    @POST("files/parser/sync")
+    Call<FileParsingDownloadResp> syncParse(
+            @Body MultipartBody multipartBody
+    );
+
 }

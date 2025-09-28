@@ -21,4 +21,14 @@ public interface FileParsingService {
      */
     FileParsingDownloadResponse getParseResult(FileParsingDownloadReq request);
 
+
+    /**
+     * Executes a synchronous file parsing operation.
+     * Uploads a file and immediately returns the parsing result, using the specified tool and file type.
+     *
+     * @param request The file parsing upload request (contains file path, tool type, file type, etc.)
+     * @return FileParsingDownloadResponse containing the parsed content and status
+     */
+    FileParsingDownloadResponse syncParse(FileParsingUploadReq request);
+
 }

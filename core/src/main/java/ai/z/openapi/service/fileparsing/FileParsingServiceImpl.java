@@ -33,9 +33,6 @@ public class FileParsingServiceImpl implements FileParsingService {
         if (request == null) {
             throw new IllegalArgumentException("request cannot be null");
         }
-        if (request.getFilePath() == null) {
-            throw new IllegalArgumentException("file path cannot be null");
-        }
         if (request.getToolType() == null) {
             throw new IllegalArgumentException("toolType cannot be null");
         }
@@ -103,4 +100,54 @@ public class FileParsingServiceImpl implements FileParsingService {
         return this.zAiClient.executeRequest(request, supplier, FileParsingDownloadResponse.class);
     }
 
+
+    @Override
+    public FileParsingDownloadResponse syncParse(FileParsingUploadReq request) {
+        if (request == null) {
+            throw new IllegalArgumentException("request cannot be null");
+        }
+        if (request.getFilePath() == null) {
+            throw new IllegalArgumentException("filePath cannot be null");
+        }
+        if (request.getToolType() == null) {
+            throw new IllegalArgumentException("toolType cannot be null");
+        }
+
+        RequestSupplier<FileParsingUploadReq, FileParsingDownloadResp> supplier = params -> {
+            try {
+                File file = new File(params.getFilePath());
+                if (!file.exists()) {
+                    throw new RuntimeException("file not found at " + params.getFilePath());
+                }
+
+                String toolType = params.getToolType();
+                String fileType = params.getFileType();
+
+                // 构造 multipart/form-data
+                MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(),
+                        RequestBody.create(MediaType.parse("application/octet-stream"), file));
+                MultipartBody.Builder formBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                formBodyBuilder.addPart(filePart);
+                formBodyBuilder.addFormDataPart("tool_type", toolType);
+                formBodyBuilder.addFormDataPart("file_type", fileType);
+
+                MultipartBody multipartBody = formBodyBuilder.build();
+
+
+                // 发起POST请求
+                retrofit2.Call<FileParsingDownloadResp> call = fileParsingApi.syncParse(multipartBody);
+                Response<FileParsingDownloadResp> response = call.execute();
+                if (!response.isSuccessful() || response.body() == null) {
+                    throw new IOException("Failed to sync parse, code: " + response.code() + ", msg: " + response.message());
+                }
+
+                return Single.just(response.body());
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        };
+
+        return this.zAiClient.executeRequest(request, supplier, FileParsingDownloadResponse.class);
+    }
 }
