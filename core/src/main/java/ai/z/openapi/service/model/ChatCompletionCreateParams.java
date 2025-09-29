@@ -117,6 +117,11 @@ public class ChatCompletionCreateParams extends CommonRequest implements ClientR
 	 */
 	private ChatThinking thinking;
 
+    /**
+     * Whether to stream tool calls
+     */
+    private Boolean tool_stream;
+
 	/**
 	 * Forced watermark switch
 	 */
