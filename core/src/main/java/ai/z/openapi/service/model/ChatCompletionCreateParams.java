@@ -42,20 +42,19 @@ public class ChatCompletionCreateParams extends CommonRequest implements ClientR
 	private Boolean stream;
 
 	/**
-	 * Sampling temperature, controls output randomness, must be positive Range:
-	 * [0.0,1.0] default value is 0.95 Higher values make output more
-	 * random and creative; lower values make output more stable or deterministic It's
-	 * recommended to adjust either top_p or temperature parameter based on your use case,
-	 * but not both simultaneously
+	 * Sampling temperature, controls output randomness, must be positive Range: [0.0,1.0]
+	 * default value is 0.95 Higher values make output more random and creative; lower
+	 * values make output more stable or deterministic It's recommended to adjust either
+	 * top_p or temperature parameter based on your use case, but not both simultaneously
 	 */
 	private Float temperature;
 
 	/**
 	 * Another method for temperature sampling, called nucleus sampling Range: (0.0, 1.0]
 	 * Model considers results with top_p probability mass tokens For example: 0.1 means
-     * the model decoder only considers tokens from the top 10% probability candidate set
-     * It's recommended to adjust either top_p or temperature parameter based on your use
-     * case, but not both simultaneously
+	 * the model decoder only considers tokens from the top 10% probability candidate set
+	 * It's recommended to adjust either top_p or temperature parameter based on your use
+	 * case, but not both simultaneously
 	 */
 	@JsonProperty("top_p")
 	private Float topP;
@@ -117,10 +116,10 @@ public class ChatCompletionCreateParams extends CommonRequest implements ClientR
 	 */
 	private ChatThinking thinking;
 
-    /**
-     * Whether to stream tool calls
-     */
-    private Boolean tool_stream;
+	/**
+	 * Whether to stream tool calls
+	 */
+	private Boolean tool_stream;
 
 	/**
 	 * Forced watermark switch
