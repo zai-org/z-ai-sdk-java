@@ -44,7 +44,12 @@ public class TokenManager {
 	 * @return valid JWT token
 	 */
 	public String getToken(ZaiConfig config) {
-		String tokenCacheKey = genTokenCacheKey(config.getApiId());
+        String[] arrStr = config.getApiKey().split("\\.");
+        if (arrStr.length != 2) {
+            throw new RuntimeException("invalid api Key");
+        }
+        String appId = arrStr[0];
+		String tokenCacheKey = genTokenCacheKey(appId);
 		String cacheToken = cache.get(tokenCacheKey);
 		if (StringUtils.isNotEmpty(cacheToken)) {
 			return cacheToken;
@@ -62,9 +67,15 @@ public class TokenManager {
 	private static String createJwt(ZaiConfig config) {
 		Algorithm alg;
 		String algId = config.getAlg();
+        String[] arrStr = config.getApiKey().split("\\.");
+        if (arrStr.length != 2) {
+            throw new RuntimeException("invalid api Key");
+        }
+        String appId = arrStr[0];
+        String apiSecret = arrStr[1];
 		if ("HS256".equals(algId)) {
 			try {
-				alg = Algorithm.HMAC256(config.getApiSecret().getBytes(StandardCharsets.UTF_8));
+				alg = Algorithm.HMAC256(apiSecret.getBytes(StandardCharsets.UTF_8));
 			}
 			catch (Exception e) {
 				logger.error("Failed to create HMAC256 algorithm", e);
@@ -79,7 +90,7 @@ public class TokenManager {
 
 		Map<String, Object> payload = new HashMap<>();
 		// here the api_key is the apiId
-		payload.put("api_key", config.getApiId());
+		payload.put("api_key", appId);
 		payload.put("exp", System.currentTimeMillis() + config.getExpireMillis() + DELAY_EXPIRE_TIME);
 		payload.put("timestamp", Calendar.getInstance().getTimeInMillis());
 		Map<String, Object> headerClaims = new HashMap<>();

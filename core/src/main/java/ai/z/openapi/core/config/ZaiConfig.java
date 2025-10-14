@@ -55,16 +55,6 @@ public class ZaiConfig {
 	private String apiKey;
 
 	/**
-	 * API id component.
-	 */
-	private String apiId;
-
-	/**
-	 * API secret component.
-	 */
-	private String apiSecret;
-
-	/**
 	 * Custom Http Request Headers
 	 */
 	private Map<String, String> customHeaders;
@@ -84,7 +74,8 @@ public class ZaiConfig {
 	/**
 	 * Flag to disable token caching.
 	 */
-	private boolean disableTokenCache;
+    @Builder.Default
+	private boolean disableTokenCache = true;
 
 	/**
 	 * Maximum number of idle connections in the connection pool.
@@ -149,10 +140,8 @@ public class ZaiConfig {
 		this.apiKey = apiKey;
 		String[] arrStr = apiKey.split("\\.");
 		if (arrStr.length != 2) {
-			throw new RuntimeException("invalid apiSecretKey");
+			throw new RuntimeException("invalid api Key");
 		}
-		this.apiId = arrStr[0];
-		this.apiSecret = arrStr[1];
 	}
 
 	/**
@@ -166,8 +155,6 @@ public class ZaiConfig {
 		if (arrStr.length != 2) {
 			throw new RuntimeException("invalid api Key");
 		}
-		this.apiId = arrStr[0];
-		this.apiSecret = arrStr[1];
 	}
 
 	/**
@@ -194,36 +181,8 @@ public class ZaiConfig {
 		if (value != null && !value.isEmpty()) {
 			// Parse value and set components
 			this.apiKey = value;
-			String[] arrStr = value.split("\\.");
-			if (arrStr.length == 2) {
-				this.apiId = arrStr[0];
-				this.apiSecret = arrStr[1];
-			}
-			return value;
 		}
 		return apiKey;
-	}
-
-	/**
-	 * Gets API key with system property and environment variable fallback.
-	 */
-	public String getApiId() {
-		if (apiId != null && !apiId.isEmpty()) {
-			return apiId;
-		}
-		getApiKey();
-		return apiId;
-	}
-
-	/**
-	 * Gets API secret with system property and environment variable fallback.
-	 */
-	public String getApiSecret() {
-		if (apiSecret != null && !apiSecret.isEmpty()) {
-			return apiSecret;
-		}
-		getApiKey();
-		return apiSecret;
 	}
 
 	/**
