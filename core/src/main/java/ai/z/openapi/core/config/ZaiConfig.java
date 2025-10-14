@@ -74,7 +74,7 @@ public class ZaiConfig {
 	/**
 	 * Flag to disable token caching.
 	 */
-    @Builder.Default
+	@Builder.Default
 	private boolean disableTokenCache = true;
 
 	/**
@@ -87,7 +87,7 @@ public class ZaiConfig {
 	 * Keep alive duration for connections in the pool (in seconds).
 	 */
 	@Builder.Default
-	private long connectionPoolKeepAliveDuration = 1;
+	private long connectionPoolKeepAliveDuration = 10;
 
 	/**
 	 * Time unit for connection pool keep alive duration.

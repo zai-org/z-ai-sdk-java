@@ -9,6 +9,7 @@ import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.ChatMessageRole;
 import ai.z.openapi.service.model.ChatThinking;
 import ai.z.openapi.service.model.ChatThinkingType;
+import ai.z.openapi.service.model.Delta;
 import ai.z.openapi.service.model.ResponseFormat;
 import ai.z.openapi.service.model.ResponseFormatType;
 
@@ -30,11 +31,11 @@ public class CustomClientExample {
             .apiKey(System.getenv("ZAI_API_KEY"))
             .baseUrl(Constants.ZHIPU_AI_BASE_URL)
             .customHeaders(Collections.emptyMap())
-            .disableTokenCache(false)
-            .requestTimeOut(30)
+            .disableTokenCache(true)
+            .requestTimeOut(600)
             .timeOutTimeUnit(TimeUnit.SECONDS)
             .connectTimeout(60)
-            .connectionPoolKeepAliveDuration(1800)
+            .connectionPoolKeepAliveDuration(10)
             .connectionPoolTimeUnit(TimeUnit.SECONDS)
             .connectionPoolMaxIdleConnections(20)
             .build();
@@ -52,10 +53,10 @@ public class CustomClientExample {
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
-                    .content("Hello, how to learn english?")
+                    .content("Hello, who are you?")
                     .build()
             ))
-            .stream(false)
+            .stream(true)
             .thinking(ChatThinking.builder().type(ChatThinkingType.ENABLED.value()).build())
             .responseFormat(ResponseFormat.builder().type(ResponseFormatType.TEXT.value()).build())
             .temperature(0.7f)
@@ -66,15 +67,30 @@ public class CustomClientExample {
             // Execute request
             ChatCompletionResponse response = client.chat().createChatCompletion(request);
 
-            if (response.isSuccess()) {
-                Object content = response.getData().getChoices().get(0).getMessage();
-                System.out.println("Response: " + content);
+            if (response.isSuccess() && response.getFlowable() != null) {
+                System.out.println("Starting streaming response...");
+                response.getFlowable().subscribe(
+                    data -> {
+                        // Process each streaming response chunk
+                        if (data.getChoices() != null && !data.getChoices().isEmpty()) {
+                            // Get content of current chunk
+                            Delta delta = data.getChoices().get(0).getDelta();
+                            // Print current chunk
+                            System.out.print(delta + "\n");
+                        }
+                    },
+                    error -> System.err.println("\nStream error: " + error.getMessage()),
+                    // Process streaming response completion event
+                    () -> System.out.println("\nStreaming response completed")
+                );
             } else {
                 System.err.println("Error: " + response.getMsg());
             }
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+          client.close();
         }
     }
 }

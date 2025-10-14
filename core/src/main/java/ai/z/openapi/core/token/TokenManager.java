@@ -44,11 +44,11 @@ public class TokenManager {
 	 * @return valid JWT token
 	 */
 	public String getToken(ZaiConfig config) {
-        String[] arrStr = config.getApiKey().split("\\.");
-        if (arrStr.length != 2) {
-            throw new RuntimeException("invalid api Key");
-        }
-        String appId = arrStr[0];
+		String[] arrStr = config.getApiKey().split("\\.");
+		if (arrStr.length != 2) {
+			throw new RuntimeException("invalid api Key");
+		}
+		String appId = arrStr[0];
 		String tokenCacheKey = genTokenCacheKey(appId);
 		String cacheToken = cache.get(tokenCacheKey);
 		if (StringUtils.isNotEmpty(cacheToken)) {
@@ -67,12 +67,12 @@ public class TokenManager {
 	private static String createJwt(ZaiConfig config) {
 		Algorithm alg;
 		String algId = config.getAlg();
-        String[] arrStr = config.getApiKey().split("\\.");
-        if (arrStr.length != 2) {
-            throw new RuntimeException("invalid api Key");
-        }
-        String appId = arrStr[0];
-        String apiSecret = arrStr[1];
+		String[] arrStr = config.getApiKey().split("\\.");
+		if (arrStr.length != 2) {
+			throw new RuntimeException("invalid api Key");
+		}
+		String appId = arrStr[0];
+		String apiSecret = arrStr[1];
 		if ("HS256".equals(algId)) {
 			try {
 				alg = Algorithm.HMAC256(apiSecret.getBytes(StandardCharsets.UTF_8));
