@@ -30,7 +30,7 @@ public class ChatAsyncCompletionExample {
         
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-            .model(Constants.ModelChatGLM4_5)
+            .model("glm-4.6")
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
@@ -38,8 +38,7 @@ public class ChatAsyncCompletionExample {
                     .build()
             ))
             .stream(false)
-            .temperature(0.7f)
-            .maxTokens(1024)
+            .temperature(1.0f)
             .build();
         
         try {

@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z.openapi:zai-sdk:0.0.5'
+    implementation 'ai.z.openapi:zai-sdk:0.0.6'
 }
 ```
 
@@ -124,7 +124,7 @@ ZaiClient client = ZaiClient.builder()
 
 // Create chat request
 ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-    .model(Constants.ModelChatGLM4)
+    .model("glm-4.6")
     .messages(Arrays.asList(
         ChatMessage.builder()
             .role(ChatMessageRole.USER.value())
@@ -152,7 +152,7 @@ if (response.isSuccess()) {
 ```java
 // Create streaming request
 ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()
-    .model(Constants.ModelChatGLM4)
+    .model("glm-4.6")
     .messages(Arrays.asList(
         ChatMessage.builder()
             .role(ChatMessageRole.USER.value())
@@ -281,7 +281,7 @@ public class AIController {
     @PostMapping("/chat")
     public ResponseEntity<String> chat(@RequestBody ChatRequest request) {
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
-            .model(Constants.ModelChatGLM4)
+            .model("glm-4.6")
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())

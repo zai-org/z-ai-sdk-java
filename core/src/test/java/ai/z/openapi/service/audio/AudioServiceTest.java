@@ -83,6 +83,29 @@ public class AudioServiceTest {
 	}
 
 	@Test
+	@DisplayName("Should generate speech streaming from text successfully")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testAudioSpeechStreaming() {
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+		AudioSpeechRequest audioSpeechRequest = AudioSpeechRequest.builder()
+			.model(Constants.ModelTTS)
+			.encodeFormat("base64")
+			.input("Hello, this is a test for text-to-speech functionality.")
+			.voice("female")
+			.speed(1.0f)
+			.volume(1.0f)
+			.stream(Boolean.TRUE)
+			.responseFormat("wav")
+			.requestId(requestId)
+			.build();
+		AudioSpeechStreamingResponse audioSpeechStreamingApiResponse = audioService
+			.createStreamingSpeechStreaming(audioSpeechRequest);
+		audioSpeechStreamingApiResponse.getFlowable()
+			.doOnNext(speechPro -> logger.info("speechPro: {}", speechPro.toString()))
+			.blockingSubscribe();
+	}
+
+	@Test
 	@DisplayName("Should generate custom speech with voice cloning successfully")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void shouldGenerateCustomSpeechWithVoiceCloningSuccessfully() throws JsonProcessingException {

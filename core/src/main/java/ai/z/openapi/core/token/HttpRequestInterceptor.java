@@ -40,7 +40,7 @@ public class HttpRequestInterceptor implements Interceptor {
 			.newBuilder()
 			.header("Authorization", "Bearer " + accessToken)
 			.header("x-source-channel", source_channel)
-			.header("Zai-SDK-Ver", "0.0.5")
+			.header("Zai-SDK-Ver", "0.0.6")
 			.header("Accept-Language", "en-US,en");
 		if (Objects.nonNull(config.getCustomHeaders())) {
 			for (Map.Entry<String, String> entry : config.getCustomHeaders().entrySet()) {

@@ -40,6 +40,20 @@ public interface AudioApi {
 	Single<ResponseBody> audioSpeech(@Body AudioSpeechRequest request);
 
 	/**
+	 * Text-to-Speech (TTS) conversion using GLM-4-Voice Converts text input into
+	 * natural-sounding speech audio with emotion and tone control Supports multiple
+	 * voices, languages, speed adjustment, and various audio formats Features advanced
+	 * voice synthesis with customizable emotional expressions and dialects
+	 * @param request TTS parameters including text, voice selection, emotion, speed,
+	 * tone, and output format
+	 * @return Generated high-quality audio streaming in specified format with natural
+	 * prosody
+	 */
+	@Streaming
+	@POST("audio/speech")
+	Call<ResponseBody> audioSpeechStreaming(@Body AudioSpeechRequest request);
+
+	/**
 	 * Voice cloning and customization using advanced neural models Creates custom voice
 	 * models from provided audio samples with high fidelity Enables personalized speech
 	 * synthesis preserving unique voice characteristics and speaking style Supports

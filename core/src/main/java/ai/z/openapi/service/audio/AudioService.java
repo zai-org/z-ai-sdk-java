@@ -13,6 +13,13 @@ public interface AudioService {
 	AudioSpeechResponse createSpeech(AudioSpeechRequest request);
 
 	/**
+	 * Creates speech from text using text-to-speech.
+	 * @param request the speech generation request
+	 * @return AudioSpeechStreamingResponse containing the generated speech streaming
+	 */
+	AudioSpeechStreamingResponse createStreamingSpeechStreaming(AudioSpeechRequest request);
+
+	/**
 	 * Creates customized speech with specific voice characteristics.
 	 * @param request the speech customization request
 	 * @return AudioCustomizationResponse containing the customized speech result

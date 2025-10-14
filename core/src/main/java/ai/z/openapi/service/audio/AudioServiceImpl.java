@@ -6,6 +6,7 @@ import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.reactivex.rxjava3.core.Single;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
@@ -55,6 +56,13 @@ public class AudioServiceImpl implements AudioService {
 			}
 		};
 		return this.zAiClient.executeRequest(request, supplier, AudioSpeechResponse.class);
+	}
+
+	@Override
+	public AudioSpeechStreamingResponse createStreamingSpeechStreaming(AudioSpeechRequest request) {
+		validateSpeechParams(request);
+		FlowableRequestSupplier<AudioSpeechRequest, retrofit2.Call<ResponseBody>> supplier = audioApi::audioSpeechStreaming;
+		return this.zAiClient.streamRequest(request, supplier, AudioSpeechStreamingResponse.class, ObjectNode.class);
 	}
 
 	@Override
