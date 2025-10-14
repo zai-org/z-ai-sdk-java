@@ -35,8 +35,7 @@ public class ChatCompletionExample {
             .stream(false)
             .thinking(ChatThinking.builder().type(ChatThinkingType.ENABLED.value()).build())
             .responseFormat(ResponseFormat.builder().type(ResponseFormatType.TEXT.value()).build())
-            .temperature(0.7f)
-            .maxTokens(1024)
+            .temperature(1.0f)
             .build();
 
         try {

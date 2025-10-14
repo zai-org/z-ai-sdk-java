@@ -30,8 +30,6 @@ public class ChatCompletionWithCustomHeadersExample {
                                 .build()
                 ))
                 .stream(true) // Enable streaming for custom headers support
-                .temperature(0.7f)
-                .maxTokens(1024)
                 .build();
 
         // Create custom headers

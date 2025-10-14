@@ -38,8 +38,7 @@ public class ChatAsyncCompletionExample {
                     .build()
             ))
             .stream(false)
-            .temperature(0.7f)
-            .maxTokens(1024)
+            .temperature(1.0f)
             .build();
         
         try {

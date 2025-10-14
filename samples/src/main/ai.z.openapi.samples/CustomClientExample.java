@@ -9,12 +9,14 @@ import ai.z.openapi.service.model.ChatMessage;
 import ai.z.openapi.service.model.ChatMessageRole;
 import ai.z.openapi.service.model.ChatThinking;
 import ai.z.openapi.service.model.ChatThinkingType;
+import ai.z.openapi.service.model.Choice;
 import ai.z.openapi.service.model.Delta;
 import ai.z.openapi.service.model.ResponseFormat;
 import ai.z.openapi.service.model.ResponseFormatType;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,15 +55,17 @@ public class CustomClientExample {
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
-                    .content("Hello, who are you?")
+                    .content("Hello, are you there")
                     .build()
             ))
             .stream(true)
             .thinking(ChatThinking.builder().type(ChatThinkingType.ENABLED.value()).build())
             .responseFormat(ResponseFormat.builder().type(ResponseFormatType.TEXT.value()).build())
-            .temperature(0.7f)
-            .maxTokens(1024)
+            .temperature(1.0f)
             .build();
+
+        // Create latch to wait for streaming completion
+        CountDownLatch latch = new CountDownLatch(1);
 
         try {
             // Execute request
@@ -74,15 +78,23 @@ public class CustomClientExample {
                         // Process each streaming response chunk
                         if (data.getChoices() != null && !data.getChoices().isEmpty()) {
                             // Get content of current chunk
-                            Delta delta = data.getChoices().get(0).getDelta();
-                            // Print current chunk
-                            System.out.print(delta + "\n");
+                            Choice choice = data.getChoices().get(0);
+                            System.out.print(choice + "\n");
                         }
                     },
-                    error -> System.err.println("\nStream error: " + error.getMessage()),
+                    error -> {
+                        System.err.println("\nStream error: " + error.getMessage());
+                        latch.countDown(); // Release latch on error
+                    },
                     // Process streaming response completion event
-                    () -> System.out.println("\nStreaming response completed")
+                    () -> {
+                        System.out.println("\nStreaming response completed");
+                        latch.countDown(); // Release latch on completion
+                    }
                 );
+
+                // Wait for streaming to complete (max 60 seconds)
+                latch.await(60, TimeUnit.SECONDS);
             } else {
                 System.err.println("Error: " + response.getMsg());
             }
