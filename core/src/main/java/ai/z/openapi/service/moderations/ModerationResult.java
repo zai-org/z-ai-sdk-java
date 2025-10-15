@@ -1,6 +1,6 @@
 package ai.z.openapi.service.moderations;
 
-import ai.z.openapi.service.model.Usage;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,24 +18,31 @@ import java.util.List;
 public class ModerationResult {
 
     /**
+     * Task id.
+     */
+    private String id;
+
+    /**
      * Unique request identifier for tracking.
      */
+    @JsonProperty("request_id")
     private String requestId;
 
     /**
-     * Processing time in milliseconds.
+     * Request time in milliseconds.
      */
-    private Long processedTime;
+    private Long created;
 
     /**
      * List of moderation results for each input item.
      */
+    @JsonProperty("result_list")
     private List<ModerationItem> resultList;
 
     /**
      * Token usage information for the request.
      */
-    private Usage usage;
+    private ModerationUsage usage;
 
     /**
      * Individual moderation result for a single input item.
@@ -49,34 +56,24 @@ public class ModerationResult {
         /**
          * Type of content being moderated (text, image, video, audio).
          */
+        @JsonProperty("content_type")
         private String contentType;
 
         /**
-         * Risk level assessment: "low", "medium", "high".
+         * Risk level assessment: "PASS", "REVIEW", "REJECT".
          */
+        @JsonProperty("risk_level")
         private String riskLevel;
 
-        /**
-         * Specific type of risk detected (e.g., "violence", "sexual", "hate").
-         */
-        private String riskType;
-
-        /**
-         * Confidence score for the moderation result (0.0 to 1.0).
-         */
-        private Double confidence;
-
-        /**
-         * Additional details about the moderation result.
-         */
-        private String details;
+        @JsonProperty("risk_type")
+        private List<String> riskType;
 
         /**
          * Check if the content is flagged as unsafe.
-         * @return true if risk level is medium or high
+         * @return true if risk level is REVIEW or REJECT
          */
         public boolean isFlagged() {
-            return "medium".equalsIgnoreCase(riskLevel) || "high".equalsIgnoreCase(riskLevel);
+            return "REVIEW".equalsIgnoreCase(riskLevel) || "REJECT".equalsIgnoreCase(riskLevel);
         }
 
         /**
@@ -84,7 +81,7 @@ public class ModerationResult {
          * @return true if risk level is low
          */
         public boolean isSafe() {
-            return "low".equalsIgnoreCase(riskLevel);
+            return "PASS".equalsIgnoreCase(riskLevel);
         }
     }
 }

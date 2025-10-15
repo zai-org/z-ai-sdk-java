@@ -23,23 +23,17 @@ public class ModerationExample {
         // Example 2: Image moderation
         System.out.println("\n=== Image Moderation Example ===");
         moderateImage(client);
-        
-        // Example 3: Mixed content moderation
-        System.out.println("\n=== Mixed Content Moderation Example ===");
-        moderateMixedContent(client);
     }
     
     private static void moderateText(ZaiClient client) {
         // Create text moderation inputs
         List<ModerationInput> inputs = Arrays.asList(
-            ModerationInput.text("This is a normal message about technology."),
-            ModerationInput.text("Hello, how are you today?"),
-            ModerationInput.text("Let's discuss artificial intelligence and machine learning.")
+            ModerationInput.text("This is a normal message about technology.")
         );
         
         // Create moderation request
         ModerationCreateParams request = ModerationCreateParams.builder()
-            .model("glm-4-content-safety")
+            .model("moderation")
             .input(inputs)
             .build();
         
@@ -50,7 +44,6 @@ public class ModerationExample {
             if (response.isSuccess()) {
                 System.out.println("Text moderation completed successfully:");
                 System.out.println("Request ID: " + response.getData().getRequestId());
-                System.out.println("Processing time: " + response.getData().getProcessedTime() + "ms");
                 
                 response.getData().getResultList().forEach(item -> {
                     System.out.println("\nContent Type: " + item.getContentType());
@@ -58,9 +51,6 @@ public class ModerationExample {
                     System.out.println("Risk Type: " + item.getRiskType());
                     System.out.println("Is Safe: " + item.isSafe());
                     System.out.println("Is Flagged: " + item.isFlagged());
-                    if (item.getConfidence() != null) {
-                        System.out.println("Confidence: " + String.format("%.2f", item.getConfidence()));
-                    }
                 });
             } else {
                 System.err.println("Error: Text moderation failed: " + response.getMsg());
@@ -83,7 +73,7 @@ public class ModerationExample {
         
         // Create moderation request
         ModerationCreateParams request = ModerationCreateParams.builder()
-            .model("glm-4-content-safety")
+            .model("moderation")
             .input(inputs)
             .build();
         
@@ -123,7 +113,7 @@ public class ModerationExample {
         
         // Create moderation request
         ModerationCreateParams request = ModerationCreateParams.builder()
-            .model("glm-4-content-safety")
+            .model("moderation")
             .input(inputs)
             .build();
         
@@ -140,12 +130,9 @@ public class ModerationExample {
                     System.out.println("Content Type: " + item.getContentType());
                     System.out.println("Risk Assessment: " + item.getRiskLevel());
                     System.out.println("Safety Status: " + (item.isSafe() ? "✓ SAFE" : "⚠ FLAGGED"));
-                    
+
                     if (item.isFlagged()) {
                         System.out.println("Risk Category: " + item.getRiskType());
-                        if (item.getDetails() != null) {
-                            System.out.println("Details: " + item.getDetails());
-                        }
                     }
                 });
                 
@@ -160,7 +147,7 @@ public class ModerationExample {
                 System.out.println("Flagged items: " + flaggedCount);
                 
                 if (response.getData().getUsage() != null) {
-                    System.out.println("Total tokens used: " + response.getData().getUsage().getTotalTokens());
+                    System.out.println("Total tokens used: " + response.getData().getUsage().getModerationText());
                 }
             } else {
                 System.err.println("Error: Mixed content moderation failed: " + response.getMsg());

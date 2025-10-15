@@ -18,7 +18,7 @@ import java.util.List;
 public class ModerationCreateParams extends CommonRequest implements ClientRequest<ModerationCreateParams> {
 
     /**
-     * The model to use for moderation. Currently supports "glm-4-content-safety".
+     * The model to use for moderation. Currently, supports "moderation".
      */
     private String model;
 

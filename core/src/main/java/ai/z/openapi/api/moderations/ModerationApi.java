@@ -1,7 +1,7 @@
 package ai.z.openapi.api.moderations;
 
 import ai.z.openapi.service.moderations.ModerationCreateParams;
-import ai.z.openapi.service.model.ModelData;
+import ai.z.openapi.service.moderations.ModerationResult;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -11,7 +11,6 @@ import retrofit2.http.POST;
  * Provides content moderation capabilities for text, image, audio, and video formats
  * Accurately identifies risky content including adult content, violence, illegal content, etc.
  * Returns structured moderation results including content type, risk type, and specific risk segments
- * Supports pricing: Text: 1.2 yuan/10k times, Image: 4 yuan/10k times, Audio: 0.18 yuan/hour, Video: 0.72 yuan/hour
  */
 public interface ModerationApi {
 
@@ -30,5 +29,5 @@ public interface ModerationApi {
      *         risk types, and processing time information
      */
     @POST("moderations")
-    Single<ModelData> createModeration(@Body ModerationCreateParams request);
+    Single<ModerationResult> createModeration(@Body ModerationCreateParams request);
 }

@@ -2,7 +2,6 @@ package ai.z.openapi.service.moderations;
 
 import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.moderations.ModerationApi;
-import ai.z.openapi.service.model.ModelData;
 import ai.z.openapi.utils.RequestSupplier;
 
 /**
@@ -21,7 +20,7 @@ public class ModerationServiceImpl implements ModerationService {
 
     @Override
     public ModerationResponse createModeration(ModerationCreateParams request) {
-        RequestSupplier<ModerationCreateParams, ModelData> supplier = moderationApi::createModeration;
+        RequestSupplier<ModerationCreateParams, ModerationResult> supplier = moderationApi::createModeration;
         return this.zAiClient.executeRequest(request, supplier, ModerationResponse.class);
     }
 }
