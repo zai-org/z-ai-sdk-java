@@ -17,13 +17,14 @@ import java.util.List;
 @Data
 public class ModerationCreateParams extends CommonRequest implements ClientRequest<ModerationCreateParams> {
 
-    /**
-     * The model to use for moderation. Currently, supports "moderation".
-     */
-    private String model;
+	/**
+	 * The model to use for moderation. Currently, supports "moderation".
+	 */
+	private String model;
 
-    /**
-     * The input content to moderate. Can be text, image, video, or audio.
-     */
-    private List<ModerationInput> input;
+	/**
+	 * The input content to moderate. Can be text, image, video, or audio.
+	 */
+	private List<ModerationInput> input;
+
 }

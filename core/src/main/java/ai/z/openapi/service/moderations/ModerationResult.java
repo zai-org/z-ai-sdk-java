@@ -17,71 +17,73 @@ import java.util.List;
 @AllArgsConstructor
 public class ModerationResult {
 
-    /**
-     * Task id.
-     */
-    private String id;
+	/**
+	 * Task id.
+	 */
+	private String id;
 
-    /**
-     * Unique request identifier for tracking.
-     */
-    @JsonProperty("request_id")
-    private String requestId;
+	/**
+	 * Unique request identifier for tracking.
+	 */
+	@JsonProperty("request_id")
+	private String requestId;
 
-    /**
-     * Request time in milliseconds.
-     */
-    private Long created;
+	/**
+	 * Request time in milliseconds.
+	 */
+	private Long created;
 
-    /**
-     * List of moderation results for each input item.
-     */
-    @JsonProperty("result_list")
-    private List<ModerationItem> resultList;
+	/**
+	 * List of moderation results for each input item.
+	 */
+	@JsonProperty("result_list")
+	private List<ModerationItem> resultList;
 
-    /**
-     * Token usage information for the request.
-     */
-    private ModerationUsage usage;
+	/**
+	 * Token usage information for the request.
+	 */
+	private ModerationUsage usage;
 
-    /**
-     * Individual moderation result for a single input item.
-     */
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ModerationItem {
+	/**
+	 * Individual moderation result for a single input item.
+	 */
+	@Data
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class ModerationItem {
 
-        /**
-         * Type of content being moderated (text, image, video, audio).
-         */
-        @JsonProperty("content_type")
-        private String contentType;
+		/**
+		 * Type of content being moderated (text, image, video, audio).
+		 */
+		@JsonProperty("content_type")
+		private String contentType;
 
-        /**
-         * Risk level assessment: "PASS", "REVIEW", "REJECT".
-         */
-        @JsonProperty("risk_level")
-        private String riskLevel;
+		/**
+		 * Risk level assessment: "PASS", "REVIEW", "REJECT".
+		 */
+		@JsonProperty("risk_level")
+		private String riskLevel;
 
-        @JsonProperty("risk_type")
-        private List<String> riskType;
+		@JsonProperty("risk_type")
+		private List<String> riskType;
 
-        /**
-         * Check if the content is flagged as unsafe.
-         * @return true if risk level is REVIEW or REJECT
-         */
-        public boolean isFlagged() {
-            return "REVIEW".equalsIgnoreCase(riskLevel) || "REJECT".equalsIgnoreCase(riskLevel);
-        }
+		/**
+		 * Check if the content is flagged as unsafe.
+		 * @return true if risk level is REVIEW or REJECT
+		 */
+		public boolean isFlagged() {
+			return "REVIEW".equalsIgnoreCase(riskLevel) || "REJECT".equalsIgnoreCase(riskLevel);
+		}
 
-        /**
-         * Check if the content is safe.
-         * @return true if risk level is low
-         */
-        public boolean isSafe() {
-            return "PASS".equalsIgnoreCase(riskLevel);
-        }
-    }
+		/**
+		 * Check if the content is safe.
+		 * @return true if risk level is low
+		 */
+		public boolean isSafe() {
+			return "PASS".equalsIgnoreCase(riskLevel);
+		}
+
+	}
+
 }

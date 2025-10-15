@@ -9,18 +9,19 @@ import ai.z.openapi.utils.RequestSupplier;
  */
 public class ModerationServiceImpl implements ModerationService {
 
-    private final AbstractAiClient zAiClient;
+	private final AbstractAiClient zAiClient;
 
-    private final ModerationApi moderationApi;
+	private final ModerationApi moderationApi;
 
-    public ModerationServiceImpl(AbstractAiClient zAiClient) {
-        this.zAiClient = zAiClient;
-        this.moderationApi = zAiClient.retrofit().create(ModerationApi.class);
-    }
+	public ModerationServiceImpl(AbstractAiClient zAiClient) {
+		this.zAiClient = zAiClient;
+		this.moderationApi = zAiClient.retrofit().create(ModerationApi.class);
+	}
 
-    @Override
-    public ModerationResponse createModeration(ModerationCreateParams request) {
-        RequestSupplier<ModerationCreateParams, ModerationResult> supplier = moderationApi::createModeration;
-        return this.zAiClient.executeRequest(request, supplier, ModerationResponse.class);
-    }
+	@Override
+	public ModerationResponse createModeration(ModerationCreateParams request) {
+		RequestSupplier<ModerationCreateParams, ModerationResult> supplier = moderationApi::createModeration;
+		return this.zAiClient.executeRequest(request, supplier, ModerationResponse.class);
+	}
+
 }

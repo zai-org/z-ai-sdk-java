@@ -11,28 +11,29 @@ import lombok.Data;
 @Data
 public class ModerationResponse implements ClientResponse<ModerationResult> {
 
-    /**
-     * Response status code.
-     */
-    private int code;
+	/**
+	 * Response status code.
+	 */
+	private int code;
 
-    /**
-     * Response message.
-     */
-    private String msg;
+	/**
+	 * Response message.
+	 */
+	private String msg;
 
-    /**
-     * Indicates whether the request was successful.
-     */
-    private boolean success;
+	/**
+	 * Indicates whether the request was successful.
+	 */
+	private boolean success;
 
-    /**
-     * The moderation result data.
-     */
-    private ModerationResult data;
+	/**
+	 * The moderation result data.
+	 */
+	private ModerationResult data;
 
-    /**
-     * Error information if the request failed.
-     */
-    private ChatError error;
+	/**
+	 * Error information if the request failed.
+	 */
+	private ChatError error;
+
 }

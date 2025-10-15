@@ -19,13 +19,15 @@ public class ModerationUsage {
 	@JsonProperty("moderation_text")
 	private ModerationText moderationText;
 
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ModerationText {
+	@Data
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class ModerationText {
 
-        @JsonProperty("call_count")
-        private String callCount;
-    }
+		@JsonProperty("call_count")
+		private String callCount;
+
+	}
+
 }
