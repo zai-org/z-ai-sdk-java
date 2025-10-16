@@ -22,7 +22,7 @@ public class ChatCompletionWithCustomHeadersExample {
 
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-                .model(Constants.ModelChatGLM4_5)
+                .model("glm-4.6")
                 .messages(Arrays.asList(
                         ChatMessage.builder()
                                 .role(ChatMessageRole.USER.value())
@@ -30,8 +30,6 @@ public class ChatCompletionWithCustomHeadersExample {
                                 .build()
                 ))
                 .stream(true) // Enable streaming for custom headers support
-                .temperature(0.7f)
-                .maxTokens(1024)
                 .build();
 
         // Create custom headers
