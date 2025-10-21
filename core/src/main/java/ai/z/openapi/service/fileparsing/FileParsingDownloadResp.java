@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * 文件解析结果响应 DTO
+ * File parsing result response DTO
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
@@ -18,31 +18,31 @@ import lombok.experimental.SuperBuilder;
 public class FileParsingDownloadResp {
 
     /**
-     * 解析任务ID
+     * Parsing task ID
      */
     @JsonProperty("task_id")
     private String taskId;
 
     /**
-     * 结果状态（如 succeeded、failed 等）
+     * Result status (e.g., succeeded, failed, etc.)
      */
     @JsonProperty("status")
     private String status;
 
     /**
-     * 响应消息
+     * Response message
      */
     @JsonProperty("message")
     private String message;
 
     /**
-     * 解析结果内容
+     * Parsed result content
      */
     @JsonProperty("content")
     private String content;
 
     /**
-     * 解析结果下载链接（如有）
+     * Parsing result download link (if available)
      */
     @JsonProperty("parsing_result_url")
     private String parsingResultUrl;

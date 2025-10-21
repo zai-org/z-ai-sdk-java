@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * 文件解析结果下载请求参数
+ * File parsing result download request parameters
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
@@ -18,12 +18,12 @@ import lombok.experimental.SuperBuilder;
 public class FileParsingDownloadReq implements ClientRequest<FileParsingDownloadReq> {
 
     /**
-     * 解析任务ID（必填）
+     * Parsing task ID (required)
      */
     private String taskId;
 
     /**
-     * 返回内容格式类型（如 "json", "txt" 等，必填）
+     * Returned content format type (e.g., "download_link", "txt", required)
      */
     private String formatType;
 

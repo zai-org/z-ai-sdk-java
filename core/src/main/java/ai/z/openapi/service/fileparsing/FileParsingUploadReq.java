@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * 文件解析任务上传请求参数
+ * File parsing task upload request parameters
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
@@ -18,17 +18,17 @@ import lombok.experimental.SuperBuilder;
 public class FileParsingUploadReq implements ClientRequest<FileParsingUploadReq> {
 
     /**
-     * 本地文件路径
+     * Local file path
      */
     private String filePath;
 
     /**
-     * 工具类型，例如 "pdf_parser"
+     * Tool type, e.g. "lite"
      */
     private String toolType;
 
     /**
-     * 文件类型，例如 "pdf", "doc", etc.
+     * File type, e.g. "pdf", "doc", etc.
      */
     private String fileType;
 
