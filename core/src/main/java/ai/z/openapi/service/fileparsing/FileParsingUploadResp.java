@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * File Parsing Task Upload Response DTO
- * Compatible with multiple response structures
+ * File Parsing Task Upload Response DTO Compatible with multiple response structures
  */
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
@@ -16,14 +15,15 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Data
 public class FileParsingUploadResp {
-    /**
-     * Task ID (API field: task_id or taskId)
-     */
-    private String taskId;
 
-    /**
-     * Return message (API field: message)
-     */
-    private String message;
+	/**
+	 * Task ID (API field: task_id or taskId)
+	 */
+	private String taskId;
+
+	/**
+	 * Return message (API field: message)
+	 */
+	private String message;
 
 }

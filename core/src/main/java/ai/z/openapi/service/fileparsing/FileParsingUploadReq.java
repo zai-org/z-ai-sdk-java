@@ -17,19 +17,19 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class FileParsingUploadReq implements ClientRequest<FileParsingUploadReq> {
 
-    /**
-     * Local file path
-     */
-    private String filePath;
+	/**
+	 * Local file path
+	 */
+	private String filePath;
 
-    /**
-     * Tool type, e.g. "lite"
-     */
-    private String toolType;
+	/**
+	 * Tool type, e.g. "lite"
+	 */
+	private String toolType;
 
-    /**
-     * File type, e.g. "pdf", "doc", etc.
-     */
-    private String fileType;
+	/**
+	 * File type, e.g. "pdf", "doc", etc.
+	 */
+	private String fileType;
 
 }

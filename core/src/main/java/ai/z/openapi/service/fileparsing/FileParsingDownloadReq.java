@@ -17,14 +17,14 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class FileParsingDownloadReq implements ClientRequest<FileParsingDownloadReq> {
 
-    /**
-     * Parsing task ID (required)
-     */
-    private String taskId;
+	/**
+	 * Parsing task ID (required)
+	 */
+	private String taskId;
 
-    /**
-     * Returned content format type (e.g., "download_link", "txt", required)
-     */
-    private String formatType;
+	/**
+	 * Returned content format type (e.g., "download_link", "txt", required)
+	 */
+	private String formatType;
 
 }

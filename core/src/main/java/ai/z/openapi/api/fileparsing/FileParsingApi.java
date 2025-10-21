@@ -19,36 +19,29 @@ import retrofit2.http.Header;
 import java.io.File;
 
 /**
- * File Parsing API
- * Provides functionality for uploading files for parsing, and retrieving the parsing results.
+ * File Parsing API Provides functionality for uploading files for parsing, and retrieving
+ * the parsing results.
  */
 public interface FileParsingApi {
 
-    /**
-     * Create a file parsing task.
-     * Uploads a file and creates a document parsing job using specific tool type and file type.
-     *
-     * @param multipartBody File data with metadata including tool_type and file_type
-     * @return Information and status of the parsing job
-     */
-    //@Multipart
-    @POST("files/parser/create")
-    Single<FileParsingUploadResp> createParseTask(
-            @Body MultipartBody multipartBody
-    );
+	/**
+	 * Create a file parsing task. Uploads a file and creates a document parsing job using
+	 * specific tool type and file type.
+	 * @param multipartBody File data with metadata including tool_type and file_type
+	 * @return Information and status of the parsing job
+	 */
+	// @Multipart
+	@POST("files/parser/create")
+	Single<FileParsingUploadResp> createParseTask(@Body MultipartBody multipartBody);
 
-    /**
-     * Get a file parsing result.
-     * Retrieves the parsing result by taskId and format type.
-     *
-     * @param taskId          The unique task ID for the parsing job
-     * @param formatType      The format type of the parsing result
-     * @return Parsing result content (JSON or raw format)
-     */
-    @Streaming
-    @GET("files/parser/result/{taskId}/{formatType}")
-    Call<ResponseBody> downloadParseResult(
-            @Path("taskId") String taskId,
-            @Path("formatType") String formatType
-    );
+	/**
+	 * Get a file parsing result. Retrieves the parsing result by taskId and format type.
+	 * @param taskId The unique task ID for the parsing job
+	 * @param formatType The format type of the parsing result
+	 * @return Parsing result content (JSON or raw format)
+	 */
+	@Streaming
+	@GET("files/parser/result/{taskId}/{formatType}")
+	Call<ResponseBody> downloadParseResult(@Path("taskId") String taskId, @Path("formatType") String formatType);
+
 }
