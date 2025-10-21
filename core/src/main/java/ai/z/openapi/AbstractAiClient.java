@@ -1,6 +1,8 @@
 package ai.z.openapi;
 
 import ai.z.openapi.service.AbstractClientBaseService;
+import ai.z.openapi.service.fileparsing.FileParsingService;
+import ai.z.openapi.service.fileparsing.FileParsingServiceImpl;
 import ai.z.openapi.service.model.ChatError;
 import ai.z.openapi.service.model.ZAiHttpException;
 import ai.z.openapi.service.chat.ChatService;
@@ -105,6 +107,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** Voice clone service for voice cloning operations */
 	private VoiceCloneService voiceCloneService;
+
+	/** FileParsing service for fileParsing operations */
+	private FileParsingService fileParsingService;
 
 	/** Moderation service for content safety detection */
 	private ModerationService moderationService;
@@ -259,6 +264,18 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.voiceCloneService = new VoiceCloneServiceImpl(this);
 		}
 		return voiceCloneService;
+	}
+
+	/**
+	 * Returns the file service for file operations. This service handles file uploads,
+	 * downloads, and management.
+	 * @return the FileParsingService instance (lazily initialized)
+	 */
+	public synchronized FileParsingService fileParsing() {
+		if (fileParsingService == null) {
+			this.fileParsingService = new FileParsingServiceImpl(this);
+		}
+		return fileParsingService;
 	}
 
 	/**
