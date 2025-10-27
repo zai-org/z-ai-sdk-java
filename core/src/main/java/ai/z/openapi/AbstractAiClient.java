@@ -125,10 +125,10 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 		logger.info("ZAI Init the client: {}, baseUrl: {}", this.getClass().getSimpleName(), baseUrl);
 		this.httpClient = OkHttps.create(config);
 		this.retrofit = new Retrofit.Builder().baseUrl(baseUrl)
-				.client(httpClient)
-				.addConverterFactory(JacksonConverterFactory.create(mapper))
-				.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-				.build();
+			.client(httpClient)
+			.addConverterFactory(JacksonConverterFactory.create(mapper))
+			.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+			.build();
 	}
 
 	// ==================== Service Accessor Methods ====================
@@ -600,7 +600,7 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 		 * @return this Builder instance for method chaining
 		 */
 		public B networkConfig(int requestTimeOut, int connectTimeout, int readTimeout, int writeTimeout,
-							   TimeUnit timeUnit) {
+				TimeUnit timeUnit) {
 			config.setRequestTimeOut(requestTimeOut);
 			config.setConnectTimeout(connectTimeout);
 			config.setReadTimeout(readTimeout);

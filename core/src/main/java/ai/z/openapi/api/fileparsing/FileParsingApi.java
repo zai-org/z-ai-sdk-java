@@ -44,16 +44,14 @@ public interface FileParsingApi {
 	@GET("files/parser/result/{taskId}/{formatType}")
 	Call<ResponseBody> downloadParseResult(@Path("taskId") String taskId, @Path("formatType") String formatType);
 
-
 	/**
-	 * Executes a synchronous file parsing operation.
-	 * Uploads a file and returns the parsing result with specified tool and file type.
-	 *
-	 * @param multipartBody The multipart request body containing the file and related metadata (tool type, file type)
+	 * Executes a synchronous file parsing operation. Uploads a file and returns the
+	 * parsing result with specified tool and file type.
+	 * @param multipartBody The multipart request body containing the file and related
+	 * metadata (tool type, file type)
 	 * @return Parsing result content as a FileParsingDownloadResp object
 	 */
 	@POST("files/parser/sync")
-	Call<FileParsingDownloadResp> syncParse(
-			@Body MultipartBody multipartBody
-	);
+	Call<FileParsingDownloadResp> syncParse(@Body MultipartBody multipartBody);
+
 }

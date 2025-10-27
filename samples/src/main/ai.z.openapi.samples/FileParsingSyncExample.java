@@ -8,55 +8,55 @@ import ai.z.openapi.utils.StringUtils;
 public class FileParsingSyncExample {
 
     public static void main(String[] args) {
-        // 建议通过环境变量设置 API Key
+        // It is recommended to set the API Key using an environment variable
         // export ZAI_API_KEY=your.api_key
         // ZaiClient client = ZaiClient.builder().build();
 
-        // 也可在代码中直接指定 API Key
+        // Alternatively, the API Key can be specified directly in the code
         ZaiClient client = ZaiClient.builder()
                 .apiKey("API Key")
                 .build();
 
         try {
-            System.out.println("=== 文件解析任务创建示例 ===");
+            System.out.println("=== Example: Creating file parsing task ===");
 
             String filePath = "your file path";
             FileParsingDownloadResponse result = syncFileParsingTaskExample(client, filePath, "pdf", "prime-sync");
 
-            System.out.println("解析任务创建成功，TaskId:" + result.getData().getTaskId());
-            System.out.println("文件内容" + result.getData().getContent());
-            System.out.println("下载链接" + result.getData().getParsingResultUrl());
+            System.out.println("Parsing task created successfully, TaskId: " + result.getData().getTaskId());
+            System.out.println("File content: " + result.getData().getContent());
+            System.out.println("Download link: " + result.getData().getParsingResultUrl());
 
         } catch (Exception e) {
-            System.err.println("发生异常: " + e.getMessage());
+            System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     /**
-     * 示例：创建解析任务（上传文件并解析）
+     * Example: Create parsing task (upload file and parse)
      *
-     * @param client ZaiClient 实例
-     * @return 解析任务的 taskId
+     * @param client ZaiClient instance
+     * @return Parsing task's taskId
      */
     private static FileParsingDownloadResponse syncFileParsingTaskExample(ZaiClient client, String filePath, String fileType, String toolType) {
         if (StringUtils.isEmpty(filePath)) {
-            System.err.println("无效的文件路径。");
+            System.err.println("Invalid file path.");
             return null;
         }
         try {
             FileParsingUploadReq uploadReq = FileParsingUploadReq.builder()
                     .filePath(filePath)
-                    .fileType(fileType)  // 支持: pdf, docx 等
-                    .toolType(toolType) // 解析工具类型: lite, prime, expert
+                    .fileType(fileType)  // Supported types: pdf, docx, etc.
+                    .toolType(toolType)  // Parsing tool type: lite, prime, expert
                     .build();
 
-            System.out.println("正在上传并创建解析任务...");
+            System.out.println("Uploading file and creating parsing task...");
             return client.fileParsing().syncParse(uploadReq);
         } catch (Exception e) {
-            System.err.println("文件解析任务错误: " + e.getMessage());
+            System.err.println("File parsing task error: " + e.getMessage());
         }
-        // 返回 null 表示创建失败
+        // Returning null means task creation failed
         return null;
     }
 

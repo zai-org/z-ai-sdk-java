@@ -10,84 +10,86 @@ import ai.z.openapi.utils.StringUtils;
 public class FileParsingExample {
 
     public static void main(String[] args) {
-        // 建议通过环境变量设置 API Key
-        // export ZAI_API_KEY=your.api_key
-        // ZaiClient client = ZaiClient.builder().build();
+// It's recommended to set the API Key via environment variable
+// export ZAI_API_KEY=your.api_key
+// ZaiClient client = ZaiClient.builder().build();
 
-        // 也可在代码中直接指定 API Key
+// You can also specify the API Key directly in code
+
+
         ZaiClient client = ZaiClient.builder()
                 .apiKey("API Key")
                 .build();
 
         try {
-            // 示例1: 创建解析任务
-            System.out.println("=== 文件解析任务创建示例 ===");
+            // Example 1: Create a file parsing task
+            System.out.println("=== Example: Create file parsing task ===");
             String filePath = "your file path";
             String taskId = createFileParsingTaskExample(client, filePath, "pdf", "lite");
 
-            // 示例2: 获取解析结果
-            System.out.println("\n=== 获取解析结果示例 ===");
+            // Example 2: Get parsing result
+            System.out.println("\n=== Example: Get parsing result ===");
             getFileParsingResultExample(client, taskId);
 
         } catch (Exception e) {
-            System.err.println("发生异常: " + e.getMessage());
+            System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     /**
-     * 示例：创建解析任务（上传文件并解析）
+     * Example: Create parsing task (upload file and parse)
      *
-     * @param client ZaiClient 实例
-     * @return 解析任务的 taskId
+     * @param client ZaiClient instance
+     * @return TaskId of the parsing task
      */
     private static String createFileParsingTaskExample(ZaiClient client, String filePath, String fileType, String toolType) {
         if (StringUtils.isEmpty(filePath)) {
-            System.err.println("无效的文件路径。");
+            System.err.println("Invalid file path.");
             return null;
         }
         try {
             FileParsingUploadReq uploadReq = FileParsingUploadReq.builder()
                     .filePath(filePath)
-                    .fileType(fileType)  // 支持: pdf, docx 等
-                    .toolType(toolType) // 解析工具类型: lite, prime, expert
+                    .fileType(fileType)  // support: pdf, docx etc.
+                    .toolType(toolType) // tool type: lite, prime, expert
                     .build();
 
-            System.out.println("正在上传并创建解析任务...");
+            System.out.println("Uploading file and creating parsing task...");
             FileParsingResponse response = client.fileParsing().createParseTask(uploadReq);
             if (response.isSuccess()) {
                 if (null != response.getData().getTaskId()) {
                     String taskId = response.getData().getTaskId();
-                    System.out.println("解析任务创建成功，TaskId: " + taskId);
+                    System.out.println("Parsing task created successfully, TaskId: " + taskId);
                     return taskId;
                 } else {
-                    System.err.println("解析任务创建失败: " + response.getData().getMessage());
+                    System.err.println("Failed to create parsing task: " + response.getData().getMessage());
                 }
             } else {
-                System.err.println("解析任务创建失败: " + response.getMsg());
+                System.err.println("Failed to create parsing task: " + response.getMsg());
             }
         } catch (Exception e) {
-            System.err.println("文件解析任务错误: " + e.getMessage());
+            System.err.println("File parsing task error: " + e.getMessage());
         }
-        // 返回 null 表示创建失败
+        // Return null indicates task creation failed
         return null;
     }
 
     /**
-     * 示例：获取解析结果
+     * Example: Get parsing result
      *
-     * @param client ZaiClient 实例
-     * @param taskId 解析任务ID
+     * @param client ZaiClient instance
+     * @param taskId ID of the parsing task
      */
     private static void getFileParsingResultExample(ZaiClient client, String taskId) {
         if (taskId == null || taskId.isEmpty()) {
-            System.err.println("无效的任务ID，无法获取解析结果。");
+            System.err.println("Invalid task ID. Cannot get parsing result.");
             return;
         }
 
         try {
-            int maxRetry = 100;      // 最多轮询100次
-            int intervalMs = 3000;  // 每次间隔3秒
+            int maxRetry = 100;      // Maximum 100 polling attempts
+            int intervalMs = 3000;   // 3 seconds interval between each polling
             for (int i = 0; i < maxRetry; i++) {
                 FileParsingDownloadReq downloadReq = FileParsingDownloadReq.builder()
                         .taskId(taskId)
@@ -98,28 +100,28 @@ public class FileParsingExample {
 
                 if (response.isSuccess()) {
                     String status = response.getData().getStatus();
-                    System.out.println("当前任务状态: " + status);
+                    System.out.println("Current task status: " + status);
 
                     if ("succeeded".equalsIgnoreCase(status)) {
-                        System.out.println("解析结果获取成功！");
-                        System.out.println("解析内容: " + response.getData().getContent());
-                        System.out.println("内容下载链接: " + response.getData().getParsingResultUrl());
+                        System.out.println("Parsing result obtained successfully!");
+                        System.out.println("Parsed content: " + response.getData().getContent());
+                        System.out.println("Download link: " + response.getData().getParsingResultUrl());
                         return;
                     } else if ("processing".equalsIgnoreCase(status)) {
-                        System.out.println("解析进行中，请稍候...");
+                        System.out.println("Parsing in progress, please wait...");
                         Thread.sleep(intervalMs);
                     } else {
-                        System.out.println("解析任务异常，状态: " + status + "，消息: " + response.getData().getMessage());
+                        System.out.println("Parsing task exception, status: " + status + ", message: " + response.getData().getMessage());
                         return;
                     }
                 } else {
-                    System.err.println("解析结果获取失败: " + response.getMsg());
+                    System.err.println("Failed to get parsing result: " + response.getMsg());
                     return;
                 }
             }
-            System.out.println("等待超时，请稍后自行查询解析结果。");
+            System.out.println("Wait timeout, please check the parsing result later.");
         } catch (Exception e) {
-            System.err.println("获取解析结果时异常: " + e.getMessage());
+            System.err.println("Exception occurred while getting parsing result: " + e.getMessage());
         }
     }
 }

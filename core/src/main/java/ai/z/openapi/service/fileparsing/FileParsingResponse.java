@@ -12,20 +12,20 @@ public class FileParsingResponse implements ClientResponse<FileParsingUploadResp
 	 */
 	private int code;
 
-    /**
-     * Response message.
-     */
-    private String msg;
+	/**
+	 * Response message.
+	 */
+	private String msg;
 
-    /**
-     * Indicates whether the request was successful.
-     */
-    private boolean success;
+	/**
+	 * Indicates whether the request was successful.
+	 */
+	private boolean success;
 
-    /**
-     * The FileParsing result data.
-     */
-    private FileParsingUploadResp data;
+	/**
+	 * The FileParsing result data.
+	 */
+	private FileParsingUploadResp data;
 
 	/**
 	 * Error information if the request failed.
