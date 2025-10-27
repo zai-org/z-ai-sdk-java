@@ -27,6 +27,8 @@ import ai.z.openapi.service.assistant.AssistantService;
 import ai.z.openapi.service.assistant.AssistantServiceImpl;
 import ai.z.openapi.service.voiceclone.VoiceCloneService;
 import ai.z.openapi.service.voiceclone.VoiceCloneServiceImpl;
+import ai.z.openapi.service.moderations.ModerationService;
+import ai.z.openapi.service.moderations.ModerationServiceImpl;
 import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.model.BiFlowableClientResponse;
 import ai.z.openapi.core.model.ClientRequest;
@@ -108,6 +110,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** FileParsing service for fileParsing operations */
 	private FileParsingService fileParsingService;
+
+	/** Moderation service for content safety detection */
+	private ModerationService moderationService;
 
 	/**
 	 * Constructs a new AbstractAiClient with the specified configuration.
@@ -271,6 +276,18 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.fileParsingService = new FileParsingServiceImpl(this);
 		}
 		return fileParsingService;
+	}
+
+	/**
+	 * Returns the moderation service for content safety detection. This service handles
+	 * content moderation for text, image, video, and audio inputs.
+	 * @return the ModerationService instance (lazily initialized)
+	 */
+	public synchronized ModerationService moderations() {
+		if (moderationService == null) {
+			this.moderationService = new ModerationServiceImpl(this);
+		}
+		return moderationService;
 	}
 
 	// ==================== Utility Methods ====================

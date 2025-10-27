@@ -65,6 +65,7 @@ public class AudioServiceTest {
 			.model(Constants.ModelTTS)
 			.input("Hello, this is a test for text-to-speech functionality.")
 			.voice("tongtong")
+			.encodeFormat("base64")
 			.requestId(requestId)
 			.build();
 
@@ -79,6 +80,29 @@ public class AudioServiceTest {
 		assertTrue(response.getData().length() > 0, "Generated audio file should not be empty");
 		assertNull(response.getError(), "Response error should be null");
 		logger.info("Text-to-speech response: {}", mapper.writeValueAsString(response));
+	}
+
+	@Test
+	@DisplayName("Should generate speech streaming from text successfully")
+	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
+	void testAudioSpeechStreaming() {
+		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
+		AudioSpeechRequest audioSpeechRequest = AudioSpeechRequest.builder()
+			.model(Constants.ModelTTS)
+			.encodeFormat("base64")
+			.input("Hello, this is a test for text-to-speech functionality.")
+			.voice("female")
+			.speed(1.0f)
+			.volume(1.0f)
+			.stream(Boolean.TRUE)
+			.responseFormat("wav")
+			.requestId(requestId)
+			.build();
+		AudioSpeechStreamingResponse audioSpeechStreamingApiResponse = audioService
+			.createStreamingSpeechStreaming(audioSpeechRequest);
+		audioSpeechStreamingApiResponse.getFlowable()
+			.doOnNext(speechPro -> logger.info("speechPro: {}", speechPro.toString()))
+			.blockingSubscribe();
 	}
 
 	@Test

@@ -20,86 +20,91 @@ import java.io.IOException;
  */
 public class FileParsingServiceImpl implements FileParsingService {
 
-    private final AbstractAiClient zAiClient;
-    private final FileParsingApi fileParsingApi;
+	private final AbstractAiClient zAiClient;
+	private final FileParsingApi fileParsingApi;
 
-    public FileParsingServiceImpl(AbstractAiClient zAiClient) {
-        this.zAiClient = zAiClient;
-        this.fileParsingApi = zAiClient.retrofit().create(FileParsingApi.class);
-    }
+	public FileParsingServiceImpl(AbstractAiClient zAiClient) {
+		this.zAiClient = zAiClient;
+		this.fileParsingApi = zAiClient.retrofit().create(FileParsingApi.class);
+	}
 
-    @Override
-    public FileParsingResponse createParseTask(FileParsingUploadReq request) {
-        if (request == null) {
-            throw new IllegalArgumentException("request cannot be null");
-        }
-        if (request.getToolType() == null) {
-            throw new IllegalArgumentException("toolType cannot be null");
-        }
-        // 构建 multipart/form-data
-        RequestSupplier<FileParsingUploadReq, FileParsingUploadResp> supplier = params -> {
-            try {
-                File file = new File(params.getFilePath());
-                if (!file.exists()) {
-                    throw new RuntimeException("file not found");
-                }
+	@Override
+	public FileParsingResponse createParseTask(FileParsingUploadReq request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getFilePath() == null) {
+			throw new IllegalArgumentException("file path cannot be null");
+		}
+		if (request.getToolType() == null) {
+			throw new IllegalArgumentException("toolType cannot be null");
+		}
+		// 构建 multipart/form-data
+		RequestSupplier<FileParsingUploadReq, FileParsingUploadResp> supplier = params -> {
+			try {
+				File file = new File(params.getFilePath());
+				if (!file.exists()) {
+					throw new RuntimeException("file not found");
+				}
 
-                String toolType = params.getToolType();
-                String fileType = params.getFileType() == null ? "" : params.getFileType();
+				String toolType = params.getToolType();
+				String fileType = params.getFileType() == null ? "" : params.getFileType();
 
-                MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(),
-                        RequestBody.create(MediaType.parse("application/octet-stream"), file));
-                MultipartBody.Builder formBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-                formBodyBuilder.addPart(filePart);
-                formBodyBuilder.addFormDataPart("tool_type", toolType);
-                formBodyBuilder.addFormDataPart("file_type", fileType);
+				MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(),
+						RequestBody.create(MediaType.parse("application/octet-stream"), file));
+				MultipartBody.Builder formBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+				formBodyBuilder.addPart(filePart);
+				formBodyBuilder.addFormDataPart("tool_type", toolType);
+				formBodyBuilder.addFormDataPart("file_type", fileType);
 
-                MultipartBody multipartBody = formBodyBuilder.build();
+				MultipartBody multipartBody = formBodyBuilder.build();
 
-                return fileParsingApi.createParseTask(multipartBody);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        };
-        return this.zAiClient.executeRequest(request, supplier, FileParsingResponse.class);
-    }
+				return fileParsingApi.createParseTask(multipartBody);
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		};
+		return this.zAiClient.executeRequest(request, supplier, FileParsingResponse.class);
+	}
 
-    @Override
-    public FileParsingDownloadResponse getParseResult(FileParsingDownloadReq request) {
-        if (request == null) {
-            throw new IllegalArgumentException("request cannot be null");
-        }
-        if (request.getTaskId() == null) {
-            throw new IllegalArgumentException("taskId cannot be null");
-        }
-        if (request.getFormatType() == null) {
-            throw new IllegalArgumentException("formatType cannot be null");
-        }
+	@Override
+	public FileParsingDownloadResponse getParseResult(FileParsingDownloadReq request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		if (request.getTaskId() == null) {
+			throw new IllegalArgumentException("taskId cannot be null");
+		}
+		if (request.getFormatType() == null) {
+			throw new IllegalArgumentException("formatType cannot be null");
+		}
 
-        RequestSupplier<FileParsingDownloadReq, FileParsingDownloadResp> supplier = params -> {
-            try {
-                retrofit2.Call<ResponseBody> call = fileParsingApi.downloadParseResult(
-                        request.getTaskId(), request.getFormatType());
-                Response<ResponseBody> execute = call.execute();
-                if (!execute.isSuccessful() || execute.body() == null) {
-                    throw new IOException("Failed to download parse result");
-                }
+		RequestSupplier<FileParsingDownloadReq, FileParsingDownloadResp> supplier = params -> {
+			try {
+				retrofit2.Call<ResponseBody> call = fileParsingApi.downloadParseResult(request.getTaskId(),
+						request.getFormatType());
+				Response<ResponseBody> execute = call.execute();
+				if (!execute.isSuccessful() || execute.body() == null) {
+					throw new IOException("Failed to download parse result");
+				}
 
-                HttpxBinaryResponseContent httpxBinaryResponseContent = new HttpxBinaryResponseContent(execute);
-                String result = httpxBinaryResponseContent.getText();
+				HttpxBinaryResponseContent httpxBinaryResponseContent = new HttpxBinaryResponseContent(execute);
+				String result = httpxBinaryResponseContent.getText();
 
-                ObjectMapper mapper = new ObjectMapper();
-                FileParsingDownloadResp fileParsingDownloadResp = mapper.readValue(result, FileParsingDownloadResp.class);
+				ObjectMapper mapper = new ObjectMapper();
+				FileParsingDownloadResp fileParsingDownloadResp = mapper.readValue(result,
+						FileParsingDownloadResp.class);
 
-                return Single.just(fileParsingDownloadResp);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        };
+				return Single.just(fileParsingDownloadResp);
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		};
 
-        return this.zAiClient.executeRequest(request, supplier, FileParsingDownloadResponse.class);
-    }
-
+		return this.zAiClient.executeRequest(request, supplier, FileParsingDownloadResponse.class);
+	}
 
     @Override
     public FileParsingDownloadResponse syncParse(FileParsingUploadReq request) {

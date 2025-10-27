@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class FileParsingDownloadResponse implements ClientResponse<FileParsingDownloadResp> {
 
-    /**
-     * Response status code.
-     */
-    private int code;
+	/**
+	 * Response status code.
+	 */
+	private int code;
 
     /**
      * Response message.
@@ -27,9 +27,9 @@ public class FileParsingDownloadResponse implements ClientResponse<FileParsingDo
      */
     private FileParsingDownloadResp data;
 
-    /**
-     * Error information if the request failed.
-     */
-    private ChatError error;
+	/**
+	 * Error information if the request failed.
+	 */
+	private ChatError error;
 
 }
