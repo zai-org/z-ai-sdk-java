@@ -40,7 +40,7 @@ public class FileParsingServiceImpl implements FileParsingService {
 		if (request.getToolType() == null) {
 			throw new IllegalArgumentException("toolType cannot be null");
 		}
-		// 构建 multipart/form-data
+		// Construct multipart/form-data
 		RequestSupplier<FileParsingUploadReq, FileParsingUploadResp> supplier = params -> {
 			try {
 				File file = new File(params.getFilePath());
@@ -129,7 +129,7 @@ public class FileParsingServiceImpl implements FileParsingService {
 				String toolType = params.getToolType();
 				String fileType = params.getFileType();
 
-				// 构造 multipart/form-data
+				// Construct multipart/form-data
 				MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(),
 						RequestBody.create(MediaType.parse("application/octet-stream"), file));
 				MultipartBody.Builder formBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -139,7 +139,7 @@ public class FileParsingServiceImpl implements FileParsingService {
 
 				MultipartBody multipartBody = formBodyBuilder.build();
 
-				// 发起POST请求
+				// Send a POST request
 				retrofit2.Call<FileParsingDownloadResp> call = fileParsingApi.syncParse(multipartBody);
 				Response<FileParsingDownloadResp> response = call.execute();
 				if (!response.isSuccessful() || response.body() == null) {
