@@ -218,11 +218,11 @@ public class FileParsingServiceTest {
 		byte[] bytes = Files.readAllBytes(new File(file).toPath());
 		Base64.Encoder encoder = Base64.getEncoder();
 		String imageBase64 = encoder.encodeToString(bytes);
-		// 假设解析接口支持 imageBase64 字段
+		// Assuming the parsing interface supports the imageBase64 field
 		FileParsingUploadReq request = FileParsingUploadReq.builder()
 			.toolType("image")
 			.fileType("png")
-			.filePath(file) // 或文件路径
+			.filePath(file) // file path
 			.build();
 
 		FileParsingResponse response = fileParsingService.createParseTask(request);
