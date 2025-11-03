@@ -3,10 +3,9 @@ package ai.z.openapi.core;
 /**
  * Constants class containing all the configuration values and model identifiers used
  * throughout the Z.AI OpenAPI SDK.
- *
+ * <p>
  * This class provides centralized access to: - API base URLs - Model identifiers for
  * different AI capabilities - Invocation method constants
- *
  */
 public final class Constants {
 
