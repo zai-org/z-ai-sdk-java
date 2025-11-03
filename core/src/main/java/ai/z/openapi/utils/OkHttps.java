@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
 public final class OkHttps {
 
 	// Default timeout values
-	private static final int DEFAULT_CALL_TIMEOUT_SECONDS = 30;
+	private static final int DEFAULT_CALL_TIMEOUT_SECONDS = 360;
 
 	private static final int DEFAULT_CONNECT_TIMEOUT_SECONDS = 10;
 
-	private static final int DEFAULT_READ_TIMEOUT_SECONDS = 10;
+	private static final int DEFAULT_READ_TIMEOUT_SECONDS = 300;
 
-	private static final int DEFAULT_WRITE_TIMEOUT_SECONDS = 10;
+	private static final int DEFAULT_WRITE_TIMEOUT_SECONDS = 30;
 
 	// Private constructor to prevent instantiation
 	private OkHttps() {
