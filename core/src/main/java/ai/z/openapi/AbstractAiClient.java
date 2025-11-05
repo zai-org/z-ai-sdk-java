@@ -313,8 +313,17 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 	 * </p>
 	 */
 	public void close() {
-		if (httpClient != null) {
-			httpClient.dispatcher().executorService().shutdown();
+		try {
+			if (httpClient != null) {
+				httpClient.dispatcher().executorService().shutdown();
+				httpClient.connectionPool().evictAll();
+				if (httpClient.cache() != null) {
+					httpClient.cache().close();
+				}
+			}
+		}
+		catch (Exception e) {
+			logger.error("Error closing http client", e);
 		}
 	}
 
