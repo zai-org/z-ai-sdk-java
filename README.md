@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.6</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z.openapi:zai-sdk:0.0.6'
+    implementation 'ai.z.openapi:zai-sdk:0.1.0'
 }
 ```
 
@@ -132,7 +132,7 @@ ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
             .build()
     ))
     .stream(false)
-    .temperature(0.7f)
+    .temperature(1.0f)
     .maxTokens(1024)
     .build();
 

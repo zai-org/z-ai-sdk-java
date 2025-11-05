@@ -2,7 +2,6 @@ package ai.z.openapi.samples;
 
 import ai.z.openapi.ZaiClient;
 import ai.z.openapi.service.model.*;
-import ai.z.openapi.core.Constants;
 import java.util.Arrays;
 
 /**
@@ -49,15 +48,16 @@ public class ChatCompletionStreamExample {
                     // Process streaming response completion event
                     () -> System.out.println("\nStreaming response completed")
                 );
-                
-                // Wait for streaming response to complete
-                Thread.sleep(10000); // Wait for 10 seconds
             } else {
                 System.err.println("Error: " + response.getMsg());
             }
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (client != null) {
+                client.close();
+            }
         }
     }
 }

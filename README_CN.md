@@ -30,7 +30,7 @@ Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包�
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.0.6</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包�
 
 ```groovy
 dependencies {
-    implementation 'ai.z.openapi:zai-sdk:0.0.6'
+    implementation 'ai.z.openapi:zai-sdk:0.1.0'
 }
 ```
 
@@ -131,7 +131,7 @@ ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
             .build()
     ))
     .stream(false)
-    .temperature(0.7f)
+    .temperature(1.0f)
     .maxTokens(1024)
     .build();
 

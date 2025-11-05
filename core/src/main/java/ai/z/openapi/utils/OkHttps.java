@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
  */
 public final class OkHttps {
 
-	// Default timeout values
-	private static final int DEFAULT_CALL_TIMEOUT_SECONDS = 360;
+	// The default value is 0 which imposes no timeout.
+	private static final int DEFAULT_CALL_TIMEOUT_SECONDS = 0;
 
 	private static final int DEFAULT_CONNECT_TIMEOUT_SECONDS = 10;
 
@@ -62,7 +62,7 @@ public final class OkHttps {
 		TimeUnit timeUnit = config.getTimeOutTimeUnit();
 
 		// Configure call timeout
-		if (config.getRequestTimeOut() > 0) {
+		if (config.getRequestTimeOut() != null && config.getRequestTimeOut() > 0) {
 			builder.callTimeout(config.getRequestTimeOut(), timeUnit);
 		}
 		else {
@@ -70,7 +70,7 @@ public final class OkHttps {
 		}
 
 		// Configure connect timeout
-		if (config.getConnectTimeout() > 0) {
+		if (config.getConnectTimeout() != null && config.getConnectTimeout() > 0) {
 			builder.connectTimeout(config.getConnectTimeout(), timeUnit);
 		}
 		else {
@@ -78,7 +78,7 @@ public final class OkHttps {
 		}
 
 		// Configure read timeout
-		if (config.getReadTimeout() > 0) {
+		if (config.getReadTimeout() != null && config.getReadTimeout() > 0) {
 			builder.readTimeout(config.getReadTimeout(), timeUnit);
 		}
 		else {
@@ -86,7 +86,7 @@ public final class OkHttps {
 		}
 
 		// Configure write timeout
-		if (config.getWriteTimeout() > 0) {
+		if (config.getWriteTimeout() != null && config.getWriteTimeout() > 0) {
 			builder.writeTimeout(config.getWriteTimeout(), timeUnit);
 		}
 		else {

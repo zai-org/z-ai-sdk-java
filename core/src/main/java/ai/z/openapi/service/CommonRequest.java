@@ -1,11 +1,14 @@
 package ai.z.openapi.service;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -33,6 +36,20 @@ public class CommonRequest {
 	@JsonProperty("user_id")
 	private String userId;
 
+	/**
+	 * Extra custom parameters merged into the top-level JSON. This map will not be
+	 * serialized as a nested "extraJson" object; instead, its entries are flattened into
+	 * the request JSON via {@link JsonAnyGetter}.
+	 */
+	@JsonIgnore
 	private Map<String, Object> extraJson;
+
+	/**
+	 * Expose dynamic properties as top-level fields during serialization.
+	 */
+	@JsonAnyGetter
+	public Map<String, Object> getExtraJsonFlattened() {
+		return extraJson == null ? Collections.emptyMap() : extraJson;
+	}
 
 }

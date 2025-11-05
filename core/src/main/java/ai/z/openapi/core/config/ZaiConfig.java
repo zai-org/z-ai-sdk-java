@@ -96,28 +96,25 @@ public class ZaiConfig {
 	private TimeUnit connectionPoolTimeUnit = TimeUnit.SECONDS;
 
 	/**
-	 * Request timeout in specified time unit.
+	 * Request timeout in specified time unit. The whole timeout for complete calls, is
+	 * the okhttp call timeout.
 	 */
-	@Builder.Default
-	private int requestTimeOut = 300;
+	private Integer requestTimeOut;
 
 	/**
 	 * Connection timeout in specified time unit.
 	 */
-	@Builder.Default
-	private int connectTimeout = 100;
+	private Integer connectTimeout;
 
 	/**
 	 * Read timeout in specified time unit.
 	 */
-	@Builder.Default
-	private int readTimeout = 100;
+	private Integer readTimeout;
 
 	/**
 	 * Write timeout in specified time unit.
 	 */
-	@Builder.Default
-	private int writeTimeout = 100;
+	private Integer writeTimeout;
 
 	/**
 	 * Time unit for timeout configurations.
@@ -282,8 +279,8 @@ public class ZaiConfig {
 	/**
 	 * Gets request timeout with system property and environment variable fallback.
 	 */
-	public int getRequestTimeOut() {
-		if (requestTimeOut != 300) {
+	public Integer getRequestTimeOut() {
+		if (requestTimeOut != null) {
 			return requestTimeOut;
 		}
 		String propValue = System.getProperty(ENV_REQUEST_TIMEOUT);
@@ -302,8 +299,8 @@ public class ZaiConfig {
 	/**
 	 * Gets connect timeout with system property and environment variable fallback.
 	 */
-	public int getConnectTimeout() {
-		if (connectTimeout != 100) {
+	public Integer getConnectTimeout() {
+		if (connectTimeout != null) {
 			return connectTimeout;
 		}
 		String propValue = System.getProperty(ENV_CONNECT_TIMEOUT);
@@ -322,8 +319,8 @@ public class ZaiConfig {
 	/**
 	 * Gets read timeout with system property and environment variable fallback.
 	 */
-	public int getReadTimeout() {
-		if (readTimeout != 100) {
+	public Integer getReadTimeout() {
+		if (readTimeout != null) {
 			return readTimeout;
 		}
 		String propValue = System.getProperty(ENV_READ_TIMEOUT);
@@ -342,8 +339,8 @@ public class ZaiConfig {
 	/**
 	 * Gets write timeout with system property and environment variable fallback.
 	 */
-	public int getWriteTimeout() {
-		if (writeTimeout != 100) {
+	public Integer getWriteTimeout() {
+		if (writeTimeout != null) {
 			return writeTimeout;
 		}
 		String propValue = System.getProperty(ENV_WRITE_TIMEOUT);
