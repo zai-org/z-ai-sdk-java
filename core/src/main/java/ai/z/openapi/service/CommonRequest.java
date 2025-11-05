@@ -1,7 +1,6 @@
 package ai.z.openapi.service;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,17 +50,6 @@ public class CommonRequest {
 	@JsonAnyGetter
 	public Map<String, Object> getExtraJsonFlattened() {
 		return extraJson == null ? Collections.emptyMap() : extraJson;
-	}
-
-	/**
-	 * Collect unknown top-level JSON properties during deserialization into extraJson.
-	 */
-	@JsonAnySetter
-	public void setExtraJsonProperty(String key, Object value) {
-		if (this.extraJson == null) {
-			this.extraJson = new HashMap<>();
-		}
-		this.extraJson.put(key, value);
 	}
 
 }
