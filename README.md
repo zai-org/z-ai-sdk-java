@@ -132,7 +132,7 @@ ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
             .build()
     ))
     .stream(false)
-    .temperature(0.7f)
+    .temperature(1.0f)
     .maxTokens(1024)
     .build();
 
