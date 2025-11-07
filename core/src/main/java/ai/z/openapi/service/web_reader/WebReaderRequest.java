@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -78,5 +80,36 @@ public class WebReaderRequest implements ClientRequest<WebReaderRequest> {
 	 */
 	@JsonProperty("with_links_summary")
 	private Boolean withLinksSummary;
+
+	/**
+	 * Validate request fields that require constraints. Ensures {@code url} is non-empty
+	 * and a syntactically valid HTTP/HTTPS URL.
+	 * @throws IllegalArgumentException if validation fails
+	 */
+	public void validate() {
+		if (url == null || url.trim().isEmpty()) {
+			throw new IllegalArgumentException("request url cannot be null or empty");
+		}
+		String normalized = url.trim();
+		try {
+			URI initial = new URI(normalized);
+			URI candidate = initial;
+			String scheme = initial.getScheme();
+			if (scheme == null) {
+				String candidateStr = normalized.startsWith("//") ? ("https:" + normalized) : ("https://" + normalized);
+				candidate = new URI(candidateStr);
+				scheme = candidate.getScheme();
+			}
+			if (!("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))) {
+				throw new IllegalArgumentException("request url must use http or https");
+			}
+			if (candidate.getHost() == null || candidate.getHost().trim().isEmpty()) {
+				throw new IllegalArgumentException("request url must contain a valid host");
+			}
+		}
+		catch (URISyntaxException ex) {
+			throw new IllegalArgumentException("request url is invalid: " + ex.getMessage());
+		}
+	}
 
 }

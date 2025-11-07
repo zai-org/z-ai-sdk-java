@@ -20,6 +20,10 @@ public class WebReaderServiceImpl implements WebReaderService {
 
 	@Override
 	public WebReaderResponse createWebReader(WebReaderRequest request) {
+		if (request == null) {
+			throw new IllegalArgumentException("request cannot be null");
+		}
+		request.validate();
 		RequestSupplier<WebReaderRequest, WebReaderResult> supplier = webReaderApi::reader;
 		return this.zAiClient.executeRequest(request, supplier, WebReaderResponse.class);
 	}
