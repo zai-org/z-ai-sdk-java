@@ -618,7 +618,7 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 		/**
 		 * Configures network request timeout settings.
-		 * @param requestTimeOut the overall request timeout
+		 * @param requestTimeOut the overall request timeout, 0 is no timeout
 		 * @param connectTimeout the connection timeout
 		 * @param readTimeout the read timeout
 		 * @param writeTimeout the write timeout

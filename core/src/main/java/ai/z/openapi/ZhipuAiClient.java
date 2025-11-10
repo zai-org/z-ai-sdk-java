@@ -87,7 +87,7 @@ public class ZhipuAiClient extends AbstractAiClient {
 	 * </p>
 	 * <pre>{@code
 	 * ZhipuAiClient client = new ZhipuAiClient.Builder("your-api-key")
-	 *     .networkConfig(30, 10, 30, 30, TimeUnit.SECONDS)
+	 *     .networkConfig(0, 10, 30, 30, TimeUnit.SECONDS)
 	 *     .connectionPool(10, 5, TimeUnit.MINUTES)
 	 *     .enableTokenCache()
 	 *     .build();

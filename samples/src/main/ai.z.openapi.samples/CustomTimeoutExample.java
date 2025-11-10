@@ -25,7 +25,7 @@ public class CustomTimeoutExample {
         // export ZAI_API_KEY=your.api_key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
         ZhipuAiClient client = ZhipuAiClient.builder()
-            .networkConfig(30, 10, 30, 30, TimeUnit.SECONDS)
+            .networkConfig(0, 10, 30, 30, TimeUnit.SECONDS)
             .build();
 
         // Create chat request
