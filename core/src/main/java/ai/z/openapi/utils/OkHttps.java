@@ -4,6 +4,9 @@ import ai.z.openapi.core.config.ZaiConfig;
 import ai.z.openapi.core.token.HttpRequestInterceptor;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +17,8 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public final class OkHttps {
+
+	private static final Logger logger = LoggerFactory.getLogger(OkHttps.class);
 
 	// The default value is 0 which imposes no timeout.
 	private static final int DEFAULT_CALL_TIMEOUT_SECONDS = 0;
@@ -60,37 +65,53 @@ public final class OkHttps {
 	 */
 	private static void configureTimeouts(OkHttpClient.Builder builder, ZaiConfig config) {
 		TimeUnit timeUnit = config.getTimeOutTimeUnit();
-
+		int callTimeout;
+		int connectTimeout;
+		int readTimeout;
+		int writeTimeout;
 		// Configure call timeout
 		if (config.getRequestTimeOut() != null && config.getRequestTimeOut() > 0) {
 			builder.callTimeout(config.getRequestTimeOut(), timeUnit);
+			callTimeout = Util.checkDuration("callTimeout", config.getRequestTimeOut(), timeUnit);
 		}
 		else {
 			builder.callTimeout(DEFAULT_CALL_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+			callTimeout = Util.checkDuration("callTimeout", DEFAULT_CALL_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		}
 
 		// Configure connect timeout
 		if (config.getConnectTimeout() != null && config.getConnectTimeout() > 0) {
 			builder.connectTimeout(config.getConnectTimeout(), timeUnit);
+			connectTimeout = Util.checkDuration("connectTimeout", config.getConnectTimeout(), timeUnit);
 		}
 		else {
 			builder.connectTimeout(DEFAULT_CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+			connectTimeout = Util.checkDuration("connectTimeout", DEFAULT_CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		}
 
 		// Configure read timeout
 		if (config.getReadTimeout() != null && config.getReadTimeout() > 0) {
 			builder.readTimeout(config.getReadTimeout(), timeUnit);
+			readTimeout = Util.checkDuration("readTimeout", config.getReadTimeout(), timeUnit);
 		}
 		else {
 			builder.readTimeout(DEFAULT_READ_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+			readTimeout = Util.checkDuration("readTimeout", DEFAULT_READ_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		}
 
 		// Configure write timeout
 		if (config.getWriteTimeout() != null && config.getWriteTimeout() > 0) {
 			builder.writeTimeout(config.getWriteTimeout(), timeUnit);
+			writeTimeout = Util.checkDuration("writeTimeout", config.getWriteTimeout(), timeUnit);
 		}
 		else {
 			builder.writeTimeout(DEFAULT_WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+			writeTimeout = Util.checkDuration("writeTimeout", DEFAULT_WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+		}
+		if (callTimeout != 0 && (callTimeout <= (connectTimeout + readTimeout + writeTimeout))) {
+			logger.error("Wrong Request(Call) timeout configuration");
+			logger.error(
+					"Request(Call) timeout is less than or equal to the sum of connect, read, and write timeouts. This may cause issues with the client.");
 		}
 	}
 

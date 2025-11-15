@@ -21,6 +21,8 @@ import ai.z.openapi.service.batches.BatchService;
 import ai.z.openapi.service.batches.BatchServiceImpl;
 import ai.z.openapi.service.web_search.WebSearchService;
 import ai.z.openapi.service.web_search.WebSearchServiceImpl;
+import ai.z.openapi.service.web_reader.WebReaderService;
+import ai.z.openapi.service.web_reader.WebReaderServiceImpl;
 import ai.z.openapi.service.videos.VideosService;
 import ai.z.openapi.service.videos.VideosServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
@@ -98,6 +100,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** Web search service for internet search capabilities */
 	private WebSearchService webSearchService;
+
+	/** Web reader service for parsing web pages */
+	private WebReaderService webReaderService;
 
 	/** Videos service for video processing */
 	private VideosService videosService;
@@ -228,6 +233,18 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.webSearchService = new WebSearchServiceImpl(this);
 		}
 		return webSearchService;
+	}
+
+	/**
+	 * Returns the web reader service for parsing web pages. This service reads and
+	 * extracts content, metadata, images, and links from URLs.
+	 * @return the WebReaderService instance (lazily initialized)
+	 */
+	public synchronized WebReaderService webReader() {
+		if (webReaderService == null) {
+			this.webReaderService = new WebReaderServiceImpl(this);
+		}
+		return webReaderService;
 	}
 
 	/**
@@ -601,7 +618,7 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 		/**
 		 * Configures network request timeout settings.
-		 * @param requestTimeOut the overall request timeout
+		 * @param requestTimeOut the overall request timeout, 0 is no timeout
 		 * @param connectTimeout the connection timeout
 		 * @param readTimeout the read timeout
 		 * @param writeTimeout the write timeout
