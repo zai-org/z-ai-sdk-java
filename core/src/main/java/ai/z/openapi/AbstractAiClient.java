@@ -19,6 +19,8 @@ import ai.z.openapi.service.image.ImageService;
 import ai.z.openapi.service.image.ImageServiceImpl;
 import ai.z.openapi.service.batches.BatchService;
 import ai.z.openapi.service.batches.BatchServiceImpl;
+import ai.z.openapi.service.ocr.HandwritingOcrService;
+import ai.z.openapi.service.ocr.HandwritingOcrServiceImpl;
 import ai.z.openapi.service.web_search.WebSearchService;
 import ai.z.openapi.service.web_search.WebSearchServiceImpl;
 import ai.z.openapi.service.web_reader.WebReaderService;
@@ -115,6 +117,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** FileParsing service for fileParsing operations */
 	private FileParsingService fileParsingService;
+
+	/** HandWriting service for handwritingOcrService operations */
+	private HandwritingOcrService handwritingOcrService;
 
 	/** Moderation service for content safety detection */
 	private ModerationService moderationService;
@@ -293,6 +298,13 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.fileParsingService = new FileParsingServiceImpl(this);
 		}
 		return fileParsingService;
+	}
+
+	public synchronized HandwritingOcrService handwriting() {
+		if (handwritingOcrService == null) {
+			this.handwritingOcrService = new HandwritingOcrServiceImpl(this);
+		}
+		return handwritingOcrService;
 	}
 
 	/**
