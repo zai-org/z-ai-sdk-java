@@ -15,4 +15,6 @@ public class HandwritingOcrUploadReq implements ClientRequest<HandwritingOcrUplo
 
 	private String languageType; // Language type (optional)
 
+	private Boolean probability; // Confidence score for each line of text recognition
+
 }

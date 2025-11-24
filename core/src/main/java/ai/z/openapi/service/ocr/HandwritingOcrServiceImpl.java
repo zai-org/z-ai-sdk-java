@@ -47,6 +47,7 @@ public class HandwritingOcrServiceImpl implements HandwritingOcrService {
 				}
 				String toolType = params.getToolType();
 				String languageType = params.getLanguageType();
+				Boolean probability = params.getProbability();
 
 				// Build multipart/form-data
 				MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(),
@@ -56,6 +57,9 @@ public class HandwritingOcrServiceImpl implements HandwritingOcrService {
 				formBodyBuilder.addFormDataPart("tool_type", toolType);
 				if (languageType != null) {
 					formBodyBuilder.addFormDataPart("language_type", languageType);
+				}
+				if (probability != null) {
+					formBodyBuilder.addFormDataPart("probability", String.valueOf(probability));
 				}
 
 				MultipartBody multipartBody = formBodyBuilder.build();

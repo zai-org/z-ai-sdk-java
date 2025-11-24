@@ -22,30 +22,12 @@ public class HandwritingOcrExample {
 			System.out.println("=== Handwriting OCR Example ===");
 
 			String filePath = ""; // Change to your own image path
-			HandwritingOcrResponse response = syncHandwritingOcrExample(client, filePath, "hand_writes", "CHN_ENG");
-
-			if (null != response) {
-				HandwritingOcrResult result = response.getData();
-				System.out.println("response.getData(): " + result);
-				System.out.println("Task ID: " + result.getTask_id());
-				System.out.println("Status: " + result.getStatus());
-				System.out.println("Message: " + result.getMessage());
-				System.out.println("Number of recognition results: " + result.getWords_result_num());
-				if (result.getWords_result() != null) {
-					for (WordsResult wr : result.getWords_result()) {
-						System.out.println("Recognized Text: " + wr.getWords());
-						if (wr.getLocation() != null) {
-							System.out.println("Location: (" + wr.getLocation().getLeft() + ", " +
-									wr.getLocation().getTop() + ", " +
-									wr.getLocation().getWidth() + ", " +
-									wr.getLocation().getHeight() + ")");
-						}
-					}
-				}
+			HandwritingOcrResponse response = syncHandwritingOcrExample(client, filePath, "hand_write", "CHN_ENG", true);
+			if (response != null && response.getData() != null) {
+				System.out.println(response.getData());
 			} else {
-				System.out.println("failed.");
+				System.out.println("Recognition failed.");
 			}
-
 		} catch (Exception e) {
 			System.err.println("Exception occurred: " + e.getMessage());
 			e.printStackTrace();
@@ -60,10 +42,8 @@ public class HandwritingOcrExample {
 	 * @param languageType Language type (optional)
 	 * @return OCR response object
 	 */
-	private static HandwritingOcrResponse syncHandwritingOcrExample(ZaiClient client,
-																	String filePath,
-																	String toolType,
-																	String languageType) {
+	private static HandwritingOcrResponse syncHandwritingOcrExample(ZaiClient client, String filePath, String toolType,
+																	String languageType, Boolean probability) {
 		if (filePath == null || filePath.trim().isEmpty()) {
 			System.err.println("Invalid file path.");
 			return null;
@@ -71,12 +51,14 @@ public class HandwritingOcrExample {
 		try {
 			HandwritingOcrUploadReq uploadReq = new HandwritingOcrUploadReq();
 			uploadReq.setFilePath(filePath);
-			uploadReq.setToolType(toolType);   // Must be "hand_write"
+			uploadReq.setToolType(toolType); // Must be "hand_write"
 			uploadReq.setLanguageType(languageType); // Can be "CHN_ENG", "ENG", etc.
-
+			uploadReq.setProbability(probability);
+			System.out.println(uploadReq.toString());
 			System.out.println("Uploading the image and performing handwriting recognition...calling API");
 			return client.handwriting().recognize(uploadReq);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.err.println("Handwriting recognition task error: " + e.getMessage());
 		}
 		// Return null indicates failure

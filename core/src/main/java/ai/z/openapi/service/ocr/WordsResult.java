@@ -13,4 +13,6 @@ public class WordsResult {
 
 	private String words; // Recognized text
 
+	private Probability probability; // Confidence score for each line of text recognition
+
 }
