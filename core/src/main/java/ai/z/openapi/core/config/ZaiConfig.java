@@ -97,7 +97,7 @@ public class ZaiConfig {
 
 	/**
 	 * Request timeout in specified time unit. The whole timeout for complete calls, is
-	 * the okhttp call timeout.
+	 * the okhttp call timeout. The 0 value means no timeout.
 	 */
 	private Integer requestTimeOut;
 

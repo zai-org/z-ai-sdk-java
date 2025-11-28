@@ -19,8 +19,12 @@ import ai.z.openapi.service.image.ImageService;
 import ai.z.openapi.service.image.ImageServiceImpl;
 import ai.z.openapi.service.batches.BatchService;
 import ai.z.openapi.service.batches.BatchServiceImpl;
+import ai.z.openapi.service.ocr.HandwritingOcrService;
+import ai.z.openapi.service.ocr.HandwritingOcrServiceImpl;
 import ai.z.openapi.service.web_search.WebSearchService;
 import ai.z.openapi.service.web_search.WebSearchServiceImpl;
+import ai.z.openapi.service.web_reader.WebReaderService;
+import ai.z.openapi.service.web_reader.WebReaderServiceImpl;
 import ai.z.openapi.service.videos.VideosService;
 import ai.z.openapi.service.videos.VideosServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
@@ -99,6 +103,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 	/** Web search service for internet search capabilities */
 	private WebSearchService webSearchService;
 
+	/** Web reader service for parsing web pages */
+	private WebReaderService webReaderService;
+
 	/** Videos service for video processing */
 	private VideosService videosService;
 
@@ -110,6 +117,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** FileParsing service for fileParsing operations */
 	private FileParsingService fileParsingService;
+
+	/** HandWriting service for handwritingOcrService operations */
+	private HandwritingOcrService handwritingOcrService;
 
 	/** Moderation service for content safety detection */
 	private ModerationService moderationService;
@@ -231,6 +241,18 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 	}
 
 	/**
+	 * Returns the web reader service for parsing web pages. This service reads and
+	 * extracts content, metadata, images, and links from URLs.
+	 * @return the WebReaderService instance (lazily initialized)
+	 */
+	public synchronized WebReaderService webReader() {
+		if (webReaderService == null) {
+			this.webReaderService = new WebReaderServiceImpl(this);
+		}
+		return webReaderService;
+	}
+
+	/**
 	 * Returns the videos service for video processing. This service handles video
 	 * analysis, generation, and manipulation.
 	 * @return the VideosService instance (lazily initialized)
@@ -276,6 +298,13 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.fileParsingService = new FileParsingServiceImpl(this);
 		}
 		return fileParsingService;
+	}
+
+	public synchronized HandwritingOcrService handwriting() {
+		if (handwritingOcrService == null) {
+			this.handwritingOcrService = new HandwritingOcrServiceImpl(this);
+		}
+		return handwritingOcrService;
 	}
 
 	/**
@@ -601,7 +630,7 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 		/**
 		 * Configures network request timeout settings.
-		 * @param requestTimeOut the overall request timeout
+		 * @param requestTimeOut the overall request timeout, 0 is no timeout
 		 * @param connectTimeout the connection timeout
 		 * @param readTimeout the read timeout
 		 * @param writeTimeout the write timeout

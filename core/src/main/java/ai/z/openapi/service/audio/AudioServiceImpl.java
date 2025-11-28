@@ -8,11 +8,12 @@ import ai.z.openapi.utils.RequestSupplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.reactivex.rxjava3.core.Single;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +27,9 @@ import java.util.UUID;
 /**
  * Audio service implementation
  */
-@Slf4j
 public class AudioServiceImpl implements AudioService {
+
+	private static final Logger log = LoggerFactory.getLogger(AudioServiceImpl.class);
 
 	protected static final ObjectMapper mapper = MessageDeserializeFactory.defaultObjectMapper();
 
