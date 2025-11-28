@@ -39,10 +39,10 @@ public final class Constants {
 	 */
 	public static final String ModelGLM4_6 = "glm-4.6";
 
-    /**
-     * GLM-4.6v model code
-     */
-    public static final String ModelGLM4_6V = "glm-4.6v";
+	/**
+	 * GLM-4.6v model code
+	 */
+	public static final String ModelGLM4_6V = "glm-4.6v";
 
 	/**
 	 * GLM-4.6-air model code
