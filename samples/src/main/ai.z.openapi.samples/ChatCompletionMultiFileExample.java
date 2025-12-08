@@ -11,7 +11,7 @@ public class ChatCompletionMultiFileExample {
             .build();
 
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-            .model("glm-4.5v")
+            .model("glm-4.6v")
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())

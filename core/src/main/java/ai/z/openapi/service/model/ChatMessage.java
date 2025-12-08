@@ -21,6 +21,10 @@ public class ChatMessage {
 	 */
 	private Object content;
 
+	/**
+	 * It's recommended to return the model's reasoning_content in next request to achieve
+	 * better results in multi-turn conversations.
+	 */
 	@JsonProperty("reasoning_content")
 	private String reasoningContent;
 
