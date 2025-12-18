@@ -24,5 +24,6 @@ public class ImageGenerationExample {
             .build();
         ImageResponse response = client.images().createImage(request);
         System.out.println(response.getData());
+        client.close();
     }
 }

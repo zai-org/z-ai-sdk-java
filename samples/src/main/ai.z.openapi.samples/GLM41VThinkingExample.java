@@ -47,6 +47,7 @@ public class GLM41VThinkingExample {
         } else {
             System.err.println("Error: " + response.getMsg());
         }
+        client.close();
     }
 
 }

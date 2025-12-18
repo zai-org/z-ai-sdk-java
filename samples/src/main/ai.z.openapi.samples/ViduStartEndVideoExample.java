@@ -20,6 +20,7 @@ public class ViduStartEndVideoExample {
         ZaiClient client = ZaiClient.builder().build();
 
         generateVideoStartEnd(client);
+        client.close();
     }
     
     /**

@@ -36,6 +36,8 @@ public class AudioSpeechExample {
         } catch (Exception e) {
             System.err.println("Exception occurred: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            client.close();
         }
     }
 }

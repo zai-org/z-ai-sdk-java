@@ -45,5 +45,6 @@ public class GLM4VPlusExample {
         } else {
             System.err.println("Error: " + response.getMsg());
         }
+        client.close();
     }
 }

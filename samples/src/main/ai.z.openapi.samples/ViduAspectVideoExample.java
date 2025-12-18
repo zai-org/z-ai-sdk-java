@@ -20,6 +20,7 @@ public class ViduAspectVideoExample {
         ZaiClient client = ZaiClient.builder().build();
 
         generateVideoStartEnd(client);
+        client.close();
     }
 
     private static void generateVideoStartEnd(ZaiClient client) {
