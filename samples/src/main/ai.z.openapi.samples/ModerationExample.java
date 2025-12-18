@@ -23,6 +23,7 @@ public class ModerationExample {
         // Example 2: Image moderation
         System.out.println("\n=== Image Moderation Example ===");
         moderateImage(client);
+        client.close();
     }
     
     private static void moderateText(ZaiClient client) {

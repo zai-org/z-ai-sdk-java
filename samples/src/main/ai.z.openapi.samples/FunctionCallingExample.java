@@ -85,5 +85,6 @@ public class FunctionCallingExample {
         } else {
             System.err.println("Error: " + response.getMsg());
         }
+        client.close();
     }
 }

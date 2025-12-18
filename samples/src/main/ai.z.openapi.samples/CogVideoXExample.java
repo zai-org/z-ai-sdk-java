@@ -24,6 +24,7 @@ public class CogVideoXExample {
         
         // Basic Video Generation
         generateBasicVideo(client);
+        client.close();
     }
     
     /**

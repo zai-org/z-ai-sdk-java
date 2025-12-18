@@ -24,6 +24,7 @@ public class ViduTextToVideoExample {
         
         // Example: Generate video from text using Vidu
         generateVideoFromText(client);
+        client.close();
     }
     
     /**

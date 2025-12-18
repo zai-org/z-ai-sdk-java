@@ -48,5 +48,6 @@ public class ChatCompletionMultiFileExample {
         } else {
             System.err.println("Error: " + response.getMsg());
         }
+        client.close();
     }
 }

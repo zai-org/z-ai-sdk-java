@@ -18,6 +18,7 @@ public class ViduImageToVideoExample {
         ZaiClient client = ZaiClient.builder().build();
 
         generateVideoFromImage(client);
+        client.close();
     }
     
     /**

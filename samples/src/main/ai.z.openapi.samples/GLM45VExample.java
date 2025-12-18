@@ -55,5 +55,6 @@ public class GLM45VExample {
         } else {
             System.err.println("Error: " + response.getMsg());
         }
+        client.chat();
     }
 }

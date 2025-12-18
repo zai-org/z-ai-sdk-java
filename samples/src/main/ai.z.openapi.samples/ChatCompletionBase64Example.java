@@ -62,5 +62,6 @@ public class ChatCompletionBase64Example {
         } else {
             System.err.println("Error: " + response.getMsg());
         }
+        client.close();
     }
 }

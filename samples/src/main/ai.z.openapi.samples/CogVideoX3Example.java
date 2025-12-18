@@ -29,6 +29,7 @@ public class CogVideoX3Example {
         textToVideoExample(client);
         imageToVideoExample(client);
         firstLastFrameVideoExample(client);
+        client.close();
     }
     
     /**

@@ -34,6 +34,7 @@ public class WebSearchExample {
         
         // Example 1: Basic Web Search
         basicWebSearch(client);
+        client.close();
     }
     
     /**

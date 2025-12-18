@@ -43,6 +43,8 @@ public class EmbeddingsExample {
         } catch (Exception e) {
             System.err.println("Embedding exception: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            client.close();
         }
     }
 }
