@@ -34,7 +34,7 @@ public class ChatCompletionWithMcpServerUrlExample {
 
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-            .model("glm-4.6")
+            .model("glm-4.7")
             .messages(Collections.singletonList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
