@@ -33,10 +33,10 @@ public final class Constants {
 	// =============================================================================
 	// Text Generation Models
 	// =============================================================================
-    /**
-     * GLM-4.7 model code
-     */
-    public static final String ModelGLM4_7 = "glm-4.7";
+	/**
+	 * GLM-4.7 model code
+	 */
+	public static final String ModelGLM4_7 = "glm-4.7";
 
 	/**
 	 * GLM-4.6 model code
