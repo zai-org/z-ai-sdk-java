@@ -22,7 +22,7 @@ public class ChatCompletionWithCustomHeadersExample {
 
         // Create chat request
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-                .model("glm-4.6")
+                .model("glm-4.7")
                 .messages(Arrays.asList(
                         ChatMessage.builder()
                                 .role(ChatMessageRole.USER.value())
