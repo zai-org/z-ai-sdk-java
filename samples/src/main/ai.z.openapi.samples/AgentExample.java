@@ -1,6 +1,7 @@
 package ai.z.openapi.samples;
 
 import ai.z.openapi.ZaiClient;
+import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.service.agents.AgentContent;
 import ai.z.openapi.service.agents.AgentMessage;
 import ai.z.openapi.service.agents.AgentsCompletionRequest;
@@ -22,7 +23,7 @@ public class AgentExample {
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api_key
-        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
         ZaiClient client = ZaiClient.builder().build();
 
         syncAgentCompletion(client);

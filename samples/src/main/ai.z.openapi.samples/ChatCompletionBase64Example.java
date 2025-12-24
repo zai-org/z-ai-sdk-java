@@ -1,5 +1,6 @@
 package ai.z.openapi.samples;
 
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatCompletionResponse;
@@ -23,8 +24,8 @@ public class ChatCompletionBase64Example {
     
     public static void main(String[] args) throws IOException {
         // Create client
-        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
-        ZhipuAiClient client = ZhipuAiClient.builder().build();
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
+        ZaiClient client = ZaiClient.builder().build();
 
         String file = ClassLoader.getSystemResource("grounding.png").getFile();
         byte[] bytes = Files.readAllBytes(new File(file).toPath());

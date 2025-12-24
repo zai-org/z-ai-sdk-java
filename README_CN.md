@@ -85,11 +85,12 @@ ZhipuAiClient zhipuClient = ZhipuAiClient.builder().ofZHIPU().build();
 
 // 或代码设置凭证
 ZaiClient client = ZaiClient.builder()
+    .ofZAI()
     .apiKey("your.api.key")
     .build();
 
 // 或为智谱AI平台 bigmodel.cn 创建客户端
-ZhipuAiClient zhipuClient = ZhipuAiClient.builder().apiKey("your.api.key").build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().ofZHIPU().apiKey("your.api.key").build();
 ```
 
 ### 客户端配置
@@ -118,6 +119,7 @@ import java.util.Arrays;
 
 // 创建客户端
 ZaiClient client = ZaiClient.builder()
+    .ofZAI()
     .apiKey("your.api.key")
     .build();
 

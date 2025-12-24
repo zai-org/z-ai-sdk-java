@@ -21,7 +21,7 @@ public class GLM45VExample {
     
     public static void main(String[] args) throws IOException {
         // Create client
-        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
         ZhipuAiClient client = ZhipuAiClient.builder().build();
 
         // Create chat request

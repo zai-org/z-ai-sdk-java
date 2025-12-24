@@ -8,9 +8,9 @@ import ai.z.openapi.utils.StringUtils;
 public class FileParsingSyncExample {
 
     public static void main(String[] args) {
-        // It is recommended to set the API Key using an environment variable
+        // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api_key
-        // ZaiClient client = ZaiClient.builder().build();
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
 
         // Alternatively, the API Key can be specified directly in the code
         ZaiClient client = ZaiClient.builder()
