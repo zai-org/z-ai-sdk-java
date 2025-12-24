@@ -22,7 +22,8 @@ public class VoiceCloneExample {
     public static void main(String[] args) {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api_key
-        ZaiClient client = ZaiClient.builder().build();
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()

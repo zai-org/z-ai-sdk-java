@@ -86,11 +86,12 @@ ZhipuAiClient zhipuClient = ZhipuAiClient.builder().ofZHIPU().build();
 
 // Or set the api-key by code
 ZaiClient client = ZaiClient.builder()
+        .ofZAI()
         .apiKey("your.api.key")
         .build();
 
 // For ZHIPU AI platform https://open.bigmodel.cn/api/paas/v4/
-ZhipuAiClient zhipuClient = ZhipuAiClient.builder().apiKey("your.api.key").build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().ofZHIPU().apiKey("your.api.key").build();
 ```
 
 ### Client Configuration
@@ -119,6 +120,7 @@ import java.util.Arrays;
 
 // Create client
 ZaiClient client = ZaiClient.builder()
+    .ofZAI()
     .apiKey("your.api.key")
     .build();
 
@@ -273,6 +275,7 @@ public class AIController {
     
     public AIController() {
         this.zaiClient = ZaiClient.builder()
+            .ofZAI()
             .apiKey("your.api.key")
             .enableTokenCache()
             .build();

@@ -13,8 +13,8 @@ public class ImageGenerationExample {
     
     public static void main(String[] args) {
         // Create client
-        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient
-        ZaiClient client = ZaiClient.builder().build();
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
         
         // Create image generation request
         CreateImageRequest request = CreateImageRequest.builder()

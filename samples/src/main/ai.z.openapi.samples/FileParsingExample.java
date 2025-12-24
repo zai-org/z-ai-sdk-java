@@ -10,16 +10,11 @@ import ai.z.openapi.utils.StringUtils;
 public class FileParsingExample {
 
     public static void main(String[] args) {
-// It's recommended to set the API Key via environment variable
-// export ZAI_API_KEY=your.api_key
-// ZaiClient client = ZaiClient.builder().build();
 
-// You can also specify the API Key directly in code
-
-
-        ZaiClient client = ZaiClient.builder()
-                .apiKey("API Key")
-                .build();
+        // Create client, recommended to set API Key via environment variable
+        // export ZAI_API_KEY=your.api_key
+        // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         try {
             // Example 1: Create a file parsing task
