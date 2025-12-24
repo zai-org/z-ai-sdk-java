@@ -14,9 +14,7 @@ public class HandwritingOcrExample {
 		// for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
 
 		// You can also set the API Key directly in the code for testing
-		ZaiClient client = ZaiClient.builder()
-				 .apiKey("your-real-api-key")
-				.build();
+		ZaiClient client = ZaiClient.builder().ofZAI().build();
 
 		try {
 			System.out.println("=== Handwriting OCR Example ===");

@@ -17,7 +17,7 @@ public class GLM4VPlusExample {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api_key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
-        ZaiClient client = ZaiClient.builder().apiKey("your.api_key").build();
+        ZaiClient client = ZaiClient.builder().ofZAI().apiKey("your.api_key").build();
 
         ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
                 .model("glm-4v-plus-0111")

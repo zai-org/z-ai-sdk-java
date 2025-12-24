@@ -1,5 +1,6 @@
 package ai.z.openapi.samples;
 
+import ai.z.openapi.ZaiClient;
 import ai.z.openapi.ZhipuAiClient;
 import ai.z.openapi.core.Constants;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
@@ -22,7 +23,7 @@ public class GLM45VExample {
     public static void main(String[] args) throws IOException {
         // Create client
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
-        ZhipuAiClient client = ZhipuAiClient.builder().build();
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         // Create chat request
         ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()

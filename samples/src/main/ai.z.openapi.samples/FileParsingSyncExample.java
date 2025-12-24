@@ -13,9 +13,7 @@ public class FileParsingSyncExample {
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
 
         // Alternatively, the API Key can be specified directly in the code
-        ZaiClient client = ZaiClient.builder()
-                .apiKey("API Key")
-                .build();
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         try {
             System.out.println("=== Example: Creating file parsing task ===");

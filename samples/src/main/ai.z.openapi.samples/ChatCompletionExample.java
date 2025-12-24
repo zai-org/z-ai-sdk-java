@@ -16,7 +16,7 @@ public class ChatCompletionExample {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api_key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
-        ZaiClient client = ZaiClient.builder().build();
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         // Or set API Key via code
         // ZaiClient client = ZaiClient.builder()

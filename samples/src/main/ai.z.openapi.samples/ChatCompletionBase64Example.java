@@ -25,7 +25,7 @@ public class ChatCompletionBase64Example {
     public static void main(String[] args) throws IOException {
         // Create client
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
-        ZaiClient client = ZaiClient.builder().build();
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         String file = ClassLoader.getSystemResource("grounding.png").getFile();
         byte[] bytes = Files.readAllBytes(new File(file).toPath());
