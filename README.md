@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>ai.z.openapi</groupId>
     <artifactId>zai-sdk</artifactId>
-    <version>0.1.3</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ Add the following dependency to your `build.gradle` (for Groovy DSL):
 
 ```groovy
 dependencies {
-    implementation 'ai.z.openapi:zai-sdk:0.1.3'
+    implementation 'ai.z.openapi:zai-sdk:0.3.0'
 }
 ```
 
