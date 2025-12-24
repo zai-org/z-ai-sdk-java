@@ -78,10 +78,10 @@ import ai.z.openapi.core.Constants;
 // export ZAI_API_KEY=your.api.key
 
 // 使用 Z.ai 平台客户端 https://api.z.ai/api/paas/v4/
-ZaiClient client = ZaiClient.builder().build();
+ZaiClient client = ZaiClient.builder().ofZAI().build();
 
 // 使用 智谱 AI 平台客户端 https://open.bigmodel.cn/api/paas/v4/
-ZhipuAiClient zhipuClient = ZhipuAiClient.builder().build();
+ZhipuAiClient zhipuClient = ZhipuAiClient.builder().ofZHIPU().build();
 
 // 或代码设置凭证
 ZaiClient client = ZaiClient.builder()
