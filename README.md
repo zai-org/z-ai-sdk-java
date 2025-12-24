@@ -275,6 +275,7 @@ public class AIController {
     
     public AIController() {
         this.zaiClient = ZaiClient.builder()
+            .ofZAI()
             .apiKey("your.api.key")
             .enableTokenCache()
             .build();
