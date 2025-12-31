@@ -6,7 +6,7 @@
 
 [English Readme](README.md)
 
-Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包括对话补全、向量嵌入、图像生成、音频处理等功能。
+Z.ai AI 平台官方 Java SDK，提供统一接口访问强大的AI能力，包括对话补全、向量嵌入、图像生成、音频处理等功能
 
 ## ✨ 特性
 
