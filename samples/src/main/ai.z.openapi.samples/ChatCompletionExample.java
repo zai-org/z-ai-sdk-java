@@ -40,6 +40,7 @@ public class ChatCompletionExample {
 
         try {
             // Execute request
+            System.out.println(request);
             ChatCompletionResponse response = client.chat().createChatCompletion(request);
 
             if (response.isSuccess()) {
