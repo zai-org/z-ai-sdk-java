@@ -3,6 +3,7 @@ package ai.z.openapi.service.audio;
 import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.audio.AudioApi;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
+import ai.z.openapi.service.model.ModelData;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,7 +65,7 @@ public class AudioServiceImpl implements AudioService {
 	public AudioSpeechStreamingResponse createStreamingSpeechStreaming(AudioSpeechRequest request) {
 		validateSpeechParams(request);
 		FlowableRequestSupplier<AudioSpeechRequest, retrofit2.Call<ResponseBody>> supplier = audioApi::audioSpeechStreaming;
-		return this.zAiClient.streamRequest(request, supplier, AudioSpeechStreamingResponse.class, ObjectNode.class);
+		return this.zAiClient.streamRequest(request, supplier, AudioSpeechStreamingResponse.class, ModelData.class);
 	}
 
 	@Override

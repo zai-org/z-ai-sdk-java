@@ -197,7 +197,7 @@ public final class Constants {
 	 * fluent and readable text. Supports Chinese, English, and various Chinese dialects.
 	 * Improved performance in noisy environments.
 	 */
-	public static final String ModelGLMASR = "glm-asr";
+	public static final String ModelGLMASR = "glm-asr-2512";
 
 	// =============================================================================
 	// Real-time Interaction Models
