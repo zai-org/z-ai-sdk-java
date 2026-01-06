@@ -48,7 +48,7 @@ public class AudioServiceImpl implements AudioService {
 		RequestSupplier<AudioSpeechRequest, java.io.File> supplier = (params) -> {
 			try {
 				Single<ResponseBody> responseBody = audioApi.audioSpeech(params);
-				Path tempDirectory = Files.createTempFile("audio_speech" + UUID.randomUUID(), ".wav");
+				Path tempDirectory = Files.createTempFile("audio_speech" + UUID.randomUUID(), "." + request.getResponseFormat());
 				java.io.File file = tempDirectory.toFile();
 				writeResponseBodyToFile(responseBody.blockingGet(), file);
 				return Single.just(file);
@@ -200,6 +200,9 @@ public class AudioServiceImpl implements AudioService {
 		if (request.getInput() == null || request.getInput().trim().isEmpty()) {
 			throw new IllegalArgumentException("request input cannot be null or empty");
 		}
+        if(request.getVoice() == null || request.getVoice().trim().isEmpty()){
+            throw new IllegalArgumentException("request voice cannot be null or empty");
+        }
 	}
 
 	private void validateCustomSpeechParams(AudioCustomizationRequest request) {

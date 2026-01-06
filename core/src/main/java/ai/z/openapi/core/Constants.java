@@ -356,9 +356,9 @@ public final class Constants {
 	public static final String ModelCharGLM3 = "charglm-3";
 
 	/**
-	 * CogTTS model - Text-to-Speech synthesis model.
+	 * GLM-TTS model - Text-to-Speech synthesis model.
 	 */
-	public static final String ModelTTS = "cogtts";
+	public static final String ModelTTS = "glm-tts";
 
 	/**
 	 * Rerank model - Text reordering and relevance scoring.

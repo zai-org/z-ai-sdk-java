@@ -20,10 +20,12 @@ public class AudioSpeechExample {
 
         // Create request
         AudioSpeechRequest request = AudioSpeechRequest.builder()
-            .model(Constants.ModelTTS)
-            .input("Hello, this is a test for text-to-speech functionality.")
-            .voice("tongtong")
-            .build();
+                .model(Constants.ModelTTS)
+                .input("Hello, this is a test for text-to-speech functionality.")
+                .voice("tongtong")
+                .stream(false)
+                .responseFormat("pcm")
+                .build();
 
         try {
             // Execute request

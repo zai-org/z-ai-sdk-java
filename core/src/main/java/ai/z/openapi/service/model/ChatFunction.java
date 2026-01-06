@@ -18,6 +18,4 @@ public class ChatFunction {
 
 	private ChatFunctionParameters parameters;
 
-	private List<String> required;
-
 }
