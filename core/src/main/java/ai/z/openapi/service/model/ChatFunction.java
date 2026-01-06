@@ -1,6 +1,5 @@
 package ai.z.openapi.service.model;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +15,9 @@ public class ChatFunction {
 
 	private String description;
 
-	private ChatFunctionParameters parameters;
-
-	private List<String> required;
+	/**
+	 * The JSON schema defining the function's input arguments, you can use the ChatFunctionParameters or others
+	 */
+	private Object parameters;
 
 }
