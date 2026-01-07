@@ -40,8 +40,8 @@ public class AudioTranscriptionRequest extends CommonRequest implements ClientRe
 	private File file;
 
 	/**
-	 * Base64 encoded audio file. Only one of file_base64 and file needs to be passed
-	 * (if both are passed, file takes precedence)
+	 * Base64 encoded audio file. Only one of file_base64 and file needs to be passed (if
+	 * both are passed, file takes precedence)
 	 */
 	@JsonProperty("file_base64")
 	private String fileBase64;
@@ -53,8 +53,8 @@ public class AudioTranscriptionRequest extends CommonRequest implements ClientRe
 	private String prompt;
 
 	/**
-	 * Hot word list to improve recognition rate of specific domain vocabulary.
-	 * Format example: ["Person name", "Place name"], recommended not to exceed 100 items.
+	 * Hot word list to improve recognition rate of specific domain vocabulary. Format
+	 * example: ["Person name", "Place name"], recommended not to exceed 100 items.
 	 */
 	private List<String> hotwords;
 

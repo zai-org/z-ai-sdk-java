@@ -22,7 +22,7 @@ public class AudioSpeechStreamExample {
         // Create speech request with streaming enabled
         AudioSpeechRequest request = AudioSpeechRequest.builder()
                 .model(Constants.ModelTTS)
-                .input("你好，今天天气怎么样")
+                .input("Hello, how's the weather today")
                 .voice("tongtong")
                 .responseFormat("pcm")
                 .stream(true)  // Enable streaming response
@@ -30,7 +30,7 @@ public class AudioSpeechStreamExample {
 
         try {
             // Execute streaming request
-            AudioSpeechStreamingResponse response = client.audio().createStreamingSpeechStreaming(request);
+            AudioSpeechStreamingResponse response = client.audio().createStreamingSpeech(request);
 
             if (response.isSuccess() && response.getFlowable() != null) {
                 System.out.println("Starting streaming TTS response...");
