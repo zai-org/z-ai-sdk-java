@@ -12,8 +12,7 @@ import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
 /**
- * A request for ZAi to create an image based on a prompt All fields except prompt are
- * optional
+ * A request to create an image based on a prompt All fields except prompt are optional
  */
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -29,14 +28,22 @@ public class CreateImageRequest extends CommonRequest implements ClientRequest<C
 	private String prompt;
 
 	/**
-	 * The model to use for image generation. Defaults to "dall-e-2".
+	 * The model to use for image generation.
 	 */
 	private String model;
 
 	/**
-	 * The size of the image to generate. Defaults to "256x256".
+	 * The size of the image to generate.
 	 */
 	private String size;
+
+	/**
+	 * Optional. The quality of the generated image. hd: Generates more refined images
+	 * with richer details and higher overall consistency, but takes longer. standard:
+	 * Quickly generates images, suitable for scenarios with high speed requirements,
+	 * takes less time.
+	 */
+	private String quality;
 
 	/**
 	 * Sensitive word detection control

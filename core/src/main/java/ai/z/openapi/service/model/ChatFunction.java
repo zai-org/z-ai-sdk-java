@@ -15,6 +15,10 @@ public class ChatFunction {
 
 	private String description;
 
-	private ChatFunctionParameters parameters;
+	/**
+	 * The JSON schema defining the function's input arguments, you can use the
+	 * ChatFunctionParameters or others
+	 */
+	private Object parameters;
 
 }
