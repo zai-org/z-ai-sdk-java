@@ -197,7 +197,7 @@ public final class Constants {
 	 * fluent and readable text. Supports Chinese, English, and various Chinese dialects.
 	 * Improved performance in noisy environments.
 	 */
-	public static final String ModelGLMASR = "glm-asr";
+	public static final String ModelGLMASR = "glm-asr-2512";
 
 	// =============================================================================
 	// Real-time Interaction Models
@@ -356,9 +356,9 @@ public final class Constants {
 	public static final String ModelCharGLM3 = "charglm-3";
 
 	/**
-	 * CogTTS model - Text-to-Speech synthesis model.
+	 * GLM-TTS model - Text-to-Speech synthesis model.
 	 */
-	public static final String ModelTTS = "cogtts";
+	public static final String ModelTTS = "glm-tts";
 
 	/**
 	 * Rerank model - Text reordering and relevance scoring.

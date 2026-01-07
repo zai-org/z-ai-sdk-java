@@ -18,12 +18,19 @@ public class AudioSpeechExample {
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
         ZaiClient client = ZaiClient.builder().ofZAI().build();
 
+        // Or set API Key via code
+        // ZaiClient client = ZaiClient.builder()
+        //         .apiKey("your.api_key")
+        //         .build();
+
         // Create request
         AudioSpeechRequest request = AudioSpeechRequest.builder()
-            .model(Constants.ModelTTS)
-            .input("Hello, this is a test for text-to-speech functionality.")
-            .voice("tongtong")
-            .build();
+                .model(Constants.ModelTTS)
+                .input("Hello, this is a test for text-to-speech functionality.")
+                .voice("tongtong")
+                .stream(false)
+                .responseFormat("pcm")
+                .build();
 
         try {
             // Execute request

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.File;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -34,18 +35,28 @@ public class AudioTranscriptionRequest extends CommonRequest implements ClientRe
 
 	/**
 	 * Audio file to be transcribed (Required) Supported audio file formats: .wav / .mp3
-	 * Specification limits: file size ≤ 25 MB, audio duration ≤ 60 seconds
+	 * Specification limits: file size ≤ 25 MB, audio duration ≤ 30 seconds
 	 */
 	private File file;
 
 	/**
-	 * Sampling temperature, controls output randomness, must be positive (Optional)
-	 * Range: [0.0, 1.0], default value is 0.95 Higher values make output more random and
-	 * creative; lower values make output more stable or deterministic It's recommended to
-	 * adjust either top_p or temperature parameter based on your use case, but not both
-	 * simultaneously
+	 * Base64 encoded audio file. Only one of file_base64 and file needs to be passed (if
+	 * both are passed, file takes precedence)
 	 */
-	private Float temperature;
+	@JsonProperty("file_base64")
+	private String fileBase64;
+
+	/**
+	 * In long text scenarios, previous transcription results can be provided as context.
+	 * Recommended to be less than 8000 characters.
+	 */
+	private String prompt;
+
+	/**
+	 * Hot word list to improve recognition rate of specific domain vocabulary. Format
+	 * example: ["Person name", "Place name"], recommended not to exceed 100 items.
+	 */
+	private List<String> hotwords;
 
 	/**
 	 * Unique identifier for each request (Optional) Passed by the client, must be unique.

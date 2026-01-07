@@ -1,12 +1,8 @@
 package ai.z.openapi.service.audio;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import ai.z.openapi.service.model.Choice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import java.util.List;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -14,9 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public final class AudioTranscriptionChunk {
-
-	@JsonProperty("choices")
-	private List<Choice> choices;
 
 	private Long created;
 

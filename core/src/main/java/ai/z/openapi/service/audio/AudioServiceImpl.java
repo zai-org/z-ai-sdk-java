@@ -3,10 +3,10 @@ package ai.z.openapi.service.audio;
 import ai.z.openapi.AbstractAiClient;
 import ai.z.openapi.api.audio.AudioApi;
 import ai.z.openapi.service.deserialize.MessageDeserializeFactory;
+import ai.z.openapi.service.model.ModelData;
 import ai.z.openapi.utils.FlowableRequestSupplier;
 import ai.z.openapi.utils.RequestSupplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -48,7 +48,8 @@ public class AudioServiceImpl implements AudioService {
 		RequestSupplier<AudioSpeechRequest, java.io.File> supplier = (params) -> {
 			try {
 				Single<ResponseBody> responseBody = audioApi.audioSpeech(params);
-				Path tempDirectory = Files.createTempFile("audio_speech" + UUID.randomUUID(), ".wav");
+				Path tempDirectory = Files.createTempFile("audio_speech" + UUID.randomUUID(),
+						"." + request.getResponseFormat());
 				java.io.File file = tempDirectory.toFile();
 				writeResponseBodyToFile(responseBody.blockingGet(), file);
 				return Single.just(file);
@@ -61,10 +62,18 @@ public class AudioServiceImpl implements AudioService {
 	}
 
 	@Override
+	@Deprecated
 	public AudioSpeechStreamingResponse createStreamingSpeechStreaming(AudioSpeechRequest request) {
 		validateSpeechParams(request);
 		FlowableRequestSupplier<AudioSpeechRequest, retrofit2.Call<ResponseBody>> supplier = audioApi::audioSpeechStreaming;
-		return this.zAiClient.streamRequest(request, supplier, AudioSpeechStreamingResponse.class, ObjectNode.class);
+		return this.zAiClient.streamRequest(request, supplier, AudioSpeechStreamingResponse.class, ModelData.class);
+	}
+
+	@Override
+	public AudioSpeechStreamingResponse createStreamingSpeech(AudioSpeechRequest request) {
+		validateSpeechParams(request);
+		FlowableRequestSupplier<AudioSpeechRequest, retrofit2.Call<ResponseBody>> supplier = audioApi::audioSpeechStreaming;
+		return this.zAiClient.streamRequest(request, supplier, AudioSpeechStreamingResponse.class, ModelData.class);
 	}
 
 	@Override
@@ -199,6 +208,9 @@ public class AudioServiceImpl implements AudioService {
 		}
 		if (request.getInput() == null || request.getInput().trim().isEmpty()) {
 			throw new IllegalArgumentException("request input cannot be null or empty");
+		}
+		if (request.getVoice() == null || request.getVoice().trim().isEmpty()) {
+			throw new IllegalArgumentException("request voice cannot be null or empty");
 		}
 	}
 

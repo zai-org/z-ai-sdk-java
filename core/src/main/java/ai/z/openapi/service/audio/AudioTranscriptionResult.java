@@ -2,11 +2,9 @@ package ai.z.openapi.service.audio;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ai.z.openapi.service.model.Segment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import java.util.List;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -25,7 +23,5 @@ public final class AudioTranscriptionResult {
 	private String id;
 
 	private String text;
-
-	private List<Segment> segments;
 
 }
