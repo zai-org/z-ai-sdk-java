@@ -248,20 +248,6 @@
                     <url>https://nexus-int.bigmodel.cn/repository/maven-snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
-            <repositories>
-                <repository>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
-                    </snapshots>
-                    <id>nexus</id>
-                    <url>https://nexus-int.bigmodel.cn/repository/maven-public/</url>
-                </repository>
-            </repositories>
             <build>
                 <plugins>
                     <plugin>
