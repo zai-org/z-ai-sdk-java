@@ -16,8 +16,6 @@ public class ChatFunctionParameters {
 
 	private String type;
 
-	private Map<String, ChatFunctionParameterProperty> properties;
-
-	private List<String> required;
+	private Object properties;
 
 }
