@@ -16,9 +16,9 @@ public interface AudioService {
 	 * Creates speech from text using text-to-speech.
 	 * @param request the speech generation request
 	 * @return AudioSpeechStreamingResponse containing the generated speech streaming
-	 * &#064;Deprecated  This method is deprecated and will be removed in a future release.
+	 * &#064;Deprecated This method is deprecated and will be removed in a future release.
 	 * Please use createStreamingSpeech instead.
-     */
+	 */
 	@Deprecated
 	AudioSpeechStreamingResponse createStreamingSpeechStreaming(AudioSpeechRequest request);
 
