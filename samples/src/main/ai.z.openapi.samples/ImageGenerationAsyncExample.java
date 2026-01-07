@@ -14,7 +14,7 @@ public class ImageGenerationAsyncExample {
         // Create client, recommended to set API Key via environment variable
         // export ZAI_API_KEY=your.api_key
         // for Z.ai use the `ZaiClient`, for Zhipu AI use the ZhipuAiClient.builder().ofZHIPU().build()
-        ZaiClient client = ZaiClient.builder().baseUrl("https://dev.bigmodel.cn/api/paas/v4/").apiKey("08d9c717e10a4dbc8bd3963cb70aafe0.ZAMAdBKwQsrlAbcZ").build();
+        ZaiClient client = ZaiClient.builder().ofZAI().build();
 
         generateAsyncImage(client);
         client.close();
