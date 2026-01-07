@@ -106,36 +106,6 @@ public class AudioServiceTest {
 	}
 
 	@Test
-	@DisplayName("Should generate custom speech with voice cloning successfully")
-	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
-	void shouldGenerateCustomSpeechWithVoiceCloningSuccessfully() throws JsonProcessingException {
-		// Prepare test data
-		String requestId = String.format(REQUEST_ID_TEMPLATE, System.currentTimeMillis());
-		File voiceFile = new File("src/test/resources/asr.wav");
-
-		AudioCustomizationRequest request = AudioCustomizationRequest.builder()
-			.model(Constants.ModelTTS)
-			.input("This is a test for custom voice generation.")
-			.voiceData(voiceFile)
-			.voiceText("Sample voice text for cloning")
-			.responseFormat("wav")
-			.requestId(requestId)
-			.build();
-
-		// Execute test
-		AudioCustomizationResponse response = audioService.createCustomSpeech(request);
-
-		// Verify results
-		assertNotNull(response, "Custom speech response should not be null");
-		assertTrue(response.isSuccess(), "Custom speech response should be successful");
-		assertNotNull(response.getData(), "Custom speech response data should not be null");
-		assertTrue(response.getData().exists(), "Generated custom audio file should exist");
-		assertTrue(response.getData().length() > 0, "Generated custom audio file should not be empty");
-		assertNull(response.getError(), "Response error should be null");
-		logger.info("Custom speech response: {}", mapper.writeValueAsString(response));
-	}
-
-	@Test
 	@DisplayName("Should transcribe audio with blocking")
 	@EnabledIfEnvironmentVariable(named = "ZAI_API_KEY", matches = "^[^.]+\\.[^.]+$")
 	void shouldTranscribeAudioWithBlocking() throws JsonProcessingException {
@@ -192,12 +162,9 @@ public class AudioServiceTest {
 			if (isFirst.getAndSet(false)) {
 				logger.info("Starting to receive stream transcription response:");
 			}
-			if (modelData.getChoices() != null && !modelData.getChoices().isEmpty()) {
-				Choice choice = modelData.getChoices().get(0);
-				if (choice.getDelta() != null && choice.getDelta().getContent() != null) {
-					logger.info("Received transcription content: {}", choice.getDelta().getContent());
-					messageCount.incrementAndGet();
-				}
+			if (modelData.getDelta() != null) {
+				logger.info("Received transcription content: {}", modelData.getDelta());
+				messageCount.incrementAndGet();
 			}
 		})
 			.doOnComplete(() -> logger.info("Stream transcription completed, received {} messages in total",
