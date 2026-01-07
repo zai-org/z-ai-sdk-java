@@ -15,11 +15,9 @@ import retrofit2.http.Streaming;
 import java.util.Map;
 
 /**
- * Chat Completions API for advanced GLM-4 series models Provides synchronous,
- * asynchronous, and streaming chat completion capabilities Supports complex reasoning,
- * long context processing (up to 128K tokens), and ultra-fast inference Features
- * GLM-4-Plus, GLM-4-Air, GLM-4-Flash, and GLM-4-AllTools with specialized capabilities
- * Optimized for Chinese and multilingual conversations with superior performance
+ * Chat Completions API for advanced GLM series models Provides synchronous, asynchronous,
+ * and streaming chat completion capabilities Supports complex reasoning, long context
+ * processing and ultra-fast inference Features
  */
 public interface ChatApi {
 
@@ -27,11 +25,10 @@ public interface ChatApi {
 	 * Create a streaming chat completion with real-time response Returns response content
 	 * incrementally through Server-Sent Events (SSE) for immediate user feedback
 	 * Optimized for interactive applications requiring low latency and progressive
-	 * content delivery Supports all GLM-4 models with configurable streaming parameters
-	 * and token-by-token generation
-	 * @param request Chat completion parameters including model selection (glm-4-plus,
-	 * glm-4-air, glm-4-flash), messages, temperature, top_p, max_tokens, and streaming
-	 * settings
+	 * content delivery Supports all GLM models with configurable streaming parameters and
+	 * token-by-token generation
+	 * @param request Chat completion parameters including model selection messages,
+	 * temperature, top_p, max_tokens, and streaming settings
 	 * @return Streaming response body with incremental content, usage statistics, and
 	 * completion indicators
 	 */
@@ -43,8 +40,8 @@ public interface ChatApi {
 	 * Create a streaming chat completion with custom headers support Returns response
 	 * content incrementally through Server-Sent Events (SSE) for immediate user feedback
 	 * Optimized for interactive applications requiring low latency and progressive
-	 * content delivery Supports all GLM-4 models with configurable streaming parameters
-	 * and custom HTTP headers
+	 * content delivery Supports all GLM models with configurable streaming parameters and
+	 * custom HTTP headers
 	 * @param request Chat completion parameters including model selection, messages, and
 	 * streaming settings
 	 * @param headers Custom HTTP headers to be added to the request
@@ -70,7 +67,7 @@ public interface ChatApi {
 	Single<ModelData> createChatCompletionAsync(@Body ChatCompletionCreateParams request);
 
 	/**
-	 * Create a synchronous chat completion with immediate response Waits for the GLM-4
+	 * Create a synchronous chat completion with immediate response Waits for the GLM
 	 * model to complete execution and returns the final result Supports complex
 	 * reasoning, tool calling, function execution, and multi-modal understanding Features
 	 * advanced capabilities like web search integration, code interpretation, and image
@@ -85,11 +82,11 @@ public interface ChatApi {
 	Single<ModelData> createChatCompletion(@Body ChatCompletionCreateParams request);
 
 	/**
-	 * Create a synchronous chat completion with custom headers support Waits for the
-	 * GLM-4 model to complete execution and returns the final result with custom HTTP
-	 * headers Supports complex reasoning, tool calling, function execution, and
-	 * multi-modal understanding Features advanced capabilities like web search
-	 * integration, code interpretation, and image analysis
+	 * Create a synchronous chat completion with custom headers support Waits for the GLM
+	 * models to complete execution and returns the final result with custom HTTP headers
+	 * Supports complex reasoning, tool calling, function execution, and multi-modal
+	 * understanding Features advanced capabilities like web search integration, code
+	 * interpretation, and image analysis
 	 * @param request Chat completion parameters including model selection, conversation
 	 * messages, generation settings, tools configuration, and response format
 	 * @param headers Custom HTTP headers to be added to the request

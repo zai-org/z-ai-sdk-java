@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
- * Videos API for AI-powered video generation Powered by CogVideoX models using advanced
+ * Videos API for AI-powered video generation Powered by CogVideo models using advanced
  * Transformer and 3D Causal VAE architecture Supports both text-to-video and
  * image-to-video generation with exceptional quality Features natural camera movements,
  * semantic coherence, and photorealistic visual output Configurable parameters include
