@@ -3,16 +3,10 @@ package ai.z.openapi.service.layoutparsing;
 import ai.z.openapi.service.model.Usage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +26,7 @@ public class LayoutParsingResult {
 	private String mdResults;
 
 	@JsonProperty("layout_details")
-	private List<LayoutDetail> layoutDetails;
+	private List<List<LayoutDetail>> layoutDetails;
 
 	private String visualizer;
 
@@ -48,7 +42,6 @@ public class LayoutParsingResult {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	@JsonDeserialize(using = LayoutDetailDeserializer.class)
 	public static class LayoutDetail {
 
 		private Integer index;
@@ -106,134 +99,6 @@ public class LayoutParsingResult {
 			}
 
 			return result;
-		}
-
-	}
-
-	static class LayoutDetailDeserializer extends JsonDeserializer<LayoutDetail> {
-
-		@Override
-		public LayoutDetail deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-			JsonNode node = p.getCodec().readTree(p);
-			if (node == null || node.isNull()) {
-				return null;
-			}
-
-			LayoutDetail detail = new LayoutDetail();
-			if (node.isArray()) {
-				// Expected order (best-effort): [index, label, bbox_2d, content, height,
-				// width]
-				setIfPresentInt(detail, node, 0, "index");
-				setIfPresentText(detail, node, 1, "label");
-				setIfPresentBbox(detail, node, 2);
-				setIfPresentText(detail, node, 3, "content");
-				setIfPresentInt(detail, node, 4, "height");
-				setIfPresentInt(detail, node, 5, "width");
-				return detail;
-			}
-
-			if (node.isObject()) {
-				JsonNode indexNode = node.get("index");
-				if (indexNode != null && indexNode.isNumber()) {
-					detail.setIndex(indexNode.intValue());
-				}
-
-				JsonNode labelNode = node.get("label");
-				if (labelNode != null && labelNode.isTextual()) {
-					detail.setLabel(labelNode.asText());
-				}
-
-				JsonNode bboxNode = node.get("bbox_2d");
-				if (bboxNode != null && !bboxNode.isNull()) {
-					detail.setBbox2dRaw(toJavaList(bboxNode));
-				}
-
-				JsonNode contentNode = node.get("content");
-				if (contentNode != null && contentNode.isTextual()) {
-					detail.setContent(contentNode.asText());
-				}
-
-				JsonNode heightNode = node.get("height");
-				if (heightNode != null && heightNode.isNumber()) {
-					detail.setHeight(heightNode.intValue());
-				}
-
-				JsonNode widthNode = node.get("width");
-				if (widthNode != null && widthNode.isNumber()) {
-					detail.setWidth(widthNode.intValue());
-				}
-				return detail;
-			}
-
-			return detail;
-		}
-
-		private static void setIfPresentInt(LayoutDetail detail, JsonNode array, int idx, String field) {
-			JsonNode n = array.size() > idx ? array.get(idx) : null;
-			if (n == null || !n.isNumber()) {
-				return;
-			}
-			int v = n.intValue();
-			if ("index".equals(field)) {
-				detail.setIndex(v);
-			}
-			else if ("height".equals(field)) {
-				detail.setHeight(v);
-			}
-			else if ("width".equals(field)) {
-				detail.setWidth(v);
-			}
-		}
-
-		private static void setIfPresentText(LayoutDetail detail, JsonNode array, int idx, String field) {
-			JsonNode n = array.size() > idx ? array.get(idx) : null;
-			if (n == null || !n.isTextual()) {
-				return;
-			}
-			String v = n.asText();
-			if ("label".equals(field)) {
-				detail.setLabel(v);
-			}
-			else if ("content".equals(field)) {
-				detail.setContent(v);
-			}
-		}
-
-		private static void setIfPresentBbox(LayoutDetail detail, JsonNode array, int idx) {
-			JsonNode n = array.size() > idx ? array.get(idx) : null;
-			if (n == null || n.isNull()) {
-				return;
-			}
-			detail.setBbox2dRaw(toJavaList(n));
-		}
-
-		private static Object toJavaList(JsonNode node) {
-			if (node == null || node.isNull()) {
-				return null;
-			}
-			if (!node.isArray()) {
-				return null;
-			}
-
-			List<Object> out = new ArrayList<>();
-			for (JsonNode child : node) {
-				if (child == null || child.isNull()) {
-					out.add(null);
-				}
-				else if (child.isArray()) {
-					out.add(toJavaList(child));
-				}
-				else if (child.isNumber()) {
-					out.add(child.intValue());
-				}
-				else if (child.isTextual()) {
-					out.add(child.asText());
-				}
-				else {
-					out.add(child.toString());
-				}
-			}
-			return out;
 		}
 
 	}
