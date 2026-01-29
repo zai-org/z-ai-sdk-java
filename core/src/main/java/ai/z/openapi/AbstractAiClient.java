@@ -27,6 +27,8 @@ import ai.z.openapi.service.web_reader.WebReaderService;
 import ai.z.openapi.service.web_reader.WebReaderServiceImpl;
 import ai.z.openapi.service.videos.VideosService;
 import ai.z.openapi.service.videos.VideosServiceImpl;
+import ai.z.openapi.service.layoutparsing.LayoutParsingService;
+import ai.z.openapi.service.layoutparsing.LayoutParsingServiceImpl;
 import ai.z.openapi.service.assistant.AssistantService;
 import ai.z.openapi.service.assistant.AssistantServiceImpl;
 import ai.z.openapi.service.voiceclone.VoiceCloneService;
@@ -120,6 +122,9 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 
 	/** HandWriting service for handwritingOcrService operations */
 	private HandwritingOcrService handwritingOcrService;
+
+	/** Layout parsing service for layout_parsing operations */
+	private LayoutParsingService layoutParsingService;
 
 	/** Moderation service for content safety detection */
 	private ModerationService moderationService;
@@ -305,6 +310,13 @@ public abstract class AbstractAiClient extends AbstractClientBaseService {
 			this.handwritingOcrService = new HandwritingOcrServiceImpl(this);
 		}
 		return handwritingOcrService;
+	}
+
+	public synchronized LayoutParsingService layoutParsing() {
+		if (layoutParsingService == null) {
+			this.layoutParsingService = new LayoutParsingServiceImpl(this);
+		}
+		return layoutParsingService;
 	}
 
 	/**

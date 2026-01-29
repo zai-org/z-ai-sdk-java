@@ -49,7 +49,6 @@ public class FunctionCallingExample {
                         .parameters(ChatFunctionParameters.builder()
                                 .type("object")
                                 .properties(properties)
-                                .required(Collections.singletonList("location"))
                                 .build())
                         .build())
                 .build();
