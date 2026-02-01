@@ -23,4 +23,10 @@ public class LayoutParsingCreateParams extends CommonRequest implements ClientRe
 	@JsonProperty("use_layout_details")
 	private Boolean useLayoutDetails;
 
+	@JsonProperty("start_page_id")
+	private Integer startPageId;
+
+	@JsonProperty("end_page_id")
+	private Integer endPageId;
+
 }
