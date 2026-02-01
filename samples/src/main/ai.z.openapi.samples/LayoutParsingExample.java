@@ -111,12 +111,6 @@ public class LayoutParsingExample {
 					System.out.println("  first page size: " + data.getDataInfo().getPages().get(0).getWidth() + "x" + data.getDataInfo().getPages().get(0).getHeight());
 				}
 			}
-			if (data.getUsage() != null) {
-				System.out.println("Usage:");
-				System.out.println("  prompt_tokens: " + data.getUsage().getPromptTokens());
-				System.out.println("  completion_tokens: " + data.getUsage().getCompletionTokens());
-				System.out.println("  total_tokens: " + data.getUsage().getTotalTokens());
-			}
 		}
 	}
 }
