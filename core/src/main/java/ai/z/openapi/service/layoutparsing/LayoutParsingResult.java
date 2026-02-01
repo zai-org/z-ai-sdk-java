@@ -1,6 +1,5 @@
 package ai.z.openapi.service.layoutparsing;
 
-import ai.z.openapi.service.model.Usage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -32,8 +31,6 @@ public class LayoutParsingResult {
 
 	@JsonProperty("data_info")
 	private DataInfo dataInfo;
-
-	private Usage usage;
 
 	@JsonProperty("request_id")
 	private String requestId;
