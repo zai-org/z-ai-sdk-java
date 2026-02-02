@@ -27,7 +27,8 @@ public class LayoutParsingResult {
 	@JsonProperty("layout_details")
 	private List<List<LayoutDetail>> layoutDetails;
 
-	private String visualizer;
+	@JsonProperty("layout_visualization")
+	private List<String> layoutVisualization;
 
 	@JsonProperty("data_info")
 	private DataInfo dataInfo;
