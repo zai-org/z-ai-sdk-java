@@ -20,7 +20,7 @@ public class LayoutParsingExample {
 
 			// Example 1: Using URL
 			String imageUrl = "https://cdn.bigmodel.cn/static/platform/images/trialcenter/example/visual_img1.jpeg";
-			LayoutParsingResponse response = layoutParsingExample(client, "glm-ocr", imageUrl, true);
+			LayoutParsingResponse response = layoutParsingExample(client, "glm-ocr", imageUrl);
 			printResult(response);
 
 		} catch (Exception e) {
@@ -36,13 +36,11 @@ public class LayoutParsingExample {
 	 * @param client ZaiClient instance
 	 * @param model Model name, e.g., "glm-ocr"
 	 * @param file Image URL or base64 string
-	 * @param useLayoutDetails Whether to return detailed layout information (default true)
 	 * @param userId Optional user ID for tracking
 	 * @param requestId Optional request ID for tracking
 	 * @return LayoutParsingResponse object
 	 */
-	private static LayoutParsingResponse layoutParsingExample(ZaiClient client, String model, String file,
-															 Boolean useLayoutDetails) {
+	private static LayoutParsingResponse layoutParsingExample(ZaiClient client, String model, String file) {
 		if (model == null || model.trim().isEmpty()) {
 			System.err.println("Model cannot be null or empty.");
 			return null;
@@ -55,13 +53,11 @@ public class LayoutParsingExample {
 			LayoutParsingCreateParams params = LayoutParsingCreateParams.builder()
 					.model(model)
 					.file(file)
-					.useLayoutDetails(useLayoutDetails)
 					.build();
 
 			System.out.println("Request parameters:");
 			System.out.println("  model: " + model);
 			System.out.println("  file: " + (file.length() > 80 ? file.substring(0, 80) + "..." : file));
-			System.out.println("  useLayoutDetails: " + (useLayoutDetails != null ? useLayoutDetails : "default true"));
 			System.out.println();
 
 			System.out.println("Calling layout parsing API...");

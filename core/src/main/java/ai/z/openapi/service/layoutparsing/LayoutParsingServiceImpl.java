@@ -32,9 +32,6 @@ public class LayoutParsingServiceImpl implements LayoutParsingService {
 		if (request.getFile() == null) {
 			throw new IllegalArgumentException("file cannot be null");
 		}
-		if (request.getUseLayoutDetails() == null) {
-			request.setUseLayoutDetails(Boolean.TRUE);
-		}
 	}
 
 }

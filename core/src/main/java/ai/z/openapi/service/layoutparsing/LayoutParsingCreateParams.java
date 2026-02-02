@@ -20,8 +20,11 @@ public class LayoutParsingCreateParams extends CommonRequest implements ClientRe
 
 	private String file;
 
-	@JsonProperty("use_layout_details")
-	private Boolean useLayoutDetails;
+	@JsonProperty("return_crop_images")
+	private Boolean returnCropImages;
+
+	@JsonProperty("need_layout_visualization")
+	private Boolean needLayoutVisualization;
 
 	@JsonProperty("start_page_id")
 	private Integer startPageId;
