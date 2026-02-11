@@ -1,8 +1,6 @@
 package ai.z.openapi.samples;
 
 import ai.z.openapi.ZaiClient;
-import ai.z.openapi.ZhipuAiClient;
-import ai.z.openapi.core.Constants;
 import ai.z.openapi.service.model.ChatCompletionCreateParams;
 import ai.z.openapi.service.model.ChatCompletionResponse;
 import ai.z.openapi.service.model.ChatMessage;
@@ -18,7 +16,7 @@ import java.util.Arrays;
  * Streaming Chat Example
  * Demonstrates how to use ZaiClient for streaming chat conversations
  */
-public class GLM45VExample {
+public class GLMVisionExample {
     
     public static void main(String[] args) throws IOException {
         // Create client
@@ -27,7 +25,7 @@ public class GLM45VExample {
 
         // Create chat request
         ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()
-            .model(Constants.ModelChatGLM4_5V)
+            .model("glm-4.6v")
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())

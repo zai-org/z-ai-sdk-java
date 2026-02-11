@@ -125,7 +125,7 @@ ZaiClient client = ZaiClient.builder()
 
 // 创建对话请求
 ChatCompletionCreateParams request = ChatCompletionCreateParams.builder()
-    .model("glm-4.6")
+    .model("glm-5")
     .messages(Arrays.asList(
         ChatMessage.builder()
             .role(ChatMessageRole.USER.value())
@@ -153,7 +153,7 @@ if (response.isSuccess()) {
 ```java
 // 创建流式请求
 ChatCompletionCreateParams streamRequest = ChatCompletionCreateParams.builder()
-    .model("glm-4.6")
+    .model("glm-5")
     .messages(Arrays.asList(
         ChatMessage.builder()
             .role(ChatMessageRole.USER.value())
@@ -285,7 +285,7 @@ public class AIController {
     @PostMapping("/chat")
     public ResponseEntity<String> chat(@RequestBody ChatRequest request) {
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
-            .model("glm-4.6")
+            .model("glm-5")
             .messages(Arrays.asList(
                 ChatMessage.builder()
                     .role(ChatMessageRole.USER.value())
