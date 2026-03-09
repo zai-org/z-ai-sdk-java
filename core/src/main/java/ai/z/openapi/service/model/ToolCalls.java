@@ -1,10 +1,13 @@
 package ai.z.openapi.service.model;
 
+import ai.z.openapi.service.tools.DocReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * Represents tool calls made by the model during conversation. This class contains
@@ -34,5 +37,8 @@ public class ToolCalls {
 
 	@JsonProperty("mcp")
 	private MCPToolCall mcp;
+
+	@JsonProperty("doc_reference")
+	private List<DocReference> docReferenceList;
 
 }
