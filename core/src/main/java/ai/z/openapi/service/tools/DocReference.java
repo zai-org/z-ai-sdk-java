@@ -1,10 +1,12 @@
 package ai.z.openapi.service.tools;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +22,4 @@ public class DocReference implements Serializable {
 
     /** 文档名称 */
     private String doc_name;
-
 }

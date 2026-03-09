@@ -1,10 +1,11 @@
 package ai.z.openapi.service.tools;
 
-import java.io.Serializable;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.List;
 
 /** 知识库检索V2返回结果 */
 @Data
@@ -21,7 +22,7 @@ public class KnowledgeV2Result implements Serializable {
     private String type;
 
     /** 数据来源 */
-    @lombok.Data
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Content {
@@ -57,12 +58,11 @@ public class KnowledgeV2Result implements Serializable {
         private Double rerank_score;
 
         /** 元数据 */
-        private Metadata metadata;
-        
+        private MetadataDTO metadata;
     }
 
     /** 媒体文件 */
-    @lombok.Data
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Media {
@@ -75,36 +75,33 @@ public class KnowledgeV2Result implements Serializable {
 
         /** 图片描述 */
         private String description;
-
     }
 
     /** 图像URL对象 */
-    @lombok.Data
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ImageUrl {
 
         /** URL */
         private String url;
-
     }
 
     /** 视频URL对象 */
-    @lombok.Data
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class VideoUrl {
 
         /** URL */
         private String url;
-
     }
 
     /** 元数据 */
-    @lombok.Data
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Metadata {
+    public static class MetadataDTO {
 
         /** 切片ID */
         private String _id;
@@ -144,11 +141,10 @@ public class KnowledgeV2Result implements Serializable {
 
         /** 关键帧列表 */
         private List<Object> frames;
-
     }
 
     /** query重写结果 */
-    @lombok.Data
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class RewrittenQuery {
@@ -158,6 +154,5 @@ public class KnowledgeV2Result implements Serializable {
 
         /** 备选query列表 */
         private List<String> multi_queries;
-
     }
 }
