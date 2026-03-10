@@ -1,5 +1,6 @@
 package ai.z.openapi.service.model;
 
+import ai.z.openapi.service.tools.KnowledgeV2Result;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.z.openapi.service.web_search.WebSearchResp;
 import lombok.AllArgsConstructor;
@@ -53,5 +54,7 @@ public final class ModelData {
 	private List<Segment> segments;
 
 	private String delta;
+
+	private KnowledgeV2Result knowledgeV2;
 
 }
