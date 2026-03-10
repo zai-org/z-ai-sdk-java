@@ -7,152 +7,159 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
-/** 知识库检索V2返回结果 */
+/** Knowledge base retrieval V2 result */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class KnowledgeV2Result implements Serializable {
 
-    /** 数据来源列表 */
-    private List<Content> contents;
+	/** List of data sources */
+	private List<Content> contents;
 
-    /** query重写结果 */
-    private RewrittenQuery rewritten_query;
+	/** Query rewrite result */
+	private RewrittenQuery rewritten_query;
 
-    private String type;
+	private String type;
 
-    /** 数据来源 */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Content {
+	/** Data source */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class Content {
 
-        /** 切片ID（uuid） */
-        private String id;
+		/** Chunk ID (uuid) */
+		private String id;
 
-        /** 模态类型：text、image_url、video_url */
-        private String type;
+		/** Modality type: text, image_url, video_url */
+		private String type;
 
-        /** 文本内容 */
-        private String text;
+		/** Text content */
+		private String text;
 
-        /** 文本中的媒体文件列表 */
-        private List<Media> medias;
+		/** List of media files in text */
+		private List<Media> medias;
 
-        /** 图像URL对象 */
-        private ImageUrl image_url;
+		/** Image URL object */
+		private ImageUrl image_url;
 
-        /** 视频URL对象 */
-        private VideoUrl video_url;
+		/** Video URL object */
+		private VideoUrl video_url;
 
-        /** 召回位次（rankIndex） */
-        private Integer index;
+		/** Recall position (rankIndex) */
+		private Integer index;
 
-        /** 召回分数（rankScore） */
-        private Double score;
+		/** Recall score (rankScore) */
+		private Double score;
 
-        /** 重排位次（rerankIndex） */
-        private Integer rerank_index;
+		/** Rerank position (rerankIndex) */
+		private Integer rerank_index;
 
-        /** 重排分数（rerankScore） */
-        private Double rerank_score;
+		/** Rerank score (rerankScore) */
+		private Double rerank_score;
 
-        /** 元数据 */
-        private MetadataDTO metadata;
-    }
+		/** Metadata */
+		private MetadataDTO metadata;
 
-    /** 媒体文件 */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Media {
+	}
 
-        /** 图片ID */
-        private String id;
+	/** Media file */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class Media {
 
-        /** 图片URL */
-        private String url;
+		/** Image ID */
+		private String id;
 
-        /** 图片描述 */
-        private String description;
-    }
+		/** Image URL */
+		private String url;
 
-    /** 图像URL对象 */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ImageUrl {
+		/** Image description */
+		private String description;
 
-        /** URL */
-        private String url;
-    }
+	}
 
-    /** 视频URL对象 */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class VideoUrl {
+	/** Image URL object */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class ImageUrl {
 
-        /** URL */
-        private String url;
-    }
+		/** URL */
+		private String url;
 
-    /** 元数据 */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class MetadataDTO {
+	}
 
-        /** 切片ID */
-        private String _id;
+	/** Video URL object */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class VideoUrl {
 
-        /** 知识库ID */
-        private String know_id;
+		/** URL */
+		private String url;
 
-        /** 文档ID */
-        private String doc_id;
+	}
 
-        /** 文档类型（dtype） */
-        private String doc_type;
+	/** Metadata */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class MetadataDTO {
 
-        /** 文档名称（filename） */
-        private String doc_name;
+		/** Chunk ID */
+		private String _id;
 
-        /** 文档URL */
-        private String doc_url;
+		/** Knowledge base ID */
+		private String know_id;
 
-        /** 切片下标 */
-        private Integer index;
+		/** Document ID */
+		private String doc_id;
 
-        /** 文档页码 */
-        private Integer page_index;
+		/** Document type (dtype) */
+		private String doc_type;
 
-        /** 视频切片下标 */
-        private Integer clip_index;
+		/** Document name (filename) */
+		private String doc_name;
 
-        /** 首帧时间戳 */
-        private Long start_time;
+		/** Document URL */
+		private String doc_url;
 
-        /** 尾帧时间戳 */
-        private Long end_time;
+		/** Chunk index */
+		private Integer index;
 
-        /** 视频切片时长 */
-        private Long duration;
+		/** Document page number */
+		private Integer page_index;
 
-        /** 关键帧列表 */
-        private List<Object> frames;
-    }
+		/** Video clip index */
+		private Integer clip_index;
 
-    /** query重写结果 */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class RewrittenQuery {
+		/** Start frame timestamp */
+		private Long start_time;
 
-        /** 生效query */
-        private String primary_query;
+		/** End frame timestamp */
+		private Long end_time;
 
-        /** 备选query列表 */
-        private List<String> multi_queries;
-    }
+		/** Video clip duration */
+		private Long duration;
+
+		/** Key frame list */
+		private List<Object> frames;
+
+	}
+
+	/** Query rewrite result */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class RewrittenQuery {
+
+		/** Primary query */
+		private String primary_query;
+
+		/** Alternative query list */
+		private List<String> multi_queries;
+
+	}
+
 }
